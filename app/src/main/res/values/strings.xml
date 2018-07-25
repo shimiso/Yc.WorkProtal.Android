@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WorkProtal</string>
+    <string name="title_message">消息</string>
+    <string name="title_work">工作</string>
+    <string name="title_contacts">通讯录</string>
+    <string name="title_mycenter">我的</string>
+</resources>
