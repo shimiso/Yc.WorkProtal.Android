@@ -3,4 +3,17 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--编辑应用-->
+    <color name="transparent">#00FFFFFF</color>
+    <color name="line_color">#CCCCCC</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="titlecolor">#1296db</color>
+    <color name="black">#000000</color>
+
+    <!--语音-->
+    <color name="divider">#888888</color>
+    <color name="gray">#888888</color>
+    <color name="blue">#0077D9</color>
+    <color name="trasparent">#00000000</color>
 </resources>
