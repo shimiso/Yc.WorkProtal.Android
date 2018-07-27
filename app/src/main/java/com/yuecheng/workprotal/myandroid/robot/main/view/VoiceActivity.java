@@ -16,6 +16,7 @@ import com.yuecheng.workprotal.myandroid.robot.bean.TalkBean;
 import com.yuecheng.workprotal.myandroid.robot.main.adapter.TalkListAdapter;
 import com.yuecheng.workprotal.myandroid.robot.main.presenter.IMainPresenter;
 import com.yuecheng.workprotal.myandroid.robot.main.presenter.MainPresenter;
+import com.yuecheng.workprotal.myandroid.robot.main.service.MusicService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,14 +84,11 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
 
 
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-////        if (mDrawerLayout != null) {
-////            mDrawerLayout.removeDrawerListener(toggle);
-////        }
-//
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MusicService.stopService(this);
+    }
 
     @Override
     public void updateVoiceType(String type) {
@@ -119,11 +117,5 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         mTalkBeanList.addAll(talkBeanList);
         mTalkListAdapter.notifyDataSetChanged();
         recyclerView.smoothScrollToPosition(mTalkBeanList.size() - 1);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        System.exit(0);
     }
 }

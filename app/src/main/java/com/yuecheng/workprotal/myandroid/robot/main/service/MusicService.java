@@ -15,12 +15,18 @@ public class MusicService extends Service {
     private static final String INTENT_KEY_MUSIC_PATH = "intent_key_music_path";
 
     private MediaPlayer mediaPlayer;
+    private static Intent intent;
 
     public static void startService(Context context, boolean isPlay, String musicPath) {
-        Intent intent = new Intent(context, MusicService.class);
+        intent = new Intent(context, MusicService.class);
         intent.putExtra(INTENT_KEY_IS_PLAY, isPlay);
         intent.putExtra(INTENT_KEY_MUSIC_PATH, musicPath);
         context.startService(intent);
+    }
+    public static void stopService(Context context){
+        if(intent!=null){
+            context.stopService(intent);
+        }
     }
 
     @Nullable
