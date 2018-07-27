@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/right_in_btn"/>
+            android:src="@mipmap/right_in_btn"/>
     </RelativeLayout>
 
     <View style="@style/divider_horizontal"/>
@@ -131,38 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/right_in_btn"/>
-    </RelativeLayout>
-
-    <View style="@style/divider_horizontal"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="44dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:textColor="@color/primary_text"
-            android:textSize="16sp"
-            android:text="暂停接单" />
-
-        <com.kyleduo.switchbutton.SwitchButton
-            android:id="@+id/stop_sb"
-            style="@style/SwitchButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:textColor="@color/primary_text"
-            app:kswTextOff="关闭"
-            app:kswTextOn="启动"/>
+            android:src="@mipmap/right_in_btn"/>
     </RelativeLayout>
 
     <View style="@style/divider_horizontal"/>
@@ -198,7 +167,9 @@
 
     <Button
         android:id="@+id/exit_btn"
-        style="@style/reg_login_btn_style"
+        style="@style/comm_btn_style"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
         android:text="退出"
         android:textColor="@color/white" />
