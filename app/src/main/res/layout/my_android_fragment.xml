@@ -37,8 +37,7 @@
             border_color="@color/primary"
             border_width="0.5dp"
             android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/nurse" />
+            android:layout_height="60dp"/>
 
         <RelativeLayout
             android:id="@+id/my_center_ll_login"
