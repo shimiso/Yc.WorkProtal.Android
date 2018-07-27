@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <!--导航栏颜色-->
+    <color name="primary">#3F51B5</color>
+    <color name="primary_dark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <!-- 整个app的背景色 -->
+    <color name="app_bg">#ebebeb</color>
+    <color name="color_item_pressed_bellow_value21_f7f7f7">#f7f7f7</color>
+    <color name="color_item_pressed_in_value21_ededed">#ededed</color>
 
     <!--编辑应用-->
     <color name="transparent">#00FFFFFF</color>

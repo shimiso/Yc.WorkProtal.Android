@@ -1,11 +1,42 @@
 <resources>
 
+
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--导航栏颜色-->
+        <item name="colorPrimary">@color/primary</item>
+        <!--状态栏颜色-->
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <!--框架控制上的颜色-->
         <item name="colorAccent">@color/colorAccent</item>
+        <!--窗口统一背景颜色-->
+        <item name="android:windowBackground">@color/app_bg</item>
+        <!--是否让系统顶部状态栏和底部导航窗口占据屏幕上下位置，如果设为false浮在屏幕不占据-->
+        <item name="android:fitsSystemWindows">false</item>
+        <!--窗口 动画-->
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+        <!--ToolbarMenuText的大小和颜色-->
+        <item name="actionMenuTextAppearance">@style/ToolbarTextAppearance</item>
+        <!--ToolbarTitleText的大小和颜色-->
+        <item name="titleTextAppearance">@style/ToolbarTextAppearance</item>
+    </style>
+    <!--ToolbarText的大小和颜色-->
+    <style name="ToolbarTextAppearance">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <!--窗口切换动画-->
+    <style name="AnimationActivity" mce_bogus="1" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/push_right_in</item><!--新界面进入-->
+        <item name="android:activityOpenExitAnimation">@anim/push_left_out</item><!--老界面退出-->
+        <item name="android:activityCloseEnterAnimation">@anim/push_left_in</item><!--老界面进入-->
+        <item name="android:activityCloseExitAnimation">@anim/push_right_out</item><!--新界面退出-->
+    </style>
+
+    <!--对话框窗口切换动画-->
+    <style name="AnimationDialogActivity" mce_bogus="1" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/push_bottom_out</item>
     </style>
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -17,5 +48,21 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+
+    <style name="mycenter_tv_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#474a51</item>
+    </style>
+
+    <!-- 水平分割线 -->
+    <style name="divider_horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/divider_height</item>
+        <item name="android:background">@color/divider</item>
     </style>
 </resources>
