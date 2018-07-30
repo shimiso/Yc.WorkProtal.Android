@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/ci_user_avatar"
-        android:background="@drawable/qipao_user"
+        android:background="@mipmap/qipao_user"
         android:maxWidth="300dp"
         android:textSize="16sp" />
 

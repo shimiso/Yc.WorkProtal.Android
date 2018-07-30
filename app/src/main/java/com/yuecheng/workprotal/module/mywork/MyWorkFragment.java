@@ -1,9 +1,13 @@
 package com.yuecheng.workprotal.module.mywork;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +15,24 @@ import android.widget.TextView;
 
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.module.mywork.editor.EditorApplicationActivity;
+import com.yuecheng.workprotal.module.mywork.editor.FunctionBlockAdapter;
+import com.yuecheng.workprotal.module.mywork.editor.FunctionItem;
+import com.yuecheng.workprotal.module.mywork.editor.SFUtils;
+import com.yuecheng.workprotal.module.mywork.editor.SpaceItemDecoration;
+
+import java.util.List;
 
 /**
  * Created by huochangsheng on 2018/7/25.
  */
 
 public class MyWorkFragment extends Fragment {
+
+    private View view;
+    private SFUtils sfUtils;
+    private List<FunctionItem> selData;
+    private RecyclerView recycler_view;
+    private TextView work_tv;
 
     public static MyWorkFragment newInstance() {
         Bundle args = new Bundle();
@@ -28,17 +44,31 @@ public class MyWorkFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.my_work_fragment, container, false);
+        view = inflater.inflate(R.layout.my_work_fragment, container, false);
 
-        TextView work_tv = (TextView) view.findViewById(R.id.work_tv);
-        work_tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), EditorApplicationActivity.class);
-                startActivity(intent);
-            }
-        });
+        work_tv = (TextView) view.findViewById(R.id.work_tv);
+        recycler_view = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recycler_view.addItemDecoration(new SpaceItemDecoration(4, dip2px(getContext(), 10)));
+
 
         return view;
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        sfUtils = new SFUtils(getContext());
+        selData = sfUtils.getSelectFunctionItem();
+
+        selData.add(new FunctionItem("更多",true,"more",""));
+
+        FunctionBlockAdapter blockAdapter = new FunctionBlockAdapter(getContext(), 1,selData);
+        recycler_view.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        recycler_view.setAdapter(blockAdapter);
+
+    }
+
+    public  int dip2px(Context context, float dpValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }

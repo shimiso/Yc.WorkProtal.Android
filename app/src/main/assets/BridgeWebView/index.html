@@ -34,9 +34,8 @@
 <body>
 
     <button id="btn1">js调用android拨号</button>
-    <button id="btn2">H5调用QQ分享</button>
     <button id="btn3">本地H5详情页（callback式调用安卓）</button>
-    <button id="btn4">外网H5详情页（callback式调用安卓）</button>
+    <button id="btn4">百度</button>
     <button id="btn5">mint-ui</button>
     <button id="btn6">vux</button>
     <button id="btn7">museui</button>
@@ -52,29 +51,13 @@
         callAndroidMethod(method, params);
     });
 
-    $("#btn2").on("click", function(){
-        console.log("share2QQ");
-        //分享内容
-        action = "share2QQ";//分享动作
-        var params = {
-            "action":action,
-            "url": "http://3g.163.com/touch/article.html?channel=war&offset=16&docid=C49SUHR6000181KT&version=gll",
-            "title": "俄媒:2016珠海航展俄将带来200余件军用装备",
-            "summary": "参考消息网10月25日报道 俄媒称，俄联邦军事技术合作局新闻办公室25日向记者透露，约50家俄罗斯国防工业企业和非军工企业将参加2016年的中国国际航空航天博览会，展出220多件军用产品。",
-            "imgUrl": "http://cms-bucket.nosdn.127.net/catchpic/8/8e/8e3665378407ee2b4f33011bd072b314.jpg"
-        };
-        var method = "send";//js调用的android方法名
-        //调用android方法分享到QQ
-        callAndroidMethod(method, params);
-    });
-
     $("#btn3").on("click", function(){
         //页面跳转
         location.href = "orderDetail.html";
     });
     $("#btn4").on("click", function(){
         //页面跳转
-        location.href = "http://192.168.27.203:8080/#/pages/home";
+        location.href = "http://www.baidu.com";
     });
     $("#btn5").on("click", function(){
         //页面跳转

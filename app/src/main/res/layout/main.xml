@@ -14,12 +14,14 @@
         android:layout_weight="1.0"
         android:layout_above="@+id/navigation"
         android:scrollbars="none" />
-    <android.support.design.widget.BottomNavigationView
+    <com.yuecheng.workprotal.utils.BottomNavigationViewEx
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom = "true"
         android:background="?android:attr/windowBackground"
+        app:itemIconTint="@color/color_state_menu_navi"
+        app:itemTextColor="@color/color_state_menu_navi"
         app:menu="@menu/navigation" />
 
 </RelativeLayout>

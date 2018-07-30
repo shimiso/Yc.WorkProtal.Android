@@ -57,7 +57,7 @@ public class EditorApplicationActivity extends AppCompatActivity implements View
         addListener();
     }
     public void init() {
-        getSupportActionBar().hide();
+    //    getSupportActionBar().hide();
         recyclerViewExist = (RecyclerView) findViewById(R.id.recyclerViewExist);
         horizonLScrollView = (HorizontalScrollView) findViewById(R.id.horizonLScrollView);
         rg_tab = (RadioGroup) findViewById(R.id.rg_tab);
@@ -66,7 +66,7 @@ public class EditorApplicationActivity extends AppCompatActivity implements View
         allData = sfUtils.getAllFunctionWithState();
         selData = sfUtils.getSelectFunctionItem();
 
-        blockAdapter = new FunctionBlockAdapter(this, selData);
+        blockAdapter = new FunctionBlockAdapter(this,2, selData);
         recyclerViewExist.setLayoutManager(new GridLayoutManager(this, 4));
         recyclerViewExist.setAdapter(blockAdapter);
         recyclerViewExist.addItemDecoration(new SpaceItemDecoration(4, dip2px(this, 10)));

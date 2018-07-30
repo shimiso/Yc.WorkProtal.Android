@@ -1,6 +1,7 @@
 package com.yuecheng.workprotal.module.mywork.editor;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,12 +21,14 @@ public class FunctionBlockAdapter extends RecyclerView.Adapter<FunctionBlockAdap
 
     private List<FunctionItem> data = new ArrayList<>();
     private LayoutInflater inflater;
+    private int type;
 
 
     private Context context;
 
-    public FunctionBlockAdapter(Context context, @NonNull List<FunctionItem> data) {
+    public FunctionBlockAdapter(Context context, int type ,@NonNull List<FunctionItem> data) {
         this.context = context;
+        this.type = type;
         inflater = LayoutInflater.from(context);
         if (data != null) {
             this.data = data;
@@ -34,16 +37,20 @@ public class FunctionBlockAdapter extends RecyclerView.Adapter<FunctionBlockAdap
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(inflater.inflate(R.layout.layout_grid_item, parent, false));
+        ViewHolder viewHolder = new ViewHolder(inflater.inflate(R.layout.layout_grid_item, parent, false));
+        if(type==1){
+            viewHolder.btn.setVisibility(View.GONE);
+        }
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         final int index = position;
         FunctionItem fi = data.get(position);
         setImage(fi.imageUrl, holder.iv);
         holder.text.setText(fi.name);
-        holder.btn.setImageResource(R.drawable.ic_block_delete);
+        holder.btn.setImageResource(R.mipmap.ic_block_delete);
         holder.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,11 +61,23 @@ public class FunctionBlockAdapter extends RecyclerView.Adapter<FunctionBlockAdap
                 notifyDataSetChanged();
             }
         });
+        if(type==1){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if((data.size()-1) == position){
+                        Intent intent = new Intent(context, EditorApplicationActivity.class);
+                        context.startActivity(intent);
+                    }
+                }
+            });
+        }
+
     }
 
     public void setImage(String url, ImageView iv) {
         try {
-            int rid = context.getResources().getIdentifier(url,"drawable",context.getPackageName());
+            int rid = context.getResources().getIdentifier(url,"mipmap",context.getPackageName());
             iv.setImageResource(rid);
         } catch (Exception e) {
             e.printStackTrace();

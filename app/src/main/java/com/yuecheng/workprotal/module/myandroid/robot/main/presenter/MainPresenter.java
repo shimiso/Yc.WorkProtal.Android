@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -32,6 +33,7 @@ import com.yuecheng.workprotal.module.myandroid.robot.main.model.IMainModel;
 import com.yuecheng.workprotal.module.myandroid.robot.main.model.MainModel;
 import com.yuecheng.workprotal.module.myandroid.robot.main.service.MusicService;
 import com.yuecheng.workprotal.module.myandroid.robot.main.view.IMainView;
+import com.yuecheng.workprotal.module.myandroid.robot.main.view.VoiceActivity;
 import com.yuecheng.workprotal.module.myandroid.robot.util.DeviceUtils;
 import com.yuecheng.workprotal.module.myandroid.robot.util.LogUtils;
 import com.yuecheng.workprotal.module.myandroid.robot.util.SpUtils;
@@ -54,6 +56,8 @@ public class MainPresenter implements IMainPresenter {
     private static final String MUSIC = "music";
     private static final String WEATHER = "weather";
     private static final String QUERY = "QUERY";
+    private static final String OPEN = "OPEN";
+    private static final String WEBSITE = "website";
 
     private IMainView mIMainView;
     private IMainModel mIMainModel;
@@ -181,6 +185,9 @@ public class MainPresenter implements IMainPresenter {
     private void onTextUnderstanderSuccess(UnderstanderResult understanderResult) {
         if (understanderResult == null) return;
         try {
+            //根据语音生成一个json串，之后在获取其中的字段  打开本地应用{"semantic":{"slots":{"name":"qq"}},"rc":0,"operation":"LAUNCH","service":"app","text":"打开QQ"}
+           // 提供外部链接{"semantic":{"slots":{"name":"百度","url":"http:\/\/www.baidu.com"}},"rc":0,"operation":"OPEN","service":"website","text":"打开百度"}
+            //既有应用也提供外部链接{"semantic":{"slots":{"name":"淘宝"}},"rc":0,"operation":"LAUNCH","service":"app","moreResults":[{"semantic":{"slots":{"name":"淘宝","url":"http:\/\/www.taobao.com\/"}},"rc":0,"operation":"OPEN","service":"website","text":"打开淘宝"}],"text":"打开淘宝"}
             String resultString = understanderResult.getResultString();
             SemanticComprehensionResult semanticComprehensionResult = new Gson().fromJson(resultString, SemanticComprehensionResult.class);
 
@@ -197,7 +204,10 @@ public class MainPresenter implements IMainPresenter {
                 if (APP.equalsIgnoreCase(service) && LAUNCH.equalsIgnoreCase(operation)) {
                     //打开应用
                     openAppByLauncher(semanticComprehensionResult.getSemantic());
-                } else if (ANSWER.equalsIgnoreCase(operation)) {
+                } else if (WEBSITE.equalsIgnoreCase(service) && OPEN.equalsIgnoreCase(operation)) {
+                    //百度
+                    Log.i("MainPresenter","打开百度！！");
+                }else if (ANSWER.equalsIgnoreCase(operation)) {
                     //聊天
                     responseAnswer(semanticComprehensionResult.getAnswer().getText());
                 } else if (MUSIC.equalsIgnoreCase(service) && PLAY.equalsIgnoreCase(operation)) {

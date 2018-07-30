@@ -12,13 +12,14 @@ import android.util.SparseIntArray;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.module.message.MyMessageFragment;
 import com.yuecheng.workprotal.module.myandroid.MyAndroidFragment;
-import com.yuecheng.workprotal.module.myandroid.robot.app.VRApplication;
 import com.yuecheng.workprotal.module.mycenter.MyCenterFragment;
 import com.yuecheng.workprotal.module.mycontacts.MyContactsFragment;
 import com.yuecheng.workprotal.module.mywork.MyWorkFragment;
+import com.yuecheng.workprotal.utils.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 //            return false;
 //        }
 //    };
-    private BottomNavigationView navigation;
+    private BottomNavigationViewEx navigation;
     private ViewPager vp;
     private VpAdapter adapter;
     private MyMessageFragment myMessageFragment;
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationViewEx) findViewById(R.id.navigation);
         vp = (ViewPager) findViewById(R.id.viewPager);
         //navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initEvent() {
+        disableAllAnimation(navigation);//设置样式
         // set listener to change the current item of view pager when click bottom nav item
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             private int previousPosition = -1;
@@ -135,12 +137,10 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
-
             @Override
             public void onPageSelected(int position) {
                 navigation.setSelectedItemId(navigation.getMenu().getItem(position).getItemId());
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
 
@@ -169,5 +169,12 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             return data.get(position);
         }
+    }
+
+    //对自定义控件进行操作
+    private void disableAllAnimation(BottomNavigationViewEx bnve) {
+      //  bnve.enableAnimation(false);
+        bnve.enableShiftingMode(false);
+        bnve.enableItemShiftingMode(false);
     }
 }

@@ -12,12 +12,12 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import com.itheima.bridgewebviewdemo.view.BottomUpDialog;
-import com.tencent.connect.share.QQShare;
-import com.tencent.open.utils.ThreadManager;
-import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
+//import com.itheima.bridgewebviewdemo.view.BottomUpDialog;
+//import com.tencent.connect.share.QQShare;
+//import com.tencent.open.utils.ThreadManager;
+//import com.tencent.tauth.IUiListener;
+//import com.tencent.tauth.Tencent;
+//import com.tencent.tauth.UiError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,21 +46,8 @@ public class JavaSctiptMethods {
                     showToast(str);
                 } else if (action.equals("callPhone")) {
                     callphone(str);
-                } else if (action.equals("share2QQ")) {
-                    share2QQ(str);
-                } else if (action.equals("getHotelData")) {
+                }else if (action.equals("getHotelData")) {
                     getHotelData(str);
-                } else if(action.equals("showCallPhoneDialog")){//底部弹出拨号对话框
-                    final BottomUpDialog btmDlg = new BottomUpDialog(mActivity);
-                    btmDlg.setContent(json.optString("phone"));
-                    btmDlg.setOnPhoneClickListener(new BottomUpDialog.OnPhoneClickListener() {
-                        @Override
-                        public void onPhoneClick() {
-                            callphone(str);//拨号
-                            btmDlg.dismiss();
-                        }
-                    });
-                    btmDlg.show();
                 }
             }
         } catch (JSONException e) {
@@ -154,59 +141,7 @@ public class JavaSctiptMethods {
         }
     }
 
-    /**
-     * 分享到QQ
-     *
-     * @param jsonStr
-     */
-    public void share2QQ(String jsonStr) {
-        try {
-            JSONObject json = new JSONObject(jsonStr);
-            Log.e("result", json.toString());
-            //解析js传递过来的分享参数
-            JSONObject mJson = new JSONObject(json.toString());
-            String title = mJson.optString("title");
-            String url = mJson.optString("url");
-            String summary = mJson.optString("summary");
-            String imgUrl = mJson.optString("imgUrl");
 
-            //调用QQ分享SDK
-            final Tencent tencent = Tencent.createInstance("222222", mActivity);
-            final Bundle params = new Bundle();
-            params.putString(QQShare.SHARE_TO_QQ_TITLE, title);
-            params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, url);
-            params.putString(QQShare.SHARE_TO_QQ_SUMMARY, summary);
-            params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, imgUrl);
-
-            ThreadManager.getMainHandler().post(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (null != tencent) {
-                        tencent.shareToQQ(mActivity, params, new IUiListener() {
-                            @Override
-                            public void onComplete(Object o) {
-                                Toast.makeText(mActivity, "" + "分享成功", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onError(UiError uiError) {
-                                Toast.makeText(mActivity, "" + "分享失败", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onCancel() {
-                                Toast.makeText(mActivity, "取消分析", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }
-            });
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void showLog(String msg) {
         Log.i("result", "" + msg);

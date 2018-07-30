@@ -52,7 +52,7 @@ public class FunctionAdapter extends RecyclerView.Adapter {
             FunctionItem fi = data.get(position);
             setImage(fi.imageUrl,holder.iv);
             holder.text.setText(fi.name);
-            holder.btn.setImageResource(fi.isSelect ? R.drawable.ic_block_selected : R.drawable.ic_block_add);
+            holder.btn.setImageResource(fi.isSelect ? R.mipmap.ic_block_selected : R.mipmap.ic_block_add);
             holder.btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -72,7 +72,7 @@ public class FunctionAdapter extends RecyclerView.Adapter {
 
     public void setImage(String url, ImageView iv) {
         try {
-            int rid = context.getResources().getIdentifier(url,"drawable",context.getPackageName());
+            int rid = context.getResources().getIdentifier(url,"mipmap",context.getPackageName());
             iv.setImageResource(rid);
         } catch (Exception e) {
             e.printStackTrace();

@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.webkit.WebChromeClient;
 import android.webkit.WebViewClient;
 
+import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.widget.BridgeWebView;
 
 

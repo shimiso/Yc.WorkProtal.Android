@@ -48,6 +48,6 @@
         android:contentDescription="@string/app_name"
         android:padding="4dp"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_block_add" />
+        android:src="@mipmap/ic_block_add" />
 
 </com.yuecheng.workprotal.module.mywork.editor.SquareRelativeLayout>
