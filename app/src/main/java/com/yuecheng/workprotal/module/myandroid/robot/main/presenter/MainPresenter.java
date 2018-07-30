@@ -2,6 +2,7 @@ package com.yuecheng.workprotal.module.myandroid.robot.main.presenter;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.iflytek.cloud.TextUnderstanderListener;
 import com.iflytek.cloud.UnderstanderResult;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.module.myandroid.OpenH5Activity;
 import com.yuecheng.workprotal.module.myandroid.robot.app.VRApplication;
 import com.yuecheng.workprotal.module.myandroid.robot.bean.DateBean;
 import com.yuecheng.workprotal.module.myandroid.robot.bean.LocationBean;
@@ -62,6 +64,7 @@ public class MainPresenter implements IMainPresenter {
     private IMainView mIMainView;
     private IMainModel mIMainModel;
     private Handler mHandler;
+    private Context context;
     /**
      * 存储听写结果
      */
@@ -74,7 +77,9 @@ public class MainPresenter implements IMainPresenter {
         mIMainModel = new MainModel();
         initData();
     }
-
+    public void setContext(Context context){
+        this.context = context;
+    }
     private void initData() {
         //show default data
         mIMainView.updateVoiceType(SpUtils.readVoiceType());
@@ -207,6 +212,9 @@ public class MainPresenter implements IMainPresenter {
                 } else if (WEBSITE.equalsIgnoreCase(service) && OPEN.equalsIgnoreCase(operation)) {
                     //百度
                     Log.i("MainPresenter","打开百度！！");
+                    Intent intent = new Intent(VRApplication.getApplication(), OpenH5Activity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                    VRApplication.getApplication().startActivity(intent);
                 }else if (ANSWER.equalsIgnoreCase(operation)) {
                     //聊天
                     responseAnswer(semanticComprehensionResult.getAnswer().getText());
