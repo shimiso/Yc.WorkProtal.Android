@@ -15,11 +15,24 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://jitpack.io" }
         jcenter()
+        google()
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    minSdkVersion = 19
+    targetSdkVersion = 22 //该设置仅仅是一个声明,无实质的作用,程序运行时如果目标设备的API版本刚好等于此数值,则不必为此程序开启兼容性检查判断,运行效率更高
+    compileSdkVersion = 27  //使用哪个版本的API进行编译
+    buildToolsVersion = '27.0.3'  // build tools的版本
+
+    // App dependencies
+    supportLibVersion = '27.1.1'
 }
