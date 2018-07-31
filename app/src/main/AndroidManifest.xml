@@ -21,7 +21,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".module.myandroid.robot.app.VRApplication"
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -38,10 +38,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".module.mywork.editor.EditorApplicationActivity"/>
-        <activity android:name=".module.myandroid.robot.main.view.VoiceActivity"/>
-        <activity android:name=".module.myandroid.OpenH5Activity"/>
+        <activity android:name=".module.robot.view.VoiceActivity"/>
+        <activity android:name=".module.robot.OpenH5Activity"/>
 
-        <service android:name=".module.myandroid.robot.main.service.MusicService" />
+        <service android:name=".module.robot.service.MusicService" />
     </application>
 
 </manifest>

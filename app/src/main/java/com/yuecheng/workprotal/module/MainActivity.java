@@ -10,16 +10,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseIntArray;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.module.message.MyMessageFragment;
-import com.yuecheng.workprotal.module.myandroid.MyAndroidFragment;
+import com.yuecheng.workprotal.module.robot.MyAndroidFragment;
 import com.yuecheng.workprotal.module.mycenter.MyCenterFragment;
-import com.yuecheng.workprotal.module.mycontacts.MyContactsFragment;
+import com.yuecheng.workprotal.module.contacts.MyContactsFragment;
 import com.yuecheng.workprotal.module.mywork.MyWorkFragment;
-import com.yuecheng.workprotal.utils.BottomNavigationViewEx;
+import com.yuecheng.workprotal.widget.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 import java.util.List;

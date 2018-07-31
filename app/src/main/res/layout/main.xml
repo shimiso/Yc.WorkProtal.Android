@@ -14,7 +14,7 @@
         android:layout_weight="1.0"
         android:layout_above="@+id/navigation"
         android:scrollbars="none" />
-    <com.yuecheng.workprotal.utils.BottomNavigationViewEx
+    <com.yuecheng.workprotal.widget.BottomNavigationViewEx
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
