@@ -3,7 +3,7 @@
     <!--导航栏颜色-->
     <color name="primary">#3F51B5</color>
     <color name="primary_dark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#0077D9</color>
     <color name="primary_text">#474a51</color>
     <!-- 整个app的背景色 -->
     <color name="app_bg">#ebebeb</color>
