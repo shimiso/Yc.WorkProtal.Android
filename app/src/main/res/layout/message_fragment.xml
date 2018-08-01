@@ -44,5 +44,4 @@
             android:textSize="16sp"
             android:text="我的工作助理" />
     </RelativeLayout>
-
 </LinearLayout>
