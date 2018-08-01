@@ -1,4 +1,4 @@
-package com.yuecheng.workprotal.module.mywork;
+package com.yuecheng.workprotal.module.work;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yuecheng.workprotal.R;
-import com.yuecheng.workprotal.module.mywork.editor.FunctionBlockAdapter;
-import com.yuecheng.workprotal.module.mywork.editor.FunctionItem;
-import com.yuecheng.workprotal.module.mywork.editor.SFUtils;
-import com.yuecheng.workprotal.module.mywork.editor.SpaceItemDecoration;
+import com.yuecheng.workprotal.module.work.editor.FunctionBlockAdapter;
+import com.yuecheng.workprotal.module.work.editor.FunctionItem;
+import com.yuecheng.workprotal.module.work.editor.SFUtils;
+import com.yuecheng.workprotal.module.work.editor.SpaceItemDecoration;
 
 import java.util.List;
 

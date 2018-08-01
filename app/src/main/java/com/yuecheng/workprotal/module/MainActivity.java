@@ -19,7 +19,7 @@ import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.module.message.MyMessageFragment;
 import com.yuecheng.workprotal.module.mycenter.MyCenterFragment;
 import com.yuecheng.workprotal.module.contacts.MyContactsFragment;
-import com.yuecheng.workprotal.module.mywork.MyWorkFragment;
+import com.yuecheng.workprotal.module.work.MyWorkFragment;
 import com.yuecheng.workprotal.widget.BottomNavigationViewEx;
 
 import java.util.ArrayList;

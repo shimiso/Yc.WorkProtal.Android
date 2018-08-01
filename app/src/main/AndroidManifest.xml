@@ -37,7 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.mywork.editor.EditorApplicationActivity"/>
+        <activity android:name=".module.work.editor.EditorApplicationActivity"/>
         <activity android:name=".module.robot.view.VoiceActivity"/>
         <activity android:name=".module.robot.OpenH5Activity"/>
 
