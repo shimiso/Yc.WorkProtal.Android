@@ -35,7 +35,8 @@
             border_color="@color/primary"
             border_width="0.5dp"
             android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_height="60dp"
+            android:src="@mipmap/ic_launcher"/>
 
         <RelativeLayout
             android:id="@+id/my_center_ll_login"
@@ -50,7 +51,7 @@
                 android:layout_alignParentTop="true"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="李璐璐"
+                android:text="张三丰"
                 android:textSize="16sp" />
 
             <TextView
@@ -61,7 +62,7 @@
                 android:layout_toRightOf="@+id/nick_name_tv"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="居家服务部"
+                android:text="信息技术中心"
                 android:textSize="16sp" />
 
             <TextView
@@ -71,37 +72,11 @@
                 android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="居家护士" />
+                android:text="研发工程师" />
         </RelativeLayout>
     </LinearLayout>
 
-    <View style="@style/divider_horizontal"/>
 
-    <RelativeLayout
-        android:id="@+id/my_workplans"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:clickable="true"
-        android:background="@drawable/list_item_bg">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:textColor="@color/primary_text"
-            android:textSize="16sp"
-            android:text="我的排班" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/right_in_btn"/>
-    </RelativeLayout>
 
     <View style="@style/divider_horizontal"/>
 
@@ -122,6 +97,34 @@
             android:textColor="@color/primary_text"
             android:textSize="16sp"
             android:text="修改密码" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/right_in_btn"/>
+    </RelativeLayout>
+
+    <View style="@style/divider_horizontal"/>
+
+    <RelativeLayout
+        android:id="@+id/my_workplans"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:clickable="true"
+        android:background="@drawable/list_item_bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/primary_text"
+            android:textSize="16sp"
+            android:text="设置" />
 
         <ImageView
             android:layout_width="wrap_content"

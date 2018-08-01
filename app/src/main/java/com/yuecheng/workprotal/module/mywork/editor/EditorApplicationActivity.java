@@ -51,7 +51,7 @@ public class EditorApplicationActivity extends AppCompatActivity implements View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editor_application);
+        setContentView(R.layout.work_editor);
 
         init();
         addListener();

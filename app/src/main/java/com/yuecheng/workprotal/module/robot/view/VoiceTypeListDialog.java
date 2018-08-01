@@ -34,7 +34,7 @@ public class VoiceTypeListDialog extends Dialog {
 
     private void init(Context context) {
         this.context = context;
-        this.setContentView(R.layout.voice_type_dialog);
+        this.setContentView(R.layout.robot_voice_type_dialog);
 
         RadioGroup rgVoiceType = (RadioGroup) findViewById(R.id.rg_voice_type);
         rgVoiceType.check(rbIds[SpManager.getInstance().readVoiceTypePosition()]);

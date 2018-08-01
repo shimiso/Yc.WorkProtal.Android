@@ -36,7 +36,7 @@ public class FunctionAdapter extends RecyclerView.Adapter {
         if (0 == viewType) {
             holder = new TitleViewHolder(inflater.inflate(R.layout.layout_function_text, parent, false));
         } else {
-            holder = new FunctionViewHolder(inflater.inflate(R.layout.layout_grid_item, parent, false));
+            holder = new FunctionViewHolder(inflater.inflate(R.layout.work_grid_item, parent, false));
         }
         return holder;
     }

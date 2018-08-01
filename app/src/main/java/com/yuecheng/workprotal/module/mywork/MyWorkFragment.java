@@ -1,20 +1,16 @@
 package com.yuecheng.workprotal.module.mywork;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.yuecheng.workprotal.R;
-import com.yuecheng.workprotal.module.mywork.editor.EditorApplicationActivity;
 import com.yuecheng.workprotal.module.mywork.editor.FunctionBlockAdapter;
 import com.yuecheng.workprotal.module.mywork.editor.FunctionItem;
 import com.yuecheng.workprotal.module.mywork.editor.SFUtils;
@@ -32,7 +28,6 @@ public class MyWorkFragment extends Fragment {
     private SFUtils sfUtils;
     private List<FunctionItem> selData;
     private RecyclerView recycler_view;
-    private TextView work_tv;
 
     public static MyWorkFragment newInstance() {
         Bundle args = new Bundle();
@@ -44,9 +39,8 @@ public class MyWorkFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.my_work_fragment, container, false);
+        view = inflater.inflate(R.layout.work_fragment, container, false);
 
-        work_tv = (TextView) view.findViewById(R.id.work_tv);
         recycler_view = (RecyclerView) view.findViewById(R.id.recycler_view);
         recycler_view.addItemDecoration(new SpaceItemDecoration(4, dip2px(getContext(), 10)));
 

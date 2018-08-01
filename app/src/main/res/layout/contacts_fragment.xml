@@ -12,9 +12,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="消息"
+            android:text="通讯录"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
-
 </LinearLayout>

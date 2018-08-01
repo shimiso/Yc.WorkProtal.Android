@@ -28,7 +28,7 @@ public class MyAndroidFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.my_android_fragment, container, false);
+        View view = inflater.inflate(R.layout.robot_fragment, container, false);
         TextView but = (TextView) view.findViewById(R.id.but);
         but.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -34,7 +34,7 @@ public class VoiceSpeedDialog extends Dialog {
 
     private void init(final Context context) {
         this.context = context;
-        this.setContentView(R.layout.voice_speed_popwindow);
+        this.setContentView(R.layout.robot_voice_speed_popwindow);
 
         tvSpeedTitle = (TextView) findViewById(R.id.tv_speed_title);
         sbVoiceSpeed = (SeekBar) findViewById(R.id.sb_voice_speed);

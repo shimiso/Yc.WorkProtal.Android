@@ -29,10 +29,10 @@ public class TalkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case VIEW_TYPE_ROBOT:
-                View robotLayout = View.inflate(context, R.layout.robot_layout, null);
+                View robotLayout = View.inflate(context, R.layout.robot_chat, null);
                 return new RobotTalkListViewHolder(robotLayout);
             case VIEW_TYPE_USER:
-                View userLayout = View.inflate(context, R.layout.user_layout, null);
+                View userLayout = View.inflate(context, R.layout.robot_user_layout, null);
                 return new UserTalkListViewHolder(userLayout);
         }
         return null;

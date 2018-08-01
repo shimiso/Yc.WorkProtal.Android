@@ -37,7 +37,7 @@ public class FunctionBlockAdapter extends RecyclerView.Adapter<FunctionBlockAdap
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolder viewHolder = new ViewHolder(inflater.inflate(R.layout.layout_grid_item, parent, false));
+        ViewHolder viewHolder = new ViewHolder(inflater.inflate(R.layout.work_grid_item, parent, false));
         if(type==1){
             viewHolder.btn.setVisibility(View.GONE);
         }
