@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/color_item_pressed_in_value21_ededed">
+    android:color="@color/color_item_pressed">
     <item android:state_pressed="true"><!-- 按下状态 -->
 
         <shape xmlns:android="http://schemas.android.com/apk/res/android"

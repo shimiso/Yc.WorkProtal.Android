@@ -9,12 +9,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseIntArray;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
+import com.yuecheng.workprotal.MainApplication;
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.module.message.MyMessageFragment;
-import com.yuecheng.workprotal.module.robot.MyAndroidFragment;
 import com.yuecheng.workprotal.module.mycenter.MyCenterFragment;
 import com.yuecheng.workprotal.module.contacts.MyContactsFragment;
 import com.yuecheng.workprotal.module.mywork.MyWorkFragment;
@@ -22,6 +24,8 @@ import com.yuecheng.workprotal.widget.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     private MyWorkFragment myWorkFragment;
     private MyCenterFragment myCenterFragment;
     private MyContactsFragment myContactsFragment;
-    private MyAndroidFragment myAndroidFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +77,11 @@ public class MainActivity extends AppCompatActivity {
             myWorkFragment = MyWorkFragment.newInstance();
             myCenterFragment = MyCenterFragment.newInstance();
             myContactsFragment = MyContactsFragment.newInstance();
-            myAndroidFragment = MyAndroidFragment.newInstance();
         } else {
             myMessageFragment = (MyMessageFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyMessageFragment.class.getName());
             myWorkFragment = (MyWorkFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyWorkFragment.class.getName());
             myCenterFragment = (MyCenterFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyCenterFragment.class.getName());
             myContactsFragment = (MyContactsFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyContactsFragment.class.getName());
-            myAndroidFragment = (MyAndroidFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyAndroidFragment.class.getName());
         }
 
         initData();
@@ -89,23 +90,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        fragments = new ArrayList<>(5);
-        items = new SparseIntArray(5);
+        fragments = new ArrayList<>(4);
+        items = new SparseIntArray(4);
 
 
         // add to fragments for adapter
         fragments.add(myMessageFragment);
         fragments.add(myWorkFragment);
-        fragments.add(myAndroidFragment);
         fragments.add(myContactsFragment);
         fragments.add(myCenterFragment);
 
         // add to items for change ViewPager item
         items.put(R.id.navigation_message, 0);
         items.put(R.id.navigation_work, 1);
-        items.put(R.id.navigation_android, 2);
-        items.put(R.id.navigation_contacts, 3);
-        items.put(R.id.navigation_mycenter, 4);
+        items.put(R.id.navigation_contacts, 2);
+        items.put(R.id.navigation_mycenter, 3);
 
         // set adapter
         adapter = new VpAdapter(getSupportFragmentManager(), fragments);
@@ -175,5 +174,30 @@ public class MainActivity extends AppCompatActivity {
       //  bnve.enableAnimation(false);
         bnve.enableShiftingMode(false);
         bnve.enableItemShiftingMode(false);
+    }
+
+    private static Boolean isQuit = false;
+    private Timer timer = new Timer();
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (isQuit == false) {
+                isQuit = true;
+                Toast.makeText(this, "再次点击退出应用",Toast.LENGTH_LONG).show();
+                TimerTask task = null;
+                task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        isQuit = false;
+                    }
+                };
+                timer.schedule(task, 2000);
+            } else {
+                //关闭打开的activity
+                MainApplication.getApplication().exit();
+            }
+        } else {
+        }
+        return false;
     }
 }

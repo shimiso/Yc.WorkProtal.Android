@@ -1,17 +1,22 @@
 package com.yuecheng.workprotal.module.robot.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.yuecheng.workprotal.MainApplication;
 import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.module.robot.OpenH5Activity;
 import com.yuecheng.workprotal.module.robot.bean.TalkBean;
 import com.yuecheng.workprotal.module.robot.adapter.TalkListAdapter;
 import com.yuecheng.workprotal.module.robot.presenter.IMainPresenter;
@@ -20,6 +25,7 @@ import com.yuecheng.workprotal.module.robot.service.MusicService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimerTask;
 
 
 public class VoiceActivity extends AppCompatActivity implements IMainView {
@@ -61,8 +67,20 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         rlVoiceSpeed = (RelativeLayout) findViewById(R.id.rl_voice_speed);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         iv_talk = (ImageView) findViewById(R.id.iv_talk);
+        findViewById(R.id.back_iv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+        }
+        return false;
+    }
     private void afterView() {
         //init Toolbar
         // this.setSupportActionBar(mToolbar);

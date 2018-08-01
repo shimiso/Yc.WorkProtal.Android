@@ -13,8 +13,7 @@
     <color name="color_3_7d7d7d">#7d7d7d</color>
     <color name="color_4_aaaeb5">#aaaeb5</color>
     <color name="color_5_cccccc">#cccccc</color>
-    <color name="color_item_pressed_bellow_value21_f7f7f7">#f7f7f7</color>
-    <color name="color_item_pressed_in_value21_ededed">#ededed</color>
+    <color name="color_item_pressed">#cccccc</color>
     <color name="lightgray">#D3D3D3</color>
     <!--编辑应用-->
     <color name="transparent">#00FFFFFF</color>
