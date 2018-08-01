@@ -13,11 +13,13 @@ import com.yuecheng.workprotal.widget.BridgeWebView;
 public class OpenH5Activity extends AppCompatActivity {
 
     private BridgeWebView mWebView;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.open_h5);
+        url = getIntent().getStringExtra("url");
         initView();
         setWebViewClient();
     }
@@ -26,7 +28,8 @@ public class OpenH5Activity extends AppCompatActivity {
         mWebView = (BridgeWebView) findViewById(R.id.weview);
 
         mWebView.addBridgeInterface(new JavaSctiptMethods(OpenH5Activity.this, mWebView));//设置js和android通信桥梁方法
-        mWebView.loadUrl("file:///android_asset/BridgeWebView/index.html");//本地模板
+       // mWebView.loadUrl("file:///android_asset/BridgeWebView/index.html");//本地模板
+        mWebView.loadUrl(url);//动态获取需要打开的链接
 
     }
 

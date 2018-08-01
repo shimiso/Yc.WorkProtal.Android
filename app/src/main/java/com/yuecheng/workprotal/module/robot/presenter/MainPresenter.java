@@ -2,14 +2,12 @@ package com.yuecheng.workprotal.module.robot.presenter;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -37,8 +35,9 @@ import com.yuecheng.workprotal.module.robot.service.MusicService;
 import com.yuecheng.workprotal.module.robot.view.IMainView;
 import com.yuecheng.workprotal.utils.DeviceUtils;
 import com.yuecheng.workprotal.utils.LogUtils;
-import com.yuecheng.workprotal.utils.SpUtils;
 import com.yuecheng.workprotal.utils.StringUtils;
+import com.yuecheng.workprotal.module.robot.action.CallAction;
+import com.yuecheng.workprotal.module.robot.action.CallView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,17 +57,19 @@ public class MainPresenter implements IMainPresenter {
     private static final String WEATHER = "weather";
     private static final String QUERY = "QUERY";
     private static final String OPEN = "OPEN";
+    private static final String CALL = "CALL";
+    private static final String VIEW = "VIEW";
+    private static final String TELEPHONE = "telephone";
     private static final String WEBSITE = "website";
 
-    private IMainView mIMainView;
-    private IMainModel mIMainModel;
-    private Handler mHandler;
-    private Context context;
+    private static IMainView mIMainView;
+    private static IMainModel mIMainModel;
+    private static Handler mHandler;
     /**
      * 存储听写结果
      */
     private HashMap<String, String> mIatResults = new LinkedHashMap<>();
-    private List<TalkBean> mTalkBeanList = new ArrayList<>();
+    private static List<TalkBean> mTalkBeanList = new ArrayList<>();
 
     public MainPresenter(IMainView IMainView) {
         mIMainView = IMainView;
@@ -76,14 +77,8 @@ public class MainPresenter implements IMainPresenter {
         mIMainModel = new MainModel();
         initData();
     }
-    public void setContext(Context context){
-        this.context = context;
-    }
     private void initData() {
         //show default data
-        mIMainView.updateVoiceType(SpUtils.readVoiceType());
-        mIMainView.updateVoiceSpeed(SpUtils.readVoiceSpeedStr());
-        mIMainView.updateVersion(DeviceUtils.getVersionName());
         TalkBean talkBean = new TalkBean(((Activity) mIMainView).getResources().getString(R.string.talk_first),
                 System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_ROBOT);
         mTalkBeanList.add(talkBean);
@@ -91,21 +86,6 @@ public class MainPresenter implements IMainPresenter {
     }
 
 
-    @Override
-    public void onVoiceTypeSelect(int position) {
-        SpUtils.writeVoiceType(position);
-        mIMainView.updateVoiceType(SpUtils.readVoiceType());
-    }
-
-    @Override
-    public void onVoiceSpeedChanged(int progress) {
-        mIMainView.updateVoiceSpeed(progress + "%");
-    }
-
-    @Override
-    public void onVoiceSpeedChangeCompletely(int progress) {
-        SpUtils.writeVoiceSpeed(progress);
-    }
 
     @Override
     public void startVoiceRobot() {
@@ -210,14 +190,30 @@ public class MainPresenter implements IMainPresenter {
                     openAppByLauncher(semanticComprehensionResult.getSemantic());
                 } else if (WEBSITE.equalsIgnoreCase(service) && OPEN.equalsIgnoreCase(operation)) {
                     //百度
-                    Log.i("MainPresenter","打开百度！！");
+                    String url = semanticComprehensionResult.getSemantic().getSlots().getUrl();
                     Intent intent = new Intent(MainApplication.getApplication(), OpenH5Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                    intent.putExtra("url",url);
                     MainApplication.getApplication().startActivity(intent);
                 }else if (ANSWER.equalsIgnoreCase(operation)) {
                     //聊天
                     responseAnswer(semanticComprehensionResult.getAnswer().getText());
-                } else if (MUSIC.equalsIgnoreCase(service) && PLAY.equalsIgnoreCase(operation)) {
+                }else if (TELEPHONE.equalsIgnoreCase(service) && CALL.equalsIgnoreCase(operation)) {
+                    String name = "";
+                    String code = "";
+                    if(semanticComprehensionResult.getSemantic().getSlots()!=null){
+                        //打电话
+                        name = semanticComprehensionResult.getSemantic().getSlots().getName();
+                        code = semanticComprehensionResult.getSemantic().getSlots().getCode();
+                    }
+
+                    CallAction callAction = new CallAction(name, code, MainApplication.getApplication());//目前可根据名字或电话号码拨打电话
+                    callAction.start();
+                }else if (TELEPHONE.equalsIgnoreCase(service) && VIEW.equalsIgnoreCase(operation)) {
+                    //打电话界面
+                    CallView callview = new CallView(MainApplication.getApplication());
+                    callview.start();
+                }else if (MUSIC.equalsIgnoreCase(service) && PLAY.equalsIgnoreCase(operation)) {
                     //播放音乐
                     ArrayList<MusicBean> musicBeenArrayList = new Gson().fromJson(result, new TypeToken<ArrayList<MusicBean>>() {
                     }.getType());
@@ -330,7 +326,7 @@ public class MainPresenter implements IMainPresenter {
         }
     }
 
-    private void responseAnswer(final String answerText) {
+    public static void responseAnswer(final String answerText) {
         if (!TextUtils.isEmpty(answerText)) {
             mHandler.post(new Runnable() {
                 @Override

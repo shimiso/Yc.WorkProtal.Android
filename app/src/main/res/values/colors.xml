@@ -27,4 +27,7 @@
     <color name="gray">#888888</color>
     <color name="blue">#0077D9</color>
     <color name="trasparent">#00000000</color>
+    <color name="light_gray_2">#f0f2f6</color>
+    <color name="button_bg">#e83060</color>
+    <color name="button_bg_press">#88e83060</color>
 </resources>

@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,12 +37,10 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     private List<TalkBean> mTalkBeanList = new ArrayList<>();
     private TalkListAdapter mTalkListAdapter;
     private DrawerLayout mDrawerLayout;
-    private TextView tvVoiceType;
-    private TextView tvVoiceSpeed;
-    private TextView tvVersion;
-    private RelativeLayout rlVoiceSpeed;
     private RecyclerView recyclerView;
     private ImageView iv_talk;
+    private Button voice_btn;
+    private EditText et_msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
 
         init();
         afterView();
-        iv_talk.setOnClickListener(new View.OnClickListener() {
+        voice_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mIMainPresenter.startVoiceRobot();
@@ -59,14 +59,11 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     }
 
     private void init() {
-        // mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        tvVoiceType = (TextView) findViewById(R.id.tv_voice_type);
-        tvVoiceSpeed = (TextView) findViewById(R.id.tv_voice_speed);
-        tvVersion = (TextView) findViewById(R.id.tv_version);
-        rlVoiceSpeed = (RelativeLayout) findViewById(R.id.rl_voice_speed);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        iv_talk = (ImageView) findViewById(R.id.iv_talk);
+       // iv_talk = (ImageView) findViewById(R.id.iv_talk);
+        voice_btn = (Button) findViewById(R.id.voice_btn);
+        et_msg = (EditText) findViewById(R.id.et_msg);
         findViewById(R.id.back_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,14 +79,6 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         return false;
     }
     private void afterView() {
-        //init Toolbar
-        // this.setSupportActionBar(mToolbar);
-
-        //DrawerLayout bind ActionBarDrawerToggle
-//        toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar,
-//                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        mDrawerLayout.addDrawerListener(toggle);
-//        toggle.syncState();
 
         //init RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -108,26 +97,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         MusicService.stopService(this);
     }
 
-    @Override
-    public void updateVoiceType(String type) {
-        if (tvVoiceType != null) {
-            tvVoiceType.setText(type);
-        }
-    }
 
-    @Override
-    public void updateVoiceSpeed(String speed) {
-        if (tvVoiceSpeed != null) {
-            tvVoiceSpeed.setText(speed);
-        }
-    }
-
-    @Override
-    public void updateVersion(String version) {
-        if (tvVersion != null) {
-            tvVersion.setText(version);
-        }
-    }
 
     @Override
     public void updateList(List<TalkBean> talkBeanList) {

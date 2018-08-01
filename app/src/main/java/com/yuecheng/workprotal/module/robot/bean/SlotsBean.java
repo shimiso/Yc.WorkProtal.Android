@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 public class SlotsBean implements Serializable {
     private String name;
+    private String url;
     private String code;
     private String artist;
     private String song;
@@ -12,6 +13,13 @@ public class SlotsBean implements Serializable {
     private LocationBean location;
     private DateBean datetime;
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
     public String getName() {
         return name;
     }

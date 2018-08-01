@@ -3,35 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/ll_bottom"
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_bottom"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_talk"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:background="@drawable/shape_btn_circle_blue"-->
+            <!--android:padding="10dp"-->
+            <!--android:src="@mipmap/talk" />-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_marginTop="2dp"-->
+            <!--android:text="@string/click_talk"-->
+            <!--android:textSize="12sp" />-->
+    <!--</LinearLayout>-->
+
+    <com.yuecheng.workprotal.widget.InputBarLayout
+        android:id="@+id/iput_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/iv_talk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/shape_btn_circle_blue"
-            android:padding="10dp"
-            android:src="@mipmap/talk" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="2dp"
-            android:text="@string/click_talk"
-            android:textSize="12sp" />
-    </LinearLayout>
-
+        android:layout_alignParentBottom="true">
+    </com.yuecheng.workprotal.widget.InputBarLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/ll_bottom" />
+        android:layout_above="@id/iput_layout" />
 </RelativeLayout>
