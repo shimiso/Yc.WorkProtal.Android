@@ -23,7 +23,7 @@
     <RelativeLayout
         android:id="@+id/my_assistant"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:padding="10dp"
         android:clickable="true"
         android:background="@drawable/list_item_bg">

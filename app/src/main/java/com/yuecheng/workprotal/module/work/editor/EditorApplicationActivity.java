@@ -1,4 +1,4 @@
-package com.yuecheng.workprotal.module.mywork.editor;
+package com.yuecheng.workprotal.module.work.editor;
 
 import android.app.Activity;
 import android.content.Context;
