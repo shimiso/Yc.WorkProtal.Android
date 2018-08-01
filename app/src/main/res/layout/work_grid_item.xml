@@ -3,8 +3,7 @@
     android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_grid_press"
-   >
+    android:background="@drawable/bg_grid_press">
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="wrap_content"
