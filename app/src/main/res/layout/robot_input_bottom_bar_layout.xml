@@ -35,13 +35,12 @@
             <EditText
                 android:id="@+id/et_msg"
                 android:layout_width="0dp"
-                android:layout_height="36dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/msg_input_shape"
-                android:imeOptions="actionSend"
                 android:inputType="text"
                 android:padding="5dp"
                 android:textSize="16sp"/>

@@ -1,6 +1,5 @@
 package com.yuecheng.workprotal.module.robot.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -8,32 +7,28 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-import com.yuecheng.workprotal.MainApplication;
 import com.yuecheng.workprotal.R;
-import com.yuecheng.workprotal.module.robot.OpenH5Activity;
 import com.yuecheng.workprotal.module.robot.bean.TalkBean;
 import com.yuecheng.workprotal.module.robot.adapter.TalkListAdapter;
-import com.yuecheng.workprotal.module.robot.presenter.IMainPresenter;
 import com.yuecheng.workprotal.module.robot.presenter.MainPresenter;
 import com.yuecheng.workprotal.module.robot.service.MusicService;
+import com.yuecheng.workprotal.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimerTask;
 
 
 public class VoiceActivity extends AppCompatActivity implements IMainView {
 
 
-    private IMainPresenter mIMainPresenter;
+    private MainPresenter mIMainPresenter;
     private List<TalkBean> mTalkBeanList = new ArrayList<>();
     private TalkListAdapter mTalkListAdapter;
     private DrawerLayout mDrawerLayout;
@@ -41,12 +36,13 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     private ImageView iv_talk;
     private Button voice_btn;
     private EditText et_msg;
+    public static VoiceActivity instance = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.robot);
-
+        instance=this;
         init();
         afterView();
         voice_btn.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +64,22 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        et_msg.setImeOptions(EditorInfo.IME_ACTION_SEND);
+        et_msg.setInputType(EditorInfo.TYPE_CLASS_TEXT);
+        et_msg.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                String s = et_msg.getText().toString();
+                if (actionId == EditorInfo.IME_ACTION_SEND && !StringUtils.isEmpty(s)){
+                    mIMainPresenter.understandText(s);
+                    et_msg.setText("");
+                    //Toast.makeText(VoiceActivity.this,et_msg.getText().toString(),Toast.LENGTH_LONG).show();
+                    return true;
+                }
+                return false;
             }
         });
     }
@@ -96,8 +108,6 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         super.onDestroy();
         MusicService.stopService(this);
     }
-
-
 
     @Override
     public void updateList(List<TalkBean> talkBeanList) {

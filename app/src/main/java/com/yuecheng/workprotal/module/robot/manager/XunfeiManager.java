@@ -91,8 +91,8 @@ public class XunfeiManager {
         setVoiceDictationParam();
 
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
-        if (mIatDialog == null)
-            mIatDialog = new RecognizerDialog(context, mInitListener);
+//        if (mIatDialog == null)
+        mIatDialog = new RecognizerDialog(context, mInitListener);
 
         // 显示听写对话框
         mIatDialog.setListener(recognizerDialogListener);

@@ -9,6 +9,11 @@ import com.yuecheng.workprotal.module.robot.manager.SpManager;
  * SharedPreferences工具类
  */
 public class SpUtils {
+
+
+
+
+
     public static void writeVersion(String version) {
         SpManager.getInstance().writeVersion(version);
     }

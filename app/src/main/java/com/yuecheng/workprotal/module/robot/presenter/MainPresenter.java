@@ -33,6 +33,7 @@ import com.yuecheng.workprotal.module.robot.model.IMainModel;
 import com.yuecheng.workprotal.module.robot.model.MainModel;
 import com.yuecheng.workprotal.module.robot.service.MusicService;
 import com.yuecheng.workprotal.module.robot.view.IMainView;
+import com.yuecheng.workprotal.module.robot.view.VoiceActivity;
 import com.yuecheng.workprotal.utils.DeviceUtils;
 import com.yuecheng.workprotal.utils.LogUtils;
 import com.yuecheng.workprotal.utils.StringUtils;
@@ -60,7 +61,10 @@ public class MainPresenter implements IMainPresenter {
     private static final String CALL = "CALL";
     private static final String VIEW = "VIEW";
     private static final String TELEPHONE = "telephone";
+    private static final String MESSAGE = "message";
     private static final String WEBSITE = "website";
+    private static final String CLOSE = "CLOSE";
+    private static final String TVCONTROL = "tvControl";
 
     private static IMainView mIMainView;
     private static IMainModel mIMainModel;
@@ -103,7 +107,8 @@ public class MainPresenter implements IMainPresenter {
         });
     }
 
-    private void understandText(String text) {
+    public void understandText(String text) {
+        displayMessage(text);//展示发送的消息
         //语义理解
         mIMainModel.understandText((Activity) mIMainView, text, new TextUnderstanderListener() {
             @Override
@@ -145,21 +150,23 @@ public class MainPresenter implements IMainPresenter {
             }
             final String question = resultBuffer.toString();
             LogUtils.d("语音听写的识别结果：" + question);
-            mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    TalkBean talkBean = new TalkBean(question,
-                            System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_USER);
-                    mTalkBeanList.add(talkBean);
-                    mIMainView.updateList(mTalkBeanList);
-                }
-            });
-
             //进行语义理解
             understandText(question);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void displayMessage(final String question) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                TalkBean talkBean = new TalkBean(question,
+                        System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_USER);
+                mTalkBeanList.add(talkBean);
+                mIMainView.updateList(mTalkBeanList);
+            }
+        });
     }
 
     private void onRecognizerError(SpeechError speechError) {
@@ -209,10 +216,16 @@ public class MainPresenter implements IMainPresenter {
 
                     CallAction callAction = new CallAction(name, code, MainApplication.getApplication());//目前可根据名字或电话号码拨打电话
                     callAction.start();
-                }else if (TELEPHONE.equalsIgnoreCase(service) && VIEW.equalsIgnoreCase(operation)) {
+                }else if (MESSAGE.equalsIgnoreCase(service) && VIEW.equalsIgnoreCase(operation)) {
                     //打电话界面
-                    CallView callview = new CallView(MainApplication.getApplication());
-                    callview.start();
+//                    CallView callview = new CallView(MainApplication.getApplication());
+//                    callview.start();
+                    //打开消息
+                    responseAnswer("正在打开消息界面...");
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.setType("vnd.android-dir/mms-sms");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                    MainApplication.getApplication().startActivity(intent);
                 }else if (MUSIC.equalsIgnoreCase(service) && PLAY.equalsIgnoreCase(operation)) {
                     //播放音乐
                     ArrayList<MusicBean> musicBeenArrayList = new Gson().fromJson(result, new TypeToken<ArrayList<MusicBean>>() {
@@ -223,6 +236,9 @@ public class MainPresenter implements IMainPresenter {
                     ArrayList<WeatherBean> weatherBeanArrayList = new Gson().fromJson(result, new TypeToken<ArrayList<WeatherBean>>() {
                     }.getType());
                     queryWeather(semanticComprehensionResult.getSemantic(), weatherBeanArrayList);
+                }else if (TVCONTROL.equalsIgnoreCase(service) && CLOSE.equalsIgnoreCase(operation)) {
+                    //退出
+                    VoiceActivity.instance.finish();
                 } else {
                     //解析失败
                     String answerText = ((Activity) mIMainView).getResources().getString(R.string.default_voice_answer);

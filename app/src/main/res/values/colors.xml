@@ -21,7 +21,11 @@
     <color name="line_color">#CCCCCC</color>
     <color name="titlecolor">#1296db</color>
     <color name="black">#000000</color>
-
+    <!--分割线颜色-->
+    <color name="color_6_e3e3e6_divider_color">#e3e3e6</color>
+    <color name="red">#FF6347</color>
+    <!--提示文件颜色-->
+    <color name="hint_text">#9a9a9a</color>
     <!--语音-->
     <color name="divider">#888888</color>
     <color name="gray">#888888</color>
