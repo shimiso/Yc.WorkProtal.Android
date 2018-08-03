@@ -70,6 +70,7 @@ public class EditorApplicationActivity extends AppCompatActivity implements View
         recyclerViewExist.setLayoutManager(new GridLayoutManager(this, 4));
         recyclerViewExist.setAdapter(blockAdapter);
         recyclerViewExist.addItemDecoration(new SpaceItemDecoration(4, dip2px(this, 10)));
+        recyclerViewExist.smoothScrollToPosition(selData.size() - 1);
 
         DefaultItemCallback callback = new DefaultItemCallback(blockAdapter);
         DefaultItemTouchHelper helper = new DefaultItemTouchHelper(callback);
@@ -115,6 +116,7 @@ public class EditorApplicationActivity extends AppCompatActivity implements View
             public void onClick(View v) {
                 sfUtils.saveSelectFunctionItem(selData);
                 sfUtils.saveAllFunctionWithState(allData);
+                finish();
             }
         });
         functionAdapter.setOnItemAddListener(new FunctionAdapter.OnItemAddListener() {
@@ -125,6 +127,7 @@ public class EditorApplicationActivity extends AppCompatActivity implements View
                         selData.add(item);
                         resetEditHeight(selData.size());
                         blockAdapter.notifyDataSetChanged();
+                        recyclerViewExist.smoothScrollToPosition(selData.size() - 1);
                         item.isSelect = true;
                         return true;
                     } catch (Exception e) {
@@ -235,7 +238,11 @@ public class EditorApplicationActivity extends AppCompatActivity implements View
             if (lastRow != row) {
                 lastRow = row;
                 ViewGroup.LayoutParams params = recyclerViewExist.getLayoutParams();
-                params.height = itemWidth * row;
+                if (itemWidth * row > 580){
+                    params.height = 580;
+                }else{
+                    params.height = itemWidth * row;
+                }
                 recyclerViewExist.setLayoutParams(params);
             }
         } catch (Exception e) {

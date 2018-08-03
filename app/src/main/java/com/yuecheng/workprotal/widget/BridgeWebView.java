@@ -37,6 +37,8 @@ public class BridgeWebView extends WebView {
      */
     public void addBridgeInterface(Object obj) {
         this.getSettings().setJavaScriptEnabled(true);
+        this.getSettings().setUseWideViewPort(true);// 设置可以支持缩放
+        this.getSettings().setLoadWithOverviewMode(true);
         addJavascriptInterface(new MyJavaScriptMethod(obj), JS_INTERFACE);
     }
 

@@ -84,7 +84,7 @@ public class MainPresenter implements IMainPresenter {
     private void initData() {
         //show default data
         TalkBean talkBean = new TalkBean(((Activity) mIMainView).getResources().getString(R.string.talk_first),
-                System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_ROBOT);
+                System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_ROBOT_CHAT);
         mTalkBeanList.add(talkBean);
         mIMainView.updateList(mTalkBeanList);
     }
@@ -199,11 +199,16 @@ public class MainPresenter implements IMainPresenter {
                     //百度
                     String url = semanticComprehensionResult.getSemantic().getSlots().getUrl();
                     String name = semanticComprehensionResult.getSemantic().getSlots().getName();
-                    Intent intent = new Intent(MainApplication.getApplication(), OpenH5Activity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
-                    intent.putExtra("url",url);
-                    intent.putExtra("name",name);
-                    MainApplication.getApplication().startActivity(intent);
+//                    Intent intent = new Intent(MainApplication.getApplication(), OpenH5Activity.class);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+//                    intent.putExtra("url",url);
+//                    intent.putExtra("name",name);
+//                    MainApplication.getApplication().startActivity(intent);
+                    TalkBean talkBean = new TalkBean(url,
+                            System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_ROBOT_WEB);
+                    mTalkBeanList.add(talkBean);
+                    mIMainView.updateList(mTalkBeanList);
+
                 }else if (ANSWER.equalsIgnoreCase(operation)) {
                     //聊天
                     responseAnswer(semanticComprehensionResult.getAnswer().getText());
@@ -350,7 +355,7 @@ public class MainPresenter implements IMainPresenter {
                 @Override
                 public void run() {
                     TalkBean talkBean = new TalkBean(answerText,
-                            System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_ROBOT);
+                            System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_ROBOT_CHAT);
                     mTalkBeanList.add(talkBean);
                     mIMainView.updateList(mTalkBeanList);
                 }

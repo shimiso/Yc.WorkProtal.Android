@@ -1,22 +1,29 @@
 package com.yuecheng.workprotal.module.robot.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebViewClient;
 
 
 import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.module.robot.JavaSctiptMethods;
+import com.yuecheng.workprotal.module.robot.OpenH5Activity;
 import com.yuecheng.workprotal.module.robot.bean.TalkBean;
 import com.yuecheng.workprotal.module.robot.view.RobotTalkListViewHolder;
+import com.yuecheng.workprotal.module.robot.view.RobotWebListViewHolder;
 import com.yuecheng.workprotal.module.robot.view.UserTalkListViewHolder;
 
 import java.util.List;
 
 public class TalkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    public static final int VIEW_TYPE_ROBOT = 1;
-    public static final int VIEW_TYPE_USER = 2;
+    public static final int VIEW_TYPE_ROBOT_CHAT = 1;
+    public static final int VIEW_TYPE_ROBOT_WEB = 2;
+    public static final int VIEW_TYPE_USER = 3;
     private List<TalkBean> mTalkBeanList;
     private Context context;
 
@@ -28,9 +35,12 @@ public class TalkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
-            case VIEW_TYPE_ROBOT:
-                View robotLayout = View.inflate(context, R.layout.robot_chat, null);
-                return new RobotTalkListViewHolder(robotLayout);
+            case VIEW_TYPE_ROBOT_CHAT:
+                View robotChatLayout = View.inflate(context, R.layout.robot_chat, null);
+                return new RobotTalkListViewHolder(robotChatLayout);
+            case VIEW_TYPE_ROBOT_WEB:
+                View robotWebLayout = View.inflate(context, R.layout.robot_web, null);
+                return new RobotWebListViewHolder(robotWebLayout);
             case VIEW_TYPE_USER:
                 View userLayout = View.inflate(context, R.layout.robot_user_layout, null);
                 return new UserTalkListViewHolder(userLayout);
@@ -57,6 +67,12 @@ public class TalkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else if (holder instanceof UserTalkListViewHolder) {
             UserTalkListViewHolder userHolder = (UserTalkListViewHolder) holder;
             userHolder.mTvUserTalk.setText(talkText);
+        } else if (holder instanceof RobotWebListViewHolder) {
+            RobotWebListViewHolder webHolder = (RobotWebListViewHolder) holder;
+            webHolder.mTvRobotWeb.addBridgeInterface(new JavaSctiptMethods((Activity) context, webHolder.mTvRobotWeb));//设置js和android通信桥梁方法
+            webHolder.mTvRobotWeb.loadUrl(talkText);//动态获取需要打开的链接
+            webHolder.mTvRobotWeb.setWebViewClient(new WebViewClient());
+            webHolder.mTvRobotWeb.setWebChromeClient(new WebChromeClient());
         }
     }
 
