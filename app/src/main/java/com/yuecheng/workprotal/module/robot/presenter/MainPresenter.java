@@ -198,9 +198,11 @@ public class MainPresenter implements IMainPresenter {
                 } else if (WEBSITE.equalsIgnoreCase(service) && OPEN.equalsIgnoreCase(operation)) {
                     //百度
                     String url = semanticComprehensionResult.getSemantic().getSlots().getUrl();
+                    String name = semanticComprehensionResult.getSemantic().getSlots().getName();
                     Intent intent = new Intent(MainApplication.getApplication(), OpenH5Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
                     intent.putExtra("url",url);
+                    intent.putExtra("name",name);
                     MainApplication.getApplication().startActivity(intent);
                 }else if (ANSWER.equalsIgnoreCase(operation)) {
                     //聊天

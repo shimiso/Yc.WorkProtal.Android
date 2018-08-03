@@ -3,8 +3,10 @@ package com.yuecheng.workprotal.module.robot;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.widget.BridgeWebView;
@@ -13,20 +15,30 @@ import com.yuecheng.workprotal.widget.BridgeWebView;
 public class OpenH5Activity extends AppCompatActivity {
 
     private BridgeWebView mWebView;
+    private TextView title;
     private String url;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.open_h5);
         url = getIntent().getStringExtra("url");
+        name = getIntent().getStringExtra("name");
         initView();
         setWebViewClient();
     }
 
     private void initView() {
-        mWebView = (BridgeWebView) findViewById(R.id.weview);
-
+        title = findViewById(R.id.title);
+        title.setText(name);
+        mWebView = findViewById(R.id.weview);
+        findViewById(R.id.back_iv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         mWebView.addBridgeInterface(new JavaSctiptMethods(OpenH5Activity.this, mWebView));//设置js和android通信桥梁方法
        // mWebView.loadUrl("file:///android_asset/BridgeWebView/index.html");//本地模板
         mWebView.loadUrl(url);//动态获取需要打开的链接
