@@ -94,6 +94,8 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
 
         //init RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        //设置item间距，30dp
+        recyclerView.addItemDecoration(new SpaceItemDecoration(30));
         mTalkListAdapter = new TalkListAdapter(mTalkBeanList, this);
         recyclerView.setAdapter(mTalkListAdapter);
 
