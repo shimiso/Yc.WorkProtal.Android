@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/tit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/primary_dark">
@@ -16,4 +18,72 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
-</LinearLayout>
+    <ListView
+        android:layout_below="@+id/et_clear"
+        android:id="@+id/lv_contact"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </ListView>
+    <TextView
+        android:id="@+id/tv_alphabet"
+        android:layout_below="@+id/et_clear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="16dp"
+        android:textColor="#8e8e8e"
+        android:background="#e3e3e3"/>
+    <com.yuecheng.workprotal.module.contacts.quicksearch.view.ClearEditText
+        android:id="@+id/et_clear"
+        android:layout_below="@+id/tit"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textSize="18dp"
+        android:textColor="#000"
+        android:hint="搜索联系人"
+        android:singleLine="true"
+        android:imeOptions="actionSend"
+        android:background="@drawable/search_bg"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"/>
+    <com.yuecheng.workprotal.module.contacts.quicksearch.view.SideLetterBar
+        android:layout_below="@id/tv_alphabet"
+        android:id="@+id/sideLetterBar"
+        android:layout_alignParentRight="true"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:background="#00000000" />
+
+
+    <RelativeLayout
+        android:id="@+id/rel_notice"
+        android:visibility="invisible"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="90dp"
+        android:layout_marginRight="80dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_notice"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:background="@drawable/selected_bg"
+            />
+        <ListView
+            android:layout_below="@id/tv_notice"
+            android:background="@drawable/selected_list_bg"
+            android:divider="@null"
+            android:id="@+id/lv_alphabet"
+            android:layout_width="40dp"
+            android:scrollbars="none"
+            android:layout_height="wrap_content">
+        </ListView>
+    </RelativeLayout>
+</RelativeLayout>

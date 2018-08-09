@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="16dp"
+        android:background="#e3e3e3"
+        android:textColor="#8e8e8e"
+        android:id="@+id/tv_first_alphabet"
+        android:visibility="gone"
+        android:text="A"/>
+    <com.yuecheng.workprotal.module.contacts.quicksearch.view.SwipeLayout
+        android:id="@+id/swp_slip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:id="@+id/tv_contact_name"
+        android:background="#efefef"
+        android:textColor="#000"
+        android:padding="10dp"
+        />
+        <include layout="@layout/contact_layout_slip"></include>
+    </com.yuecheng.workprotal.module.contacts.quicksearch.view.SwipeLayout>
+</LinearLayout>

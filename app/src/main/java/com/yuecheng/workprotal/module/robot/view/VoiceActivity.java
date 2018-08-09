@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.jude.swipbackhelper.SwipeBackHelper;
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.module.robot.bean.TalkBean;
 import com.yuecheng.workprotal.module.robot.adapter.TalkListAdapter;
@@ -42,16 +43,20 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.robot);
+        lateralDestroy();
         instance=this;
         init();
         afterView();
-        voice_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mIMainPresenter.startVoiceRobot();
-            }
-        });
+    }
 
+    //侧滑销毁
+    private void lateralDestroy() {
+        SwipeBackHelper.onCreate(this);
+        SwipeBackHelper.getCurrentPage(this)
+                .setSwipeBackEnable(true)
+                .setSwipeSensitivity(0.5f)
+                .setSwipeRelateEnable(true)
+                .setSwipeRelateOffset(300);
     }
 
     private void init() {
@@ -82,6 +87,12 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
                 return false;
             }
         });
+        voice_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIMainPresenter.startVoiceRobot();
+            }
+        });
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -109,6 +120,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     protected void onDestroy() {
         super.onDestroy();
         MusicService.stopService(this);
+        SwipeBackHelper.onDestroy(this);
     }
 
     @Override

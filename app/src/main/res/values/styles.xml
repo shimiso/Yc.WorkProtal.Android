@@ -111,4 +111,9 @@
         <item name="android:textColor">#474a51</item>
         <item name="android:textSize">16sp</item>
     </style>
+    <!--侧滑销毁Activity-->
+    <style name="home" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
