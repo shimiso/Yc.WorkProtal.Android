@@ -70,8 +70,9 @@ public class EditorApplicationActivity extends AppCompatActivity implements View
         recyclerViewExist.setLayoutManager(new GridLayoutManager(this, 4));
         recyclerViewExist.setAdapter(blockAdapter);
         recyclerViewExist.addItemDecoration(new SpaceItemDecoration(4, dip2px(this, 10)));
-        recyclerViewExist.smoothScrollToPosition(selData.size() - 1);
-
+        if(selData.size()!=0){
+            recyclerViewExist.smoothScrollToPosition(selData.size() - 1);
+        }
         DefaultItemCallback callback = new DefaultItemCallback(blockAdapter);
         DefaultItemTouchHelper helper = new DefaultItemTouchHelper(callback);
         helper.attachToRecyclerView(recyclerViewExist);
