@@ -18,13 +18,13 @@ import com.iflytek.cloud.TextUnderstanderListener;
 import com.iflytek.cloud.UnderstanderResult;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.yuecheng.workprotal.R;
-import com.yuecheng.workprotal.module.robot.OpenH5Activity;
 import com.yuecheng.workprotal.MainApplication;
+import com.yuecheng.workprotal.module.robot.action.CallAction;
 import com.yuecheng.workprotal.module.robot.bean.DateBean;
 import com.yuecheng.workprotal.module.robot.bean.LocationBean;
 import com.yuecheng.workprotal.module.robot.bean.MusicBean;
 import com.yuecheng.workprotal.module.robot.bean.SemanticBean;
-import com.yuecheng.workprotal.module.robot.bean.SemanticComprehensionResult;
+import com.yuecheng.workprotal.module.robot.bean.SemanticResult;
 import com.yuecheng.workprotal.module.robot.bean.SlotsBean;
 import com.yuecheng.workprotal.module.robot.bean.TalkBean;
 import com.yuecheng.workprotal.module.robot.bean.WeatherBean;
@@ -37,8 +37,6 @@ import com.yuecheng.workprotal.module.robot.view.VoiceActivity;
 import com.yuecheng.workprotal.utils.DeviceUtils;
 import com.yuecheng.workprotal.utils.LogUtils;
 import com.yuecheng.workprotal.utils.StringUtils;
-import com.yuecheng.workprotal.module.robot.action.CallAction;
-import com.yuecheng.workprotal.module.robot.action.CallView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,18 +50,19 @@ import java.util.List;
 public class MainPresenter implements IMainPresenter {
     private static final String APP = "app";
     private static final String LAUNCH = "LAUNCH";
-    private static final String ANSWER = "ANSWER";
+    private static final String OPEN_QA = "openQA";
+    private static final String ANSWER =  "ANSWER";
     private static final String PLAY = "PLAY";
-    private static final String MUSIC = "music";
+    private static final String MUSIC = "musicX";
     private static final String WEATHER = "weather";
     private static final String QUERY = "QUERY";
     private static final String OPEN = "OPEN";
-    private static final String CALL = "CALL";
+    private static final String DIAL = "DIAL";
     private static final String VIEW = "VIEW";
     private static final String TELEPHONE = "telephone";
     private static final String MESSAGE = "message";
     private static final String WEBSITE = "website";
-    private static final String CLOSE = "CLOSE";
+    private static final String EXIT = "EXIT";
     private static final String TVCONTROL = "tvControl";
 
     private static IMainView mIMainView;
@@ -175,30 +174,31 @@ public class MainPresenter implements IMainPresenter {
 
     private void onTextUnderstanderSuccess(UnderstanderResult understanderResult) {
         if (understanderResult == null) return;
+        JSONObject semanticResult;
+        SemanticResult parsedSemanticResult = new SemanticResult();
         try {
             //根据语音生成一个json串，之后在获取其中的字段  打开本地应用{"semantic":{"slots":{"name":"qq"}},"rc":0,"operation":"LAUNCH","service":"app","text":"打开QQ"}
            // 提供外部链接{"semantic":{"slots":{"name":"百度","url":"http:\/\/www.baidu.com"}},"rc":0,"operation":"OPEN","service":"website","text":"打开百度"}
             //既有应用也提供外部链接{"semantic":{"slots":{"name":"淘宝"}},"rc":0,"operation":"LAUNCH","service":"app","moreResults":[{"semantic":{"slots":{"name":"淘宝","url":"http:\/\/www.taobao.com\/"}},"rc":0,"operation":"OPEN","service":"website","text":"打开淘宝"}],"text":"打开淘宝"}
             String resultString = understanderResult.getResultString();
-            SemanticComprehensionResult semanticComprehensionResult = new Gson().fromJson(resultString, SemanticComprehensionResult.class);
-
-            if (semanticComprehensionResult.getRc() == 0) {
+            parsedSemanticResult = new Gson().fromJson(resultString, SemanticResult.class);
+            LogUtils.i(parsedSemanticResult);
+            if (parsedSemanticResult.getRc() == 0) {
                 //success
-                String service = semanticComprehensionResult.getService();
-                String operation = semanticComprehensionResult.getOperation();
-                JSONObject jsonObject = new JSONObject(resultString);
-                JSONObject data = jsonObject.optJSONObject("data");
-                String result = "";
-                if (data != null)
-                    result = data.optString("result");
+                String service = parsedSemanticResult.getService();
+                String intent = null;
+                String operation = parsedSemanticResult.getOperation();
+                if(parsedSemanticResult.getSemantic()!=null){
+                    intent = parsedSemanticResult.getSemantic().get(0).getIntent();
+                }
 
-                if (APP.equalsIgnoreCase(service) && LAUNCH.equalsIgnoreCase(operation)) {
+
+                if (APP.equalsIgnoreCase(service) && LAUNCH.equalsIgnoreCase(intent)) {
                     //打开应用
-                    openAppByLauncher(semanticComprehensionResult.getSemantic());
-                } else if (WEBSITE.equalsIgnoreCase(service) && OPEN.equalsIgnoreCase(operation)) {
+                    openAppByLauncher(parsedSemanticResult.getSemantic().get(0).getSlots().get(0).getValue());
+                } else if (WEBSITE.equalsIgnoreCase(service) && OPEN.equalsIgnoreCase(intent)) {
                     //百度
-                    String url = semanticComprehensionResult.getSemantic().getSlots().getUrl();
-                    String name = semanticComprehensionResult.getSemantic().getSlots().getName();
+                    String url = parsedSemanticResult.getSemantic().get(0).getSlots().get(0).getValue();
 //                    Intent intent = new Intent(MainApplication.getApplication(), OpenH5Activity.class);
 //                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
 //                    intent.putExtra("url",url);
@@ -211,50 +211,61 @@ public class MainPresenter implements IMainPresenter {
 
                 }else if (ANSWER.equalsIgnoreCase(operation)) {
                     //聊天
-                    responseAnswer(semanticComprehensionResult.getAnswer().getText());
-                }else if (TELEPHONE.equalsIgnoreCase(service) && CALL.equalsIgnoreCase(operation)) {
+                    responseAnswer(parsedSemanticResult.getAnswer().getText());
+                }else if (TELEPHONE.equalsIgnoreCase(service) && DIAL.equalsIgnoreCase(intent)) {
                     String name = "";
                     String code = "";
-                    if(semanticComprehensionResult.getSemantic().getSlots()!=null){
+                    if(parsedSemanticResult.getSemantic().get(0).getSlots()!=null){
                         //打电话
-                        name = semanticComprehensionResult.getSemantic().getSlots().getName();
-                        code = semanticComprehensionResult.getSemantic().getSlots().getCode();
+                        for(SemanticResult.SemanticBean.SlotsBean slotsBean:parsedSemanticResult.getSemantic().get(0).getSlots()){
+                            if(slotsBean.getName().equalsIgnoreCase("code")){
+                                code = slotsBean.getValue();
+                            }
+                        }
                     }
-
                     CallAction callAction = new CallAction(name, code, MainApplication.getApplication());//目前可根据名字或电话号码拨打电话
                     callAction.start();
-                }else if (MESSAGE.equalsIgnoreCase(service) && VIEW.equalsIgnoreCase(operation)) {
-                    //打电话界面
-//                    CallView callview = new CallView(MainApplication.getApplication());
-//                    callview.start();
+                }else if (MESSAGE.equalsIgnoreCase(service) && VIEW.equalsIgnoreCase(intent)) {
                     //打开消息
                     responseAnswer("正在打开消息界面...");
-                    Intent intent = new Intent(Intent.ACTION_MAIN);
-                    intent.setType("vnd.android-dir/mms-sms");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
-                    MainApplication.getApplication().startActivity(intent);
-                }else if (MUSIC.equalsIgnoreCase(service) && PLAY.equalsIgnoreCase(operation)) {
+                    Intent intentCall = new Intent(Intent.ACTION_MAIN);
+                    intentCall.setType("vnd.android-dir/mms-sms");
+                    intentCall.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                    MainApplication.getApplication().startActivity(intentCall);
+                }else if (MUSIC.equalsIgnoreCase(service) && PLAY.equalsIgnoreCase(intent)) {
+                    String  value = parsedSemanticResult.getSemantic().get(0).getSlots().get(0).getValue();
                     //播放音乐
-                    ArrayList<MusicBean> musicBeenArrayList = new Gson().fromJson(result, new TypeToken<ArrayList<MusicBean>>() {
+                    ArrayList<MusicBean> musicBeenArrayList = new Gson().fromJson(value, new TypeToken<ArrayList<MusicBean>>() {
                     }.getType());
                     playMusic(musicBeenArrayList);
-                } else if (WEATHER.equalsIgnoreCase(service) && QUERY.equalsIgnoreCase(operation)) {
+                } else if (WEATHER.equalsIgnoreCase(service) && QUERY.equalsIgnoreCase(intent)) {
                     //查询天气
-                    ArrayList<WeatherBean> weatherBeanArrayList = new Gson().fromJson(result, new TypeToken<ArrayList<WeatherBean>>() {
-                    }.getType());
-                    queryWeather(semanticComprehensionResult.getSemantic(), weatherBeanArrayList);
-                }else if (TVCONTROL.equalsIgnoreCase(service) && CLOSE.equalsIgnoreCase(operation)) {
-                    //退出
+                    responseAnswer(parsedSemanticResult.getAnswer().getText());
+//                    ArrayList<WeatherBean> weatherBeanArrayList = new Gson().fromJson(name, new TypeToken<ArrayList<WeatherBean>>() {
+//                    }.getType());
+//                    queryWeather(semanticComprehensionResult.getSemantic(), weatherBeanArrayList);
+                }else if (APP.equalsIgnoreCase(service) && EXIT.equalsIgnoreCase(intent)) {
+                    //退出应用
                     VoiceActivity.instance.finish();
-                } else {
+                }else if ("TEST123111.music_demo".equalsIgnoreCase(service)){
+                    responseAnswer(parsedSemanticResult.getAnswer().getText());
+                }else {
                     //解析失败
-                    String answerText = ((Activity) mIMainView).getResources().getString(R.string.default_voice_answer);
-                    responseAnswer(answerText);
+                    if(parsedSemanticResult.getAnswer()!=null){
+                        responseAnswer(parsedSemanticResult.getAnswer().getText());
+                    }else{
+                        String answerText = ((Activity) mIMainView).getResources().getString(R.string.default_voice_answer);
+                        responseAnswer(answerText);
+                    }
                 }
             } else {
                 //解析失败
-                String answerText = ((Activity) mIMainView).getResources().getString(R.string.default_voice_answer);
-                responseAnswer(answerText);
+                if(parsedSemanticResult.getAnswer()!=null){
+                    responseAnswer(parsedSemanticResult.getAnswer().getText());
+                }else{
+                    String answerText = ((Activity) mIMainView).getResources().getString(R.string.default_voice_answer);
+                    responseAnswer(answerText);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -269,12 +280,10 @@ public class MainPresenter implements IMainPresenter {
         LogUtils.e("语义理解失败，错误码=" + speechError.getErrorCode());
     }
 
-    private void openAppByLauncher(SemanticBean semanticBean) {
+    private void openAppByLauncher(String appName) {
         String answerText = "";
         try {
             MainApplication context = MainApplication.getApplication();
-            SlotsBean slotsBean = semanticBean.getSlots();
-            String appName = slotsBean.getName();
             List<String> list = DeviceUtils.getPackNameByAppName(appName);
             String packName = list.get(0);
             String realAppName = list.get(1);
