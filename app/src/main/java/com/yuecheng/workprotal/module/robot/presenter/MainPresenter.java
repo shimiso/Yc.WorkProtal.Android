@@ -61,7 +61,7 @@ public class MainPresenter implements IMainPresenter {
     private static final String VIEW = "VIEW";
     private static final String TELEPHONE = "telephone";
     private static final String MESSAGE = "message";
-    private static final String WEBSITE = "website";
+    private static final String WEBSITE = "TEST123111.website";
     private static final String EXIT = "EXIT";
     private static final String TVCONTROL = "tvControl";
 
@@ -198,7 +198,7 @@ public class MainPresenter implements IMainPresenter {
                     openAppByLauncher(parsedSemanticResult.getSemantic().get(0).getSlots().get(0).getValue());
                 } else if (WEBSITE.equalsIgnoreCase(service) && OPEN.equalsIgnoreCase(intent)) {
                     //百度
-                    String url = parsedSemanticResult.getSemantic().get(0).getSlots().get(0).getValue();
+                    String url = "http://www.sohu.com/";
 //                    Intent intent = new Intent(MainApplication.getApplication(), OpenH5Activity.class);
 //                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
 //                    intent.putExtra("url",url);
