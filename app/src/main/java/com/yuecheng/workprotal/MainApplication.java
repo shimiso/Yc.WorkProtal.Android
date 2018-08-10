@@ -50,6 +50,6 @@ public class MainApplication extends Application {
     }
 
     private void initXunfei() {
-        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=58057ac8");
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5b582f08");
     }
 }
