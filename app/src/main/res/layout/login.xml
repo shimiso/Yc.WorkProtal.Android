@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".module.LoginActivity">
     <RelativeLayout
@@ -20,46 +21,56 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:paddingBottom="@dimen/activity_vertical_margin"
+       android:paddingLeft="@dimen/activity_horizontal_margin"
+       android:paddingRight="@dimen/activity_horizontal_margin"
+       android:paddingTop="@dimen/activity_vertical_margin"
+       android:orientation="vertical">
+       <android.support.design.widget.TextInputLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
 
-        <AutoCompleteTextView
-            android:id="@+id/username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入用户名"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"
-            android:singleLine="true" />
+           <AutoCompleteTextView
+               android:id="@+id/username"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:hint="请输入用户名"
+               android:inputType="textEmailAddress"
+               android:maxLines="1"
+               android:singleLine="true" />
 
-    </android.support.design.widget.TextInputLayout>
+       </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+       <android.support.design.widget.TextInputLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入密码"
-            android:imeActionId="6"
-            android:imeActionLabel="密码"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:singleLine="true" />
+           <EditText
+               android:id="@+id/password"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:hint="请输入密码"
+               android:imeActionId="6"
+               android:imeActionLabel="密码"
+               android:imeOptions="actionUnspecified"
+               android:inputType="textPassword"
+               android:maxLines="1"
+               android:singleLine="true" />
 
-    </android.support.design.widget.TextInputLayout>
+       </android.support.design.widget.TextInputLayout>
 
-    <Button
-        android:id="@+id/sign_in_button"
-        style="?android:textAppearanceSmall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="登陆"
-        android:textStyle="bold" />
+       <Button
+           android:id="@+id/sign_in_button"
+           style="?android:textAppearanceSmall"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="16dp"
+           android:text="登陆"
+           android:textStyle="bold" />
+   </LinearLayout>
+
 
 </LinearLayout>
