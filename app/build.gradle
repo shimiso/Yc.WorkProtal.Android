@@ -1,4 +1,8 @@
 apply plugin: 'com.android.application'
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
@@ -10,11 +14,114 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+    // 这个配置会影响所有编译 Java 源代码的任务。
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    //签名配置
+    signingConfigs {
+        myConfig {
+            storeFile file('../workprotal.jks')
+            keyAlias 'workprotal'
+            keyPassword 'workprotal123'
+            storePassword 'workprotal123'
         }
+    }
+
+    // 这个配置会影响所有编译 Java 源代码的任务。
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        //开发版本
+        debug {
+            // manifestPlaceholders = [JPUSH_APPKEY: "a615d8891c3039059e9bfcd5"]
+            versionNameSuffix "(Dev_Build" + defaultConfig.versionCode + ")"
+            buildConfigField "String", "CERTIFICATE_NAME", "\"debug_cer.pem\""
+            buildConfigField "String", "HTTP_HOST", "\"http://jujia02.ycsenior.com\""
+            buildConfigField "boolean", "IS_HTTPS", "false"
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.myConfig
+        }
+        //UAT环境
+        uatest {
+            // manifestPlaceholders = [JPUSH_APPKEY: "a615d8891c3039059e9bfcd5"]
+            versionNameSuffix "(Uat_Build" + defaultConfig.versionCode + ")"
+            buildConfigField "String", "CERTIFICATE_NAME", "\"test_cer.pem\""
+            buildConfigField "String", "HTTP_HOST", "\"https://jujia01.ycsenior.com\""
+            buildConfigField "boolean", "IS_HTTPS", "true"
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.myConfig
+        }
+        //正式版本
+        release {
+            //   manifestPlaceholders = [JPUSH_APPKEY: "0fe802b7f3cb590fb7308e4d"]
+            versionNameSuffix "(Prod_Build" + defaultConfig.versionCode + ")"
+            buildConfigField "String", "HTTP_HOST", "\"https://hcs.ycsenior.com\""
+            buildConfigField "String", "CERTIFICATE_NAME", "\"release_cer.pem\""
+            buildConfigField "boolean", "IS_HTTPS", "true"
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //是否开启混淆
+            minifyEnabled false
+            zipAlignEnabled false
+            // 移除无用的resource文件
+            shrinkResources false
+            //指定混淆文件和混淆规则loginac
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //此处有先后顺序,必须把signingConfigs放在前头
+            signingConfig signingConfigs.myConfig
+        }
+
+    }
+
+    //输出打包文件
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "MedicalNurse_V-${defaultConfig.versionName}${variant.buildType.versionNameSuffix}_${releaseTime()}.apk"
+        }
+    }
+
+    //多渠道批量打包配置
+    flavorDimensions "default"
+    productFlavors {
+        yuecheng {dimension "default"}//官方
+//        tencent {}//腾讯
+//        _360 {}//360
+//        wandoujia {}//豌豆荚
+//        anzhi {}//安智
+//        xiaomi {}//小米
+//        huawei {}//华为
+//        baidu {}//百度
+//        meizu {}//魅族
+//        dituiba {}//地推吧
+    }
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL: name]
+    }
+
+    // 打包配置 排除一些文件
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    // 解决lint报错的代码
+    lintOptions {
+        abortOnError false
+        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        disable 'MissingTranslation'
     }
 }
 
@@ -35,8 +142,9 @@ dependencies {
     compile 'com.jude:swipebackhelper:3.1.2'
     //圆形头像
     implementation 'de.hdodenhof:circleimageview:1.3.0'
-    implementation files('libs/Msc.jar')
-    implementation files('libs/Sunflower.jar')
-    implementation files('libs/nineoldandroids-2.4.0.jar')
-    implementation files('libs/pinyin4j-2.5.0.jar')
+    //状态栏,导航栏颜色设置
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    implementation 'com.wang.avi:library:1.0.5'
+
+    implementation 'com.lzy.net:okgo:3.0.4'
 }

@@ -51,7 +51,15 @@
 
         <service android:name=".module.robot.service.MusicService" />
 
-        <activity android:name=".module.robot.view.JsonActivity"></activity>
+        <activity android:name=".module.robot.view.JsonActivity"/>
+
+        <!-- 友盟应用统计配置 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="59e6f87dc62dca344a0002f4" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL}" />
     </application>
 
 </manifest>

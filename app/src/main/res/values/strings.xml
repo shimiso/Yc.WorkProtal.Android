@@ -1,5 +1,38 @@
 <resources>
     <string name="app_name">WorkProtal</string>
+    <!-- app数据根目录 -->
+    <string name="dir">/Android/data/com.yuecheng.workprotal</string>
+    <!--拍照临时文件-->
+    <string name="camera_temp">/cameratemp/</string>
+    <!--Bitmap缓存路径-->
+    <string name="bitmap_cache">/bitmapcache/</string>
+    <!-- apk下载文件路径 -->
+    <string name="apk_download">/apkdownload/</string>
+
+    <!-- 版本更新和提示 -->
+    <string name="update_new_hint">版本更新</string>
+    <string name="version_new_hint">有新版本啦！更新内容如下：</string>
+    <string name="check_new_hint">拍照或文字回答</string>
+    <string name="no_update_hint">暂不更新</string>
+    <string name="update_now_hint">更新</string>
+    <string name="update_desc_hint">描述:</string>
+    <string name="update_dialog_title">发现新版本v</string>
+    <string name="prompt">提示</string>
+    <string name="check_connection">网络又调皮了，检查一下吧~</string>
+    <string name="server_net_error">请求失败,网络或服务器发生异常</string>
+    <string name="server_error">服务器发生异常</string>
+    <string name="check_sdcard">请检查内存卡！</string>
+    <string name="settings">设置</string>
+    <string name="close">关闭</string>
+    <string name="exit">退出</string>
+    <string name="lost_session">登录失效,请重新登录</string>
+    <string name="relogin">重新登录</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="exit_app_message">确定要退出吗?</string>
+    <string name="version_update">版本更新</string>
+    <string name="version_update_hint">已是最新版本</string>
+
     <string name="title_message">消息</string>
     <string name="title_work">工作</string>
     <string name="title_contacts">通讯录</string>

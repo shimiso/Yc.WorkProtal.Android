@@ -16,7 +16,6 @@ import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.yuecheng.workprotal.module.robot.service.MusicService;
 import com.yuecheng.workprotal.utils.LogUtils;
-import com.yuecheng.workprotal.utils.SpUtils;
 
 /**
  * 讯飞智能语音相关API的封装

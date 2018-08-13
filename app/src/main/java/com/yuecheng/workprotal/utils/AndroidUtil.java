@@ -1,26 +1,48 @@
 package com.yuecheng.workprotal.utils;
 
 import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Point;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StatFs;
 import android.os.SystemClock;
+import android.os.storage.StorageManager;
+import android.provider.Settings;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.yuecheng.workprotal.MainApplication;
-
+import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.widget.ConfirmDialog;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Android的工具类
@@ -31,7 +53,7 @@ public class AndroidUtil {
     public final static int TIPS_ERROR = 0;
     public final static int TIPS_SUCCESS = 1;
     public Context context;
-    public SpUtils spUtil;
+    public SharePreferenceUtil spUtil;
     public MainApplication mainApplication;
     public static AndroidUtil androidUtils;
 
@@ -40,7 +62,7 @@ public class AndroidUtil {
 
     public static final String KEY_APP_KEY = "JPUSH_APPKEY";
 
-    private AndroidUtil(Context context, SpUtils spUtil, MainApplication mainApplication) {
+    private AndroidUtil(Context context, SharePreferenceUtil spUtil, MainApplication mainApplication) {
         this.context = context;
         this.spUtil = spUtil;
         this.mainApplication = mainApplication;
@@ -50,7 +72,7 @@ public class AndroidUtil {
         this.context = context;
     }
 
-    public static AndroidUtil init(Context context, SpUtils spUtil, MainApplication mainApplication) {
+    public static AndroidUtil init(Context context, SharePreferenceUtil spUtil, MainApplication mainApplication) {
         androidUtils = new AndroidUtil(context, spUtil, mainApplication);
         return androidUtils;
     }
@@ -73,11 +95,28 @@ public class AndroidUtil {
         }
     }
 
-  /*  *//**
+    public boolean editTextIsEmptyFocus(TextView editText) {
+        if (StringUtils.isNullOrEmpty(editText.getText().toString())) {
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            editText.requestFocus();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean editTextIsEmpty(TextView editText) {
+        if (StringUtils.isNullOrEmpty(editText.getText().toString())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * 检测并设置可用的存储路径
      *
      * @return
-     *//*
+     */
     public boolean checkStoragePathAndSetBaseApp() {
         String storagePath = null;
         List<Long> memorySize = new ArrayList<Long>();
@@ -144,10 +183,83 @@ public class AndroidUtil {
             dialog.show();
             return false;
         }
-    }*/
+    }
 
+    /**
+     * 检测是否存在网络
+     *
+     * @return
+     */
+    public boolean hasInternetConnected() {
+        ConnectivityManager manager = (ConnectivityManager) context
+                .getSystemService(context.CONNECTIVITY_SERVICE);
+        if (manager != null) {
+            NetworkInfo network = manager.getActiveNetworkInfo();
+            if (network != null && network.isConnectedOrConnecting()) {
+                return true;
+            }
+        }
+        Toast.makeText(context, R.string.check_connection, Toast.LENGTH_SHORT).show();
+        return false;
+    }
 
+    /**
+     * 验证网络 如果没有网直接打开网络设置页面
+     *
+     * @return
+     */
+    public boolean validateInternet() {
+        ConnectivityManager manager = (ConnectivityManager) context
+                .getSystemService(context.CONNECTIVITY_SERVICE);
+        if (manager == null) {
+            openWirelessSet();
+            return false;
+        } else {
+            NetworkInfo[] info = manager.getAllNetworkInfo();
+            if (info != null) {
+                for (int i = 0; i < info.length; i++) {
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+                }
+            }
+        }
+        openWirelessSet();
+        return false;
+    }
 
+    /**
+     * 打开网络设置
+     */
+    public void openWirelessSet() {
+        ConfirmDialog dialog = ConfirmDialog.createDialog(context);
+        dialog.setDialogTitle(R.string.prompt);
+        dialog.setDialogMessage(R.string.check_connection);
+        dialog.setCancelable(false);
+        dialog.setOnButton1ClickListener(R.string.settings, null,
+                new ConfirmDialog.OnButton1ClickListener() {
+                    @Override
+                    public void onClick(View view, DialogInterface dialog) {
+                        dialog.cancel();
+                        Intent intent = null;
+                        try {
+                            intent = new Intent(Settings.ACTION_SETTINGS);
+                            context.startActivity(intent);
+                        } catch (Exception e) {
+                        }
+
+                    }
+                });
+        dialog.setOnButton2ClickListener(R.string.exit, null,
+                new ConfirmDialog.OnButton2ClickListener() {
+                    @Override
+                    public void onClick(View view, DialogInterface dialog) {
+                        dialog.cancel();
+                        mainApplication.exit();
+                    }
+                });
+        dialog.show();
+    }
 
     /**
      * 功能: 获取应用的版本VersionName
@@ -181,6 +293,29 @@ public class AndroidUtil {
         return 0;
     }
 
+    /**
+     * 弹出Snackbar提示
+     *
+     * @param v
+     * @param text
+     * @param tipModel TIPS_ERROR-错误 TIPS_SUCCESS-成功
+     */
+    public void showTips(View v, String text, Integer tipModel) {
+        Snackbar snackbar = Snackbar.make(v, text, Snackbar.LENGTH_SHORT);
+        Snackbar.SnackbarLayout ve = (Snackbar.SnackbarLayout) snackbar.getView();
+        switch (tipModel) {
+            case TIPS_ERROR:
+                ve.setBackgroundColor(ContextCompat.getColor(context, R.color.red));
+                break;
+            case TIPS_SUCCESS:
+                ve.setBackgroundColor(ContextCompat.getColor(context, R.color.primary));
+                break;
+
+        }
+
+        ve.setAlpha(0.5f);
+        snackbar.show();
+    }
 
     /**
      * dp转Px
@@ -311,6 +446,28 @@ public class AndroidUtil {
             return true;
         else
             return false;
+    }
+
+
+    /**
+     * 显示通知
+     *
+     * @param id      notificationId
+     * @param title   标题
+     * @param content 内容
+     * @param intent  PendingIntent
+     */
+    public static void showNotification(Context context, long id, String title, String content, PendingIntent intent) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        builder.setAutoCancel(true);
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setContentTitle(title);
+        builder.setContentText(content);
+        builder.setContentIntent(intent);
+        builder.setDefaults(Notification.DEFAULT_ALL);//使用默认的声音、振动、闪光
+        @SuppressWarnings("deprecation") Notification notification = builder.getNotification();
+        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify((int) id, notification);
     }
 
     /**
