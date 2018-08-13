@@ -2,7 +2,7 @@
 
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--导航栏颜色-->
         <item name="colorPrimary">@color/primary</item>
         <!--状态栏颜色-->
@@ -112,8 +112,26 @@
         <item name="android:textSize">16sp</item>
     </style>
     <!--侧滑销毁Activity-->
-    <style name="home" parent="AppTheme">
+    <style name="home" parent="BaseAppTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="windowNoTitle">true</item>
+    </style>
+    <!-- 由下而上的效果的动画 -->
+    <style name="AnimBottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+    <!--透明背景弹出层样式 -->
+    <style name="DialogStyleBottom" parent="BaseAppTheme">
+        <!-- 设置无标题 -->
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/AnimBottom</item>
+        <!-- 设置未浮动窗口 -->
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 设置完全透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 设置屏幕变暗 -->
+        <item name="android:backgroundDimEnabled">true</item>
     </style>
 </resources>

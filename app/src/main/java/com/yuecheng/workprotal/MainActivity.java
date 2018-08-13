@@ -1,4 +1,4 @@
-package com.yuecheng.workprotal.module;
+package com.yuecheng.workprotal;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

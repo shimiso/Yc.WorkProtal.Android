@@ -3,7 +3,6 @@ package com.yuecheng.workprotal.module.work;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.base.BaseFragment;
 import com.yuecheng.workprotal.module.work.editor.FunctionBlockAdapter;
 import com.yuecheng.workprotal.module.work.editor.FunctionItem;
 import com.yuecheng.workprotal.module.work.editor.SFUtils;
@@ -22,7 +22,7 @@ import java.util.List;
  * Created by huochangsheng on 2018/7/25.
  */
 
-public class MyWorkFragment extends Fragment {
+public class MyWorkFragment extends BaseFragment {
 
     private View view;
     private SFUtils sfUtils;

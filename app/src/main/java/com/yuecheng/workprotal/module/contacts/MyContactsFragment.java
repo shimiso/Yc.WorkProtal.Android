@@ -3,7 +3,6 @@ package com.yuecheng.workprotal.module.contacts;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.base.BaseFragment;
 import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ContactBean;
 import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.PinYinStyle;
 import com.yuecheng.workprotal.module.contacts.quicksearch.adapter.AlphabetAdp;
@@ -37,7 +37,7 @@ import java.util.regex.Pattern;
  * Created by huochangsheng on 2018/7/25.
  */
 
-public class MyContactsFragment extends Fragment {
+public class MyContactsFragment extends BaseFragment {
 
     private SideLetterBar sideLetterBar;
     private ListView lv_contact;

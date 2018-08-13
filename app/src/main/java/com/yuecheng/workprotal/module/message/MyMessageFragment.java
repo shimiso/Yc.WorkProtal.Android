@@ -3,19 +3,19 @@ package com.yuecheng.workprotal.module.message;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.base.BaseFragment;
 import com.yuecheng.workprotal.module.robot.view.VoiceActivity;
 
 /**
  * Created by huochangsheng on 2018/7/25.
  */
 
-public class MyMessageFragment extends Fragment {
+public class MyMessageFragment extends BaseFragment {
 
     public static MyMessageFragment newInstance() {
         Bundle args = new Bundle();

@@ -1,7 +1,6 @@
 package com.yuecheng.workprotal.module.robot;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -9,10 +8,11 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.base.BaseActivity;
 import com.yuecheng.workprotal.widget.BridgeWebView;
 
 
-public class OpenH5Activity extends AppCompatActivity {
+public class OpenH5Activity extends BaseActivity {
 
     private BridgeWebView mWebView;
     private TextView title;

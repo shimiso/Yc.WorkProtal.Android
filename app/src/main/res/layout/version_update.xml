@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/update_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:background="@drawable/dialog_bg_has_corners"
+        android:minHeight="100dip"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dip"
+            android:gravity="center_horizontal"
+            android:text="@string/update_new_hint"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:lineSpacingExtra="5dip"
+                android:maxHeight="150dp"
+                android:scrollbars="vertical"
+                android:singleLine="false"
+                android:text="@string/lost_session"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/layout"
+            android:background="@color/view_bg" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dip"
+            android:layout_below="@id/line"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/no_update_btn"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:text="@string/no_update_hint"
+                android:textColor="@color/hint_text"
+                android:textSize="16sp"
+                android:visibility="visible" />
+
+            <View
+                android:id="@+id/fengx1"
+                android:layout_width="1px"
+                android:layout_height="fill_parent"
+                android:background="@color/view_bg" />
+
+            <Button
+                android:id="@+id/yes_update_btn"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:text="@string/update_now_hint"
+                android:textColor="@color/blue"
+                android:textSize="16sp"
+                android:visibility="visible" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/down_dialog"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:background="@drawable/dialog_bg_has_corners"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dip"
+            android:gravity="center"
+            android:text="新版本正在下载"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+        <ProgressBar
+            android:id="@+id/down_progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="5dip"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/barcolor"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip" />
+        <LinearLayout
+            android:id="@+id/loading_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/id_tv_loadingmsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="none"
+                android:lineSpacingExtra="5dip"
+                android:maxLines="100"
+                android:scrollHorizontally="false"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/retry_line"
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/loading_layout"
+            android:background="@color/view_bg"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/retry_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="44dip"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/update_retry_btn"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/item_selector"
+                android:text="重试"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:visibility="visible" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="fill_parent"
+                android:background="@color/view_bg" />
+
+            <Button
+                android:id="@+id/update_exit_btn"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/item_selector"
+                android:text="退出"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:visibility="visible" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
