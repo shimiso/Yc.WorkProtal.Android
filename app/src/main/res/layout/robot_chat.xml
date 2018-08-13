@@ -10,13 +10,25 @@
         android:padding="2dp"
         android:src="@mipmap/assistant" />
 
-    <TextView
-        android:id="@+id/tv_robot_talk"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="@mipmap/chat_msg_content_bg_left_normal"
-        android:maxWidth="300dp"
-        android:textSize="16sp" />
+        android:background="@mipmap/chat_msg_content_bg_left_normal">
+
+        <TextView
+            android:id="@+id/tv_robot_talk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:maxWidth="300dp"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/robot_talk_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_robot_talk"
+            android:src="@mipmap/insight" />
+    </RelativeLayout>
 
 </LinearLayout>

@@ -73,6 +73,7 @@ public class MainPresenter implements IMainPresenter {
      */
     private HashMap<String, String> mIatResults = new LinkedHashMap<>();
     private static List<TalkBean> mTalkBeanList = new ArrayList<>();
+    private static String resultString = null;
 
     public MainPresenter(IMainView IMainView) {
         mIMainView = IMainView;
@@ -82,7 +83,7 @@ public class MainPresenter implements IMainPresenter {
     }
     private void initData() {
         //show default data
-        TalkBean talkBean = new TalkBean(((Activity) mIMainView).getResources().getString(R.string.talk_first),
+        TalkBean talkBean = new TalkBean(((Activity) mIMainView).getResources().getString(R.string.talk_first),"这个Json是空的！！！",
                 System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_ROBOT_CHAT);
         mTalkBeanList.add(talkBean);
         mIMainView.updateList(mTalkBeanList);
@@ -160,7 +161,7 @@ public class MainPresenter implements IMainPresenter {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                TalkBean talkBean = new TalkBean(question,
+                TalkBean talkBean = new TalkBean(question,resultString,
                         System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_USER);
                 mTalkBeanList.add(talkBean);
                 mIMainView.updateList(mTalkBeanList);
@@ -180,7 +181,7 @@ public class MainPresenter implements IMainPresenter {
             //根据语音生成一个json串，之后在获取其中的字段  打开本地应用{"semantic":{"slots":{"name":"qq"}},"rc":0,"operation":"LAUNCH","service":"app","text":"打开QQ"}
            // 提供外部链接{"semantic":{"slots":{"name":"百度","url":"http:\/\/www.baidu.com"}},"rc":0,"operation":"OPEN","service":"website","text":"打开百度"}
             //既有应用也提供外部链接{"semantic":{"slots":{"name":"淘宝"}},"rc":0,"operation":"LAUNCH","service":"app","moreResults":[{"semantic":{"slots":{"name":"淘宝","url":"http:\/\/www.taobao.com\/"}},"rc":0,"operation":"OPEN","service":"website","text":"打开淘宝"}],"text":"打开淘宝"}
-            String resultString = understanderResult.getResultString();
+            resultString = understanderResult.getResultString();
             parsedSemanticResult = new Gson().fromJson(resultString, SemanticResult.class);
             LogUtils.i(parsedSemanticResult);
             if (parsedSemanticResult.getRc() == 0) {
@@ -204,7 +205,7 @@ public class MainPresenter implements IMainPresenter {
 //                    intent.putExtra("url",url);
 //                    intent.putExtra("name",name);
 //                    MainApplication.getApplication().startActivity(intent);
-                    TalkBean talkBean = new TalkBean(url,
+                    TalkBean talkBean = new TalkBean(url,resultString,
                             System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_ROBOT_WEB);
                     mTalkBeanList.add(talkBean);
                     mIMainView.updateList(mTalkBeanList);
@@ -358,12 +359,12 @@ public class MainPresenter implements IMainPresenter {
         }
     }
 
-    public static void responseAnswer(final String answerText) {
+    public static void responseAnswer(final String answerText ) {
         if (!TextUtils.isEmpty(answerText)) {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    TalkBean talkBean = new TalkBean(answerText,
+                    TalkBean talkBean = new TalkBean(answerText,resultString,
                             System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_ROBOT_CHAT);
                     mTalkBeanList.add(talkBean);
                     mIMainView.updateList(mTalkBeanList);

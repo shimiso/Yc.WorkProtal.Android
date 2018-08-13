@@ -2,8 +2,10 @@ package com.yuecheng.workprotal.module.robot.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -14,6 +16,7 @@ import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.module.robot.JavaSctiptMethods;
 import com.yuecheng.workprotal.module.robot.OpenH5Activity;
 import com.yuecheng.workprotal.module.robot.bean.TalkBean;
+import com.yuecheng.workprotal.module.robot.view.JsonActivity;
 import com.yuecheng.workprotal.module.robot.view.RobotTalkListViewHolder;
 import com.yuecheng.workprotal.module.robot.view.RobotWebListViewHolder;
 import com.yuecheng.workprotal.module.robot.view.UserTalkListViewHolder;
@@ -57,13 +60,22 @@ public class TalkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder == null) return;
         String talkText = "";
-        TalkBean talkBean = mTalkBeanList.get(position);
+        final TalkBean talkBean = mTalkBeanList.get(position);
         talkText = talkBean.getText();
         if (TextUtils.isEmpty(talkText)) return;
 
         if (holder instanceof RobotTalkListViewHolder) {
             RobotTalkListViewHolder robotHolder = (RobotTalkListViewHolder) holder;
             robotHolder.mTvRobotTalk.setText(talkText);
+            robotHolder.mRobotTalkImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, JsonActivity.class);
+                    intent.putExtra("json",talkBean.getJsontext());
+                    context.startActivity(intent);
+                    Log.d("tag", talkBean.getJsontext());
+                }
+            });
         } else if (holder instanceof UserTalkListViewHolder) {
             UserTalkListViewHolder userHolder = (UserTalkListViewHolder) holder;
             userHolder.mTvUserTalk.setText(talkText);

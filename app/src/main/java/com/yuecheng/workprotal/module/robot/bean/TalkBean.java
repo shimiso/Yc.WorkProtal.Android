@@ -5,11 +5,13 @@ import java.io.Serializable;
 
 public class TalkBean implements Serializable {
     private String text;
+    private String jsontext;
     private long time;
     private int type;
 
-    public TalkBean(String text, long time, int type) {
+    public TalkBean(String text, String jsontext,long time, int type) {
         this.text = text;
+        this.jsontext = jsontext;
         this.time = time;
         this.type = type;
     }
@@ -36,6 +38,15 @@ public class TalkBean implements Serializable {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public void setJsontext(String jsontext) {
+        this.jsontext = jsontext;
+    }
+
+    public String getJsontext() {
+
+        return jsontext;
     }
 
 }
