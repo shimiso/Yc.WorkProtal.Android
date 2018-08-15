@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WorkProtal</string>
+    <string name="title_message">message</string>
+    <string name="title_work">work</string>
+    <string name="title_contacts">contact</string>
+    <string name="title_mycenter">my</string>
+    <string name="title_android">voice</string>
+    <string name="set_language">Set the language</string>
+
+    <string-array name="voice_type_params">
+        <item>xiaoqi</item>
+        <item>xiaomei</item>
+        <item>xiaorong</item>
+        <item>xiaoqian</item>
+        <item>xiaokun</item>
+        <item>xiaoqiang</item>
+        <item>xiaolin</item>
+        <item>xiaoxin</item>
+    </string-array>
+</resources>

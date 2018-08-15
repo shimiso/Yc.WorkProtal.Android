@@ -11,11 +11,16 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.TextUnderstander;
+
+import android.content.res.Resources;
+
 import com.iflytek.cloud.TextUnderstanderListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.yuecheng.workprotal.module.robot.service.MusicService;
 import com.yuecheng.workprotal.utils.LogUtils;
+
+import java.util.Locale;
 
 /**
  * 讯飞智能语音相关API的封装
@@ -42,6 +47,7 @@ public class XunfeiManager {
      * 初始监听器
      */
     private InitListener mInitListener;
+    private Locale curLocale;
 
 
     private XunfeiManager() {
@@ -86,6 +92,7 @@ public class XunfeiManager {
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
         if (mIat == null)
             mIat = SpeechRecognizer.createRecognizer(context, mInitListener);
+        curLocale = context.getResources().getConfiguration().locale;
         // 设置参数
         setVoiceDictationParam();
 
@@ -104,7 +111,15 @@ public class XunfeiManager {
     public void semanticComprehension(Context context, String text, TextUnderstanderListener textUnderstanderListener) {
         if (mTextUnderstander == null)
             mTextUnderstander = TextUnderstander.createTextUnderstander(context, mInitListener);
-            mTextUnderstander.setParameter(SpeechConstant.SCENE, "english");
+            Locale curLocale = context.getResources().getConfiguration().locale;
+            //通过Locale的equals方法，判断出当前语言环境
+            if (curLocale.equals(Locale.SIMPLIFIED_CHINESE)) {
+                //中文
+                mTextUnderstander.setParameter(SpeechConstant.SCENE, "chinese");
+            } else{
+                //英文
+                mTextUnderstander.setParameter(SpeechConstant.SCENE, "english");
+            }
 
         if (mTextUnderstander.isUnderstanding()) {
             mTextUnderstander.cancel();
@@ -201,10 +216,21 @@ public class XunfeiManager {
         mIat.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
         // 设置返回结果格式
         mIat.setParameter(SpeechConstant.RESULT_TYPE, "json");
-        // 设置语言
-        mIat.setParameter(SpeechConstant.LANGUAGE, "en_us");
-        // 设置语言区域
-        mIat.setParameter(SpeechConstant.ACCENT, null);
+        //通过Locale的equals方法，判断出当前语言环境
+        if (curLocale.equals(Locale.SIMPLIFIED_CHINESE)) {
+            //中文
+            // 设置语言
+            mIat.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+            // 设置语言区域
+            mIat.setParameter(SpeechConstant.ACCENT, "mandarin");
+        } else{
+//            //英文
+            // 设置语言
+            mIat.setParameter(SpeechConstant.LANGUAGE, "en_us");
+            // 设置语言区域
+            mIat.setParameter(SpeechConstant.ACCENT, null);
+        }
+
 
         // 设置语音前端点:静音超时时间，即用户多长时间不说话则当做超时处理
         mIat.setParameter(SpeechConstant.VAD_BOS, "4000");
