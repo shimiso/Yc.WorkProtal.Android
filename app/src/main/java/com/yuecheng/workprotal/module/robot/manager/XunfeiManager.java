@@ -104,6 +104,7 @@ public class XunfeiManager {
     public void semanticComprehension(Context context, String text, TextUnderstanderListener textUnderstanderListener) {
         if (mTextUnderstander == null)
             mTextUnderstander = TextUnderstander.createTextUnderstander(context, mInitListener);
+            mTextUnderstander.setParameter(SpeechConstant.SCENE, "english");
 
         if (mTextUnderstander.isUnderstanding()) {
             mTextUnderstander.cancel();
@@ -201,9 +202,9 @@ public class XunfeiManager {
         // 设置返回结果格式
         mIat.setParameter(SpeechConstant.RESULT_TYPE, "json");
         // 设置语言
-        mIat.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+        mIat.setParameter(SpeechConstant.LANGUAGE, "en_us");
         // 设置语言区域
-        mIat.setParameter(SpeechConstant.ACCENT, "zh_cn");
+        mIat.setParameter(SpeechConstant.ACCENT, null);
 
         // 设置语音前端点:静音超时时间，即用户多长时间不说话则当做超时处理
         mIat.setParameter(SpeechConstant.VAD_BOS, "4000");
