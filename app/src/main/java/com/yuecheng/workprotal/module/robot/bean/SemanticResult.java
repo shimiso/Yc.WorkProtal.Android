@@ -1,5 +1,7 @@
 package com.yuecheng.workprotal.module.robot.bean;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 /**
@@ -27,23 +29,23 @@ public class SemanticResult {
      * text : 查一下123到哪了
      */
 
-    private String category;
-    private String intentType;
-    private int rc;
-    private int semanticType;
-    private String service;
-    private String operation;
-    private String uuid;
-    private String vendor;
-    private String version;
-    private Object state;
-    private String sessionIsEnd;
-    private boolean shouldEndSession;
-    private AnswerBean answer;
-    private DataBean data;
-    private String sid;
-    private String text;
-    private List<SemanticBean> semantic;
+    public String category;
+    public String intentType;
+    public int rc;
+    public int semanticType;
+    public String service;
+    public String operation;
+    public String uuid;
+    public String vendor;
+    public String version;
+    public Object state;
+    public String sessionIsEnd;
+    public boolean shouldEndSession;
+    public String answer;
+    public JSONObject data;
+    public String sid;
+    public String text;
+    public JSONObject semantic;
 
     public String getOperation() {
         return operation;
@@ -141,19 +143,19 @@ public class SemanticResult {
         this.shouldEndSession = shouldEndSession;
     }
 
-    public AnswerBean getAnswer() {
+    public String getAnswer() {
         return answer;
     }
 
-    public void setAnswer(AnswerBean answer) {
+    public void setAnswer(String answer) {
         this.answer = answer;
     }
 
-    public DataBean getData() {
+    public JSONObject getData() {
         return data;
     }
 
-    public void setData(DataBean data) {
+    public void setData(JSONObject data) {
         this.data = data;
     }
 
@@ -173,11 +175,11 @@ public class SemanticResult {
         this.text = text;
     }
 
-    public List<SemanticBean> getSemantic() {
+    public JSONObject getSemantic() {
         return semantic;
     }
 
-    public void setSemantic(List<SemanticBean> semantic) {
+    public void setSemantic(JSONObject semantic) {
         this.semantic = semantic;
     }
 

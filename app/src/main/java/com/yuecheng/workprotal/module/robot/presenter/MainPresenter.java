@@ -9,8 +9,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
@@ -29,6 +27,18 @@ import com.yuecheng.workprotal.module.robot.bean.SlotsBean;
 import com.yuecheng.workprotal.module.robot.bean.TalkBean;
 import com.yuecheng.workprotal.module.robot.bean.WeatherBean;
 import com.yuecheng.workprotal.module.robot.adapter.TalkListAdapter;
+import com.yuecheng.workprotal.module.robot.handler.AdminHandler;
+import com.yuecheng.workprotal.module.robot.handler.ContactsHandler;
+import com.yuecheng.workprotal.module.robot.handler.DefaultHandler;
+import com.yuecheng.workprotal.module.robot.handler.FinanceHandler;
+import com.yuecheng.workprotal.module.robot.handler.HRHandler;
+import com.yuecheng.workprotal.module.robot.handler.HintHandler;
+import com.yuecheng.workprotal.module.robot.handler.IntentHandler;
+import com.yuecheng.workprotal.module.robot.handler.ItServiceHandler;
+import com.yuecheng.workprotal.module.robot.handler.LeaveHandler;
+import com.yuecheng.workprotal.module.robot.handler.MeetingHandler;
+import com.yuecheng.workprotal.module.robot.handler.NoticeHandler;
+import com.yuecheng.workprotal.module.robot.handler.ToDoHandler;
 import com.yuecheng.workprotal.module.robot.model.IMainModel;
 import com.yuecheng.workprotal.module.robot.model.MainModel;
 import com.yuecheng.workprotal.module.robot.service.MusicService;
@@ -37,43 +47,70 @@ import com.yuecheng.workprotal.module.robot.view.VoiceActivity;
 import com.yuecheng.workprotal.utils.DeviceUtils;
 import com.yuecheng.workprotal.utils.LogUtils;
 import com.yuecheng.workprotal.utils.StringUtils;
+import com.zzhoujay.richtext.callback.OnUrlClickListener;
+import com.zzhoujay.richtext.callback.OnUrlLongClickListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-public class MainPresenter implements IMainPresenter {
-    private static final String APP = "app";
-    private static final String LAUNCH = "LAUNCH";
-    private static final String OPEN_QA = "openQA";
-    private static final String ANSWER =  "ANSWER";
-    private static final String PLAY = "PLAY";
-    private static final String MUSIC = "musicX";
-    private static final String WEATHER = "weather";
-    private static final String QUERY = "QUERY";
-    private static final String OPEN = "OPEN";
-    private static final String DIAL = "DIAL";
-    private static final String VIEW = "VIEW";
-    private static final String TELEPHONE = "telephone";
-    private static final String MESSAGE = "message";
-    private static final String WEBSITE = "TEST123111.website";
-    private static final String EXIT = "EXIT";
-    private static final String TVCONTROL = "tvControl";
+public class MainPresenter implements IMainPresenter , OnUrlClickListener, OnUrlLongClickListener {
+    private static final String KEY_SEMANTIC = "semantic";
+    private static final String KEY_OPERATION = "operation";
+    private static final String SLOTS = "slots";
+    private static Map<String, Class> handlerMap = new HashMap<>();
 
+    static {
+        handlerMap.put("unknown", HintHandler.class);
+        //电话/短信
+        handlerMap.put("YUECHENG.contacts_zh", ContactsHandler.class);
+        handlerMap.put("YUECHENG.contacts_en", ContactsHandler.class);
+        //会议
+        handlerMap.put("YUECHENG.meeting_zh", MeetingHandler.class);
+        handlerMap.put("YUECHENG.meeting_en", MeetingHandler.class);
+        //新闻公告
+        handlerMap.put("YUECHENG.notice_zh", NoticeHandler.class);
+        handlerMap.put("YUECHENG.notice_en", NoticeHandler.class);
+        //代办
+        handlerMap.put("YUECHENG.todo_list_zh", ToDoHandler.class);
+        handlerMap.put("YUECHENG.todo_list_en", ToDoHandler.class);
+        //IT服务
+        handlerMap.put("YUECHENG.it_service_zh", ItServiceHandler.class);
+        handlerMap.put("YUECHENG.it_service_en", ItServiceHandler.class);
+        //休假
+        handlerMap.put("YUECHENG.leave_zh", LeaveHandler.class);
+        handlerMap.put("YUECHENG.leave_en", LeaveHandler.class);
+        //HR
+        handlerMap.put("YUECHENG.hr_zh", HRHandler.class);
+        handlerMap.put("YUECHENG.hr_en", HRHandler.class);
+        //行政
+        handlerMap.put("YUECHENG.admin_zh", AdminHandler.class);
+        handlerMap.put("YUECHENG.abmin_en", AdminHandler.class);
+        //财务
+        handlerMap.put("YUECHENG.finance_zh", FinanceHandler.class);
+        handlerMap.put("YUECHENG.finance_en", FinanceHandler.class);
+
+    }
     private static IMainView mIMainView;
     private static IMainModel mIMainModel;
     private static Handler mHandler;
+    private IntentHandler intentHandler;
     /**
      * 存储听写结果
      */
     private HashMap<String, String> mIatResults = new LinkedHashMap<>();
     private static List<TalkBean> mTalkBeanList = new ArrayList<>();
     private static String resultString = null;
+    private SemanticResult parsedSemanticResult;
 
     public MainPresenter(IMainView IMainView) {
         mIMainView = IMainView;
@@ -114,6 +151,26 @@ public class MainPresenter implements IMainPresenter {
             @Override
             public void onResult(UnderstanderResult understanderResult) {
                 onTextUnderstanderSuccess(understanderResult);
+
+                    //根据语义结果的service查找对应的IntentHandler，并实例化
+                    Class handlerClass = handlerMap.get(parsedSemanticResult.service);
+                    if (handlerClass == null) {
+                        handlerClass = DefaultHandler.class;
+                    }
+                    try {
+                        Constructor constructor = handlerClass.getConstructor(SemanticResult.class);
+                        intentHandler = (IntentHandler) constructor.newInstance(parsedSemanticResult);
+                        responseAnswer(intentHandler.getFormatContent());
+                    } catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+
             }
 
             @Override
@@ -176,103 +233,64 @@ public class MainPresenter implements IMainPresenter {
     private void onTextUnderstanderSuccess(UnderstanderResult understanderResult) {
         if (understanderResult == null) return;
         JSONObject semanticResult;
-        SemanticResult parsedSemanticResult = new SemanticResult();
+        parsedSemanticResult = new SemanticResult();
         try {
             //根据语音生成一个json串，之后在获取其中的字段  打开本地应用{"semantic":{"slots":{"name":"qq"}},"rc":0,"operation":"LAUNCH","service":"app","text":"打开QQ"}
            // 提供外部链接{"semantic":{"slots":{"name":"百度","url":"http:\/\/www.baidu.com"}},"rc":0,"operation":"OPEN","service":"website","text":"打开百度"}
             //既有应用也提供外部链接{"semantic":{"slots":{"name":"淘宝"}},"rc":0,"operation":"LAUNCH","service":"app","moreResults":[{"semantic":{"slots":{"name":"淘宝","url":"http:\/\/www.taobao.com\/"}},"rc":0,"operation":"OPEN","service":"website","text":"打开淘宝"}],"text":"打开淘宝"}
             resultString = understanderResult.getResultString();
-            parsedSemanticResult = new Gson().fromJson(resultString, SemanticResult.class);
+            semanticResult = new JSONObject(resultString);
+            parsedSemanticResult.rc = semanticResult.optInt("rc");
             LogUtils.i(parsedSemanticResult);
-            if (parsedSemanticResult.getRc() == 0) {
-                //success
-                String service = parsedSemanticResult.getService();
-                String intent = null;
-                String operation = parsedSemanticResult.getOperation();
-                if(parsedSemanticResult.getSemantic()!=null){
-                    intent = parsedSemanticResult.getSemantic().get(0).getIntent();
-                }
+            if (parsedSemanticResult.rc == 4) {
 
+                parsedSemanticResult.service = "unknown";
+            } else if(parsedSemanticResult.rc == 1) {
 
-                if (APP.equalsIgnoreCase(service) && LAUNCH.equalsIgnoreCase(intent)) {
-                    //打开应用
-                    openAppByLauncher(parsedSemanticResult.getSemantic().get(0).getSlots().get(0).getValue());
-                } else if (WEBSITE.equalsIgnoreCase(service) && OPEN.equalsIgnoreCase(intent)) {
-                    //百度
-                    String url = "http://www.sohu.com/";
-//                    Intent intent = new Intent(MainApplication.getApplication(), OpenH5Activity.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
-//                    intent.putExtra("url",url);
-//                    intent.putExtra("name",name);
-//                    MainApplication.getApplication().startActivity(intent);
-                    TalkBean talkBean = new TalkBean(url,resultString,
-                            System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_ROBOT_WEB);
-                    mTalkBeanList.add(talkBean);
-                    mIMainView.updateList(mTalkBeanList);
+                parsedSemanticResult.service =  semanticResult.optString("service");
+                parsedSemanticResult.answer = "语义错误";
+            } else if(parsedSemanticResult.rc == 0) {
+                parsedSemanticResult.service = semanticResult.optString("service");
+                parsedSemanticResult.answer = semanticResult.optJSONObject("answer") == null ?
+                        "已为您完成操作" : semanticResult.optJSONObject("answer").optString("text");
+                // 兼容3.1和4.0的语义结果，通过判断结果最外层的operation字段
+                boolean isAIUI3_0 = semanticResult.has(KEY_OPERATION);
+                if (isAIUI3_0) {
+                    //将3.1语义格式的语义转换成4.1
+                    JSONObject semantic = semanticResult.optJSONObject(KEY_SEMANTIC);
+                    if (semantic != null) {
+                        JSONObject slots = semantic.optJSONObject(SLOTS);
+                        JSONArray fakeSlots = new JSONArray();
+                        Iterator<String> keys = slots.keys();
+                        while (keys.hasNext()) {
+                            JSONObject item = new JSONObject();
+                            String name = keys.next();
+                            item.put("name", name);
+                            item.put("value", slots.get(name));
 
-                }else if (ANSWER.equalsIgnoreCase(operation)) {
-                    //聊天
-                    responseAnswer(parsedSemanticResult.getAnswer().getText());
-                }else if (TELEPHONE.equalsIgnoreCase(service) && DIAL.equalsIgnoreCase(intent)) {
-                    String name = "";
-                    String code = "";
-                    if(parsedSemanticResult.getSemantic().get(0).getSlots()!=null){
-                        //打电话
-                        for(SemanticResult.SemanticBean.SlotsBean slotsBean:parsedSemanticResult.getSemantic().get(0).getSlots()){
-                            if(slotsBean.getName().equalsIgnoreCase("code")){
-                                code = slotsBean.getValue();
-                            }
+                            fakeSlots.put(item);
                         }
+
+                        semantic.put(SLOTS, fakeSlots);
+                        semantic.put("intent", semanticResult.optString(KEY_OPERATION));
+                        parsedSemanticResult.semantic = semantic;
                     }
-                    CallAction callAction = new CallAction(name, code, MainApplication.getApplication());//目前可根据名字或电话号码拨打电话
-                    callAction.start();
-                }else if (MESSAGE.equalsIgnoreCase(service) && VIEW.equalsIgnoreCase(intent)) {
-                    //打开消息
-                    responseAnswer("正在打开消息界面...");
-                    Intent intentCall = new Intent(Intent.ACTION_MAIN);
-                    intentCall.setType("vnd.android-dir/mms-sms");
-                    intentCall.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
-                    MainApplication.getApplication().startActivity(intentCall);
-                }else if (MUSIC.equalsIgnoreCase(service) && PLAY.equalsIgnoreCase(intent)) {
-                    String  value = parsedSemanticResult.getSemantic().get(0).getSlots().get(0).getValue();
-                    //播放音乐
-                    ArrayList<MusicBean> musicBeenArrayList = new Gson().fromJson(value, new TypeToken<ArrayList<MusicBean>>() {
-                    }.getType());
-                    playMusic(musicBeenArrayList);
-                } else if (WEATHER.equalsIgnoreCase(service) && QUERY.equalsIgnoreCase(intent)) {
-                    //查询天气
-                    responseAnswer(parsedSemanticResult.getAnswer().getText());
-//                    ArrayList<WeatherBean> weatherBeanArrayList = new Gson().fromJson(name, new TypeToken<ArrayList<WeatherBean>>() {
-//                    }.getType());
-//                    queryWeather(semanticComprehensionResult.getSemantic(), weatherBeanArrayList);
-                }else if (APP.equalsIgnoreCase(service) && EXIT.equalsIgnoreCase(intent)) {
-                    //退出应用
-                    VoiceActivity.instance.finish();
-                }else if ("TEST123111.music_demo".equalsIgnoreCase(service)){
-                    responseAnswer(parsedSemanticResult.getAnswer().getText());
-                }else {
-                    //解析失败
-                    if(parsedSemanticResult.getAnswer()!=null){
-                        responseAnswer(parsedSemanticResult.getAnswer().getText());
-                    }else{
-                        String answerText = ((Activity) mIMainView).getResources().getString(R.string.default_voice_answer);
-                        responseAnswer(answerText);
-                    }
+                } else {
+                    parsedSemanticResult.semantic = semanticResult.optJSONArray(KEY_SEMANTIC) == null ?
+                            semanticResult.optJSONObject(KEY_SEMANTIC) :
+                            semanticResult.optJSONArray(KEY_SEMANTIC).optJSONObject(0);
                 }
-            } else {
-                //解析失败
-                if(parsedSemanticResult.getAnswer()!=null){
-                    responseAnswer(parsedSemanticResult.getAnswer().getText());
-                }else{
-                    String answerText = ((Activity) mIMainView).getResources().getString(R.string.default_voice_answer);
-                    responseAnswer(answerText);
-                }
+                parsedSemanticResult.answer = parsedSemanticResult.answer.replaceAll("\\[[a-zA-Z0-9]{2}\\]", "");
+                parsedSemanticResult.data = semanticResult.optJSONObject("data");
+
             }
         } catch (Exception e) {
             e.printStackTrace();
             //解析失败
-            String answerText = ((Activity) mIMainView).getResources().getString(R.string.default_voice_answer);
-            responseAnswer(answerText);
+//            String answerText = ((Activity) mIMainView).getResources().getString(R.string.default_voice_answer);
+//            responseAnswer(answerText);
+            parsedSemanticResult.rc = 4;
+            parsedSemanticResult.service = "unknown";
         }
 
     }
@@ -422,5 +440,15 @@ public class MainPresenter implements IMainPresenter {
                 }
             });
         }
+    }
+
+    @Override
+    public boolean urlClicked(String url) {
+        return false;
+    }
+
+    @Override
+    public boolean urlLongClick(String url) {
+        return false;
     }
 }

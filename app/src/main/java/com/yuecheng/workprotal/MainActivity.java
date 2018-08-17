@@ -7,15 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.SparseIntArray;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 
-import com.yuecheng.workprotal.MainApplication;
-import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.base.BaseActivity;
 import com.yuecheng.workprotal.module.message.MyMessageFragment;
 import com.yuecheng.workprotal.module.mycenter.MyCenterFragment;
 import com.yuecheng.workprotal.module.contacts.MyContactsFragment;
@@ -27,7 +25,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     // collections
     private SparseIntArray items;// used for change ViewPager selected item

@@ -12,6 +12,7 @@ import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import com.yuecheng.workprotal.module.robot.presenter.MainPresenter;
+import com.yuecheng.workprotal.utils.StringUtils;
 
 
 public class CallAction {
@@ -49,7 +50,7 @@ public class CallAction {
             } else {
                 mPerson = mPerson.trim();
                 number = getNumberByName(mPerson, context);
-                if (number == null) {
+                if (StringUtils.isEmpty(number)) {
                     MainPresenter.responseAnswer("没有在通讯录中找到" + mPerson + "的号码。");
                 } else {
                     //打电话
