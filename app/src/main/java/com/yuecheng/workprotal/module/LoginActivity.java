@@ -33,13 +33,13 @@ public class LoginActivity extends BaseActivity{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.sign_in_button:
-//                User user = new User();
-//                user.setName("王二麻");
-//                user.setAddress("四川成都");
-//                user.setAge(36);
-//                user.setSex("男");
-//                userDao.insert(user);
-//                List<User> list=userDao.loadAll();
+                User user = new User();
+                user.setName("王二麻");
+                user.setAddress("四川成都");
+                user.setAge(36);
+                user.setSex("男");
+                userDao.insert(user);
+                List<User> list=userDao.loadAll();
 
                 startActivity( new Intent(this, MainActivity.class));
                 finish();

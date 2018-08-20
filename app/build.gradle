@@ -173,4 +173,6 @@ dependencies {
     implementation 'com.zzhoujay.richtext:richtext:2.5.4'
     //GreeDao数据库
     implementation 'org.greenrobot:greendao:3.2.2' // add library
+    //GreeDao数据库加密
+    //implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
 }
