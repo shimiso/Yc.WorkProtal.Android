@@ -34,16 +34,29 @@ public class User {
     
     private String name;  //普通字段
 
+    private String address;
+
+    private String password;
+
+    private String birthady;
+
+    private String sex;
+
     private int age;  //普通字段
 
     //@Transient：表明这个字段不会被写入数据库，只是作为一个普通的java类字段，用来临时存储数据的，不会被持久化
     @Transient
     private int tempUsageCount; // not persisted  
 
-    @Generated(hash = 1309193360)
-    public User(Long id, String name, int age) {
+    @Generated(hash = 1756025760)
+    public User(Long id, String name, String address, String password,
+            String birthady, String sex, int age) {
         this.id = id;
         this.name = name;
+        this.address = address;
+        this.password = password;
+        this.birthady = birthady;
+        this.sex = sex;
         this.age = age;
     }
 
@@ -73,5 +86,37 @@ public class User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getAddress() {
+        return this.address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getBirthady() {
+        return this.birthady;
+    }
+
+    public void setBirthady(String birthady) {
+        this.birthady = birthady;
+    }
+
+    public String getSex() {
+        return this.sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 }  
