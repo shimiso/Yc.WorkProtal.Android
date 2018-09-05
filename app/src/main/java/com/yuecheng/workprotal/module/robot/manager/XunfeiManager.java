@@ -6,6 +6,7 @@ import android.os.Environment;
 
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
@@ -75,11 +76,13 @@ public class XunfeiManager {
         }
         return mXunfeiManager;
     }
-
+    public void cancelVoiceDictation(){
+        mIat.stopListening();
+    }
     /**
      * 语音听写
      */
-    public void voiceDictation(Context context, RecognizerDialogListener recognizerDialogListener) {
+    public void startVoiceDictation(Context context, RecognizerListener recognizerListener) {
         //如果音乐正在播放，先停掉
         stopMusicService(context);
         //如果正在播放语音，先停掉
@@ -95,14 +98,15 @@ public class XunfeiManager {
         curLocale = context.getResources().getConfiguration().locale;
         // 设置参数
         setVoiceDictationParam();
-
+        mIat.startListening(recognizerListener);
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
 //        if (mIatDialog == null)
-        mIatDialog = new RecognizerDialog(context, mInitListener);
+       // mIatDialog = new RecognizerDialog(context, mInitListener);
 
         // 显示听写对话框
-        mIatDialog.setListener(recognizerDialogListener);
-        mIatDialog.show();
+       // mIatDialog.setListener(recognizerDialogListener);
+        //mIatDialog.setCancelable(false);
+       // mIatDialog.show();
     }
 
     /**
@@ -236,7 +240,7 @@ public class XunfeiManager {
         mIat.setParameter(SpeechConstant.VAD_BOS, "4000");
 
         // 设置语音后端点:后端点静音检测时间，即用户停止说话多长时间内即认为不再输入， 自动停止录音
-        mIat.setParameter(SpeechConstant.VAD_EOS, "1000");
+        mIat.setParameter(SpeechConstant.VAD_EOS, "10000");
 
         // 设置标点符号,设置为"0"返回结果无标点,设置为"1"返回结果有标点
         mIat.setParameter(SpeechConstant.ASR_PTT, "1");

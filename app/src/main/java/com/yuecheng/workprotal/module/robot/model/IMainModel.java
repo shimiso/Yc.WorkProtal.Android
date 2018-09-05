@@ -2,13 +2,14 @@ package com.yuecheng.workprotal.module.robot.model;
 
 import android.content.Context;
 
+import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.TextUnderstanderListener;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 
 
 public interface IMainModel {
-    void recognizeVoice(Context context, RecognizerDialogListener recognizerDialogListener);
+    void recognizeVoice(Context context, RecognizerListener recognizerListener);
 
     void understandText(Context context, String text, TextUnderstanderListener textUnderstanderListener);
 

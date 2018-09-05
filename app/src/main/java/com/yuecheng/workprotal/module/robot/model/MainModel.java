@@ -3,6 +3,7 @@ package com.yuecheng.workprotal.module.robot.model;
 
 import android.content.Context;
 
+import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.TextUnderstanderListener;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
@@ -16,8 +17,8 @@ public class MainModel implements IMainModel {
     }
 
     @Override
-    public void recognizeVoice(Context context, RecognizerDialogListener recognizerDialogListener) {
-        xunfeiManager.voiceDictation(context, recognizerDialogListener);
+    public void recognizeVoice(Context context, RecognizerListener recognizerListener) {
+        xunfeiManager.startVoiceDictation(context, recognizerListener);
     }
 
     @Override

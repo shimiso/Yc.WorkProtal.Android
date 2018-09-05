@@ -60,6 +60,11 @@
     <string name="default_voice_answer">"Sorry, I don't know what you say"</string>
     <string name="dont_find_music">对不起，没有找到这首歌</string>
     <string name="normal">点击 说话</string>
+    <string name="voice_rec">手指上滑，取消发送</string>
+    <string name="voice_cancel">松开手指，取消发送</string>
+    <string name="voice_short">录音时间太短</string>
+    <string name="voice_failure">录音失败！</string>
+    <string name="send_audio_fail">发送语音失败，文件长度为0或语音权限没有开启</string>
 
     <string-array name="voice_type">
         <item>普通话</item>

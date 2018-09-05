@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
+import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
@@ -124,12 +125,25 @@ public class MainPresenter implements IMainPresenter {
         mIMainView.updateList(mTalkBeanList);
     }
 
-
-
     @Override
     public void startVoiceRobot() {
         //语音听写
-        mIMainModel.recognizeVoice((Activity) mIMainView, new RecognizerDialogListener() {
+        mIMainModel.recognizeVoice((Activity) mIMainView, new RecognizerListener() {
+            @Override
+            public void onVolumeChanged(int i, byte[] bytes) {
+
+            }
+
+            @Override
+            public void onBeginOfSpeech() {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+
+            }
+
             @Override
             public void onResult(RecognizerResult recognizerResult, boolean isLast) {
                 onRecognizerSuccess(recognizerResult, isLast);
@@ -138,6 +152,11 @@ public class MainPresenter implements IMainPresenter {
             @Override
             public void onError(SpeechError speechError) {
                 onRecognizerError(speechError);
+            }
+
+            @Override
+            public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
             }
         });
     }
