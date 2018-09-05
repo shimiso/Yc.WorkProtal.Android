@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--导航栏颜色-->
-    <color name="primary">#3F51B5</color>
-    <color name="primary_dark">#303F9F</color>
+    <color name="primary">#0077D9</color>
+    <color name="primary_dark">#0077D9</color>
     <color name="colorAccent">#0077D9</color>
     <color name="primary_text">#474a51</color>
     <!-- 整个app的背景色 -->
@@ -21,7 +21,7 @@
     <!--编辑应用-->
     <color name="transparent">#00FFFFFF</color>
     <color name="line_color">#CCCCCC</color>
-    <color name="titlecolor">#1296db</color>
+    <color name="titlecolor">#0077D9</color>
     <color name="black">#000000</color>
     <!--分割线颜色-->
     <color name="color_6_e3e3e6_divider_color">#e3e3e6</color>
