@@ -51,7 +51,7 @@
     <string name="setting">设置</string>
     <string name="voice_type">播报声音</string>
     <string name="voice_speed">语速</string>
-    <string name="talk_first">使用小技巧（点击说话）：\n1.IT服务(it service)\n2.查新闻(search for news)\n3.我要请假(take leave)\n4.我的工资(my salary)\n5.查报销(check payment request)\n6.订会议室(book meeting room)\n此外，还可以智能回答你提的问题，赶快来玩吧！</string>
+    <string name="talk_first">使用小技巧（点击说话）：\n1.IT服务(it service)\n2.查新闻(search for news)\n3.我要请假(take leave)\n4.我的工资(my salary)\n5.查报销(check payment request)\n6.订会议室(book meeting room)\n7.取消会议室(cancel the meeting room)\n此外，还可以智能回答你提的问题，赶快来玩吧！</string>
     <string name="version_title">当前版本</string>
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
