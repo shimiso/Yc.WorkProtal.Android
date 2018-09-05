@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -14,19 +15,43 @@
         android:id="@+id/tv_first_alphabet"
         android:visibility="gone"
         android:text="A"/>
-    <com.yuecheng.workprotal.module.contacts.quicksearch.view.SwipeLayout
-        android:id="@+id/swp_slip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16dp"
-        android:id="@+id/tv_contact_name"
         android:background="#efefef"
-        android:textColor="#000"
-        android:padding="10dp"
-        />
-        <include layout="@layout/contact_layout_slip"></include>
-    </com.yuecheng.workprotal.module.contacts.quicksearch.view.SwipeLayout>
-</LinearLayout>
+        android:layout_below="@+id/tv_first_alphabet">
+        <com.yuecheng.workprotal.widget.CircleTextImage
+            android:id="@+id/cti"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            app:circle_text_size="18sp"
+            app:random_color="true"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:layout_toRightOf="@+id/cti"
+            android:gravity="center_vertical"
+            android:id="@+id/tv_contact_name"
+            android:textColor="#000"
+            android:paddingTop="8dp"
+            android:paddingLeft="10dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:layout_toRightOf="@+id/cti"
+            android:layout_below="@+id/tv_contact_name"
+            android:id="@+id/tv_contact_department"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingBottom="8dp"
+            android:textColor="#9f9f9f"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>
