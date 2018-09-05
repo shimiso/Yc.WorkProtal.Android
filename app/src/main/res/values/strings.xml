@@ -32,6 +32,7 @@
     <string name="exit_app_message">确定要退出吗?</string>
     <string name="version_update">版本更新</string>
     <string name="version_update_hint">已是最新版本</string>
+    <string name="grammar_error">语义错误</string>
 
     <string name="title_message">消息</string>
     <string name="title_work">工作</string>

@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 import com.yuecheng.workprotal.base.BaseActivity;
 import com.yuecheng.workprotal.module.LoginActivity;
+import com.yuecheng.workprotal.module.PasswordLoginActivity;
 import com.yuecheng.workprotal.module.update.CheckVersionPresenter;
 import com.yuecheng.workprotal.module.update.Version;
 import com.yuecheng.workprotal.module.update.VersionUpdateDialog;
@@ -138,7 +139,7 @@ public class WelcomeActivity extends BaseActivity {
 
                 @Override
                 public void onError(String errorMessage) {
-                    startActivity( new Intent(context, LoginActivity.class));
+                    startActivity( new Intent(context, PasswordLoginActivity.class));
                     finish();
                 }
             });
@@ -147,7 +148,7 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        startActivity( new Intent(context, LoginActivity.class));
+        startActivity( new Intent(context, PasswordLoginActivity.class));
         finish();
     }
 }

@@ -47,8 +47,6 @@ import com.yuecheng.workprotal.module.robot.view.VoiceActivity;
 import com.yuecheng.workprotal.utils.DeviceUtils;
 import com.yuecheng.workprotal.utils.LogUtils;
 import com.yuecheng.workprotal.utils.StringUtils;
-import com.zzhoujay.richtext.callback.OnUrlClickListener;
-import com.zzhoujay.richtext.callback.OnUrlLongClickListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,7 +61,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainPresenter implements IMainPresenter , OnUrlClickListener, OnUrlLongClickListener {
+public class MainPresenter implements IMainPresenter {
     private static final String KEY_SEMANTIC = "semantic";
     private static final String KEY_OPERATION = "operation";
     private static final String SLOTS = "slots";
@@ -248,41 +246,17 @@ public class MainPresenter implements IMainPresenter , OnUrlClickListener, OnUrl
             } else if(parsedSemanticResult.rc == 1) {
 
                 parsedSemanticResult.service =  semanticResult.optString("service");
-                parsedSemanticResult.answer = "语义错误";
+                parsedSemanticResult.answer = R.string.grammar_error+"";
             } else if(parsedSemanticResult.rc == 0) {
                 parsedSemanticResult.service = semanticResult.optString("service");
                 parsedSemanticResult.answer = semanticResult.optJSONObject("answer") == null ?
                         "已为您完成操作" : semanticResult.optJSONObject("answer").optString("text");
-                // 兼容3.1和4.0的语义结果，通过判断结果最外层的operation字段
-                boolean isAIUI3_0 = semanticResult.has(KEY_OPERATION);
-                if (isAIUI3_0) {
-                    //将3.1语义格式的语义转换成4.1
-                    JSONObject semantic = semanticResult.optJSONObject(KEY_SEMANTIC);
-                    if (semantic != null) {
-                        JSONObject slots = semantic.optJSONObject(SLOTS);
-                        JSONArray fakeSlots = new JSONArray();
-                        Iterator<String> keys = slots.keys();
-                        while (keys.hasNext()) {
-                            JSONObject item = new JSONObject();
-                            String name = keys.next();
-                            item.put("name", name);
-                            item.put("value", slots.get(name));
+                parsedSemanticResult.semantic = semanticResult.optJSONArray(KEY_SEMANTIC) == null ?
+                        semanticResult.optJSONObject(KEY_SEMANTIC) :
+                        semanticResult.optJSONArray(KEY_SEMANTIC).optJSONObject(0);
 
-                            fakeSlots.put(item);
-                        }
-
-                        semantic.put(SLOTS, fakeSlots);
-                        semantic.put("intent", semanticResult.optString(KEY_OPERATION));
-                        parsedSemanticResult.semantic = semantic;
-                    }
-                } else {
-                    parsedSemanticResult.semantic = semanticResult.optJSONArray(KEY_SEMANTIC) == null ?
-                            semanticResult.optJSONObject(KEY_SEMANTIC) :
-                            semanticResult.optJSONArray(KEY_SEMANTIC).optJSONObject(0);
-                }
                 parsedSemanticResult.answer = parsedSemanticResult.answer.replaceAll("\\[[a-zA-Z0-9]{2}\\]", "");
                 parsedSemanticResult.data = semanticResult.optJSONObject("data");
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -299,83 +273,6 @@ public class MainPresenter implements IMainPresenter , OnUrlClickListener, OnUrl
         LogUtils.e("语义理解失败，错误码=" + speechError.getErrorCode());
     }
 
-    private void openAppByLauncher(String appName) {
-        String answerText = "";
-        try {
-            MainApplication context = MainApplication.getApplication();
-            List<String> list = DeviceUtils.getPackNameByAppName(appName);
-            String packName = list.get(0);
-            String realAppName = list.get(1);
-
-            PackageManager pm = context.getPackageManager();
-            //通过包名来查询应用
-            Intent intent = pm.getLaunchIntentForPackage(packName);
-            if (intent == null) {
-                answerText = "你还没安装" + appName;
-            } else {
-                context.startActivity(intent);
-                answerText = "正在打开" + realAppName;
-            }
-        } catch (Exception e) {
-        }
-        responseAnswer(answerText);
-    }
-
-    private void playMusic(ArrayList<MusicBean> musicBeenArrayList) {
-        if (musicBeenArrayList == null) {
-            String answerText = ((Activity) mIMainView).getResources().getString(R.string.dont_find_music);
-            responseAnswer(answerText);
-            return;
-        }
-        MusicBean musicBean = musicBeenArrayList.get(0);
-        MusicService.startService((Activity) mIMainView, true, musicBean.getDownloadUrl());
-        String answerText = "正在播放歌曲：" + musicBean.getName() + "，歌手：" + musicBean.getSinger();
-        responseAnswer(answerText);
-    }
-
-    private void queryWeather(SemanticBean semanticBean, List<WeatherBean> list) {
-        try {
-            SlotsBean slotsBean = semanticBean.getSlots();
-            String sightspot = slotsBean.getSightspot();
-            LocationBean locationBean = slotsBean.getLocation();
-            DateBean dateBean = slotsBean.getDatetime();
-            String date = dateBean.getDate();
-            String dateOrig = dateBean.getDateOrig();
-
-            StringBuffer sb = new StringBuffer();
-
-            if (!TextUtils.isEmpty(locationBean.getCityAddr())) {
-                sb.append(locationBean.getCityAddr());
-            }
-
-            if (!TextUtils.isEmpty(sightspot)) {
-                sb.append(sightspot);
-            }
-
-            if (!TextUtils.isEmpty(dateOrig)) {
-                sb.append(dateOrig);
-            }
-            sb.append("：");
-            for (WeatherBean weatherBean : list) {
-                sb.append(weatherBean.getDate() + " , ");
-                if (!StringUtils.isEmpty(weatherBean.getWeather()))
-                    sb.append("天气：" + weatherBean.getWeather() + " , ");
-                if (!StringUtils.isEmpty(weatherBean.getTempRange()))
-                    sb.append("温度：" + weatherBean.getTempRange() + " , ");
-                if (!StringUtils.isEmpty(weatherBean.getAirQuality()))
-                    sb.append("空气质量：" + weatherBean.getAirQuality() + " , ");
-                if (!StringUtils.isEmpty(weatherBean.getWind()))
-                    sb.append("风向：" + weatherBean.getWind() + " , ");
-                if (!StringUtils.isEmpty(weatherBean.getWindLevel()))
-                    sb.append("风级：" + weatherBean.getWindLevel() + "级;\n");
-            }
-
-            responseAnswer(sb.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseAnswer("查询天气失败，请稍后再试~");
-        }
-    }
 
     public static void responseAnswer(final String answerText ) {
         if (!TextUtils.isEmpty(answerText)) {
@@ -442,13 +339,4 @@ public class MainPresenter implements IMainPresenter , OnUrlClickListener, OnUrl
         }
     }
 
-    @Override
-    public boolean urlClicked(String url) {
-        return false;
-    }
-
-    @Override
-    public boolean urlLongClick(String url) {
-        return false;
-    }
 }

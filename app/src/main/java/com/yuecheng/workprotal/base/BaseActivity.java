@@ -43,7 +43,7 @@ public class BaseActivity extends AppCompatActivity {
         //设置状态栏透明
         setTranslucentStatus(true);
         //通知栏默认为系统颜色
-        setWindow(R.color.primary);
+        setWindow(R.color.primary_dark);
     }
 
     /**

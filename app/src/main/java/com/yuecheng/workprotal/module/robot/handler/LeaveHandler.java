@@ -1,5 +1,7 @@
 package com.yuecheng.workprotal.module.robot.handler;
 
+import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.common.instruction;
 import com.yuecheng.workprotal.module.robot.bean.SemanticResult;
 import com.yuecheng.workprotal.module.robot.presenter.MainPresenter;
 
@@ -20,14 +22,14 @@ public class LeaveHandler extends IntentHandler {
 //            JSONArray list = result.semantic.optJSONArray("slots");
             String intent = result.semantic.optString("intent");
             switch(intent) {
-                case "take_leave"://请假
+                case instruction.TAKE_LEAVE://请假
                     MainPresenter.responseAnswer("跳转页面到请假！");
                     break;
-                case "my_leave"://我的请假
+                case instruction.MY_LEAVE://我的请假
                     MainPresenter.responseAnswer("跳转页面到我的请假！");
                     break;
                 default:
-                    MainPresenter.responseAnswer("语义错误！");
+                    MainPresenter.responseAnswer(R.string.grammar_error+"");
                     break;
             }
         }

@@ -1,5 +1,7 @@
 package com.yuecheng.workprotal.module.robot.handler;
 
+import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.common.instruction;
 import com.yuecheng.workprotal.module.robot.bean.SemanticResult;
 import com.yuecheng.workprotal.module.robot.presenter.MainPresenter;
 
@@ -20,26 +22,26 @@ public class FinanceHandler extends IntentHandler {
 //            JSONArray list = result.semantic.optJSONArray("slots");
             String intent = result.semantic.optString("intent");
             switch(intent) {
-                case "reimburse"://申请付款/报销
+                case instruction.REIMBURSE://申请付款/报销
                     MainPresenter.responseAnswer("跳转页面到申请付款/报销！");
                     break;
-                case "check_pr"://查付款/报销
+                case instruction.CHECK_PR://查付款/报销
                     MainPresenter.responseAnswer("跳转页面到查付款/报销！");
                     break;
-                case "business_application"://业务请示
+                case instruction.BUSINESS_APPLICATION://业务请示
                     MainPresenter.responseAnswer("跳转页面到业务请示！");
                     break;
-                case "check_on_business_application"://查业务请示
+                case instruction.CHECK_ON_BUSINESS_APPLICATION://查业务请示
                     MainPresenter.responseAnswer("跳转页面到查业务请示！");
                     break;
-                case "budget_adjustment"://申请借款
+                case instruction.BUDGET_ADJUSTMENT://申请借款
                     MainPresenter.responseAnswer("跳转页面到申请借款！");
                     break;
-                case "check_on_budget_adjustment"://查借款/查非预算事项
+                case instruction.CHECK_ON_BUDGET_ADJUSTMENT://查借款/查非预算事项
                     MainPresenter.responseAnswer("跳转页面到查非预算事项！");
                     break;
                 default:
-                    MainPresenter.responseAnswer("语义错误！");
+                    MainPresenter.responseAnswer(R.string.grammar_error+"");
                     break;
             }
         }

@@ -70,6 +70,13 @@
            android:layout_marginTop="16dp"
            android:text="登陆"
            android:textStyle="bold" />
+
+       <com.yuecheng.workprotal.widget.NinePointLockView
+           android:id="@+id/nplv_lock_view"
+           android:layout_width="300dp"
+           android:layout_height="300dp"
+           android:layout_gravity="center_horizontal">
+       </com.yuecheng.workprotal.widget.NinePointLockView>NinePointLockView
    </LinearLayout>
 
 

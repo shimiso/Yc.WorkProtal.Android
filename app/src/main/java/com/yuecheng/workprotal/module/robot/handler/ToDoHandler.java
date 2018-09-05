@@ -1,5 +1,7 @@
 package com.yuecheng.workprotal.module.robot.handler;
 
+import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.common.instruction;
 import com.yuecheng.workprotal.module.robot.bean.SemanticResult;
 import com.yuecheng.workprotal.module.robot.presenter.MainPresenter;
 
@@ -20,11 +22,11 @@ public class ToDoHandler extends IntentHandler {
 //            JSONArray list = result.semantic.optJSONArray("slots");
             String intent = result.semantic.optString("intent");
             switch(intent) {
-                case "my_to_do_list"://查待办
+                case instruction.MY_TO_DO_LIST://查待办
                     MainPresenter.responseAnswer("跳转页面到待办！");
                     break;
                 default:
-                    MainPresenter.responseAnswer("语义错误！");
+                    MainPresenter.responseAnswer(R.string.grammar_error+"");
                     break;
             }
         }
