@@ -12,12 +12,8 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.TextUnderstander;
-
-import android.content.res.Resources;
-
 import com.iflytek.cloud.TextUnderstanderListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
-import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.yuecheng.workprotal.module.robot.service.MusicService;
 import com.yuecheng.workprotal.utils.LogUtils;
 
@@ -76,7 +72,10 @@ public class XunfeiManager {
         }
         return mXunfeiManager;
     }
-    public void cancelVoiceDictation(){
+    public void cancelVoiceRobot(){
+        mIat.cancel();
+    }
+    public void stopVoiceRobot(){
         mIat.stopListening();
     }
     /**
@@ -88,9 +87,9 @@ public class XunfeiManager {
         //如果正在播放语音，先停掉
         stopSpeak();
 
-        if (mIatDialog != null) {
-            mIatDialog.dismiss();
-        }
+//        if (mIatDialog != null) {
+//            mIatDialog.dismiss();
+//        }
 
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
         if (mIat == null)
@@ -101,7 +100,7 @@ public class XunfeiManager {
         mIat.startListening(recognizerListener);
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
 //        if (mIatDialog == null)
-       // mIatDialog = new RecognizerDialog(context, mInitListener);
+        mIatDialog = new RecognizerDialog(context, mInitListener);
 
         // 显示听写对话框
        // mIatDialog.setListener(recognizerDialogListener);

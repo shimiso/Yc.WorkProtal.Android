@@ -2,8 +2,6 @@ package com.yuecheng.workprotal.module.robot.presenter;
 
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,19 +13,10 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.TextUnderstanderListener;
 import com.iflytek.cloud.UnderstanderResult;
-import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.yuecheng.workprotal.R;
-import com.yuecheng.workprotal.MainApplication;
-import com.yuecheng.workprotal.module.robot.action.CallAction;
-import com.yuecheng.workprotal.module.robot.bean.DateBean;
-import com.yuecheng.workprotal.module.robot.bean.LocationBean;
-import com.yuecheng.workprotal.module.robot.bean.MusicBean;
-import com.yuecheng.workprotal.module.robot.bean.SemanticBean;
-import com.yuecheng.workprotal.module.robot.bean.SemanticResult;
-import com.yuecheng.workprotal.module.robot.bean.SlotsBean;
-import com.yuecheng.workprotal.module.robot.bean.TalkBean;
-import com.yuecheng.workprotal.module.robot.bean.WeatherBean;
 import com.yuecheng.workprotal.module.robot.adapter.TalkListAdapter;
+import com.yuecheng.workprotal.module.robot.bean.SemanticResult;
+import com.yuecheng.workprotal.module.robot.bean.TalkBean;
 import com.yuecheng.workprotal.module.robot.handler.AdminHandler;
 import com.yuecheng.workprotal.module.robot.handler.ContactsHandler;
 import com.yuecheng.workprotal.module.robot.handler.DefaultHandler;
@@ -42,12 +31,9 @@ import com.yuecheng.workprotal.module.robot.handler.NoticeHandler;
 import com.yuecheng.workprotal.module.robot.handler.ToDoHandler;
 import com.yuecheng.workprotal.module.robot.model.IMainModel;
 import com.yuecheng.workprotal.module.robot.model.MainModel;
-import com.yuecheng.workprotal.module.robot.service.MusicService;
 import com.yuecheng.workprotal.module.robot.view.IMainView;
-import com.yuecheng.workprotal.module.robot.view.VoiceActivity;
-import com.yuecheng.workprotal.utils.DeviceUtils;
 import com.yuecheng.workprotal.utils.LogUtils;
-import com.yuecheng.workprotal.utils.StringUtils;
+import com.yuecheng.workprotal.utils.ToastUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,7 +43,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,13 +110,20 @@ public class MainPresenter implements IMainPresenter {
         mIMainView.updateList(mTalkBeanList);
     }
 
+    public void cancelVoiceRobot(){
+        mIMainModel.cancelVoiceRobot();
+    }
+
+    public void stopVoiceRobot(){
+        mIMainModel.stopVoiceRobot();
+    }
     @Override
     public void startVoiceRobot() {
         //语音听写
-        mIMainModel.recognizeVoice((Activity) mIMainView, new RecognizerListener() {
+        mIMainModel.startVoiceRobot((Activity) mIMainView, new RecognizerListener() {
             @Override
             public void onVolumeChanged(int i, byte[] bytes) {
-
+                mIMainView.setVoiceChanged(i);
             }
 
             @Override
@@ -151,7 +143,9 @@ public class MainPresenter implements IMainPresenter {
 
             @Override
             public void onError(SpeechError speechError) {
-                onRecognizerError(speechError);
+                LogUtils.e("语音听写失败，错误码=" + speechError.getErrorCode());
+                ToastUtil.error((Activity) mIMainView,speechError.getErrorDescription());
+                mIMainView.destroyTipView();
             }
 
             @Override
@@ -243,9 +237,6 @@ public class MainPresenter implements IMainPresenter {
         });
     }
 
-    private void onRecognizerError(SpeechError speechError) {
-        LogUtils.e("语音听写失败，错误码=" + speechError.getErrorCode());
-    }
 
     private void onTextUnderstanderSuccess(UnderstanderResult understanderResult) {
         if (understanderResult == null) return;

@@ -17,12 +17,10 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.yuecheng.workprotal.R;
-import com.yuecheng.workprotal.module.robot.bean.TalkBean;
 import com.yuecheng.workprotal.module.robot.adapter.TalkListAdapter;
-import com.yuecheng.workprotal.module.robot.manager.XunfeiManager;
+import com.yuecheng.workprotal.module.robot.bean.TalkBean;
 import com.yuecheng.workprotal.module.robot.presenter.MainPresenter;
 import com.yuecheng.workprotal.module.robot.service.MusicService;
 import com.yuecheng.workprotal.utils.StringUtils;
@@ -43,6 +41,10 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     private Button voice_btn;
     private EditText et_msg;
     public static VoiceActivity instance = null;
+    private TextView mTimerTV;
+    private TextView mStateTV;
+    private ImageView mStateIV;
+    private PopupWindow mRecordWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +118,11 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
                     }
                     break;
                 case MotionEvent.ACTION_UP:
-                    XunfeiManager.getInstance().cancelVoiceDictation();
+                    if (isCancelled(v, event)) {
+                        mIMainPresenter.cancelVoiceRobot();
+                    } else {
+                        mIMainPresenter.stopVoiceRobot();
+                    }
                     destroyTipView();
                     break;
             }
@@ -124,10 +130,35 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         });
     }
 
-    private TextView mTimerTV;
-    private TextView mStateTV;
-    private ImageView mStateIV;
-    private PopupWindow mRecordWindow;
+    @Override
+    public void setVoiceChanged(int volume) {
+        if(this.mStateIV==null) return;
+        switch (volume / 4) {
+            case 0:
+                this.mStateIV.setImageResource(R.mipmap.ic_volume_1);
+                break;
+            case 1:
+                this.mStateIV.setImageResource(R.mipmap.ic_volume_2);
+                break;
+            case 2:
+                this.mStateIV.setImageResource(R.mipmap.ic_volume_3);
+                break;
+            case 3:
+                this.mStateIV.setImageResource(R.mipmap.ic_volume_4);
+                break;
+            case 4:
+                this.mStateIV.setImageResource(R.mipmap.ic_volume_5);
+                break;
+            case 5:
+                this.mStateIV.setImageResource(R.mipmap.ic_volume_6);
+                break;
+            case 6:
+                this.mStateIV.setImageResource(R.mipmap.ic_volume_7);
+                break;
+            default:
+                this.mStateIV.setImageResource(R.mipmap.ic_volume_8);
+        }
+    }
 
     public void showTipView() {
         View view = View.inflate(this, R.layout.popup_audio_wi_vo, null);
@@ -156,8 +187,6 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     public void setRecordingTipView() {
         if (this.mRecordWindow != null) {
             this.mStateIV.setVisibility(View.VISIBLE);
-            this.mStateIV.setImageResource(R.mipmap.ic_volume_1);
-            this.mStateTV.setVisibility(View.VISIBLE);
             this.mStateTV.setText(R.string.voice_rec);
             this.mStateTV.setBackgroundResource(R.drawable.bg_voice_popup);
             this.mTimerTV.setVisibility(View.GONE);
@@ -185,6 +214,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     }
 
     //销毁提示
+    @Override
     public void destroyTipView() {
         if (this.mRecordWindow != null) {
             this.mRecordWindow.dismiss();
