@@ -131,7 +131,7 @@ public class ContactBean {
 			public PinYinStyle pinYinStyle=new PinYinStyle();
 
 
-			public StaffsBean(String name) {
+			public void conversionpinyin(String name) {
 				this.name = name;
 				//一开始就转化好拼音
 				setPinyin(PinYinUtil.getPinyin(name));

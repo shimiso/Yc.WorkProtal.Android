@@ -59,6 +59,9 @@
             android:name=".module.robot.view.JsonActivity"
             android:launchMode="singleTop"/>
         <activity
+            android:name=".module.contacts.view.InformationActivity"
+            android:launchMode="singleTop"/>
+        <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateUnspecified|adjustPan|stateHidden"/>

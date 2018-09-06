@@ -66,6 +66,29 @@
     <string name="voice_failure">录音失败！</string>
     <string name="send_audio_fail">发送语音失败，文件长度为0或语音权限没有开启</string>
 
+    //工作台
+    <string name="hthq">合同会签</string>
+    <string name="fksq">付款申请</string>
+    <string name="ywqs">业务请示</string>
+    <string name="fyssx">非预算事项</string>
+    <string name="xjsq">休假申请</string>
+    <string name="jbsq">加班申请</string>
+    <string name="dbsx">待办事项</string>
+    <string name="dhys">订会议室</string>
+    <string name="qyyx">企业邮箱</string>
+    <string name="itfw">IT服务</string>
+    <string name="qyzd">企业制度</string>
+    <string name="wdzx">文档中心</string>
+    <string name="xw">新闻</string>
+    <string name="gg">公告</string>
+    <string name="cylc">常用流程</string>
+    <string name="gj">工具</string>
+    <string name="qtyy">其他应用</string>
+
+
+
+
+
     <string-array name="voice_type">
         <item>普通话</item>
         <item>广东话</item>

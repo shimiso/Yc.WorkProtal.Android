@@ -9,6 +9,26 @@
     <string name="set_language">Set the language</string>
     <string name="grammar_error">Semantic error</string>
 
+
+    //工作台
+    <string name="hthq">Sign the contract</string>
+    <string name="fksq">Payment request</string>
+    <string name="ywqs">Business for instructions</string>
+    <string name="fyssx">Non-budgetary matter</string>
+    <string name="xjsq">Leave application</string>
+    <string name="jbsq">Request for overtime</string>
+    <string name="dbsx">todo</string>
+    <string name="dhys">Book the meeting room</string>
+    <string name="qyyx">Enterprise email</string>
+    <string name="itfw">IT services</string>
+    <string name="qyzd">Enterprise system</string>
+    <string name="wdzx">Document center</string>
+    <string name="xw">news</string>
+    <string name="gg">The announcement</string>
+    <string name="cylc">Commonly used process</string>
+    <string name="gj">tool</string>
+    <string name="qtyy">Other applications</string>
+
     <string-array name="voice_type_params">
         <item>xiaoqi</item>
         <item>xiaomei</item>

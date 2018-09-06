@@ -10,7 +10,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 import com.yuecheng.workprotal.base.BaseActivity;
-import com.yuecheng.workprotal.module.LoginActivity;
 import com.yuecheng.workprotal.module.PasswordLoginActivity;
 import com.yuecheng.workprotal.module.update.CheckVersionPresenter;
 import com.yuecheng.workprotal.module.update.Version;
@@ -59,7 +58,7 @@ public class WelcomeActivity extends BaseActivity {
                 } else {
                     checkNetworkAndRequestData();//如果网络设置成功后，返回需再次检测网络，重复该流程，避免卡死在当前界面
                 }
-//                startActivity( new Intent(context, LoginActivity.class));
+//                startActivity( new Intent(context, SudokuLoginActivity.class));
 //                finish();
             });
 

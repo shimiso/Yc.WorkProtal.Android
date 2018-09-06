@@ -22,8 +22,9 @@ import butterknife.OnClick;
 
 /**
  * A login screen that offers login via username/password.
+ * 使用之前先在清单文件中注册
  */
-public class LoginActivity extends BaseActivity {
+public class SudokuLoginActivity extends BaseActivity {
     UserDao userDao;
     @BindView(R.id.nplv_lock_view)
     NinePointLockView nplvLockView;
@@ -46,17 +47,17 @@ public class LoginActivity extends BaseActivity {
                     }
                     //本地存储了密码，进行匹配
                     if (!TextUtils.equals(password, builder.toString())) {  //密码匹配失败，显示错误路径，本地密码置空
-                        Toast.makeText(LoginActivity.this, "密码错误，已清空密码，请重置，当前路径：" + builder.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SudokuLoginActivity.this, "密码错误，已清空密码，请重置，当前路径：" + builder.toString(), Toast.LENGTH_SHORT).show();
                         // password = null;
                         return false;
                     } else {    //密码匹配成功
-                        Toast.makeText(LoginActivity.this, "密码正确" + builder.toString(), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        Toast.makeText(SudokuLoginActivity.this, "密码正确" + builder.toString(), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SudokuLoginActivity.this, MainActivity.class));
                         finish();
                         return true;
                     }
                 } else {
-                    Toast.makeText(LoginActivity.this, "请至少连接4个点", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SudokuLoginActivity.this, "请至少连接4个点", Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }

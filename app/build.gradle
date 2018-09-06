@@ -44,7 +44,8 @@ android {
             // manifestPlaceholders = [JPUSH_APPKEY: "a615d8891c3039059e9bfcd5"]
             versionNameSuffix "(Dev_Build" + defaultConfig.versionCode + ")"
             buildConfigField "String", "CERTIFICATE_NAME", "\"debug_cer.pem\""
-            buildConfigField "String", "HTTP_HOST", "\"http://jujia02.ycsenior.com\""
+//            buildConfigField "String", "HTTP_HOST", "\"http://jujia02.ycsenior.com\""
+            buildConfigField "String", "HTTP_HOST", "\"http://192.168.0.150:8683/\""
             buildConfigField "boolean", "IS_HTTPS", "false"
             buildConfigField "boolean", "LOG_DEBUG", "true"
             minifyEnabled false
@@ -165,6 +166,8 @@ dependencies {
     //OkGo网络
     implementation 'com.lzy.net:okgo:3.0.4'
     implementation 'com.readystatesoftware.chuck:library:1.0.4'
+    //调用 相机/相册 使用过高的版本会报错
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.0'
     //注解注入
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'

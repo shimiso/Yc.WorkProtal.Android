@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ import android.widget.TextView;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.base.BaseFragment;
+import com.yuecheng.workprotal.bean.ResultInfo;
+import com.yuecheng.workprotal.common.CommonPostView;
+import com.yuecheng.workprotal.module.contacts.presenter.ContactsPresenter;
 import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ContactBean;
 import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.PinYinStyle;
 import com.yuecheng.workprotal.module.contacts.quicksearch.adapter.AlphabetAdp;
@@ -36,7 +40,7 @@ import java.util.regex.Pattern;
  * Created by huochangsheng on 2018/7/25.
  */
 
-public class MyTabContactsFragment extends BaseFragment {
+public class MyTabContactsFragment extends BaseFragment implements CommonPostView<ContactBean> {
 
     private SideLetterBar sideLetterBar;
     private ListView lv_contact;
@@ -98,8 +102,9 @@ public class MyTabContactsFragment extends BaseFragment {
             "翟先生", "张先生", "章先生","赵先生", "甄先生", "曾先生","周先生", "郑先生", "祝先生",
     };
 
-    private ArrayList<ContactBean.ResultBean.StaffsBean> contactList;
+    private List<ContactBean.ResultBean.StaffsBean> contactList;
     private View view;
+    private List<ContactBean.ResultBean.StaffsBean> staffs;
 
     public static MyTabContactsFragment newInstance() {
         Bundle args = new Bundle();
@@ -112,11 +117,10 @@ public class MyTabContactsFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.contacts_tab_people, container, false);
-        contactList = dataList();
-        //2.对数据进行排序
-        initView();
-        initEvent();
-        initData();
+
+        ContactsPresenter contactsPresenter = new ContactsPresenter(getActivity());
+        contactsPresenter.getContact(this);
+
         return view;
     }
     private void initView() {
@@ -294,10 +298,10 @@ public class MyTabContactsFragment extends BaseFragment {
     private ArrayList<ContactBean.ResultBean.StaffsBean> dataList() {
         // 虚拟数据
         ArrayList<ContactBean.ResultBean.StaffsBean> mSortList = new ArrayList<ContactBean.ResultBean.StaffsBean>();
-        for(int i=0;i<data.length;i++){
-            ContactBean.ResultBean.StaffsBean bean = new ContactBean.ResultBean.StaffsBean(data[i]);
-            bean.pinYinStyle = parsePinYinStyle(data[i]);
-            mSortList.add(bean);
+        for(int i=0;i<staffs.size();i++){
+            staffs.get(i).conversionpinyin(staffs.get(i).getName());
+            staffs.get(i).pinYinStyle = parsePinYinStyle(staffs.get(i).getName());
+            mSortList.add(staffs.get(i));
         }
         Collections.sort(mSortList);
         return mSortList;
@@ -356,5 +360,24 @@ public class MyTabContactsFragment extends BaseFragment {
             }
         }
         return pinYinStyle;
+    }
+
+    @Override
+    public void postSuccess(ResultInfo<ContactBean> resultInfo) {
+        if(resultInfo.getResult().isSuccess()){
+            ContactBean result = resultInfo.getResult();
+            staffs = result.getResult().getStaffs();
+            contactList = dataList();
+            //2.对数据进行排序
+            initView();
+            initEvent();
+            initData();
+        }
+    }
+
+    @Override
+    public void postError(String errorMsg) {
+
+        Log.i("MyTabContactsFragment",errorMsg);
     }
 }

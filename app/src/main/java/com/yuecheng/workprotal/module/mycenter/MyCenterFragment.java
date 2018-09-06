@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.yuecheng.workprotal.MainActivity;
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.base.BaseFragment;
-import com.yuecheng.workprotal.module.LoginActivity;
 import com.yuecheng.workprotal.module.PasswordLoginActivity;
 
 import java.util.Locale;

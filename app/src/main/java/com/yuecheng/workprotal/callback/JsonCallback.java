@@ -56,9 +56,9 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         // 使用的设备信息
         // 可以随意添加,也可以什么都不传
         // 还可以在这里对所有的参数进行加密，均在这里实现
-        request.headers("header1", "HeaderValue1")//
-                .params("params1", "ParamsValue1")//
-                .params("token", "3215sdf13ad1f65asd4f3ads1f");
+//        request.headers("header1", "HeaderValue1")//
+//                .params("params1", "ParamsValue1")//
+//                .params("token", "3215sdf13ad1f65asd4f3ads1f");
     }
 
     /**

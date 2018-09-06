@@ -1,6 +1,7 @@
 package com.yuecheng.workprotal.module.update;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,11 +27,12 @@ public class CheckVersionPresenter {
     }
 
     public void checkVersion(final int versionCode, final CheckVersionListener checkVersionListener) {
-
-        OkGo.<String>get(UrlConstant.GET_NEW_VERSION)//
+//        OkGo.<String>get(UrlConstant.GET_NEW_VERSION)//
+        OkGo.<String>post(UrlConstant.ADDRESSSTAFFQUEY)//
                 .tag(this)//
-                .headers("header1", "headerValue1")//
-                .params("param1", "paramValue1")//
+//                .headers("header1", "headerValue1")//
+//                .params("param1", "paramValue1")//
+                .params("staffId", 11)//
                .execute(new DialogCallback<String>(activity) {
                    @Override
                    public void onSuccess(Response<String> result) {

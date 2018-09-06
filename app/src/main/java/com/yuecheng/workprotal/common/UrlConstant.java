@@ -10,4 +10,6 @@ public interface UrlConstant {
     String HTTP_HOST = BuildConfig.HTTP_HOST;
 
     String  GET_NEW_VERSION = HTTP_HOST + "";
+    String  ADDRESSSTAFFQUEY = HTTP_HOST + "api/services/app/Staff/AddressStaffQuery";
+    String  STAFFBASICINFOGET = HTTP_HOST + "api/services/app/Staff/StaffBasicInfoGet";
 }

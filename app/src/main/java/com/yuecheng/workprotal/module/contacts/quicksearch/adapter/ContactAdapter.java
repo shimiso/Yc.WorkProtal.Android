@@ -1,6 +1,7 @@
 package com.yuecheng.workprotal.module.contacts.quicksearch.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +11,19 @@ import android.widget.TextView;
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ContactBean;
 import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.PinYinStyle;
+import com.yuecheng.workprotal.module.contacts.view.InformationActivity;
 import com.yuecheng.workprotal.widget.CircleTextImage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ContactAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<ContactBean.ResultBean.StaffsBean> list;
+    private List<ContactBean.ResultBean.StaffsBean> list;
     public PinYinStyle sortToken;
 
-    public ContactAdapter(Context context, ArrayList<ContactBean.ResultBean.StaffsBean> list) {
+    public ContactAdapter(Context context, List<ContactBean.ResultBean.StaffsBean> list) {
         super();
         this.context = context;
         this.list = list;
@@ -57,7 +60,7 @@ public class ContactAdapter extends BaseAdapter {
         ContactBean.ResultBean.StaffsBean contactBean = list.get(position);
         holder.tv_contact_name.setText(contactBean.getName());
         holder.cti.setText4CircleImage(contactBean.getName().subSequence(0, 1).toString());
-        holder.tv_contact_department.setText("中医推拿师职位");
+        holder.tv_contact_department.setText(contactBean.getPositionName());
         String currentAlphabet = contactBean.getPinyin().charAt(0) + "";
         if (position > 0) {
             String lastAlphabet = list.get(position - 1).getPinyin().charAt(0) + "";
@@ -77,10 +80,14 @@ public class ContactAdapter extends BaseAdapter {
         }
 
         //条目点击
-        holder.tv_contact_name.setOnClickListener(new View.OnClickListener() {
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("tag", "条目点击！！");
+                //条目点击
+                Intent intent = new Intent(context, InformationActivity.class);
+                intent.putExtra("StaffId",contactBean.getStaffId());
+                intent.putExtra("name",contactBean.getName());
+                context.startActivity(intent);
             }
         });
         return convertView;
