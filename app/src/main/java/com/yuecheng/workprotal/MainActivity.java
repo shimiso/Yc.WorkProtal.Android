@@ -11,8 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.util.SparseIntArray;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.yuecheng.workprotal.base.BaseActivity;
@@ -21,7 +19,7 @@ import com.yuecheng.workprotal.module.contacts.MyContactsFragment;
 import com.yuecheng.workprotal.module.message.MyMessageFragment;
 import com.yuecheng.workprotal.module.mycenter.MyCenterFragment;
 import com.yuecheng.workprotal.module.robot.view.VoiceActivity;
-import com.yuecheng.workprotal.module.work.MyWorkFragment;
+import com.yuecheng.workprotal.module.work.MyTaskFragment;
 import com.yuecheng.workprotal.widget.BottomNavigationViewEx;
 
 import java.util.ArrayList;
@@ -44,7 +42,7 @@ public class MainActivity extends BaseActivity {
 
     private VpAdapter adapter;
     private MyMessageFragment myMessageFragment;
-    private MyWorkFragment myWorkFragment;
+    private MyTaskFragment myTaskFragment;
     private MyCenterFragment myCenterFragment;
     private MyContactsFragment myContactsFragment;
     private MyRobotFragment myRobotFragment;
@@ -57,13 +55,13 @@ public class MainActivity extends BaseActivity {
 
         if (savedInstanceState == null){
             myMessageFragment = MyMessageFragment.newInstance();
-            myWorkFragment = MyWorkFragment.newInstance();
+            myTaskFragment = MyTaskFragment.newInstance();
             myCenterFragment = MyCenterFragment.newInstance();
             myContactsFragment = MyContactsFragment.newInstance();
             myRobotFragment = MyRobotFragment.newInstance();
         } else {
             myMessageFragment = (MyMessageFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyMessageFragment.class.getName());
-            myWorkFragment = (MyWorkFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyWorkFragment.class.getName());
+            myTaskFragment = (MyTaskFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyTaskFragment.class.getName());
             myCenterFragment = (MyCenterFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyCenterFragment.class.getName());
             myContactsFragment = (MyContactsFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyContactsFragment.class.getName());
             myRobotFragment = (MyRobotFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyRobotFragment.class.getName());
@@ -81,7 +79,7 @@ public class MainActivity extends BaseActivity {
 
         // add to fragments for adapter
         fragments.add(myMessageFragment);
-        fragments.add(myWorkFragment);
+        fragments.add(myTaskFragment);
         fragments.add(myRobotFragment);
         fragments.add(myContactsFragment);
         fragments.add(myCenterFragment);

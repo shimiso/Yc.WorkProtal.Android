@@ -138,6 +138,7 @@ public class MainPresenter implements IMainPresenter {
 
             @Override
             public void onResult(RecognizerResult recognizerResult, boolean isLast) {
+                mIMainView.destroyTipView();
                 onRecognizerSuccess(recognizerResult, isLast);
             }
 

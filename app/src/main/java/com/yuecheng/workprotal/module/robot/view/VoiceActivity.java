@@ -1,5 +1,6 @@
 package com.yuecheng.workprotal.module.robot.view;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -97,12 +99,6 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
                 return false;
             }
         });
-//        voice_btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mIMainPresenter.startVoiceRobot();
-//            }
-//        });
 
         voice_btn.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
@@ -120,10 +116,12 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
                 case MotionEvent.ACTION_UP:
                     if (isCancelled(v, event)) {
                         mIMainPresenter.cancelVoiceRobot();
+                        destroyTipView();
                     } else {
                         mIMainPresenter.stopVoiceRobot();
+                        setRecognizationTipView();
                     }
-                    destroyTipView();
+
                     break;
             }
             return false;
@@ -160,6 +158,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         }
     }
 
+    //显示提醒
     public void showTipView() {
         View view = View.inflate(this, R.layout.popup_audio_wi_vo, null);
         mStateIV = view.findViewById(R.id.rc_audio_state_image);
@@ -172,18 +171,23 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         mRecordWindow.setTouchable(false);
     }
 
-    public void setTimeoutTipView(int counter) {
+    //识别中
+    public void setRecognizationTipView() {
         if (this.mRecordWindow != null) {
-            this.mStateIV.setVisibility(View.GONE);
+            this.mTimerTV.setVisibility(View.GONE);
             this.mStateTV.setVisibility(View.VISIBLE);
-            this.mStateTV.setText(R.string.voice_rec);
+            this.mStateTV.setText("正在识别中...");
             this.mStateTV.setBackgroundResource(R.drawable.bg_voice_popup);
-            this.mTimerTV.setText(String.format("%s", new Object[]{Integer.valueOf(counter)}));
-            this.mTimerTV.setVisibility(View.VISIBLE);
+            this.mStateIV.setImageResource(R.mipmap.waiting);
+            ObjectAnimator icon_anim = ObjectAnimator.ofFloat(mStateIV, "rotation", 0.0F, 360f);//
+            icon_anim.setRepeatCount(-1);
+            icon_anim.setDuration(1000);
+            icon_anim.setInterpolator(new LinearInterpolator()); //设置匀速旋转，不卡顿
+            icon_anim.start();
         }
     }
 
-    //提示：手指上滑，取消发送
+    //手指上滑，取消发送
     public void setRecordingTipView() {
         if (this.mRecordWindow != null) {
             this.mStateIV.setVisibility(View.VISIBLE);
