@@ -14,11 +14,15 @@ import com.yuecheng.workprotal.MainActivity;
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.bean.ResultInfo;
 import com.yuecheng.workprotal.bean.SsoToken;
+import com.yuecheng.workprotal.bean.User;
 import com.yuecheng.workprotal.common.CommonPostView;
+import com.yuecheng.workprotal.module.contacts.presenter.ContactsPresenter;
 import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ContactBean;
 import com.yuecheng.workprotal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workprotal.utils.StringUtils;
 import com.yuecheng.workprotal.utils.ToastUtil;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isPassword = false;
     private TimeCount time;
     private UserPresenter userPresenter;
+    private ContactsPresenter contactsPresenter;
     private Context context;
 
     @Override
@@ -51,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         time = new TimeCount(60000, 1000);
         userPresenter = new UserPresenter(this);
+        contactsPresenter = new ContactsPresenter(this);
         context = this;
         initEvent();
 
@@ -73,6 +79,14 @@ public class LoginActivity extends AppCompatActivity {
                 userPresenter.login(username,passWD,new CommonPostView<SsoToken>() {
                     @Override
                     public void postSuccess(ResultInfo<SsoToken> resultInfo) {
+//                        User user = new User();
+//                        user.setName("王二麻");
+//                        user.setAddress("四川成都");
+//                        user.setAge(36);
+//                        user.setSex("男");
+//                        userDao.insert(user);
+//                        List<User> list=userDao.loadAll();
+
                         startActivity(new Intent(context, MainActivity.class));
                         finish();
                     }
