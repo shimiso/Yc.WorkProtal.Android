@@ -144,25 +144,22 @@ public class SharePreferenceUtil {
     }
 
     /**
-     * 获取当前登录用户ID
+     * 获取当前登录用户名
      *
      * @return
      */
-    public Integer getCurrentUserId() {
-        Integer currentUserId = sp.getInt(Constants.CURRENT_USER_ID, 0);
-        if(currentUserId == null){
-            currentUserId = 0;
-        }
+    public String getCurrentUserName() {
+        String currentUserId = sp.getString(Constants.CURRENT_USER_NAME, null);
         return currentUserId;
     }
 
     /**
-     * 设置当前登录用户ID
+     * 设置当前登录用户名
      *
-     * @param userId
+     * @param username
      */
-    public void setCurrentUserId(Integer userId) {
-        editor.putInt(Constants.CURRENT_USER_ID, userId);
+    public void setCurrentUserName(String username) {
+        editor.putString(Constants.CURRENT_USER_NAME, username);
         editor.commit();
     }
 }

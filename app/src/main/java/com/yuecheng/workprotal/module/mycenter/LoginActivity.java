@@ -5,30 +5,27 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.yuecheng.workprotal.MainActivity;
 import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.base.BaseActivity;
 import com.yuecheng.workprotal.bean.ResultInfo;
 import com.yuecheng.workprotal.bean.SsoToken;
-import com.yuecheng.workprotal.bean.User;
 import com.yuecheng.workprotal.common.CommonPostView;
 import com.yuecheng.workprotal.module.contacts.presenter.ContactsPresenter;
 import com.yuecheng.workprotal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workprotal.utils.StringUtils;
 import com.yuecheng.workprotal.utils.ToastUtil;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.phone)
     TextView phone;
@@ -50,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setFullFullscreen();//全屏
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         ButterKnife.bind(this);
@@ -78,14 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                 userPresenter.login(username,passWD,new CommonPostView<SsoToken>() {
                     @Override
                     public void postSuccess(ResultInfo<SsoToken> resultInfo) {
-//                        User user = new User();
-//                        user.setName("王二麻");
-//                        user.setAddress("四川成都");
-//                        user.setAge(36);
-//                        user.setSex("男");
-//                        userDao.insert(user);
-//                        List<User> list=userDao.loadAll();
-
+                        spUtil.setCurrentUserName(username);
                         startActivity(new Intent(context, MainActivity.class));
                         finish();
                     }

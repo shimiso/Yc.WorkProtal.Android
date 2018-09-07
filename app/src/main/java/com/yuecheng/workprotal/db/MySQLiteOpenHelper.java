@@ -2,10 +2,10 @@ package com.yuecheng.workprotal.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
+import com.yuecheng.workprotal.bean.LoginUser;
 import com.yuecheng.workprotal.greendao.DaoMaster;
-import com.yuecheng.workprotal.greendao.UserDao;
+import com.yuecheng.workprotal.greendao.LoginUserDao;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -32,7 +32,7 @@ public class MySQLiteOpenHelper extends DaoMaster.OpenHelper {
             public void onDropAllTables(Database db, boolean ifExists) {
                 DaoMaster.dropAllTables(db, ifExists);
             }
-        },  UserDao.class);
+        }, LoginUserDao.class);
     }
 
 

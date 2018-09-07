@@ -10,11 +10,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 import com.yuecheng.workprotal.base.BaseActivity;
+import com.yuecheng.workprotal.bean.LoginUser;
 import com.yuecheng.workprotal.module.mycenter.LoginActivity;
 import com.yuecheng.workprotal.module.update.CheckVersionPresenter;
 import com.yuecheng.workprotal.module.update.Version;
 import com.yuecheng.workprotal.module.update.VersionUpdateDialog;
 import com.yuecheng.workprotal.utils.AndroidUtil;
+import com.yuecheng.workprotal.utils.StringUtils;
 import com.yuecheng.workprotal.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -50,7 +52,7 @@ public class WelcomeActivity extends BaseActivity {
         ButterKnife.bind(this);
         versionTv.setText("版本：V" + androidUtil.getApkVersionName());
         checkVersionPresenter = new CheckVersionPresenter(this);
-//        User currentLoginUser = MainApplication.getApplication().getCurrentLoginUser();
+
             runOnUiThread(() -> {
                 // android系统大于等于6.0时需要处理时权限
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -58,8 +60,6 @@ public class WelcomeActivity extends BaseActivity {
                 } else {
                     checkNetworkAndRequestData();//如果网络设置成功后，返回需再次检测网络，重复该流程，避免卡死在当前界面
                 }
-//                startActivity( new Intent(context, SudokuLoginActivity.class));
-//                finish();
             });
 
     }
@@ -123,8 +123,7 @@ public class WelcomeActivity extends BaseActivity {
 
                 @Override
                 public void toNext() {
-                    startActivity( new Intent(context, MainActivity.class));
-                    finish();
+                    toLogin();
                 }
 
                 @Override
@@ -138,8 +137,7 @@ public class WelcomeActivity extends BaseActivity {
 
                 @Override
                 public void onError(String errorMessage) {
-                    startActivity( new Intent(context, LoginActivity.class));
-                    finish();
+                    toLogin();
                 }
             });
         }
@@ -147,7 +145,16 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        startActivity( new Intent(context, LoginActivity.class));
-        finish();
+        toLogin();
+    }
+
+    protected void toLogin(){
+        if(!StringUtils.isEmpty(spUtil.getCurrentUserName())){
+            startActivity( new Intent(context, MainActivity.class));
+            finish();
+        }else {
+            startActivity( new Intent(context, LoginActivity.class));
+            finish();
+        }
     }
 }

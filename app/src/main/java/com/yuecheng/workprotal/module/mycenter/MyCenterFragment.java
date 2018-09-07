@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yuecheng.workprotal.MainActivity;
+import com.yuecheng.workprotal.MainApplication;
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.base.BaseFragment;
 
@@ -37,6 +38,7 @@ public class MyCenterFragment extends BaseFragment {
                 //startActivity(new Intent(getActivity(),OpenH5Activity.class))
                 );
         view.findViewById(R.id.exit_btn).setOnClickListener(view1 -> {
+            MainApplication.getApplication().exit();
             startActivity(new Intent(getActivity(),LoginActivity.class));
             getActivity().finish();
         });

@@ -4,6 +4,7 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Unique;
 
 /**
  * Bean 对象注释的解释
@@ -25,43 +26,38 @@ import org.greenrobot.greendao.annotation.Generated;
  * OrderBy 排序
  * ToOne 一对一
  */
-@Entity(nameInDb = "user_info")
-public class User {  
+@Entity(nameInDb = "login_user")
+public class LoginUser {
 
     //@Id：通过这个注解标记的字段必须是Long类型的，这个字段在数据库中表示它就是主键，并且它默认就是自增的
     @Id(autoincrement = true)
     private Long id;  
-    
-    private String name;  //普通字段
 
-    private String address;
+    @Unique
+    private String username;  //用户名
 
     private String password;
 
-    private String birthady;
+    @Unique
+    private String access_token;
 
-    private String sex;
+    private int expires_in;
 
-    private int age;  //普通字段
+    private String token_type;
 
-    //@Transient：表明这个字段不会被写入数据库，只是作为一个普通的java类字段，用来临时存储数据的，不会被持久化
-    @Transient
-    private int tempUsageCount; // not persisted  
-
-    @Generated(hash = 1756025760)
-    public User(Long id, String name, String address, String password,
-            String birthady, String sex, int age) {
+    @Generated(hash = 1364567019)
+    public LoginUser(Long id, String username, String password, String access_token,
+            int expires_in, String token_type) {
         this.id = id;
-        this.name = name;
-        this.address = address;
+        this.username = username;
         this.password = password;
-        this.birthady = birthady;
-        this.sex = sex;
-        this.age = age;
+        this.access_token = access_token;
+        this.expires_in = expires_in;
+        this.token_type = token_type;
     }
 
-    @Generated(hash = 586692638)
-    public User() {
+    @Generated(hash = 1159929338)
+    public LoginUser() {
     }
 
     public Long getId() {
@@ -72,28 +68,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    public String getUsername() {
+        return this.username;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return this.age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getAddress() {
-        return this.address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -104,19 +84,30 @@ public class User {
         this.password = password;
     }
 
-    public String getBirthady() {
-        return this.birthady;
+    public String getAccess_token() {
+        return this.access_token;
     }
 
-    public void setBirthady(String birthady) {
-        this.birthady = birthady;
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
     }
 
-    public String getSex() {
-        return this.sex;
+    public int getExpires_in() {
+        return this.expires_in;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setExpires_in(int expires_in) {
+        this.expires_in = expires_in;
     }
-}  
+
+    public String getToken_type() {
+        return this.token_type;
+    }
+
+    public void setToken_type(String token_type) {
+        this.token_type = token_type;
+    }
+
+    //@Transient：表明这个字段不会被写入数据库，只是作为一个普通的java类字段，用来临时存储数据的，不会被持久化
+
+}

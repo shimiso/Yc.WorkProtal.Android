@@ -7,7 +7,7 @@ package com.yuecheng.workprotal.common;
  */
 public interface Constants {
 	//当前登录用户ID
-	String CURRENT_USER_ID = "current_user_id";
+	String CURRENT_USER_NAME = "current_user_name";
 	int LOAD_FIRST_MODEL = 0;
 	//下拉刷新
 	int LOAD_REFRESH_MODEL = 1;

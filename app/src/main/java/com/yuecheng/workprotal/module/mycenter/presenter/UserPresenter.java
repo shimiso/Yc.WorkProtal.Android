@@ -1,15 +1,19 @@
 package com.yuecheng.workprotal.module.mycenter.presenter;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
+import com.yuecheng.workprotal.bean.LoginUser;
 import com.yuecheng.workprotal.bean.ResultInfo;
 import com.yuecheng.workprotal.bean.SsoToken;
 import com.yuecheng.workprotal.callback.DialogCallback;
 import com.yuecheng.workprotal.common.CommonPostView;
 import com.yuecheng.workprotal.common.UrlConstant;
+import com.yuecheng.workprotal.db.DaoManager;
+import com.yuecheng.workprotal.greendao.LoginUserDao;
 
 /**
  * 描述:
@@ -17,9 +21,20 @@ import com.yuecheng.workprotal.common.UrlConstant;
  * 时间: ${date} ${time}
  */
 public class UserPresenter {
-    private Activity activity;
-    public UserPresenter(Activity activity) {
-        this.activity = activity;
+    private Context context;
+    LoginUserDao loginUserDao;
+    public UserPresenter(Context context) {
+        this.context = context;
+        this.loginUserDao =  DaoManager.getInstance(context).getUserDao();
+    }
+
+    public LoginUser getUser(String username) {
+        LoginUser loginUser=loginUserDao.queryBuilder()
+                .where(LoginUserDao.Properties.Username.eq(username))
+                .build().unique();
+        if(loginUser==null)
+            loginUser = new LoginUser();
+        return loginUser;
     }
 
     public void login(String username,String password,final CommonPostView<SsoToken> commonPostView){
@@ -31,7 +46,7 @@ public class UserPresenter {
                 .params("client_secret", "secret")//接入方客户密码
                 .params("grant_type", "password")//授权类型固定不可修改
                 .params("scopes", "api1")//请求的资源范围
-                .execute(new DialogCallback<String>(activity) {
+                .execute(new DialogCallback<String>(context) {
                     @Override
                     public void onSuccess(Response<String> response) {
                         int responseCode = response.getRawResponse().code();
@@ -42,6 +57,15 @@ public class UserPresenter {
                                 Gson gson = new Gson();
                                 SsoToken ssoToken = gson.fromJson(result, SsoToken.class);
                                 resultInfo.result = ssoToken;
+
+                                LoginUser user =getUser(username);
+                                user.setExpires_in(ssoToken.getExpires_in());
+                                user.setAccess_token(ssoToken.getAccess_token());
+                                user.setToken_type(ssoToken.getToken_type());
+                                user.setUsername(username);
+                                user.setPassword(password);
+                                LoginUserDao loginUserDao =  DaoManager.getInstance(context).getUserDao();
+                                loginUserDao.save(user);
                                 commonPostView.postSuccess(resultInfo);
                             } catch (Exception e) {
                                 e.printStackTrace();

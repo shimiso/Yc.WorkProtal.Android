@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.yuecheng.workprotal.greendao.DaoMaster;
 import com.yuecheng.workprotal.greendao.DaoSession;
-import com.yuecheng.workprotal.greendao.UserDao;
+import com.yuecheng.workprotal.greendao.LoginUserDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -153,8 +153,8 @@ public class DaoManager {
     }
 
     //对外定义方法
-    public UserDao getUserDao(){
-        return mDaoSession.getUserDao();
+    public LoginUserDao getUserDao(){
+        return mDaoSession.getLoginUserDao();
     }
 
     //是否开启Log

@@ -2,6 +2,7 @@ package com.yuecheng.workprotal;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
@@ -14,6 +15,15 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
+import com.yuecheng.workprotal.bean.LoginUser;
+import com.yuecheng.workprotal.db.DaoManager;
+import com.yuecheng.workprotal.greendao.LoginUserDao;
+import com.yuecheng.workprotal.module.mycenter.LoginActivity;
+import com.yuecheng.workprotal.module.mycenter.presenter.UserPresenter;
+import com.yuecheng.workprotal.utils.SharePreferenceUtil;
+
+import org.greenrobot.greendao.query.Query;
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -27,16 +37,30 @@ public class MainApplication extends Application{
     private static MainApplication app;
     public List<Activity> activityList = new LinkedList<Activity>();
 
+    //当天登陆用户信息
+    private LoginUser loginUser;
+    SharePreferenceUtil spUtil = null;
+    UserPresenter userPresenter = null;
     @Override
     public void onCreate() {
         super.onCreate();
         app = this;
+        spUtil = new SharePreferenceUtil(this);
+        userPresenter =  new UserPresenter(app);
         initXunfei();
         initOkGo();
     }
 
     public static MainApplication getApplication() {
         return app;
+    }
+
+    //获取当前登陆用户信息
+    public LoginUser getLoginUser() {
+        if(loginUser==null){
+            userPresenter.getUser(spUtil.getCurrentUserName());
+        }
+        return loginUser;
     }
 
     /**
@@ -56,11 +80,11 @@ public class MainApplication extends Application{
      * @update 2014年6月26日 上午10:55:28
      */
     public void exit() {
+        spUtil.setCurrentUserName(null);
         for (Activity activity : activityList) {
             activity.finish();
         }
-        activityList.clear();
-        android.os.Process.killProcess(android.os.Process.myPid());
+       startActivity(new Intent(app, LoginActivity.class));
     }
 
     private void initXunfei() {

@@ -17,6 +17,7 @@ package com.yuecheng.workprotal.callback;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.view.Window;
 
 import com.lzy.okgo.request.base.Request;
@@ -34,17 +35,17 @@ public abstract class DialogCallback<T> extends JsonCallback<T> {
 
     private ProgressDialog dialog;
 
-    private void initDialog(Activity activity) {
-        dialog = new ProgressDialog(activity);
+    private void initDialog(Context context) {
+        dialog = new ProgressDialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage("请求网络中...");
     }
 
-    public DialogCallback(Activity activity) {
+    public DialogCallback(Context context) {
         super();
-        initDialog(activity);
+        initDialog(context);
     }
 
     @Override
