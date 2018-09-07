@@ -1,6 +1,7 @@
-package com.yuecheng.workprotal.module.contacts;
+package com.yuecheng.workprotal.module.contacts.view;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,16 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.bean.ResultInfo;
 import com.yuecheng.workprotal.common.CommonPostView;
 import com.yuecheng.workprotal.module.contacts.presenter.ContactsPresenter;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ChildInstitutionsBean;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.OrganizationBean;
-import com.yuecheng.workprotal.module.contacts.quicksearch.adapter.OrganizationAdapter;
-import com.yuecheng.workprotal.module.contacts.view.InformationActivity;
-import com.yuecheng.workprotal.module.contacts.view.SelectGroupActivity;
+import com.yuecheng.workprotal.module.contacts.bean.ChildInstitutionsBean;
+import com.yuecheng.workprotal.module.contacts.bean.OrganizationBean;
+import com.yuecheng.workprotal.module.contacts.adapter.OrganizationAdapter;
 
 import java.util.List;
 
@@ -44,9 +44,9 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
     LinearLayout myLinearlayout;
     private View view;
     private OrganizationAdapter organizationAdapter;
-    private List<OrganizationBean.ResultBean.OrgsBean.StaffsBean> staffsList;
-    private List<OrganizationBean.ResultBean.OrgsBean.SubOrgsBean> subOrgsList;
-    private List<OrganizationBean.ResultBean.OrgsBean> orgs;
+    private List<OrganizationBean.OrgsBean.StaffsBean> staffsList;
+    private List<OrganizationBean.OrgsBean.SubOrgsBean> subOrgsList;
+    private List<OrganizationBean.OrgsBean> orgs;
 
     public static MyTabStructureFragment newInstance() {
         Bundle args = new Bundle();
@@ -81,8 +81,8 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
                     @Override
                     public void postSuccess(ResultInfo<ChildInstitutionsBean> resultInfo) {
 
-                        ChildInstitutionsBean.ResultBean result1 = resultInfo.getResult().getResult();
-                        ChildInstitutionsBean.ResultBean.OrgsBean result = result1.getOrgs().get(0);
+                        ChildInstitutionsBean result1 = resultInfo.getResult();
+                        ChildInstitutionsBean.OrgsBean result = result1.getOrgs().get(0);
                         subOrgsList = result.getSubOrgs();
                         staffsList = result.getStaffs();
                         organizationAdapter.onRefresh(staffsList, subOrgsList);
@@ -92,16 +92,44 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
                         textView.setText(" > " + split[split.length - 1]);
                         myLinearlayout.addView(textView);
                         textView.setOnClickListener(v -> {
-                            myLinearlayout.removeAllViews();
-                            textView.setText(result1.getDeepOrgNames());
-                            myLinearlayout.addView(textView);
+                            for(int i=myLinearlayout.getChildCount()-1;i>=split.length;i--){
+
+                                if(i == myLinearlayout.getChildCount()-1){
+                                    TextView childAt = (TextView)myLinearlayout.getChildAt(i);
+                                    childAt.setTextColor(Color.parseColor("#000000"));
+                                }else{
+                                    TextView childAt = (TextView)myLinearlayout.getChildAt(i);
+                                    childAt.setTextColor(Color.parseColor("#3189f4"));
+                                }
+
+                                myLinearlayout.removeViewAt(i);
+                            }
+
+                            Toast.makeText(getContext(),result1.getDeepOrgNames(),Toast.LENGTH_SHORT).show();
+                            String[] split1 = result1.getDeepOrgIds().split(">");
+                            ContactsPresenter Presenter = new ContactsPresenter(getActivity());
+                            Presenter.getAddressOrgQuery(Integer.parseInt(split1[split1.length-1]), new CommonPostView<ChildInstitutionsBean>() {
+                                @Override
+                                public void postSuccess(ResultInfo<ChildInstitutionsBean> resultInfo) {
+                                    ChildInstitutionsBean result1 = resultInfo.getResult();
+                                    ChildInstitutionsBean.OrgsBean result = result1.getOrgs().get(0);
+                                    subOrgsList = result.getSubOrgs();
+                                    staffsList = result.getStaffs();
+                                    organizationAdapter.onRefresh(staffsList, subOrgsList);
+                                }
+
+                                @Override
+                                public void postError(String errorMsg) {
+                                    Toast.makeText(getContext(),"服务器发生未知异常",Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
                         });
                     }
 
                     @Override
                     public void postError(String errorMsg) {
-
+                        Toast.makeText(getContext(),"服务器发生未知异常",Toast.LENGTH_SHORT).show();
                     }
                 });
             } else {
@@ -121,10 +149,10 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
 
     @Override
     public void postSuccess(ResultInfo<OrganizationBean> resultInfo) {
-        if (resultInfo.getResult().isSuccess()) {
+        if (resultInfo.isSuccess()) {
             OrganizationBean result = resultInfo.getResult();
-            orgs = result.getResult().getOrgs();
-            OrganizationBean.ResultBean.OrgsBean orgsBean = orgs.get(0);
+            orgs = result.getOrgs();
+            OrganizationBean.OrgsBean orgsBean = orgs.get(0);
             //根目录下人员
             staffsList = orgsBean.getStaffs();
             //根目录下部门
@@ -155,7 +183,7 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
     }
 
     @OnClick(R.id.switch_img_iv)
-    public void onViewClicked() {
+    public void onViewClicked() { //点击跳转事件
 
         Intent intent = new Intent(getContext(), SelectGroupActivity.class);
         intent.putExtra("selectname",orgs.get(0).getOrgName());//传入当前的组织
@@ -164,17 +192,35 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(data==null) return;
         String selectname = data.getExtras().getString("selectname");
         switch (selectname) {
             case "yuecheng":
-
+                RefreshInstitutions("乐成集团");
                 break;
             case "bcis":
-
+                RefreshInstitutions("BCIS");
                 break;
             case "laonian":
-
+                RefreshInstitutions("恭和苑");
                 break;
+        }
+    }
+
+    private void RefreshInstitutions(String string) {
+        for(int i=0;i<orgs.size();i++){
+            OrganizationBean.OrgsBean orgsBean = orgs.get(i);
+            if(orgsBean.getOrgName().equals(string)){
+               //根目录下人员
+               staffsList = orgsBean.getStaffs();
+               //根目录下部门
+               subOrgsList = orgsBean.getSubOrgs();
+               myLinearlayout.removeAllViews();
+               TextView textView = new TextView(getContext());
+               textView.setText(orgsBean.getOrgName());
+               myLinearlayout.addView(textView);
+               organizationAdapter.onRefresh(staffsList, subOrgsList);
+           }
         }
     }
 }

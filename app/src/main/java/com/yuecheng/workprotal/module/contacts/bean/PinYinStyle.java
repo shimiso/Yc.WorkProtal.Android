@@ -1,4 +1,4 @@
-package com.yuecheng.workprotal.module.contacts.quicksearch.Bean;
+package com.yuecheng.workprotal.module.contacts.bean;
 
 /**
  *@author xiaobo.cui 2014年11月26日 上午10:40:15

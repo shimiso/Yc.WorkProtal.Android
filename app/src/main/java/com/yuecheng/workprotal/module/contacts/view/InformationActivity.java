@@ -25,7 +25,7 @@ import com.yuecheng.workprotal.base.BaseActivity;
 import com.yuecheng.workprotal.bean.ResultInfo;
 import com.yuecheng.workprotal.common.CommonPostView;
 import com.yuecheng.workprotal.module.contacts.presenter.ContactsPresenter;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.PersonnelDetailsBean;
+import com.yuecheng.workprotal.module.contacts.bean.PersonnelDetailsBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -184,8 +184,8 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
 
     @Override
     public void postSuccess(ResultInfo<PersonnelDetailsBean> resultInfo) {
-        if (resultInfo.getResult().isSuccess()) {
-            PersonnelDetailsBean.ResultBean result = resultInfo.getResult().getResult();
+        if (resultInfo.isSuccess()) {
+            PersonnelDetailsBean result = resultInfo.getResult();
             myNameTv.setText(result.getName());
             contactRenName.setText(result.getName());
             myWorkNumberTv.setText(result.getCode());

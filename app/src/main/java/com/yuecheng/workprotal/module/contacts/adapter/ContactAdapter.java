@@ -1,29 +1,27 @@
-package com.yuecheng.workprotal.module.contacts.quicksearch.adapter;
+package com.yuecheng.workprotal.module.contacts.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.yuecheng.workprotal.R;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ContactBean;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.PinYinStyle;
+import com.yuecheng.workprotal.module.contacts.bean.ContactBean;
+import com.yuecheng.workprotal.module.contacts.bean.PinYinStyle;
 import com.yuecheng.workprotal.module.contacts.view.InformationActivity;
 import com.yuecheng.workprotal.widget.CircleTextImage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class ContactAdapter extends BaseAdapter {
     private Context context;
-    private List<ContactBean.ResultBean.StaffsBean> list;
+    private List<ContactBean.StaffsBean> list;
     public PinYinStyle sortToken;
 
-    public ContactAdapter(Context context, List<ContactBean.ResultBean.StaffsBean> list) {
+    public ContactAdapter(Context context, List<ContactBean.StaffsBean> list) {
         super();
         this.context = context;
         this.list = list;
@@ -57,7 +55,7 @@ public class ContactAdapter extends BaseAdapter {
         }
         ViewHolder holder = ViewHolder.getHolder(convertView);
         //设置数据
-        ContactBean.ResultBean.StaffsBean contactBean = list.get(position);
+        ContactBean.StaffsBean contactBean = list.get(position);
         holder.tv_contact_name.setText(contactBean.getName());
         holder.cti.setText4CircleImage(contactBean.getName().subSequence(0, 1).toString());
         holder.tv_contact_department.setText(contactBean.getPositionName());

@@ -1,4 +1,4 @@
-package com.yuecheng.workprotal.module.contacts.quicksearch.view;
+package com.yuecheng.workprotal.module.contacts.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.yuecheng.workprotal.module.contacts.quicksearch.utils.DisplayUtil;
+import com.yuecheng.workprotal.utils.DisplayUtil;
 
 
 public class SideLetterBar extends View {

@@ -1,8 +1,6 @@
-package com.yuecheng.workprotal.module.contacts.quicksearch.adapter;
+package com.yuecheng.workprotal.module.contacts.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yuecheng.workprotal.R;
-import com.yuecheng.workprotal.bean.ResultInfo;
-import com.yuecheng.workprotal.common.CommonPostView;
-import com.yuecheng.workprotal.module.contacts.presenter.ContactsPresenter;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ChildInstitutionsBean;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.OrganizationBean.ResultBean.OrgsBean.StaffsBean;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.OrganizationBean.ResultBean.OrgsBean.SubOrgsBean;
-import com.yuecheng.workprotal.module.contacts.view.InformationActivity;
+import com.yuecheng.workprotal.module.contacts.bean.OrganizationBean.OrgsBean.StaffsBean;
+import com.yuecheng.workprotal.module.contacts.bean.OrganizationBean.OrgsBean.SubOrgsBean;
 import com.yuecheng.workprotal.widget.CircleTextImage;
 
 import java.util.List;
@@ -75,6 +68,7 @@ public class OrganizationAdapter extends RecyclerView.Adapter<OrganizationAdapte
         if(subOrgsList!=null && position < subOrgsList.size()){
             holder.contacts_item_img.setVisibility(View.VISIBLE);
             holder.contacts_item_cti.setVisibility(View.INVISIBLE);
+            holder.right_arrow_img.setVisibility(View.VISIBLE);
             holder.contacts_departments_personnel.setText(subOrgsList.get(position).getOrgName());
             holder.contacts_number_jobs.setText(subOrgsList.get(position).getOrgStaffCount()+"人");
         }else if(staffsList != null &&  position >= subOrgsList.size()){

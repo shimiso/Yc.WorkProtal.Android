@@ -33,7 +33,7 @@
         android:textSize="16dp"
         android:textColor="#8e8e8e"
         android:background="#e3e3e3"/>
-    <com.yuecheng.workprotal.module.contacts.quicksearch.view.ClearEditText
+    <com.yuecheng.workprotal.module.contacts.view.ClearEditText
         android:id="@+id/et_clear"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_margin="5dp"/>
-    <com.yuecheng.workprotal.module.contacts.quicksearch.view.SideLetterBar
+    <com.yuecheng.workprotal.module.contacts.view.SideLetterBar
         android:layout_below="@id/tv_alphabet"
         android:id="@+id/sideLetterBar"
         android:layout_alignParentRight="true"

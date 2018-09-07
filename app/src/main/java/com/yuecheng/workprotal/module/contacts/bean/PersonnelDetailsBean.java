@@ -1,76 +1,13 @@
-package com.yuecheng.workprotal.module.contacts.quicksearch.Bean;
+package com.yuecheng.workprotal.module.contacts.bean;
 
 /**
  * Created by huochangsheng on 2018/9/5.
+ * 人员详细信息
  */
 
 public class PersonnelDetailsBean {
 
-    /**
-     * result : {"id":10,"code":"qh1989","staffGrade":null,"name":"刘启蒙","email":"lqm@hjsoft.com.cn","gender":1,"mobilePhone":"13801246166","telephone":null,"organizationName":"恭和苑>总部>人力资源部","positionName":"人力资源部经理","directSupervisor":null}
-     * targetUrl : null
-     * success : true
-     * error : null
-     * unAuthorizedRequest : false
-     * __abp : true
-     */
 
-    private ResultBean result;
-    private Object targetUrl;
-    private boolean success;
-    private Object error;
-    private boolean unAuthorizedRequest;
-    private boolean __abp;
-
-    public ResultBean getResult() {
-        return result;
-    }
-
-    public void setResult(ResultBean result) {
-        this.result = result;
-    }
-
-    public Object getTargetUrl() {
-        return targetUrl;
-    }
-
-    public void setTargetUrl(Object targetUrl) {
-        this.targetUrl = targetUrl;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public Object getError() {
-        return error;
-    }
-
-    public void setError(Object error) {
-        this.error = error;
-    }
-
-    public boolean isUnAuthorizedRequest() {
-        return unAuthorizedRequest;
-    }
-
-    public void setUnAuthorizedRequest(boolean unAuthorizedRequest) {
-        this.unAuthorizedRequest = unAuthorizedRequest;
-    }
-
-    public boolean is__abp() {
-        return __abp;
-    }
-
-    public void set__abp(boolean __abp) {
-        this.__abp = __abp;
-    }
-
-    public static class ResultBean {
         /**
          * id : 10
          * code : qh1989
@@ -184,5 +121,5 @@ public class PersonnelDetailsBean {
         public void setDirectSupervisor(String directSupervisor) {
             this.directSupervisor = directSupervisor;
         }
-    }
+
 }

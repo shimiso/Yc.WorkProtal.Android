@@ -3,17 +3,19 @@ package com.yuecheng.workprotal.module.contacts.presenter;
 import android.app.Activity;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.yuecheng.workprotal.bean.ResultInfo;
-import com.yuecheng.workprotal.callback.DialogCallback;
 import com.yuecheng.workprotal.common.CommonPostView;
 import com.yuecheng.workprotal.common.UrlConstant;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ChildInstitutionsBean;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ContactBean;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.OrganizationBean;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.PersonnelDetailsBean;
+import com.yuecheng.workprotal.module.contacts.bean.ChildInstitutionsBean;
+import com.yuecheng.workprotal.module.contacts.bean.ContactBean;
+import com.yuecheng.workprotal.module.contacts.bean.OrganizationBean;
+import com.yuecheng.workprotal.module.contacts.bean.PersonnelDetailsBean;
+
+import org.json.JSONObject;
 
 /**
  * Created by huochangsheng on 2018/9/5.
@@ -26,46 +28,29 @@ public class ContactsPresenter {
         this.activity = activity;
     }
 
-    public void getContact(final CommonPostView<ContactBean> commonPostView){
+    /**
+     * 获取通讯录人员
+     * @param commonPostView
+     */
+    public void getContact(final CommonPostView commonPostView){
 
         OkGo.<String>post(UrlConstant.ADDRESSSTAFFQUEY)//
                 .tag(this)//
                 .params("staffId", 11)//
-                .execute(new DialogCallback<String>(activity) {
+                .execute(new StringCallback(){
                     @Override
                     public void onSuccess(Response<String> result) {
                         String stringresult = new String(result.body());
 
-                       /*JSONObject json = null;
-                       JSONObject data = null;
-                       boolean success = false;
-                       try {
-                           json = new JSONObject(result.body());
-                           data = json.getJSONObject("result");
-                           success = json.getBoolean("success");
-                           if (success) {
-                               Gson gson = new Gson();
-                               Version version = gson.fromJson(data.toString(), new TypeToken<Version>() {}.getType());
-                               //如果当前版本不是最新就打开更新
-                               if (version.getVersionCode() > versionCode) {
-                                   checkVersionListener.updateNewVersion(version);
-                               } else {//如果已经是最新就跳转到向导页或自动登录进主页
-                                   checkVersionListener.toNext();
-                               }
-                           } else {
-                               checkVersionListener.toNext();
-                           }
-                       } catch (JSONException e) {
-                           e.printStackTrace();
-                           checkVersionListener.toNext();
-                       }*/
                         ResultInfo<ContactBean> resultInfo = null;
                         try {
                             resultInfo = new ResultInfo(stringresult);
 
                             if (resultInfo.isSuccess()) {
                                 Gson gson = new Gson();
-                                ContactBean checkAccount = gson.fromJson(stringresult, ContactBean.class);
+                                JSONObject jsonObj = new JSONObject(stringresult);
+                                JSONObject result1 = jsonObj.getJSONObject("result");
+                                ContactBean checkAccount = gson.fromJson(result1.toString(), ContactBean.class);
                                 resultInfo.result = checkAccount;
                                 commonPostView.postSuccess(resultInfo);
                             } else {
@@ -83,7 +68,13 @@ public class ContactsPresenter {
                     }
                 });
     }
-    public void getContactInformation(String StaffId, final CommonPostView<PersonnelDetailsBean> commonPostView){
+
+    /**
+     * 获取个人详细信息
+     * @param StaffId
+     * @param commonPostView
+     */
+    public void getContactInformation(String StaffId, final CommonPostView commonPostView){
 
         OkGo.<String>post(UrlConstant.STAFFBASICINFOGET)//
                 .tag(this)//
@@ -99,7 +90,9 @@ public class ContactsPresenter {
 
                             if (resultInfo.isSuccess()) {
                                 Gson gson = new Gson();
-                                PersonnelDetailsBean checkAccount = gson.fromJson(stringresult, PersonnelDetailsBean.class);
+                                JSONObject jsonObj = new JSONObject(stringresult);
+                                JSONObject result1 = jsonObj.getJSONObject("result");
+                                PersonnelDetailsBean checkAccount = gson.fromJson(result1.toString(), PersonnelDetailsBean.class);
                                 resultInfo.result = checkAccount;
                                 commonPostView.postSuccess(resultInfo);
                             } else {
@@ -117,7 +110,13 @@ public class ContactsPresenter {
                     }
                 });
     }
-    public void getAddressTopOrgQuery(int staffId, final CommonPostView<OrganizationBean> commonPostView){
+
+    /**
+     * 获取顶级组织机构
+     * @param staffId
+     * @param commonPostView
+     */
+    public void getAddressTopOrgQuery(int staffId, final CommonPostView commonPostView){
 
         OkGo.<String>post(UrlConstant.ADDRESSTOPORGQUERY)
                 .tag(this)
@@ -133,7 +132,9 @@ public class ContactsPresenter {
 
                             if (resultInfo.isSuccess()) {
                                 Gson gson = new Gson();
-                                OrganizationBean checkAccount = gson.fromJson(stringresult, OrganizationBean.class);
+                                JSONObject jsonObj = new JSONObject(stringresult);
+                                JSONObject result1 = jsonObj.getJSONObject("result");
+                                OrganizationBean checkAccount = gson.fromJson(result1.toString(), OrganizationBean.class);
                                 resultInfo.result = checkAccount;
                                 commonPostView.postSuccess(resultInfo);
                             } else {
@@ -151,7 +152,13 @@ public class ContactsPresenter {
                     }
                 });
     }
-    public void getAddressOrgQuery(int orgId, final CommonPostView<ChildInstitutionsBean> commonPostView){
+
+    /**
+     * 获取子级组织机构
+     * @param orgId
+     * @param commonPostView
+     */
+    public void getAddressOrgQuery(int orgId, final CommonPostView commonPostView){
 
         OkGo.<String>post(UrlConstant.ADDRESSORGQUERY)
                 .tag(this)
@@ -167,7 +174,9 @@ public class ContactsPresenter {
 
                             if (resultInfo.isSuccess()) {
                                 Gson gson = new Gson();
-                                ChildInstitutionsBean checkAccount = gson.fromJson(stringresult, ChildInstitutionsBean.class);
+                                JSONObject jsonObj = new JSONObject(stringresult);
+                                JSONObject result1 = jsonObj.getJSONObject("result");
+                                ChildInstitutionsBean checkAccount = gson.fromJson(result1.toString(), ChildInstitutionsBean.class);
                                 resultInfo.result = checkAccount;
                                 commonPostView.postSuccess(resultInfo);
                             } else {

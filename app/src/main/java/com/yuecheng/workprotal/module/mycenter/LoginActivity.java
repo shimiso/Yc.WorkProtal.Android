@@ -17,7 +17,6 @@ import com.yuecheng.workprotal.bean.SsoToken;
 import com.yuecheng.workprotal.bean.User;
 import com.yuecheng.workprotal.common.CommonPostView;
 import com.yuecheng.workprotal.module.contacts.presenter.ContactsPresenter;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ContactBean;
 import com.yuecheng.workprotal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workprotal.utils.StringUtils;
 import com.yuecheng.workprotal.utils.ToastUtil;

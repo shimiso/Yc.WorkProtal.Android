@@ -1,4 +1,4 @@
-package com.yuecheng.workprotal.module.contacts;
+package com.yuecheng.workprotal.module.contacts.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

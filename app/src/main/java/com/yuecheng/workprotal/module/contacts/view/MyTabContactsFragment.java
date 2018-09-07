@@ -1,4 +1,4 @@
-package com.yuecheng.workprotal.module.contacts;
+package com.yuecheng.workprotal.module.contacts.view;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,13 +22,11 @@ import com.yuecheng.workprotal.base.BaseFragment;
 import com.yuecheng.workprotal.bean.ResultInfo;
 import com.yuecheng.workprotal.common.CommonPostView;
 import com.yuecheng.workprotal.module.contacts.presenter.ContactsPresenter;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ContactBean;
-import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.PinYinStyle;
-import com.yuecheng.workprotal.module.contacts.quicksearch.adapter.AlphabetAdp;
-import com.yuecheng.workprotal.module.contacts.quicksearch.adapter.ContactAdapter;
-import com.yuecheng.workprotal.module.contacts.quicksearch.utils.PinYinUtil;
-import com.yuecheng.workprotal.module.contacts.quicksearch.view.ClearEditText;
-import com.yuecheng.workprotal.module.contacts.quicksearch.view.SideLetterBar;
+import com.yuecheng.workprotal.module.contacts.bean.ContactBean;
+import com.yuecheng.workprotal.module.contacts.bean.PinYinStyle;
+import com.yuecheng.workprotal.module.contacts.adapter.AlphabetAdp;
+import com.yuecheng.workprotal.module.contacts.adapter.ContactAdapter;
+import com.yuecheng.workprotal.utils.PinYinUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -102,9 +100,9 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
             "翟先生", "张先生", "章先生","赵先生", "甄先生", "曾先生","周先生", "郑先生", "祝先生",
     };
 
-    private List<ContactBean.ResultBean.StaffsBean> contactList;
+    private List<ContactBean.StaffsBean> contactList;
     private View view;
-    private List<ContactBean.ResultBean.StaffsBean> staffs;
+    private List<ContactBean.StaffsBean> staffs;
 
     public static MyTabContactsFragment newInstance() {
         Bundle args = new Bundle();
@@ -295,9 +293,9 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
             }
         }, 2000);
     }
-    private ArrayList<ContactBean.ResultBean.StaffsBean> dataList() {
+    private ArrayList<ContactBean.StaffsBean> dataList() {
         // 虚拟数据
-        ArrayList<ContactBean.ResultBean.StaffsBean> mSortList = new ArrayList<ContactBean.ResultBean.StaffsBean>();
+        ArrayList<ContactBean.StaffsBean> mSortList = new ArrayList<ContactBean.StaffsBean>();
         for(int i=0;i<staffs.size();i++){
             staffs.get(i).conversionpinyin(staffs.get(i).getName());
             staffs.get(i).pinYinStyle = parsePinYinStyle(staffs.get(i).getName());
@@ -308,7 +306,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
     }
     //根据条件对数据进行筛选
     private void fuzzySearch(String str) {
-        ArrayList<ContactBean.ResultBean.StaffsBean> filterDateList = new ArrayList<ContactBean.ResultBean.StaffsBean>();
+        ArrayList<ContactBean.StaffsBean> filterDateList = new ArrayList<ContactBean.StaffsBean>();
         // 虚拟数据
         if (TextUtils.isEmpty(str)){
             sideLetterBar.setVisibility(View.VISIBLE);
@@ -317,7 +315,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
         }else {
             filterDateList.clear();
             sideLetterBar.setVisibility(View.GONE);
-            for(ContactBean.ResultBean.StaffsBean contactBean : dataList()){
+            for(ContactBean.StaffsBean contactBean : dataList()){
                 String name = contactBean.getName();
                 Pattern p = Pattern.compile("[\u4e00-\u9fa5]+");
                 Matcher m = p.matcher(str);
@@ -364,9 +362,9 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
 
     @Override
     public void postSuccess(ResultInfo<ContactBean> resultInfo) {
-        if(resultInfo.getResult().isSuccess()){
+        if(resultInfo.isSuccess()){
             ContactBean result = resultInfo.getResult();
-            staffs = result.getResult().getStaffs();
+            staffs = result.getStaffs();
             contactList = dataList();
             //2.对数据进行排序
             initView();

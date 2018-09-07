@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.yuecheng.workprotal.base.BaseActivity;
 import com.yuecheng.workprotal.module.MyRobotFragment;
-import com.yuecheng.workprotal.module.contacts.MyContactsFragment;
+import com.yuecheng.workprotal.module.contacts.view.MyContactsFragment;
 import com.yuecheng.workprotal.module.message.MyMessageFragment;
 import com.yuecheng.workprotal.module.mycenter.MyCenterFragment;
 import com.yuecheng.workprotal.module.robot.view.VoiceActivity;

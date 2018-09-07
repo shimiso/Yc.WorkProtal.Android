@@ -1,4 +1,4 @@
-package com.yuecheng.workprotal.module.contacts.quicksearch.view;
+package com.yuecheng.workprotal.module.contacts.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
