@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/contacts_item_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:src="@mipmap/bmimg" />
+
+        <com.yuecheng.workprotal.widget.CircleTextImage
+            android:id="@+id/contacts_item_cti"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:visibility="invisible"
+            android:layout_margin="8dp"
+            app:circle_text_size="18sp"
+            app:random_color="true"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/contacts_item_img"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/contacts_departments_personnel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="部门/人员name" />
+
+            <TextView
+                android:id="@+id/contacts_number_jobs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="数量/岗位" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/right_arrow_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/right_arrow"/>
+    </RelativeLayout>
+
+    <View
+        style="@style/divider_horizontal"
+        android:layout_below="@+id/phone" />
+    <View
+        android:id="@+id/fenggexian"
+        android:layout_height="10dp"
+        android:visibility="gone"
+        style="@style/divider_horizontal"
+        android:layout_below="@+id/phone" />
+</LinearLayout>

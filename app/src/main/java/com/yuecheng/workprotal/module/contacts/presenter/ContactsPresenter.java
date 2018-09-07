@@ -10,9 +10,10 @@ import com.yuecheng.workprotal.bean.ResultInfo;
 import com.yuecheng.workprotal.callback.DialogCallback;
 import com.yuecheng.workprotal.common.CommonPostView;
 import com.yuecheng.workprotal.common.UrlConstant;
+import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ChildInstitutionsBean;
 import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ContactBean;
+import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.OrganizationBean;
 import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.PersonnelDetailsBean;
-import com.yuecheng.workprotal.module.update.Version;
 
 /**
  * Created by huochangsheng on 2018/9/5.
@@ -99,6 +100,74 @@ public class ContactsPresenter {
                             if (resultInfo.isSuccess()) {
                                 Gson gson = new Gson();
                                 PersonnelDetailsBean checkAccount = gson.fromJson(stringresult, PersonnelDetailsBean.class);
+                                resultInfo.result = checkAccount;
+                                commonPostView.postSuccess(resultInfo);
+                            } else {
+                                commonPostView.postError("服务器发生未知异常");
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            commonPostView.postError("服务器发生未知异常");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response){
+                        commonPostView.postError("发生未知异常");
+                    }
+                });
+    }
+    public void getAddressTopOrgQuery(int staffId, final CommonPostView<OrganizationBean> commonPostView){
+
+        OkGo.<String>post(UrlConstant.ADDRESSTOPORGQUERY)
+                .tag(this)
+                .params("staffId", staffId)
+                .execute(new StringCallback(){
+                    @Override
+                    public void onSuccess(Response<String> result) {
+                        String stringresult = new String(result.body());
+
+                        ResultInfo<OrganizationBean> resultInfo = null;
+                        try {
+                            resultInfo = new ResultInfo(stringresult);
+
+                            if (resultInfo.isSuccess()) {
+                                Gson gson = new Gson();
+                                OrganizationBean checkAccount = gson.fromJson(stringresult, OrganizationBean.class);
+                                resultInfo.result = checkAccount;
+                                commonPostView.postSuccess(resultInfo);
+                            } else {
+                                commonPostView.postError("服务器发生未知异常");
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            commonPostView.postError("服务器发生未知异常");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response){
+                        commonPostView.postError("发生未知异常");
+                    }
+                });
+    }
+    public void getAddressOrgQuery(int orgId, final CommonPostView<ChildInstitutionsBean> commonPostView){
+
+        OkGo.<String>post(UrlConstant.ADDRESSORGQUERY)
+                .tag(this)
+                .params("orgId", orgId)
+                .execute(new StringCallback(){
+                    @Override
+                    public void onSuccess(Response<String> result) {
+                        String stringresult = new String(result.body());
+
+                        ResultInfo<ChildInstitutionsBean> resultInfo = null;
+                        try {
+                            resultInfo = new ResultInfo(stringresult);
+
+                            if (resultInfo.isSuccess()) {
+                                Gson gson = new Gson();
+                                ChildInstitutionsBean checkAccount = gson.fromJson(stringresult, ChildInstitutionsBean.class);
                                 resultInfo.result = checkAccount;
                                 commonPostView.postSuccess(resultInfo);
                             } else {

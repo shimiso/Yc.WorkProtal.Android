@@ -86,9 +86,6 @@
     <string name="qtyy">其他应用</string>
 
 
-
-
-
     <string-array name="voice_type">
         <item>普通话</item>
         <item>广东话</item>

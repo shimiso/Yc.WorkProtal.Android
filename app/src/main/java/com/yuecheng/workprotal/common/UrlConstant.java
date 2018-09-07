@@ -12,4 +12,7 @@ public interface UrlConstant {
     String  GET_NEW_VERSION = HTTP_HOST + "";
     String  ADDRESSSTAFFQUEY = HTTP_HOST + "api/services/app/Staff/AddressStaffQuery";
     String  STAFFBASICINFOGET = HTTP_HOST + "api/services/app/Staff/StaffBasicInfoGet";
+    String  ADDRESSTOPORGQUERY = HTTP_HOST + "api/services/app/Staff/AddressTopOrgQuery";
+    String  ADDRESSORGQUERY = HTTP_HOST + "api/services/app/Staff/AddressOrgQuery";
+
 }

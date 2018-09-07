@@ -71,6 +71,10 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
     RelativeLayout myGen;
     @BindView(R.id.share)
     ImageView share;
+    @BindView(R.id.contact_ren_name)
+    TextView contactRenName;
+    @BindView(R.id.contact_ren_jobs)
+    TextView contactRenJobs;
 
     private List<LocalMedia> selectList = new ArrayList<>();
 
@@ -183,11 +187,13 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
         if (resultInfo.getResult().isSuccess()) {
             PersonnelDetailsBean.ResultBean result = resultInfo.getResult().getResult();
             myNameTv.setText(result.getName());
+            contactRenName.setText(result.getName());
             myWorkNumberTv.setText(result.getCode());
             myPhoneTv.setText(result.getMobilePhone());
             myLandlineTv.setText(result.getTelephone());
             myEmailTv.setText(result.getEmail());
             myJobsTv.setText(result.getPositionName());
+            contactRenJobs.setText(result.getPositionName());
             myDirectoryTv.setText(result.getOrganizationName());
             myDeputyTv.setText("");
             myMmediateSuperiorTv.setText(result.getDirectSupervisor());

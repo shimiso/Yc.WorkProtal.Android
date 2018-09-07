@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.yuecheng.workprotal.module.contacts.view.SelectGroupActivity">
+
+    <RelativeLayout
+        android:id="@+id/title_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/primary_dark">
+
+        <ImageView
+            android:id="@+id/back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/back_btn" />
+
+        <TextView
+            android:id="@+id/title_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="选择组织"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/yuecheng_rl"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+    <TextView
+        android:id="@+id/yuecheng"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:padding="10dp"
+        android:text="乐成集团"/>
+        <ImageView
+            android:id="@+id/yuecheng_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_launcher"/>
+    </RelativeLayout>
+    <View
+        style="@style/divider_horizontal" />
+    <RelativeLayout
+        android:id="@+id/bcis_rl"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/bcis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:text="BCIS "/>
+        <ImageView
+            android:id="@+id/bcis_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_launcher"/>
+    </RelativeLayout>
+    <View
+        style="@style/divider_horizontal" />
+    <RelativeLayout
+        android:id="@+id/laonian_rl"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/laonian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:text="乐成老年事业投资有限公司"/>
+        <ImageView
+            android:id="@+id/laonian_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_launcher"/>
+    </RelativeLayout>
+    <View
+        style="@style/divider_horizontal" />
+</LinearLayout>
