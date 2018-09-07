@@ -18,7 +18,7 @@ public class ResultInfo<T>  implements Serializable {
     public T result;// 返回数据,字符串格式
     public String json;//返回的json字符串
 
-    private ResultInfo() {
+    public ResultInfo() {
 
     }
 

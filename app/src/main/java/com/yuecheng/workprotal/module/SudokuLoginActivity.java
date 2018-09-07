@@ -1,3 +1,4 @@
+/*
 package com.yuecheng.workprotal.module;
 
 import android.content.Intent;
@@ -20,10 +21,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+*/
 /**
  * A login screen that offers login via username/password.
  * 使用之前先在清单文件中注册
- */
+ *//*
+
 public class SudokuLoginActivity extends BaseActivity {
     UserDao userDao;
     @BindView(R.id.nplv_lock_view)
@@ -82,3 +85,4 @@ public class SudokuLoginActivity extends BaseActivity {
     }
 }
 
+*/

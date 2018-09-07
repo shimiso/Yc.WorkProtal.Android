@@ -53,7 +53,7 @@
             android:name=".module.robot.OpenH5Activity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".module.PasswordLoginActivity"
+            android:name=".module.mycenter.LoginActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.robot.view.JsonActivity"

@@ -15,4 +15,8 @@ public interface UrlConstant {
     String  ADDRESSTOPORGQUERY = HTTP_HOST + "api/services/app/Staff/AddressTopOrgQuery";
     String  ADDRESSORGQUERY = HTTP_HOST + "api/services/app/Staff/AddressOrgQuery";
 
+
+
+    String SSO_LOGIN = "http://192.168.0.141:5000/connect/token";
+
 }

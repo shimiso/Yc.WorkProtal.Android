@@ -1,5 +1,6 @@
-package com.yuecheng.workprotal.module;
+package com.yuecheng.workprotal.module.mycenter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,13 +12,23 @@ import android.widget.TextView;
 
 import com.yuecheng.workprotal.MainActivity;
 import com.yuecheng.workprotal.R;
+import com.yuecheng.workprotal.bean.ResultInfo;
+import com.yuecheng.workprotal.bean.SsoToken;
+import com.yuecheng.workprotal.common.CommonPostView;
+import com.yuecheng.workprotal.module.contacts.quicksearch.Bean.ContactBean;
+import com.yuecheng.workprotal.module.mycenter.presenter.UserPresenter;
+import com.yuecheng.workprotal.utils.StringUtils;
+import com.yuecheng.workprotal.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
-public class PasswordLoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
+    @BindView(R.id.phone)
+    TextView phone;
     @BindView(R.id.password_text)
     TextView password_text;
     @BindView(R.id.password)
@@ -26,19 +37,56 @@ public class PasswordLoginActivity extends AppCompatActivity {
     TextView obtain_text;
     @BindView(R.id.dynamic_password)
     TextView dynamic_password;
-    @BindView(R.id.login_but)
+    @BindView(R.id.login_btn)
     TextView loginBut;
     private boolean isPassword = false;
     private TimeCount time;
+    private UserPresenter userPresenter;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login1);
+        setContentView(R.layout.login);
         ButterKnife.bind(this);
         time = new TimeCount(60000, 1000);
-
+        userPresenter = new UserPresenter(this);
+        context = this;
         initEvent();
+
+    }
+
+    @OnClick({R.id.login_btn,R.id.obtain_text})
+    protected void onClick(View view) {
+        switch (view.getId()){
+            case R.id.login_btn://登陆
+                String username = phone.getText().toString();
+                String passWD = password.getText().toString();
+                if(StringUtils.isEmpty(username)){
+                    ToastUtil.error(context,"用户名或手机号不能为空");
+                    return;
+                }
+                if(StringUtils.isEmpty(passWD)){
+                    ToastUtil.error(context,"密码不能为空");
+                    return;
+                }
+                userPresenter.login(username,passWD,new CommonPostView<SsoToken>() {
+                    @Override
+                    public void postSuccess(ResultInfo<SsoToken> resultInfo) {
+                        startActivity(new Intent(context, MainActivity.class));
+                        finish();
+                    }
+
+                    @Override
+                    public void postError(String errorMsg) {
+                        ToastUtil.error(context,errorMsg);
+                    }
+                });
+                break;
+            case R.id.obtain_text://验证码
+                time.start();
+                break;
+        }
     }
 
     private void initEvent() {
@@ -60,13 +108,6 @@ public class PasswordLoginActivity extends AppCompatActivity {
                 isPassword = false;
             }
 
-        });
-        obtain_text.setOnClickListener(v -> {
-            time.start();
-        });
-        loginBut.setOnClickListener(v -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
         });
     }
 

@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.yuecheng.workprotal.MainActivity;
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.base.BaseFragment;
-import com.yuecheng.workprotal.module.PasswordLoginActivity;
 
 import java.util.Locale;
 
@@ -38,7 +37,7 @@ public class MyCenterFragment extends BaseFragment {
                 //startActivity(new Intent(getActivity(),OpenH5Activity.class))
                 );
         view.findViewById(R.id.exit_btn).setOnClickListener(view1 -> {
-            startActivity(new Intent(getActivity(),PasswordLoginActivity.class));
+            startActivity(new Intent(getActivity(),LoginActivity.class));
             getActivity().finish();
         });
         return view;
