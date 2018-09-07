@@ -42,7 +42,6 @@ public class LoginActivity extends BaseActivity {
     private boolean isPassword = false;
     private TimeCount time;
     private UserPresenter userPresenter;
-    private ContactsPresenter contactsPresenter;
     private Context context;
 
     @Override
@@ -53,7 +52,6 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         time = new TimeCount(60000, 1000);
         userPresenter = new UserPresenter(this);
-        contactsPresenter = new ContactsPresenter(this);
         context = this;
         initEvent();
 
