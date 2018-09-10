@@ -36,4 +36,8 @@
     <color name="light_gray_2">#f0f2f6</color>
     <color name="button_bg">#e83060</color>
     <color name="button_bg_press">#88e83060</color>
+    //通讯录字体颜色
+    <color name="contacts_nametv_69">#999999</color>
+    <color name="contacts_nametv_28">#282828</color>
+    <color name="contacts_item">#efefef</color>
 </resources>

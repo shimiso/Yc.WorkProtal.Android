@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/contacts_item_img"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="28px"
             android:layout_centerVertical="true"
             android:orientation="vertical">
 
@@ -40,12 +40,14 @@
                 android:id="@+id/contacts_departments_personnel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/contacts_nametv_28"
                 android:text="部门/人员name" />
 
             <TextView
                 android:id="@+id/contacts_number_jobs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/contacts_nametv_69"
                 android:text="数量/岗位" />
 
         </LinearLayout>

@@ -2,22 +2,9 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/contacts_item">
 
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/tit"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:background="@color/primary_dark">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:text="通讯录"-->
-            <!--android:textColor="@color/white"-->
-            <!--android:textSize="18sp" />-->
-    <!--</RelativeLayout>-->
     <ListView
         android:layout_below="@+id/et_clear"
         android:id="@+id/lv_contact"
@@ -29,8 +16,8 @@
         android:layout_below="@+id/et_clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textSize="16dp"
+        android:padding="5dp"
+        android:textSize="16sp"
         android:textColor="#8e8e8e"
         android:background="#e3e3e3"/>
     <com.yuecheng.workprotal.module.contacts.view.ClearEditText
@@ -39,9 +26,9 @@
         android:layout_marginRight="10dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:textSize="18dp"
+        android:textSize="16sp"
         android:textColor="#000"
-        android:hint="搜索联系人"
+        android:hint="搜索姓名 电话号码"
         android:singleLine="true"
         android:imeOptions="actionSend"
         android:background="@drawable/search_bg"

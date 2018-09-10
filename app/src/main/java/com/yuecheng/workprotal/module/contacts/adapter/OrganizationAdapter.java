@@ -48,10 +48,10 @@ public class OrganizationAdapter extends RecyclerView.Adapter<OrganizationAdapte
      */
     public void onRefresh(List<StaffsBean> staffsList,List<SubOrgsBean> subOrgsList) {
         if (null != this.staffsList) {
-            this.staffsList.clear();
+            //this.staffsList.clear();
         }
         if (null != this.subOrgsList) {
-            this.subOrgsList.clear();
+           // this.subOrgsList.clear();
         }
         this.staffsList = staffsList;
         this.subOrgsList = subOrgsList;

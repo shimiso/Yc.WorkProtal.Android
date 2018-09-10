@@ -98,7 +98,7 @@ android {
     //多渠道批量打包配置
     flavorDimensions "default"
     productFlavors {
-        yuecheng {dimension "default"}//官方
+        yuecheng { dimension "default" }//官方
 //        tencent {}//腾讯
 //        _360 {}//360
 //        wandoujia {}//豌豆荚

@@ -16,14 +16,9 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.yuecheng.workprotal.bean.LoginUser;
-import com.yuecheng.workprotal.db.DaoManager;
-import com.yuecheng.workprotal.greendao.LoginUserDao;
-import com.yuecheng.workprotal.module.mycenter.LoginActivity;
+import com.yuecheng.workprotal.module.mycenter.view.LoginActivity;
 import com.yuecheng.workprotal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workprotal.utils.SharePreferenceUtil;
-
-import org.greenrobot.greendao.query.Query;
-import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.io.IOException;
 import java.util.LinkedList;

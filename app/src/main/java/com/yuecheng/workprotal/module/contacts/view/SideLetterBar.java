@@ -38,7 +38,7 @@ public class SideLetterBar extends View {
 	private void init(Context context){
 		paint = new Paint(Paint.ANTI_ALIAS_FLAG);//设置抗锯齿
 		paint.setColor(Color.parseColor("#8B8B8B"));//设置右侧展示字母颜色
-		paint.setTextSize(new DisplayUtil().dip2px(context,16));//设置右侧展示字母大小
+		paint.setTextSize(new DisplayUtil().dip2px(context,14));//设置右侧展示字母大小
 		paint.setTextAlign(Align.CENTER);////设置文本居中对齐
 	}
 	

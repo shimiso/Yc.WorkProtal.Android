@@ -34,8 +34,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".WelcomeActivity"
-            android:label="@string/app_name"
-            >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,7 +52,7 @@
             android:name=".module.robot.OpenH5Activity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".module.mycenter.LoginActivity"
+            android:name=".module.mycenter.view.LoginActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.robot.view.JsonActivity"
@@ -83,7 +82,8 @@
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL}" />
 
-        <activity android:name=".module.contacts.view.SelectGroupActivity"></activity>
+        <activity android:name=".module.contacts.view.SelectGroupActivity" />
+        <activity android:name=".module.contacts.view.OrganizationActivity"></activity>
     </application>
 
 </manifest>

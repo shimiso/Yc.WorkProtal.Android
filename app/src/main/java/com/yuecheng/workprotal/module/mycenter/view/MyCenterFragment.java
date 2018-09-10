@@ -1,4 +1,4 @@
-package com.yuecheng.workprotal.module.mycenter;
+package com.yuecheng.workprotal.module.mycenter.view;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -11,17 +11,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yuecheng.workprotal.MainActivity;
-import com.yuecheng.workprotal.MainApplication;
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.base.BaseFragment;
+import com.yuecheng.workprotal.module.mycenter.CenterSettingDialog;
 
 import java.util.Locale;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by huochangsheng on 2018/7/25.
  */
 
 public class MyCenterFragment extends BaseFragment {
+
+    Unbinder unbinder;
 
     public static MyCenterFragment newInstance() {
         Bundle args = new Bundle();
@@ -34,19 +40,18 @@ public class MyCenterFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.my_center_fragment, container, false);
-        view.findViewById(R.id.my_workplans).setOnClickListener(v -> showBottomDialog()
-                //startActivity(new Intent(getActivity(),OpenH5Activity.class))
-                );
-        view.findViewById(R.id.exit_btn).setOnClickListener(view1 -> {
-            MainApplication.getApplication().exit();
-            startActivity(new Intent(getActivity(),LoginActivity.class));
-            getActivity().finish();
-        });
+//
+//        view.findViewById(R.id.exit_btn).setOnClickListener(view1 -> {
+//            MainApplication.getApplication().exit();
+//            startActivity(new Intent(getActivity(),LoginActivity.class));
+//            getActivity().finish();
+//        });
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
     /**
-     * 展示
+     * 设置中英文切换
      */
     private void showBottomDialog() {
         CenterSettingDialog centerDialog = new CenterSettingDialog(getContext());
@@ -63,6 +68,7 @@ public class MyCenterFragment extends BaseFragment {
             }
         });
     }
+
     private void setChineseLanguage() {
         /**
          * 切换英文
@@ -79,6 +85,7 @@ public class MyCenterFragment extends BaseFragment {
         getActivity().finish();
         startActivity(new Intent(getContext(), MainActivity.class));
     }
+
     private void setEnglishLanguage() {
         /**
          * 切换英文
@@ -97,4 +104,25 @@ public class MyCenterFragment extends BaseFragment {
     }
 
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick({R.id.my_hr, R.id.my_login_web, R.id.my_directions, R.id.my_feedback, R.id.my_setting})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.my_hr:
+                break;
+            case R.id.my_login_web:
+                break;
+            case R.id.my_directions:
+                break;
+            case R.id.my_feedback:
+                break;
+            case R.id.my_setting:
+                break;
+        }
+    }
 }

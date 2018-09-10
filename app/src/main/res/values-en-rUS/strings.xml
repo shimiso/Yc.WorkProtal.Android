@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">WorkProtal</string>
     <string name="title_message">message</string>
-    <string name="title_work">work</string>
+    <string name="title_work">task</string>
     <string name="title_contacts">contact</string>
     <string name="title_mycenter">my</string>
     <string name="title_android">voice</string>

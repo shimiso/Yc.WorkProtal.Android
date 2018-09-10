@@ -22,6 +22,8 @@
         android:id="@+id/tl_patient_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/primary_dark"
+        app:tabSelectedTextColor="@color/primary_dark"
         app:tabGravity="fill"
         app:tabMode="fixed" />
 

@@ -1,4 +1,4 @@
-package com.yuecheng.workprotal.module.mycenter;
+package com.yuecheng.workprotal.module.mycenter.view;
 
 import android.content.Context;
 import android.content.Intent;

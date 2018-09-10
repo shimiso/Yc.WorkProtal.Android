@@ -61,7 +61,7 @@ public class ContactAdapter extends BaseAdapter {
         holder.tv_contact_department.setText(contactBean.getPositionName());
         String currentAlphabet = contactBean.getPinyin().charAt(0) + "";
         if (position > 0) {
-            String lastAlphabet = list.get(position - 1).getPinyin().charAt(0) + "";
+            String lastAlphabet = list.get(position - 1).getPinyin().charAt(0)+"".toUpperCase();
             //获取上一个item的首字母
 
             if (currentAlphabet.equals(lastAlphabet)) {
