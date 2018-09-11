@@ -11,6 +11,11 @@
     <string name="update_desc_hint">describe:</string>
     <string name="update_dialog_title">Discover new version V</string>
 
+
+    <string name="save">Save</string>
+    <string name="old_password_hint">Please input the old password. </string>
+    <string name="new_password_hint">The new password is 6-10, and must contain letters.</string>
+    <string name="confirm_password_hint">Confirm new password.</string>
     <string name="prompt">prompt</string>
     <string name="check_connection">The network is out of order. Check it.</string>
     <string name="server_net_error">Request failed, network or server abnormal. </string>

@@ -49,9 +49,12 @@ public class MyCenterFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.my_hr, R.id.my_login_web, R.id.my_directions, R.id.my_feedback, R.id.my_setting})
+    @OnClick({R.id.my_hr, R.id.my_login_web, R.id.my_directions, R.id.my_feedback, R.id.my_setting,R.id.my_information_rl})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.my_information_rl://个人详情
+                startActivity(new Intent(getContext(),MyDetailActivity.class));
+                break;
             case R.id.my_hr:
                 break;
             case R.id.my_login_web:

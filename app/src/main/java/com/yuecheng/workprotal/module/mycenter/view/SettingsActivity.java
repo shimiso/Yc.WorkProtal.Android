@@ -37,6 +37,7 @@ public class SettingsActivity extends BaseActivity {
     protected void onClick(View view){
         switch (view.getId()){
             case R.id.modify_password://修改密码
+                startActivity(new Intent(context,ModifyPasswordActivity.class));
                 break;
             case R.id.message_notification://消息提醒
                 break;
@@ -60,7 +61,7 @@ public class SettingsActivity extends BaseActivity {
     }
 
     /**
-     * 设置中英文切换
+     * 设置语种
      */
     private void showLanguageDialog() {
         LanguageSettingsDialog centerDialog = new LanguageSettingsDialog(context);
@@ -78,6 +79,9 @@ public class SettingsActivity extends BaseActivity {
         });
     }
 
+    /**
+     * 设置方言
+     */
     private void showFangYanDialog() {
         FangYanSettingsDialog centerDialog = new FangYanSettingsDialog(context);
         centerDialog.setClicklistener(new FangYanSettingsDialog.ClickListenerInterface() {

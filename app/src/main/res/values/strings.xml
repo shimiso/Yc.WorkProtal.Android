@@ -18,6 +18,11 @@
     <string name="update_desc_hint">描述:</string>
     <string name="update_dialog_title">发现新版本v</string>
 
+    <string name="save">保存</string>
+    <string name="old_password_hint">请输入旧密码</string>
+    <string name="new_password_hint">新密码长度6-10，必须包含字母</string>
+    <string name="confirm_password_hint">确认新密码</string>
+
     <string name="prompt">提示</string>
     <string name="check_connection">网络又调皮了，检查一下吧~</string>
     <string name="server_net_error">请求失败,网络或服务器发生异常</string>
@@ -39,6 +44,7 @@
     <string name="task">任务</string>
     <string name="address_books">通讯录</string>
     <string name="workbench">工作台</string>
+    <string name="personal_information">个人信息</string>
 
     <!--我的-->
     <string name="my">我的</string>

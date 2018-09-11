@@ -81,6 +81,10 @@ public class MainApplication extends Application{
         }
         startActivity(new Intent(app, LoginActivity.class));
     }
+
+    /**
+     * 重启进入首页
+     */
     public void toIndex() {
         for (Activity activity : activityList) {
             activity.finish();

@@ -59,7 +59,7 @@ public class FangYanSettingsDialog extends Dialog {
     private void init() {
         myDialog = new Dialog(getContext(), R.style.BottomDialogStyle);
         //填充对话框的布局
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.center_fangyan_set_dialog, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.settings_fangyan_dialog, null);
         //初始化控件
         mTitleTv = view.findViewById(R.id.tv_dialog_title);
         mOneTv = view.findViewById(R.id.tv_dialog_one);

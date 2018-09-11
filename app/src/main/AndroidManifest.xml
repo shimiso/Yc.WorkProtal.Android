@@ -19,10 +19,13 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.CAMERA" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
+
+
+
 
     <application
         android:name=".MainApplication"
@@ -84,7 +87,9 @@
 
         <activity android:name=".module.contacts.view.SelectGroupActivity" />
         <activity android:name=".module.contacts.view.OrganizationActivity" />
-        <activity android:name=".module.mycenter.view.SettingsActivity"></activity>
+        <activity android:name=".module.mycenter.view.SettingsActivity" />
+        <activity android:name=".module.mycenter.view.ModifyPasswordActivity" />
+        <activity android:name=".module.mycenter.view.MyDetailActivity"></activity>
     </application>
 
 </manifest>

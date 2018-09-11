@@ -16,6 +16,9 @@
     <color name="color_item_pressed">#cccccc</color>
     <color name="white">#f4f4f4</color>
     <color name="lightgray">#D3D3D3</color>
+    <!--编辑框颜色-->
+    <color name="edit_stroke_normal">#d6d6d6</color>
+    <color name="edit_stroke_press">#E6E6FA</color>
     <!--分割线背景色 -->
     <color name="view_bg">#a4a2a2</color>
     <!--编辑应用-->
