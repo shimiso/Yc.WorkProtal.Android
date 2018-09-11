@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="我"
+            android:text="我的"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
@@ -89,6 +89,9 @@
             android:text="乐成养老事业投资有限公司"/>
     </RelativeLayout>
     </android.support.v7.widget.CardView>
+
+
+    <View style="@style/divider_horizontal"/>
     <RelativeLayout
         android:id="@+id/my_hr"
         android:layout_width="match_parent"
@@ -253,4 +256,5 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/right_in_btn"/>
     </RelativeLayout>
+    <View style="@style/divider_horizontal"/>
 </LinearLayout>

@@ -11,6 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@color/primary_dark">
+        <ImageView
+            android:id="@+id/back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/back_btn" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,7 +32,6 @@
         android:id="@+id/modify_password"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_below="@+id/my_information_rl"
         android:background="@drawable/list_item_bg"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -50,7 +57,6 @@
         android:id="@+id/message_notification"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_below="@+id/my_information_rl"
         android:background="@drawable/list_item_bg"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -76,7 +82,6 @@
         android:id="@+id/language_settings"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_below="@+id/my_information_rl"
         android:background="@drawable/list_item_bg"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -102,7 +107,6 @@
         android:id="@+id/index_settings"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_below="@+id/my_information_rl"
         android:background="@drawable/list_item_bg"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -124,30 +128,13 @@
 
     <View style="@style/divider_horizontal"/>
 
-    <RelativeLayout
-        android:id="@+id/exit"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/my_information_rl"
-        android:background="@drawable/list_item_bg"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="退出登录"
-            android:textSize="16sp" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/right_in_btn"/>
-
-    </RelativeLayout>
-
-    <View style="@style/divider_horizontal"/>
-
+    <Button
+        android:id="@+id/exit_btn"
+        style="@style/comm_btn_style"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:text="退 出"
+        android:textColor="@color/white" />
 </LinearLayout>

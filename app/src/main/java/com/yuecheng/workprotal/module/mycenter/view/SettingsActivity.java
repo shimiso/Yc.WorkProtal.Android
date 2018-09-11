@@ -33,7 +33,7 @@ public class SettingsActivity extends BaseActivity {
         context = this;
     }
 
-    @OnClick({R.id.modify_password,R.id.message_notification,R.id.language_settings,R.id.index_settings,R.id.exit})
+    @OnClick({R.id.modify_password,R.id.message_notification,R.id.language_settings,R.id.index_settings,R.id.exit_btn,R.id.back_iv})
     protected void onClick(View view){
         switch (view.getId()){
             case R.id.modify_password://修改密码
@@ -45,9 +45,12 @@ public class SettingsActivity extends BaseActivity {
                 break;
             case R.id.index_settings://首页设置
                 break;
-            case R.id.exit://退出
+            case R.id.exit_btn://退出
                 MainApplication.getApplication().exit();
                 startActivity(new Intent(context,LoginActivity.class));
+                finish();
+                break;
+            case R.id.back_iv://返回
                 finish();
                 break;
         }
