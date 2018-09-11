@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -33,7 +32,8 @@ public class SettingsActivity extends BaseActivity {
         context = this;
     }
 
-    @OnClick({R.id.modify_password,R.id.message_notification,R.id.language_settings,R.id.index_settings,R.id.exit_btn,R.id.back_iv})
+    @OnClick({R.id.modify_password,R.id.message_notification,R.id.language_settings,R.id.index_settings,
+            R.id.fangyan_settings,R.id.exit_btn,R.id.back_iv})
     protected void onClick(View view){
         switch (view.getId()){
             case R.id.modify_password://修改密码
@@ -42,6 +42,9 @@ public class SettingsActivity extends BaseActivity {
                 break;
             case R.id.language_settings://语言设置
                 showLanguageDialog();
+                break;
+            case R.id.fangyan_settings://方言设置
+                showFangYanDialog();
                 break;
             case R.id.index_settings://首页设置
                 break;
@@ -60,8 +63,8 @@ public class SettingsActivity extends BaseActivity {
      * 设置中英文切换
      */
     private void showLanguageDialog() {
-        CenterSettingDialog centerDialog = new CenterSettingDialog(context);
-        centerDialog.setClicklistener(new CenterSettingDialog.ClickListenerInterface() {
+        LanguageSettingsDialog centerDialog = new LanguageSettingsDialog(context);
+        centerDialog.setClicklistener(new LanguageSettingsDialog.ClickListenerInterface() {
 
             @Override
             public void onOneClick() {
@@ -71,6 +74,24 @@ public class SettingsActivity extends BaseActivity {
             @Override
             public void onTwoClick() {
                 setEnglishLanguage();
+            }
+        });
+    }
+
+    private void showFangYanDialog() {
+        FangYanSettingsDialog centerDialog = new FangYanSettingsDialog(context);
+        centerDialog.setClicklistener(new FangYanSettingsDialog.ClickListenerInterface() {
+
+            @Override
+            public void onOneClick() {
+            }
+
+            @Override
+            public void onTwoClick() {
+            }
+
+            @Override
+            public void onThreeClick() {
             }
         });
     }

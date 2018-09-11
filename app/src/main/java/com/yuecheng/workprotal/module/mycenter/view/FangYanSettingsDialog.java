@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyboardShortcutGroup;
 import android.view.LayoutInflater;
@@ -24,11 +23,12 @@ import java.util.List;
  * Created by huochangsheng on 2018/8/15.
  */
 
-public class CenterSettingDialog extends Dialog {
+public class FangYanSettingsDialog extends Dialog {
 
     private TextView mTitleTv;
     private TextView mOneTv;
     private TextView mTwoTv;
+    private TextView mThreeTv;
     private TextView mCancelTv;
     private Dialog myDialog;
     private ClickListenerInterface clickListenerInterface;
@@ -39,33 +39,37 @@ public class CenterSettingDialog extends Dialog {
         void onOneClick();//点击第一个TextView
 
         void onTwoClick();//点击第二个TextView
+
+        void onThreeClick();//点击第三个TextView
     }
-    public CenterSettingDialog(@NonNull Context context) {
+    public FangYanSettingsDialog(@NonNull Context context) {
         super(context);
         init();
     }
 
-    public CenterSettingDialog(@NonNull Context context, int themeResId) {
+    public FangYanSettingsDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
         init();
     }
 
-    protected CenterSettingDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
+    protected FangYanSettingsDialog(@NonNull Context context, boolean cancelable, @Nullable OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
         init();
     }
     private void init() {
         myDialog = new Dialog(getContext(), R.style.BottomDialogStyle);
         //填充对话框的布局
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.center_dialog_setting, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.center_fangyan_set_dialog, null);
         //初始化控件
-        mTitleTv = (TextView) view.findViewById(R.id.tv_dialog_title);
-        mOneTv = (TextView) view.findViewById(R.id.tv_dialog_one);
-        mTwoTv = (TextView) view.findViewById(R.id.tv_dialog_two);
+        mTitleTv = view.findViewById(R.id.tv_dialog_title);
+        mOneTv = view.findViewById(R.id.tv_dialog_one);
+        mTwoTv =  view.findViewById(R.id.tv_dialog_two);
+        mThreeTv =  view.findViewById(R.id.tv_dialog_three);
 
         mTitleTv.setOnClickListener(new DialogClickListener());
         mOneTv.setOnClickListener(new DialogClickListener());
         mTwoTv.setOnClickListener(new DialogClickListener());
+        mThreeTv.setOnClickListener(new DialogClickListener());
 
         //将布局设置给Dialog
         myDialog.setContentView(view);
@@ -92,13 +96,15 @@ public class CenterSettingDialog extends Dialog {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.tv_dialog_title:
-                  //  clickListenerInterface.onTitleClick();
                     break;
                 case R.id.tv_dialog_one:
                     clickListenerInterface.onOneClick();
                     break;
                 case R.id.tv_dialog_two:
                     clickListenerInterface.onTwoClick();
+                    break;
+                case R.id.tv_dialog_three:
+                    clickListenerInterface.onThreeClick();
                     break;
             }
         }

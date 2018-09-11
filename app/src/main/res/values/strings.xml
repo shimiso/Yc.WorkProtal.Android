@@ -41,6 +41,7 @@
     <string name="title_android">语音</string>
 
     <string name="set_language">设置语言</string>
+    <string name="set_fangyan">设置方言</string>
     <!--语音-->
     <string name="date_format">yyyy年MM月dd日</string>
     <string name="day_format">%1$d天前</string>
