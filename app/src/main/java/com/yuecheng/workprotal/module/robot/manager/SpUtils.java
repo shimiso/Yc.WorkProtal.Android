@@ -26,16 +26,6 @@ public class SpUtils {
         SpManager.getInstance().writeVoiceTypePosition(position);
     }
 
-    public static String readVoiceType() {
-        int voiceTypePosition = SpManager.getInstance().readVoiceTypePosition();
-        try {
-            String[] arr = MainApplication.getApplication().getResources().getStringArray(R.array.voice_type);
-            return arr[voiceTypePosition];
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
 
     public static String readVoiceTypeParam() {
         int voiceTypePosition = SpManager.getInstance().readVoiceTypePosition();

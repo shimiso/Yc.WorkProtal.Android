@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="消息"
+            android:text="@string/message"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
@@ -42,6 +42,6 @@
             android:layout_marginLeft="10dp"
             android:textColor="@color/primary_text"
             android:textSize="16sp"
-            android:text="我的工作助理" />
+            android:text="@string/assistant" />
     </RelativeLayout>
 </LinearLayout>

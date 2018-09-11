@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="我的"
+            android:text="@string/my"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_centerVertical="true"
-            android:text="HR自助"
+            android:text="@string/my_hr"
             android:textSize="16sp" />
 
         <ImageView
@@ -145,7 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_centerVertical="true"
-            android:text="登录网页版"
+            android:text="@string/my_login_web"
             android:textSize="16sp" />
         <ImageView
             android:layout_width="20dp"
@@ -180,7 +180,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="25dp"
-            android:text="使用说明"
+            android:text="@string/my_directions"
             android:textSize="16sp" />
 
         <ImageView
@@ -214,7 +214,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_centerVertical="true"
-            android:text="意见反馈"
+            android:text="@string/my_feedback"
             android:textSize="16sp" />
         <ImageView
             android:layout_width="20dp"
@@ -247,7 +247,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_centerVertical="true"
-            android:text="设置"
+            android:text="@string/settings"
             android:textSize="16sp" />
         <ImageView
             android:layout_width="20dp"

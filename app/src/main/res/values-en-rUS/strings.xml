@@ -1,15 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WorkProtal</string>
-    <string name="title_message">message</string>
-    <string name="title_work">task</string>
-    <string name="title_contacts">contact</string>
-    <string name="title_mycenter">my</string>
-    <string name="title_android">voice</string>
-    <string name="set_language">Set the language</string>
-    <string name="set_fangyan">Set the dialects</string>
-    <string name="grammar_error">Semantic error</string>
 
+    <!-- 版本更新和提示 -->
+    <string name="update_new_hint">Version update</string>
+    <string name="version_new_hint">"There's a new version. The update is as follows ："</string>
+    <string name="check_new_hint">Photo or text answer </string>
+    <string name="no_update_hint">No update</string>
+    <string name="update_now_hint">To update</string>
+    <string name="update_desc_hint">describe:</string>
+    <string name="update_dialog_title">Discover new version V</string>
+
+    <string name="prompt">prompt</string>
+    <string name="check_connection">The network is out of order. Check it.</string>
+    <string name="server_net_error">Request failed, network or server abnormal. </string>
+    <string name="server_error">Server error</string>
+    <string name="check_sdcard">Check sdcard！</string>
+    <string name="settings">Settings</string>
+    <string name="close">Close</string>
+    <string name="exit">Exit</string>
+    <string name="lost_session">Login is invalid, please login again. </string>
+    <string name="relogin">Re logged in</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="exit_app_message">Are you sure you want to quit? </string>
+    <string name="version_update">Version update</string>
+    <string name="version_update_hint">"It's the latest version." </string>
+
+    <string name="assistant">My work assistant</string>
+    <string name="message">Message</string>
+    <string name="task">Task</string>
+    <string name="address_books">Address books</string>
+    <string name="workbench">Workbench</string>
+
+
+    <!--我的-->
+    <string name="my">My</string>
+    <string name="my_hr">HR Self-help</string>
+    <string name="my_login_web">Login web version </string>
+    <string name="my_directions">Instructions</string>
+    <string name="my_feedback">Feedback</string>
+
+    <!--设置-->
+    <string name="title_message">Message</string>
+    <string name="title_work">Task</string>
+    <string name="title_contacts">Contact</string>
+    <string name="title_mycenter">My</string>
+    <string name="title_android">Voice</string>
+    <string name="set_index">Set index</string>
+    <string name="set_language">Set language</string>
+    <string name="set_fangyan">Set dialects</string>
+    <string name="modify_password">Nodify password</string>
+    <string name="message_notification">Notification</string>
+
+    <!--语音-->
+    <string name="grammar_error">semantic error</string>
+    <string name="date_format">yyyy-MM-dd</string>
+    <string name="day_format">%1$d days ago</string>
+    <string name="hour_format">%1$d hours ago</string>
+    <string name="min_format">%1$d minutes ago</string>
+    <string name="sec_format">%1$d seconds ago</string>
+    <string name="proccessing">proccessing...</string>
+    <string name="voice_type">Broadcast the sound</string>
+    <string name="voice_speed">Speed of language</string>
+    <string name="talk_first">使用技巧（点击说话）：\n1.IT服务(it service)\n2.查新闻(search for news)\n3.我要请假(take leave)\n4.我的工资(my salary)\n5.查报销(check payment request)\n6.订会议室(book meeting room)\n7.取消会议室(cancel the meeting room)\n此外，还可以智能回答你提的问题，赶快来玩吧！</string>
+    <string name="version_title">current version</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
+    <string name="click_talk">Clicking on speech</string>
+    <string name="default_voice_answer">"Sorry, I don't know what you say"</string>
+    <string name="normal">Hold to talk </string>
+    <string name="voice_rec">Finger slide, cancel send</string>
+    <string name="voice_cancel">Loosen your fingers and cancel sending</string>
+    <string name="voice_short">The recording time is too short. </string>
+    <string name="voice_failure">Recording failed! </string>
+    <string name="send_audio_fail">Failed to send voice, file length is 0 or voice permissions are not opened. </string>
 
     //工作台
     <string name="hthq">Sign the contract</string>
@@ -18,7 +83,7 @@
     <string name="fyssx">Non-budgetary matter</string>
     <string name="xjsq">Leave application</string>
     <string name="jbsq">Request for overtime</string>
-    <string name="dbsx">todo</string>
+    <string name="dbsx">Todo</string>
     <string name="dhys">Book the meeting room</string>
     <string name="qyyx">Enterprise email</string>
     <string name="itfw">IT services</string>
@@ -27,7 +92,7 @@
     <string name="xw">news</string>
     <string name="gg">The announcement</string>
     <string name="cylc">Commonly used process</string>
-    <string name="gj">tool</string>
+    <string name="gj">Tool</string>
     <string name="qtyy">Other applications</string>
 
     <string-array name="voice_type_params">

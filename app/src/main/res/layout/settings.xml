@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="设置"
+            android:text="@string/settings"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="修改密码"
+            android:text="@string/modify_password"
             android:textSize="16sp" />
 
         <ImageView
@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="消息通知"
+            android:text="@string/message_notification"
             android:textSize="16sp" />
 
         <ImageView
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="语言设置"
+            android:text="@string/set_language"
             android:textSize="16sp" />
 
         <ImageView
@@ -114,7 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="方言设置"
+            android:text="@string/set_fangyan"
             android:textSize="16sp" />
 
         <ImageView
@@ -139,7 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="首页设置"
+            android:text="@string/set_index"
             android:textSize="16sp" />
 
         <ImageView
@@ -160,6 +160,6 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:text="退 出"
+        android:text="@string/exit"
         android:textColor="@color/white" />
 </LinearLayout>

@@ -108,8 +108,7 @@ public class SettingsActivity extends BaseActivity {
         config.locale = Locale.US;
         resources.updateConfiguration(config, dm);
         //模拟重启页面
-        finish();
-        startActivity(new Intent(context, MainActivity.class));
+        MainApplication.getApplication().toIndex();
     }
 
     /**
@@ -126,7 +125,6 @@ public class SettingsActivity extends BaseActivity {
         config.locale = Locale.CHINA;
         resources.updateConfiguration(config, dm);
         //模拟重启页面
-        finish();
-        startActivity(new Intent(context, MainActivity.class));
+        MainApplication.getApplication().toIndex();
     }
 }

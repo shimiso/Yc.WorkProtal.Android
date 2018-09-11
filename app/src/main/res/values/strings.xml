@@ -17,6 +17,7 @@
     <string name="update_now_hint">更新</string>
     <string name="update_desc_hint">描述:</string>
     <string name="update_dialog_title">发现新版本v</string>
+
     <string name="prompt">提示</string>
     <string name="check_connection">网络又调皮了，检查一下吧~</string>
     <string name="server_net_error">请求失败,网络或服务器发生异常</string>
@@ -32,34 +33,48 @@
     <string name="exit_app_message">确定要退出吗?</string>
     <string name="version_update">版本更新</string>
     <string name="version_update_hint">已是最新版本</string>
-    <string name="grammar_error">语义错误</string>
 
+    <string name="message">消息</string>
+    <string name="assistant">我的工作助理</string>
+    <string name="task">任务</string>
+    <string name="address_books">通讯录</string>
+    <string name="workbench">工作台</string>
+
+    <!--我的-->
+    <string name="my">我的</string>
+    <string name="my_hr">HR自助</string>
+    <string name="my_login_web">登录网页版</string>
+    <string name="my_directions">使用说明</string>
+    <string name="my_feedback">意见反馈</string>
+
+    <!--设置-->
     <string name="title_message">消息</string>
     <string name="title_work">任务</string>
     <string name="title_contacts">通讯录</string>
     <string name="title_mycenter">我的</string>
     <string name="title_android">语音</string>
-
+    <string name="set_index">设置首页</string>
     <string name="set_language">设置语言</string>
     <string name="set_fangyan">设置方言</string>
+    <string name="modify_password">修改密码</string>
+    <string name="message_notification">消息提醒</string>
+
     <!--语音-->
+    <string name="grammar_error">语义错误</string>
     <string name="date_format">yyyy年MM月dd日</string>
     <string name="day_format">%1$d天前</string>
     <string name="hour_format">%1$d小时前</string>
     <string name="min_format">%1$d分钟前</string>
     <string name="sec_format">%1$d秒前</string>
     <string name="proccessing">正在处理中...</string>
-    <string name="setting">设置</string>
     <string name="voice_type">播报声音</string>
     <string name="voice_speed">语速</string>
     <string name="talk_first">使用小技巧（点击说话）：\n1.IT服务(it service)\n2.查新闻(search for news)\n3.我要请假(take leave)\n4.我的工资(my salary)\n5.查报销(check payment request)\n6.订会议室(book meeting room)\n7.取消会议室(cancel the meeting room)\n此外，还可以智能回答你提的问题，赶快来玩吧！</string>
     <string name="version_title">当前版本</string>
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
-    <string name="system_setting">系统设置</string>
     <string name="click_talk">点击说话</string>
     <string name="default_voice_answer">"Sorry, I don't know what you say"</string>
-    <string name="dont_find_music">对不起，没有找到这首歌</string>
     <string name="normal">按住 说话</string>
     <string name="voice_rec">手指上滑，取消发送</string>
     <string name="voice_cancel">松开手指，取消发送</string>
@@ -86,18 +101,6 @@
     <string name="gj">工具</string>
     <string name="qtyy">其他应用</string>
 
-
-    <string-array name="voice_type">
-        <item>普通话</item>
-        <item>广东话</item>
-        <item>四川话</item>
-        <item>东北话</item>
-        <item>河南话</item>
-        <item>湖南话</item>
-        <item>台湾普通话</item>
-        <item>蜡笔小新</item>
-    </string-array>
-
     <string-array name="voice_type_params">
         <item>xiaoqi</item>
         <item>xiaomei</item>
@@ -108,6 +111,4 @@
         <item>xiaolin</item>
         <item>xiaoxin</item>
     </string-array>
-    <string name="title_activity_login">Sign in</string>
-
 </resources>

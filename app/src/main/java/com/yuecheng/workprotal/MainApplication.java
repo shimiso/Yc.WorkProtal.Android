@@ -79,7 +79,13 @@ public class MainApplication extends Application{
         for (Activity activity : activityList) {
             activity.finish();
         }
-       startActivity(new Intent(app, LoginActivity.class));
+        startActivity(new Intent(app, LoginActivity.class));
+    }
+    public void toIndex() {
+        for (Activity activity : activityList) {
+            activity.finish();
+        }
+        startActivity(new Intent(app, MainActivity.class));
     }
 
     private void initXunfei() {
