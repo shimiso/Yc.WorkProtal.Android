@@ -89,7 +89,17 @@
         <activity android:name=".module.contacts.view.OrganizationActivity" />
         <activity android:name=".module.mycenter.view.SettingsActivity" />
         <activity android:name=".module.mycenter.view.ModifyPasswordActivity" />
-        <activity android:name=".module.mycenter.view.MyDetailActivity"></activity>
+        <activity android:name=".module.mycenter.view.MyDetailActivity"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
