@@ -15,7 +15,6 @@ import com.yuecheng.workprotal.base.BaseActivity;
 import com.yuecheng.workprotal.bean.ResultInfo;
 import com.yuecheng.workprotal.bean.SsoToken;
 import com.yuecheng.workprotal.common.CommonPostView;
-import com.yuecheng.workprotal.module.contacts.presenter.ContactsPresenter;
 import com.yuecheng.workprotal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workprotal.utils.StringUtils;
 import com.yuecheng.workprotal.utils.ToastUtil;
@@ -27,8 +26,8 @@ import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity {
 
-    @BindView(R.id.phone)
-    TextView phone;
+    @BindView(R.id.username)
+    TextView username;
     @BindView(R.id.password_text)
     TextView password_text;
     @BindView(R.id.password)
@@ -61,7 +60,7 @@ public class LoginActivity extends BaseActivity {
     protected void onClick(View view) {
         switch (view.getId()){
             case R.id.login_btn://登陆
-                String username = phone.getText().toString();
+                String username = this.username.getText().toString();
                 String passWD = password.getText().toString();
                 if(StringUtils.isEmpty(username)){
                     ToastUtil.error(context,"用户名或手机号不能为空");
@@ -82,6 +81,8 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void postError(String errorMsg) {
                         ToastUtil.error(context,errorMsg);
+                        startActivity(new Intent(context, MainActivity.class));
+                        finish();
                     }
                 });
                 break;

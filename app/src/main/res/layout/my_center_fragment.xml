@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/app_bg">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/title_height"
         android:background="@color/primary_dark">
 
         <TextView
@@ -19,12 +22,18 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        app:cardCornerRadius="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
     <RelativeLayout
         android:id="@+id/my_information_rl"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/information_bg">
+        android:layout_margin="10dp">
 
         <RelativeLayout
             android:id="@+id/my_information_head"
@@ -79,13 +88,13 @@
             android:layout_marginLeft="20dp"
             android:text="乐成养老事业投资有限公司"/>
     </RelativeLayout>
-
+    </android.support.v7.widget.CardView>
     <RelativeLayout
         android:id="@+id/my_hr"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_below="@+id/my_information_rl"
-        android:background="@color/white"
+        android:background="@drawable/list_item_bg"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
         <ImageView
@@ -110,12 +119,15 @@
             android:src="@mipmap/right_in_btn"/>
 
     </RelativeLayout>
+
+    <View style="@style/divider_horizontal"/>
+
     <RelativeLayout
         android:id="@+id/my_login_web"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_below="@+id/my_hr"
-        android:background="@color/white"
+        android:background="@drawable/list_item_bg"
         android:layout_marginTop="0.1dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -140,13 +152,16 @@
             android:src="@mipmap/right_in_btn"/>
 
     </RelativeLayout>
+
+    <View style="@style/divider_horizontal"/>
+
     <RelativeLayout
         android:id="@+id/my_directions"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_below="@+id/my_login_web"
-        android:background="@color/white"
         android:layout_marginTop="0.1dp"
+        android:background="@drawable/list_item_bg"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
@@ -155,28 +170,33 @@
             android:layout_height="20dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/sysm"/>
+            android:src="@mipmap/sysm" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
             android:text="使用说明"
             android:textSize="16sp" />
+
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/right_in_btn"/>
+            android:src="@mipmap/right_in_btn" />
 
     </RelativeLayout>
+
+    <View style="@style/divider_horizontal"/>
+
     <RelativeLayout
         android:id="@+id/my_feedback"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_below="@+id/my_directions"
-        android:background="@color/white"
+        android:background="@drawable/list_item_bg"
         android:layout_marginTop="0.1dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
@@ -201,13 +221,15 @@
             android:src="@mipmap/right_in_btn"/>
 
     </RelativeLayout>
+
+    <View style="@style/divider_horizontal"/>
+
     <RelativeLayout
         android:id="@+id/my_setting"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_below="@+id/my_feedback"
-        android:background="@color/white"
-        android:layout_marginTop="10dp"
+        android:background="@drawable/list_item_bg"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
@@ -230,6 +252,5 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/right_in_btn"/>
-
     </RelativeLayout>
 </LinearLayout>

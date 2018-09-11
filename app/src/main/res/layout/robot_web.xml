@@ -12,8 +12,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/qipao_robot">
+        android:layout_height="wrap_content">
         <com.yuecheng.workprotal.widget.BridgeWebView
         android:id="@+id/robot_weview"
         android:layout_width="match_parent"

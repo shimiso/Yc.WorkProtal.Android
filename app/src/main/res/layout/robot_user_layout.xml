@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/ci_user_avatar"
-        android:background="@mipmap/chat_msg_content_bg_right_normal"
+        android:background="@drawable/chat_msg_content_bg_right_normal"
         android:maxWidth="300dp"
         android:textSize="16sp" />
 

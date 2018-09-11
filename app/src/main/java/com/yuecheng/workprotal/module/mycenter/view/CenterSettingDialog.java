@@ -1,4 +1,4 @@
-package com.yuecheng.workprotal.module.mycenter;
+package com.yuecheng.workprotal.module.mycenter.view;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -76,7 +76,7 @@ public class CenterSettingDialog extends Dialog {
 
         //获得窗体的属性
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        lp.width = (int) (dialogWindow.getWindowManager().getDefaultDisplay().getWidth() * 0.95);
+        lp.width = (int) (dialogWindow.getWindowManager().getDefaultDisplay().getWidth() * 0.8);
         dialogWindow.setAttributes(lp); //将属性设置给窗体
 
         myDialog.show();//显示对话框

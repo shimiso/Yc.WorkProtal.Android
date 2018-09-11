@@ -45,7 +45,7 @@ public class UserPresenter {
                 .params("client_id", "ro.client")//接入方客户ID
                 .params("client_secret", "secret")//接入方客户密码
                 .params("grant_type", "password")//授权类型固定不可修改
-                .params("scopes", "api1")//请求的资源范围
+                .params("scopes", "StaffInfo")//请求的资源范围
                 .execute(new DialogCallback<String>(context) {
                     @Override
                     public void onSuccess(Response<String> response) {

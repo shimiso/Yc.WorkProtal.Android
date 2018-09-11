@@ -21,19 +21,18 @@
             android:textColor="#000" />
 
         <EditText
-            android:id="@+id/phone"
+            android:id="@+id/username"
             style="@style/login_edt_style"
             android:layout_below="@+id/phone_text"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:hint="请输入您的用户名或手机号"
-            android:inputType="number"
-            android:maxLength="11"
+            android:inputType="text"
             android:text="alice" />
 
         <View
             style="@style/divider_horizontal"
-            android:layout_below="@+id/phone"
+            android:layout_below="@+id/username"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp" />
 
@@ -41,7 +40,7 @@
             android:id="@+id/password_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/phone"
+            android:layout_below="@+id/username"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:text="密码"
@@ -56,7 +55,7 @@
             android:hint="请输入密码"
             android:inputType="textPassword"
             android:maxLength="20"
-            android:text="password" />
+            android:text="Pass123$" />
 
         <View
             android:id="@+id/view"

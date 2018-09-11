@@ -64,11 +64,11 @@
 
     <View
         style="@style/divider_horizontal"
-        android:layout_below="@+id/phone" />
+        android:layout_below="@+id/username" />
     <View
         android:id="@+id/fenggexian"
         android:layout_height="10dp"
         android:visibility="gone"
         style="@style/divider_horizontal"
-        android:layout_below="@+id/phone" />
+        android:layout_below="@+id/username" />
 </LinearLayout>

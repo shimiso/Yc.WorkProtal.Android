@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/title"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/title_height"
         android:background="@color/primary_dark" >
 
         <TextView

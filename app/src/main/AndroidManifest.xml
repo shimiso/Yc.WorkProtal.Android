@@ -83,7 +83,8 @@
             android:value="${UMENG_CHANNEL}" />
 
         <activity android:name=".module.contacts.view.SelectGroupActivity" />
-        <activity android:name=".module.contacts.view.OrganizationActivity"></activity>
+        <activity android:name=".module.contacts.view.OrganizationActivity" />
+        <activity android:name=".module.mycenter.view.SettingsActivity"></activity>
     </application>
 
 </manifest>

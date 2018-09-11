@@ -6,14 +6,14 @@
 
     <ImageView
         android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/title_height"
         android:padding="2dp"
         android:src="@mipmap/assistant" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/chat_msg_content_bg_left_normal">
+        android:background="@drawable/chat_msg_content_bg_left_normal">
 
         <TextView
             android:id="@+id/tv_robot_talk"
