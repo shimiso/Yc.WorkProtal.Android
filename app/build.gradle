@@ -112,7 +112,18 @@ android {
     productFlavors.all { flavor ->
         flavor.manifestPlaceholders = [UMENG_CHANNEL: name]
     }
-
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['src/main/java']
+            renderscript.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res']
+            assets.srcDirs = ['src/main/assets']
+            jni.srcDirs = []
+            jniLibs.srcDirs = ['libs']
+        }
+    }
     // 打包配置 排除一些文件
     packagingOptions {
         exclude 'META-INF/LICENSE'
@@ -141,7 +152,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.android.support:cardview-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.android.support:design:${rootProject.ext.supportLibVersion}"
@@ -173,7 +184,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //GreeDao数据库
-    implementation 'org.greenrobot:greendao:3.2.2' // add library
+    implementation 'org.greenrobot:greendao:3.2.2'
+    // add library
     //GreeDao数据库加密
     //implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
+    api project(':IMKit')
 }

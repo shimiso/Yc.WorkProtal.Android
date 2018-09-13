@@ -16,16 +16,17 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.yuecheng.workprotal.bean.LoginUser;
-import com.yuecheng.workprotal.module.mycenter.view.LoginActivity;
 import com.yuecheng.workprotal.module.mycenter.presenter.UserPresenter;
+import com.yuecheng.workprotal.module.mycenter.view.LoginActivity;
+import com.yuecheng.workprotal.receive.MyReceiveMessageListener;
+import com.yuecheng.workprotal.utils.AndroidUtil;
 import com.yuecheng.workprotal.utils.SharePreferenceUtil;
-
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
-
+import io.rong.imkit.RongIM;
 import okhttp3.OkHttpClient;
 
 public class MainApplication extends Application{
@@ -44,6 +45,24 @@ public class MainApplication extends Application{
         userPresenter =  new UserPresenter(app);
         initXunfei();
         initOkGo();
+        initRongIM();
+    }
+
+    private void initRongIM() {
+        /**
+         *
+         * OnCreate 会被多个进程重入，这段保护代码，确保只有您需要使用 RongIM 的进程和 Push 进程执行了 init。
+         * io.rong.push 为融云 push 进程名称，不可修改。
+         */
+        if (getApplicationInfo().packageName.equals(AndroidUtil.getCurProcessName(getApplicationContext())) ||
+                "io.rong.push".equals(AndroidUtil.getCurProcessName(getApplicationContext()))) {
+            /**
+             * IMKit SDK调用第一步 初始化
+             */
+            RongIM.init(this);
+        }
+
+        RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
     }
 
     public static MainApplication getApplication() {

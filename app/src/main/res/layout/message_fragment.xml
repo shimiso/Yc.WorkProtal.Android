@@ -44,4 +44,29 @@
             android:textSize="16sp"
             android:text="@string/assistant" />
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/my_chat"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="10dp"
+        android:clickable="true"
+        android:background="@drawable/list_item_bg">
+        <ImageView
+            android:id="@+id/my_chat_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/assistant"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/my_chat_iv"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/primary_text"
+            android:textSize="16sp"
+            android:text="我的会话" />
+    </RelativeLayout>
 </LinearLayout>
