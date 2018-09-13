@@ -89,7 +89,7 @@ public class MainApplication extends Application{
         for (Activity activity : activityList) {
             activity.finish();
         }
-        startActivity(new Intent(app, MainActivity.class));
+        startActivity(new Intent(app, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     private void initXunfei() {

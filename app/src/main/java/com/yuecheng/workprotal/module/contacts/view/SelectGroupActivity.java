@@ -31,6 +31,9 @@ public class SelectGroupActivity extends BaseActivity {
         intent = new Intent();
         Intent intent = getIntent();
         String selectname = intent.getStringExtra("selectname");
+        if(selectname == null){
+            selectname = "空";
+        }
         switch (selectname){
             case "乐成集团":
                 yuechengImg.setVisibility(View.VISIBLE);

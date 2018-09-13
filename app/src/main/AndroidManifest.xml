@@ -49,8 +49,9 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".module.robot.view.VoiceActivity"
+            android:exported="true"
             android:launchMode="singleTop"
-            android:theme="@style/home" />
+            android:theme="@style/translucent" />
         <activity
             android:name=".module.robot.OpenH5Activity"
             android:launchMode="singleTop" />
@@ -88,6 +89,7 @@
         <activity android:name=".module.contacts.view.SelectGroupActivity" />
         <activity android:name=".module.contacts.view.OrganizationActivity" />
         <activity android:name=".module.mycenter.view.SettingsActivity" />
+        <activity android:name=".module.robot.view.ViewMoreActivity"></activity>
         <activity android:name=".module.mycenter.view.ModifyPasswordActivity" />
         <activity android:name=".module.mycenter.view.MyDetailActivity"/>
 

@@ -42,50 +42,57 @@ public class MyRobotFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.hthq, R.id.fksq, R.id.ywqs, R.id.fyssx, R.id.xjsq, R.id.jbsq, R.id.dbsx, R.id.dhys, R.id.qyyx, R.id.itfw, R.id.qyzd, R.id.wdzx, R.id.xw, R.id.gg})
+
+    @OnClick({R.id.dbgz, R.id.fqbd, R.id.xt, R.id.fqxt, R.id.xjhy, R.id.cxhy, R.id.sjap, R.id.dhys, R.id.qyyx, R.id.itfw, R.id.wdsc, R.id.qyzd, R.id.wdzx, R.id.xw, R.id.gg, R.id.dc})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.hthq:
-                Toast.makeText(getContext(),"hthq ",Toast.LENGTH_LONG).show();
+            case R.id.dbgz:
+                Toast.makeText(getContext(),"dbgz",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.fksq:
-                Toast.makeText(getContext()," fksq",Toast.LENGTH_LONG).show();
+            case R.id.fqbd:
+                Toast.makeText(getContext(),"dbgz",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.ywqs:
-                Toast.makeText(getContext()," ywqs",Toast.LENGTH_LONG).show();
+            case R.id.xt:
+                Toast.makeText(getContext(),"dbgz",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.fyssx:
-                Toast.makeText(getContext(),"fyssx ",Toast.LENGTH_LONG).show();
+            case R.id.fqxt:
+                Toast.makeText(getContext(),"dbgz",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.xjsq:
-                Toast.makeText(getContext(),"xjsq ",Toast.LENGTH_LONG).show();
+            case R.id.xjhy:
+                Toast.makeText(getContext(),"xjhy",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.jbsq:
-                Toast.makeText(getContext()," jbsq",Toast.LENGTH_LONG).show();
+            case R.id.cxhy:
+                Toast.makeText(getContext(),"cxhy",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.dbsx:
-                Toast.makeText(getContext(),"dbsx ",Toast.LENGTH_LONG).show();
+            case R.id.sjap:
+                Toast.makeText(getContext(),"sjap",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.dhys:
-                Toast.makeText(getContext()," dhys",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"dhys",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.qyyx:
-                Toast.makeText(getContext(),"qyyx ",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"qyyx",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.itfw:
-                Toast.makeText(getContext(),"itfw ",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"itfw",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.wdsc:
+                Toast.makeText(getContext(),"wdsc",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.qyzd:
-                Toast.makeText(getContext()," qyzd",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"qyzd",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.wdzx:
-                Toast.makeText(getContext()," wdzx",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"wdzx",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.xw:
-                Toast.makeText(getContext()," xw",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"xw",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.gg:
-                Toast.makeText(getContext(),"gg ",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"gg",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.dc:
+                Toast.makeText(getContext(),"dc",Toast.LENGTH_SHORT).show();
                 break;
         }
     }

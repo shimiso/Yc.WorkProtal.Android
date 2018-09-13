@@ -45,20 +45,35 @@
         android:layout_height="50dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/orgname"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:textColor="#3189f4"
-            android:gravity="center_vertical" />
 
-        <LinearLayout
-            android:id="@+id/my_linearlayout"
+        <HorizontalScrollView
+            android:id="@+id/hor_scrollview"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_toLeftOf="@+id/switch_img_iv"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" />
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/orgname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:textColor="#3189f4" />
+
+                <LinearLayout
+                    android:id="@+id/my_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_toLeftOf="@+id/switch_img_iv"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" />
+            </LinearLayout>
+        </HorizontalScrollView>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

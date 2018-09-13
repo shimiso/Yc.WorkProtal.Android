@@ -1,15 +1,18 @@
 package com.yuecheng.workprotal.module.robot.view;
 
+import android.animation.AnimatorSet;
+import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -17,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jude.swipbackhelper.SwipeBackHelper;
@@ -30,14 +34,22 @@ import com.yuecheng.workprotal.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 public class VoiceActivity extends AppCompatActivity implements IMainView {
 
     LinearLayout mLlRoot;
+
+    @BindView(R.id.voice_title)
+    RelativeLayout voiceTitle;
+    @BindView(R.id.touming)
+    RelativeLayout touming;
     private MainPresenter mIMainPresenter;
     private List<TalkBean> mTalkBeanList = new ArrayList<>();
     private TalkListAdapter mTalkListAdapter;
-    private DrawerLayout mDrawerLayout;
     private RecyclerView recyclerView;
     private ImageView iv_talk;
     private Button voice_btn;
@@ -52,8 +64,9 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.robot);
+        ButterKnife.bind(this);
         lateralDestroy();
-        instance=this;
+        instance = this;
         init();
         afterView();
     }
@@ -71,10 +84,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     @SuppressLint("ClickableViewAccessibility")
     private void init() {
         mLlRoot = (LinearLayout) findViewById(R.id.activity_main);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-       // iv_talk = (ImageView) findViewById(R.id.iv_talk);
         voice_btn = (Button) findViewById(R.id.voice_btn);
         et_msg = (EditText) findViewById(R.id.et_msg);
         findViewById(R.id.back_iv).setOnClickListener(new View.OnClickListener() {
@@ -90,7 +100,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 String s = et_msg.getText().toString();
-                if (actionId == EditorInfo.IME_ACTION_SEND && !StringUtils.isEmpty(s)){
+                if (actionId == EditorInfo.IME_ACTION_SEND && !StringUtils.isEmpty(s)) {
                     mIMainPresenter.understandText(s);
                     et_msg.setText("");
                     //Toast.makeText(VoiceActivity.this,et_msg.getText().toString(),Toast.LENGTH_LONG).show();
@@ -130,7 +140,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
 
     @Override
     public void setVoiceChanged(int volume) {
-        if(this.mStateIV==null) return;
+        if (this.mStateIV == null) return;
         switch (volume / 4) {
             case 0:
                 this.mStateIV.setImageResource(R.mipmap.ic_volume_1);
@@ -248,6 +258,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         }
         return false;
     }
+
     private void afterView() {
 
         //init RecyclerView
@@ -260,7 +271,6 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         //init presenter
         mIMainPresenter = new MainPresenter(this);
     }
-
 
 
     @Override
@@ -277,4 +287,32 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         mTalkListAdapter.notifyDataSetChanged();
         recyclerView.smoothScrollToPosition(mTalkBeanList.size() - 1);
     }
+
+    @OnClick({R.id.voice_sl, R.id.touming, R.id.dhys, R.id.dbgz, R.id.xjhy, R.id.view_more})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.voice_sl:
+                
+                voiceTitle.setVisibility(View.VISIBLE);
+//                ObjectAnimator animator = ObjectAnimator.ofFloat(touming, "scaleY", 1f, 0f);
+//                animator.setDuration(2000);
+//                animator.start();
+                touming.setVisibility(View.GONE);
+                break;
+            case R.id.touming:
+                finish();
+                break;
+            case R.id.dhys:
+                break;
+            case R.id.dbgz:
+                break;
+            case R.id.xjhy:
+                break;
+            case R.id.view_more:
+                startActivity(new Intent(this,ViewMoreActivity.class));
+                break;
+        }
+    }
+
+
 }

@@ -104,6 +104,7 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
         if (resultInfo.isSuccess()) {
             OrganizationBean result = resultInfo.getResult();
             orgs = result.getOrgs();
+            if(orgs == null) return;
             OrganizationBean.OrgsBean orgsBean = null;
             for(int i=0;i<orgs.size();i++){
                 if(result.getMyselfTopOrgId() == orgs.get(i).getOrgId()){
@@ -152,43 +153,52 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data==null) return;
-        String selectname = data.getExtras().getString("selectname");
-        switch (selectname) {
+        String selectname1 = data.getExtras().getString("selectname");
+        switch (selectname1) {
             case "yuecheng":
+                selectname = "乐成集团";
                 RefreshInstitutions("乐成集团");
                 break;
             case "bcis":
+                selectname = "BCIS";
                 RefreshInstitutions("BCIS");
                 break;
             case "laonian":
+                selectname = "恭和苑";
                 RefreshInstitutions("恭和苑");
                 break;
         }
     }
 
     private void RefreshInstitutions(String string) {
+        myLinearlayout.removeAllViews();
+
+        TextView textView = new TextView(getContext());
+//               textView.setText(orgsBean.getOrgName()); //将当前的机构名称展示
+        textView.setText(string);  //将返回的机构名称展示
+        textView.setTextColor(Color.parseColor("#282828"));
+        myLinearlayout.addView(textView);
+        organizationAdapter.onRefresh(staffsList, subOrgsList);
+        textView.setOnClickListener(v -> {
+            myLinearlayout.removeAllViews();
+            ContactsPresenter contactsPresenter = new ContactsPresenter(getActivity());
+            //参数一是登录人员的id
+            contactsPresenter.getAddressTopOrgQuery(11, this);
+        });
+        if(orgs == null) return;
+        List<OrganizationBean.OrgsBean.StaffsBean>  staffsList = null;
+        List<OrganizationBean.OrgsBean.SubOrgsBean> subOrgsList = null;
         for(int i=0;i<orgs.size();i++){
             OrganizationBean.OrgsBean orgsBean = orgs.get(i);
             if(orgsBean.getOrgName().equals(string)){
                 selectname=orgsBean.getOrgName(); //获取当前机构name
                 //根目录下人员
-                List<OrganizationBean.OrgsBean.StaffsBean>  staffsList = orgsBean.getStaffs();
+                staffsList = orgsBean.getStaffs();
                //根目录下部门
-                List<OrganizationBean.OrgsBean.SubOrgsBean> subOrgsList = orgsBean.getSubOrgs();
-               myLinearlayout.removeAllViews();
+                subOrgsList = orgsBean.getSubOrgs();
+            }
 
-               TextView textView = new TextView(getContext());
-               textView.setText(orgsBean.getOrgName());
-               textView.setTextColor(Color.parseColor("#282828"));
-               myLinearlayout.addView(textView);
-               organizationAdapter.onRefresh(staffsList, subOrgsList);
-                textView.setOnClickListener(v -> {
-                    myLinearlayout.removeAllViews();
-                    ContactsPresenter contactsPresenter = new ContactsPresenter(getActivity());
-                    //参数一是登录人员的id
-                    contactsPresenter.getAddressTopOrgQuery(11, this);
-                });
-           }
+
         }
     }
 }

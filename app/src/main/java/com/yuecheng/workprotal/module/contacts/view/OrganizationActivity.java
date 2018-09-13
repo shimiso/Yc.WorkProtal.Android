@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,8 @@ public class OrganizationActivity extends BaseActivity {
     RecyclerView myContacterRecyclerView;
     @BindView(R.id.orgname)
     TextView orgname_tv;
+    @BindView(R.id.hor_scrollview)
+    HorizontalScrollView horScrollview;
     private int orgid;//点击的子组织机构ID
     private String orgname;//点击的子组织机构ID
     private OrganizationAdapter organizationAdapter;
@@ -48,6 +51,10 @@ public class OrganizationActivity extends BaseActivity {
         setContentView(R.layout.contact_organization);
         ButterKnife.bind(this);
 
+        //去除到头使阴影
+        horScrollview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        //水平方向的水平滚动条是否显示
+        horScrollview.setHorizontalScrollBarEnabled(false);
         Intent intent = getIntent();
         orgid = intent.getIntExtra("orgid", -1);
         orgname = intent.getStringExtra("orgname");

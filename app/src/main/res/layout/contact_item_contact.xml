@@ -19,7 +19,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/contacts_item"
+        android:background="@drawable/list_item_bg"
         android:layout_below="@+id/tv_first_alphabet">
         <com.yuecheng.workprotal.widget.CircleTextImage
             android:id="@+id/cti"

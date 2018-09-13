@@ -87,25 +87,48 @@
     <string name="voice_short">录音时间太短</string>
     <string name="voice_failure">录音失败！</string>
     <string name="send_audio_fail">发送语音失败，文件长度为0或语音权限没有开启</string>
+    <string name="to_view_more">查看更多》</string>
+    <string name="to_say_so">小主 ，可以这样对我说: </string>
+    <string name="more_title">您可以这样多我说</string>
+    <string name="how_call"> 如何拨打电话</string>
+    <string name="call_da">“打电话给张三”</string>
+    <string name="call_gei">“给张三打电话”</string>
+    <string name="call_hu">“呼叫张三”</string>
+    <string name="how_dhys"> 如何订会议室</string>
+    <string name="reservation_dhys">“订会议室”</string>
+    <string name="reservation_yyhys">“预约会议室”</string>
+    <string name="apply_hys">“申请会议室”</string>
+    <string name="how_cxdb"> 如何查询我的待办</string>
+    <string name="my_db">“我的待办”</string>
+    <string name="query_db">“查待办”</string>
+    <string name="how_fxt"> 如何发协同</string>
+    <string name="want_leave">“我要请假”</string>
+    <string name="apply_leave">“申请请假”</string>
 
     //工作台
-    <string name="hthq">合同会签</string>
-    <string name="fksq">付款申请</string>
-    <string name="ywqs">业务请示</string>
-    <string name="fyssx">非预算事项</string>
-    <string name="xjsq">休假申请</string>
-    <string name="jbsq">加班申请</string>
-    <string name="dbsx">待办事项</string>
+    <string name="dbgz">待办工作</string>
+    <string name="fqbd">发起表单</string>
+    <string name="xt">协同</string>
+    <string name="fqxt">发起协同</string>
+    <string name="xjhy">新建会议</string>
+    <string name="cxhy">查询会议</string>
+    <string name="sjap">时间安排</string>
     <string name="dhys">订会议室</string>
     <string name="qyyx">企业邮箱</string>
     <string name="itfw">IT服务</string>
+    <string name="wdsc">我的收藏</string>
     <string name="qyzd">企业制度</string>
     <string name="wdzx">文档中心</string>
     <string name="xw">新闻</string>
     <string name="gg">公告</string>
-    <string name="cylc">常用流程</string>
+    <string name="dc">调查</string>
+    <string name="cylc">常用</string>
     <string name="gj">工具</string>
-    <string name="qtyy">其他应用</string>
+    <string name="qt">其他</string>
+
+    <!--通讯录-->
+    <string name="personnel">人员</string>
+    <string name="organization">组织架构</string>
 
     <string-array name="voice_type_params">
         <item>xiaoqi</item>

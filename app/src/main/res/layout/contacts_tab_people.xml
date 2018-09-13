@@ -35,6 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_margin="5dp"/>
+
     <com.yuecheng.workprotal.module.contacts.view.SideLetterBar
         android:layout_below="@id/tv_alphabet"
         android:id="@+id/sideLetterBar"

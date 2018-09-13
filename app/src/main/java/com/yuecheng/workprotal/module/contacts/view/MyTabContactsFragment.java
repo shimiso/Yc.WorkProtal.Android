@@ -27,9 +27,12 @@ import com.yuecheng.workprotal.module.contacts.bean.PinYinStyle;
 import com.yuecheng.workprotal.module.contacts.adapter.AlphabetAdp;
 import com.yuecheng.workprotal.module.contacts.adapter.ContactAdapter;
 import com.yuecheng.workprotal.utils.PinYinUtil;
+import com.yuecheng.workprotal.widget.LoadingDialog;
+import com.yuecheng.workprotal.widget.PinyinComparator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -56,6 +59,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
     private List<ContactBean.StaffsBean> contactList;
     private View view;
     private List<ContactBean.StaffsBean> staffs;
+    private LoadingDialog loadingDialog;
 
     public static MyTabContactsFragment newInstance() {
         Bundle args = new Bundle();
@@ -93,6 +97,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
                 rel_notice.setLayoutParams(params);
             }
         });
+        loadingDialog = LoadingDialog.createDialog(getContext());
     }
 
     private void initEvent() {
@@ -171,8 +176,12 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                loadingDialog = LoadingDialog.createDialog(getContext());
+                loadingDialog.setMessage("正在搜索联系人...");
+                loadingDialog.show();
                 //当输入框里面的值为空，更新为原来的列表，否则为过滤数据列表
                 fuzzySearch(s.toString());
+                loadingDialog.dismiss();
             }
 
             @Override
@@ -253,12 +262,11 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
             staffs.get(i).pinYinStyle = parsePinYinStyle(staffs.get(i).getName());
             mSortList.add(staffs.get(i));
         }
-        Collections.sort(mSortList);
+        Collections.sort(mSortList,new PinyinComparator());
         return mSortList;
     }
     //根据条件对数据进行筛选
     private void fuzzySearch(String str) {
-        Log.i("tag", String.valueOf(new Date().getTime()));
         String name1 = str;
         ArrayList<ContactBean.StaffsBean> filterDateList = new ArrayList<ContactBean.StaffsBean>();
         // 数据
@@ -267,7 +275,6 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
             null_personnel.setVisibility(View.GONE);
             filterDateList = dataList();
         }else {
-            Log.i("tag", String.valueOf(new Date().getTime()));
             filterDateList.clear();
             sideLetterBar.setVisibility(View.GONE);
             Pattern p = Pattern.compile("[\u4e00-\u9fa5]+");
@@ -283,7 +290,6 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
                     filterDateList.add(contactBean);
                 }
             }
-            Log.i("tag", String.valueOf(new Date().getTime()));
         }
         contactList = filterDateList;
         adapter = new ContactAdapter(getContext(),filterDateList);
@@ -294,7 +300,6 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
         }else{
             null_personnel.setVisibility(View.GONE);
         }
-
     }
     //将name解析成拼音
     public PinYinStyle parsePinYinStyle(String content) {

@@ -10,8 +10,10 @@
 
 
     <RelativeLayout
+        android:id="@+id/voice_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
+        android:visibility="invisible"
         android:background="@color/primary_dark">
 
         <ImageView
@@ -32,19 +34,136 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/robot_content" />
+            <RelativeLayout
+                android:id="@+id/touming"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="5"
+                android:background="#80000000">
+
+                <ImageView
+                    android:id="@+id/voice_sl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:padding="10dp"
+                    android:src="@mipmap/voice_xl"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/contacts_item">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
+                android:textSize="16sp"
+                android:layout_marginLeft="16dp"
+                android:text="@string/to_say_so"
+                android:background="@drawable/selected_list_bg"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/contacts_item"
+                android:paddingLeft="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/dhys"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="8dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/selected_list_bg"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/dhys" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:text="@string/dhys" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/dbgz"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="8dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/selected_list_bg"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/dbgz" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:text="@string/dbgz" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/xjhy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="8dp"
+                    android:paddingTop="10dp"
+                    android:background="@drawable/selected_list_bg"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/xjhy" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:text="@string/xjhy" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/view_more"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/to_view_more" />
+                </LinearLayout>
+            </LinearLayout>
+            <include layout="@layout/robot_content"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="6" />
         </LinearLayout>
 
-    </android.support.v4.widget.DrawerLayout>
 </LinearLayout>

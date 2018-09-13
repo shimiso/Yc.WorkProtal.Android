@@ -58,10 +58,10 @@ public class MyContactsFragment extends BaseFragment {
             myTabContactsFragment = (MyTabContactsFragment)getActivity().getSupportFragmentManager().getFragment(savedInstanceState, MyTabContactsFragment.class.getName());
             myTabStructureFragment = (MyTabStructureFragment)getActivity().getSupportFragmentManager().getFragment(savedInstanceState, MyTabStructureFragment.class.getName());
         }
-        tabLayout.addTab(tabLayout.newTab().setText("人员"));
-        adapter.addFragment(myTabContactsFragment, "人员");
-        tabLayout.addTab(tabLayout.newTab().setText("组织架构"));
-        adapter.addFragment(myTabStructureFragment, "组织架构");
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.personnel));
+        adapter.addFragment(myTabContactsFragment, getContext().getString(R.string.personnel));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.organization));
+        adapter.addFragment(myTabStructureFragment, getContext().getString(R.string.organization));
 
         mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(1);//默认加载页面

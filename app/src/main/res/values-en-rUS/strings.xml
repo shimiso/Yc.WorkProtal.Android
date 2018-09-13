@@ -80,25 +80,49 @@
     <string name="voice_short">The recording time is too short. </string>
     <string name="voice_failure">Recording failed! </string>
     <string name="send_audio_fail">Failed to send voice, file length is 0 or voice permissions are not opened. </string>
+    <string name="to_view_more">To view more》</string>
+    <string name="to_say_so">Small Lord, can say to me like this: </string>
+    <string name="more_title">You may say so much</string>
+    <string name="how_call">How to make a phone call</string>
+    <string name="call_da">“Please call ZHANG SAN”</string>
+    <string name="call_gei">“call ZHANG SAN”</string>
+    <string name="call_hu"></string>
+    <string name="how_dhys">How to book a conference room</string>
+    <string name="reservation_dhys">“Book meeting room”</string>
+    <string name="reservation_yyhys">“reserve meeting room”</string>
+    <string name="apply_hys"></string>
+    <string name="how_cxdb">How do I query my to-do list</string>
+    <string name="my_db">"“my to-do list”\n“find my to-do items”"</string>
+    <string name="query_db">"“my to-do's”\n“my to-do items”"</string>
+    <string name="how_fxt">How to generate synergy</string>
+    <string name="want_leave">“take leave”</string>
+    <string name="apply_leave">“leave application”</string>
+
 
     //工作台
-    <string name="hthq">Sign the contract</string>
-    <string name="fksq">Payment request</string>
-    <string name="ywqs">Business for instructions</string>
-    <string name="fyssx">Non-budgetary matter</string>
-    <string name="xjsq">Leave application</string>
-    <string name="jbsq">Request for overtime</string>
-    <string name="dbsx">Todo</string>
+    <string name="dbgz">To do the work</string>
+    <string name="fqbd">A form</string>
+    <string name="xt">synergy</string>
+    <string name="fqxt">concerted</string>
+    <string name="xjhy">A new meeting</string>
+    <string name="cxhy">Query the meeting</string>
+    <string name="sjap">schedule</string>
     <string name="dhys">Book the meeting room</string>
     <string name="qyyx">Enterprise email</string>
     <string name="itfw">IT services</string>
+    <string name="wdsc">My collection</string>
     <string name="qyzd">Enterprise system</string>
     <string name="wdzx">Document center</string>
     <string name="xw">news</string>
     <string name="gg">The announcement</string>
-    <string name="cylc">Commonly used process</string>
-    <string name="gj">Tool</string>
-    <string name="qtyy">Other applications</string>
+    <string name="dc">survey</string>
+    <string name="cylc">The commonly used</string>
+    <string name="gj">tool</string>
+    <string name="qt">Other</string>
+
+    <!--通讯录-->
+    <string name="personnel">personnel</string>
+    <string name="organization">organization</string>
 
     <string-array name="voice_type_params">
         <item>xiaoqi</item>

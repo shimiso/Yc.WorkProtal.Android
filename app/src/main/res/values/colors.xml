@@ -43,4 +43,6 @@
     <color name="contacts_nametv_69">#999999</color>
     <color name="contacts_nametv_28">#282828</color>
     <color name="contacts_item">#efefef</color>
+
+    　　<color name="translucent">#01000000</color>
 </resources>

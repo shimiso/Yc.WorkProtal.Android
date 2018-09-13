@@ -129,6 +129,7 @@ public class MainActivity extends BaseActivity {
                 findViewById(navigation.getMenu().getItem(2).getItemId()).setOnLongClickListener(v -> {
                     Intent intent = new Intent(MainActivity.this, VoiceActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.push_bottom_in, R.anim.push_bottom_out);
                     return true;
                 });
             }
@@ -141,6 +142,7 @@ public class MainActivity extends BaseActivity {
         findViewById(navigation.getMenu().getItem(2).getItemId()).setOnLongClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, VoiceActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.push_bottom_in, R.anim.push_bottom_out);
             return true;
         });
     }
