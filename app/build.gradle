@@ -121,7 +121,7 @@ android {
             res.srcDirs = ['src/main/res']
             assets.srcDirs = ['src/main/assets']
             jni.srcDirs = []
-            jniLibs.srcDirs = ['libs']
+            jniLibs.srcDirs = ['libs','src/main/jniLibs']
         }
     }
     // 打包配置 排除一些文件
