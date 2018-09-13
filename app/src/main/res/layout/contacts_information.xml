@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="个人信息"
+            android:text="name"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -36,93 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:src="@mipmap/contact_fx"
             android:padding="10dp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/my_portrait"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_below="@+id/title_text"
-        android:background="@color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="头像"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:id="@+id/my_portrait_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/my_name"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/my_portrait"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="姓名"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/my_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="陈霄"
-            android:textSize="16sp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/my_gen"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/my_name"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="性别"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/my_gen_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="男"
-            android:textSize="16sp" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -131,8 +46,7 @@
         android:layout_height="80dp"
         android:layout_below="@+id/title_text"
         android:background="@color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingLeft="20dp">
 
         <ImageView
             android:id="@+id/my_portrait_img_contacts"
@@ -154,7 +68,7 @@
                 android:id="@+id/contact_ren_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="name"
+                android:text=""
                 android:textColor="#000"
                 android:textSize="18sp" />
 
@@ -163,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView"
-                android:text="岗位"
+                android:text=""
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -172,7 +86,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:src="@mipmap/contact_xx"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -199,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="17620"
+            android:text=""
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -228,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="150121121121"
+            android:text=""
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -257,7 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="1312151"
+            android:text=""
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -286,7 +201,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="123156@qq.com"
+            android:text=""
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -315,7 +230,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="产品经理"
+            android:text=""
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -336,7 +251,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="乐成集团>集团信息与技术中心>开发组"
+            android:text=""
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -365,7 +280,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="副岗"
+            android:text=""
             android:textSize="16sp" />
 
     </RelativeLayout>
@@ -385,7 +300,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="直属上级"
+            android:text="所属上级"
             android:textSize="16sp" />
 
         <TextView
@@ -394,7 +309,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="康靖"
+            android:text=""
             android:textSize="16sp" />
 
     </RelativeLayout>

@@ -40,9 +40,8 @@ public class OpenH5Activity extends BaseActivity {
             }
         });
         mWebView.addBridgeInterface(new JavaSctiptMethods(OpenH5Activity.this, mWebView));//设置js和android通信桥梁方法
-       // mWebView.loadUrl("file:///android_asset/BridgeWebView/index.html");//本地模板
+        //mWebView.loadUrl("file:///android_asset/BridgeWebView/index.html");//本地模板
         mWebView.loadUrl(url);//动态获取需要打开的链接
-
     }
 
     private void setWebViewClient() {

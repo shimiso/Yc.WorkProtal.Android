@@ -12,7 +12,7 @@
         <!--窗口统一背景颜色-->
         <item name="android:windowBackground">@color/app_bg</item>
         <!--是否让系统顶部状态栏和底部导航窗口占据屏幕上下位置，如果设为false浮在屏幕不占据-->
-        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:fitsSystemWindows">false</item>
         <!--窗口 动画-->
         <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <!--ToolbarMenuText的大小和颜色-->

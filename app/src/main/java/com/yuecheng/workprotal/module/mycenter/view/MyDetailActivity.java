@@ -3,8 +3,8 @@ package com.yuecheng.workprotal.module.mycenter.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.luck.picture.lib.PictureSelector;
@@ -14,6 +14,10 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import com.yuecheng.workprotal.R;
 import com.yuecheng.workprotal.base.BaseActivity;
+import com.yuecheng.workprotal.bean.ResultInfo;
+import com.yuecheng.workprotal.common.CommonPostView;
+import com.yuecheng.workprotal.module.contacts.bean.PersonnelDetailsBean;
+import com.yuecheng.workprotal.module.contacts.presenter.ContactsPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +30,28 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * 个人详情
  */
-public class MyDetailActivity extends BaseActivity {
+public class MyDetailActivity extends BaseActivity implements CommonPostView<PersonnelDetailsBean> {
     Context context;
+    @BindView(R.id.my_name)
+    TextView myName;
+    @BindView(R.id.my_gen)
+    TextView myGen;
+    @BindView(R.id.my_work_number_tv)
+    TextView myWorkNumberTv;
+    @BindView(R.id.my_phone_tv)
+    TextView myPhoneTv;
+    @BindView(R.id.my_landline_tv)
+    TextView myLandlineTv;
+    @BindView(R.id.my_email_tv)
+    TextView myEmailTv;
+    @BindView(R.id.my_jobs_tv)
+    TextView myJobsTv;
+    @BindView(R.id.my_directory_tv)
+    TextView myDirectoryTv;
+    @BindView(R.id.my_deputy_tv)
+    TextView myDeputyTv;
+    @BindView(R.id.my_mmediate_superior_tv)
+    TextView myMmediateSuperiorTv;
     private List<LocalMedia> selectList = new ArrayList<>();
     @BindView(R.id.user_head)
     CircleImageView user_head;
@@ -38,11 +62,13 @@ public class MyDetailActivity extends BaseActivity {
         setContentView(R.layout.my_center_detail);
         ButterKnife.bind(this);
         context = this;
+        ContactsPresenter contactsPresenter = new ContactsPresenter(this);
+        contactsPresenter.getContactInformation("11", this);
     }
 
-    @OnClick({R.id.back_iv,R.id.set_user_head})
-    protected void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.back_iv, R.id.set_user_head})
+    protected void onClick(View view) {
+        switch (view.getId()) {
             case R.id.set_user_head://设置头像
                 // 进入相册 以下是例子：用不到的api可以不写
                 PictureSelector.create(MyDetailActivity.this)
@@ -85,5 +111,31 @@ public class MyDetailActivity extends BaseActivity {
                     break;
             }
         }
+    }
+
+    @Override
+    public void postSuccess(ResultInfo<PersonnelDetailsBean> resultInfo) {
+        if (resultInfo.isSuccess()) {
+            PersonnelDetailsBean result = resultInfo.getResult();
+            myName.setText(result.getName());
+            myWorkNumberTv.setText(result.getCode());
+            myPhoneTv.setText(result.getMobilePhone());
+            myLandlineTv.setText(result.getTelephone());
+            myEmailTv.setText(result.getEmail());
+            myJobsTv.setText(result.getPositionName());
+            myDirectoryTv.setText(result.getOrganizationName());
+            myDeputyTv.setText("");
+            if(result.getGender()==1){
+                myGen.setText("男");
+            }else{
+                myGen.setText("女");
+            }
+
+        }
+    }
+
+    @Override
+    public void postError(String errorMsg) {
+
     }
 }

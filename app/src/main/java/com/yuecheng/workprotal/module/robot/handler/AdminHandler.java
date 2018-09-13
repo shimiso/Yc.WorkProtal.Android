@@ -28,7 +28,7 @@ public class AdminHandler extends IntentHandler {
             switch(intent) {
                 case instruction.STAMP_APPLICATION://申请盖章
                     MainPresenter.responseAnswer("跳转页面到申请盖章!");
-                    String url = "http://www.sohu.com/";
+                    String url = "http://192.168.0.150:8684/";
                     Intent intent1 = new Intent(MainApplication.getApplication(), OpenH5Activity.class);
                     intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
                     intent1.putExtra("url",url);
