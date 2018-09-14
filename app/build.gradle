@@ -190,5 +190,6 @@ dependencies {
     // add library
     //GreeDao数据库加密
     //implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
+    compile 'com.github.wendux:DSBridge-Android:master-SNAPSHOT'
     api project(':IMKit')
 }
