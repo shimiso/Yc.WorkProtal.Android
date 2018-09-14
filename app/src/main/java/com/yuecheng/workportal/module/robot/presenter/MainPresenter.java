@@ -18,6 +18,7 @@ import com.yuecheng.workportal.module.robot.adapter.TalkListAdapter;
 import com.yuecheng.workportal.module.robot.bean.SemanticResult;
 import com.yuecheng.workportal.module.robot.bean.TalkBean;
 import com.yuecheng.workportal.module.robot.handler.AdminHandler;
+import com.yuecheng.workportal.module.robot.handler.CarePlanHandler;
 import com.yuecheng.workportal.module.robot.handler.ContactsHandler;
 import com.yuecheng.workportal.module.robot.handler.DefaultHandler;
 import com.yuecheng.workportal.module.robot.handler.FinanceHandler;
@@ -82,6 +83,8 @@ public class MainPresenter implements IMainPresenter {
         //财务
         handlerMap.put("YUECHENG.finance_zh", FinanceHandler.class);
         handlerMap.put("YUECHENG.finance_en", FinanceHandler.class);
+        //照护计划
+        handlerMap.put("YUECHENG.care_plan_en", CarePlanHandler.class);
 
     }
     private static IMainView mIMainView;
