@@ -33,10 +33,11 @@ public class OpenH5Activity extends BaseActivity {
         title.setText(name);
         mWebView = findViewById(R.id.webview);
         DWebView.setWebContentsDebuggingEnabled(true);
-        mWebView.addJavascriptObject(new JsApi(), "");
+        mWebView.addJavascriptObject(new JsApi(this), "");
         mWebView.addJavascriptObject(new JsEchoApi(),"echo");
-        mWebView.loadUrl("file:///android_asset/BridgeWebView/js-call-native.html");
-        //mWebView.loadUrl(url);//动态获取需要打开的链接
+       // mWebView.loadUrl("file:///android_asset/BridgeWebView/js-call-native.html");
+        mWebView.loadUrl(url);//动态获取需要打开的链接
+
     }
 
 
