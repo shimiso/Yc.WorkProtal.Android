@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.yuecheng.workprotal.module.robot.view.ViewMoreActivity">
+    tools:context="com.yuecheng.workportal.module.robot.view.ViewMoreActivity">
 
     <RelativeLayout
         android:id="@+id/voice_title"

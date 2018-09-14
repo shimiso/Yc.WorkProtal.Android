@@ -25,7 +25,7 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
-    <com.yuecheng.workprotal.widget.BridgeWebView
+    <com.yuecheng.workportal.widget.BridgeWebView
         android:id="@+id/weview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

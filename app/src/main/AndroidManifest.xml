@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yuecheng.workprotal">
+    package="com.yuecheng.workportal">
 
     <!-- 连接网络权限，用于执行云端语音能力 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -95,7 +95,7 @@
 
         <!--会话页面-->
         <activity
-            android:name="com.yuecheng.workprotal.module.message.ConversationActivity"
+            android:name="com.yuecheng.workportal.module.message.ConversationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
 
@@ -105,7 +105,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <data
-                    android:host="com.yuecheng.workprotal"
+                    android:host="com.yuecheng.workportal"
                     android:pathPrefix="/conversation/"
                     android:scheme="rong" />
             </intent-filter>
@@ -122,7 +122,7 @@
         </provider>-->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.yuecheng.workprotal.FileProvider"
+            android:authorities="com.yuecheng.workportal.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

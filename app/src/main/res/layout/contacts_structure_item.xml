@@ -19,7 +19,7 @@
             android:padding="8dp"
             android:src="@mipmap/bmimg" />
 
-        <com.yuecheng.workprotal.widget.CircleTextImage
+        <com.yuecheng.workportal.widget.CircleTextImage
             android:id="@+id/contacts_item_cti"
             android:layout_width="45dp"
             android:layout_height="45dp"

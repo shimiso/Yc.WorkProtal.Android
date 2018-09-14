@@ -1,4 +1,4 @@
-package com.yuecheng.workprotal;
+package com.yuecheng.workportal;
 
 import org.junit.Test;
 

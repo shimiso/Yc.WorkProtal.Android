@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <com.yuecheng.workprotal.widget.BridgeWebView
+        <com.yuecheng.workportal.widget.BridgeWebView
         android:id="@+id/robot_weview"
         android:layout_width="match_parent"
         android:layout_height="400dp"

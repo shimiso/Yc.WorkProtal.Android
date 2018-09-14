@@ -9,11 +9,12 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
     defaultConfig {
-        applicationId "com.yuecheng.workprotal"
+        applicationId "com.yuecheng.workportal"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,10 +27,10 @@ android {
     //签名配置
     signingConfigs {
         myConfig {
-            storeFile file('../workprotal.jks')
-            keyAlias 'workprotal'
-            keyPassword 'workprotal123'
-            storePassword 'workprotal123'
+            storeFile file('../workportal.jks')
+            keyAlias 'workportal'
+            keyPassword 'workportal2018'
+            storePassword 'workportal2018'
         }
     }
 
@@ -91,7 +92,7 @@ android {
     //输出打包文件
     applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "MedicalNurse_V-${defaultConfig.versionName}${variant.buildType.versionNameSuffix}_${releaseTime()}.apk"
+            outputFileName = "WorkPortal-${defaultConfig.versionName}${variant.buildType.versionNameSuffix}_${releaseTime()}.apk"
         }
     }
 
@@ -143,7 +144,7 @@ android {
         //版本号，升级时可配置
         schemaVersion 1
         //DaoSession、DaoMaster以及所有实体类的dao生成的目录,默认为你的entity所在的包名
-        daoPackage 'com.yuecheng.workprotal.greendao'
+        daoPackage 'com.yuecheng.workportal.greendao'
         //工程路径
         targetGenDir 'src/main/java'
         //true的时候自动生成测试单元 测试单元的生成目录默认是 src/androidTest/java
@@ -163,6 +164,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
+    implementation 'com.android.support:multidex:1.0.3'
     //展示json
     implementation 'com.pddstudio:highlightjs-android:1.5.0'
     //侧滑销毁Activity

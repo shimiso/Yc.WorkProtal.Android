@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--<com.yuecheng.workprotal.widget.PathTextView-->
+    <!--<com.yuecheng.workportal.widget.PathTextView-->
     <!--android:id="@+id/pathtextview"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="50dp">-->
-    <!--</com.yuecheng.workprotal.widget.PathTextView>-->
+    <!--</com.yuecheng.workportal.widget.PathTextView>-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp">

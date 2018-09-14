@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">WorkProtal</string>
+    <string name="app_name">WorkPortal</string>
     <!-- app数据根目录 -->
-    <string name="dir">/Android/data/com.yuecheng.workprotal</string>
+    <string name="dir">/Android/data/com.yuecheng.workportal</string>
     <!--拍照临时文件-->
     <string name="camera_temp">/cameratemp/</string>
     <!--Bitmap缓存路径-->

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.yuecheng.workprotal.module.contacts.view.SelectGroupActivity">
+    tools:context="com.yuecheng.workportal.module.contacts.view.SelectGroupActivity">
 
     <RelativeLayout
         android:id="@+id/title_text"
