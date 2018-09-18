@@ -23,6 +23,16 @@
             android:layout_marginRight="41dp"
             android:layout_marginTop="20dp" />
 
+        <ImageView
+            android:id="@+id/rc_audio_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="11dp"
+            android:layout_marginLeft="41dp"
+            android:layout_marginRight="41dp"
+            android:layout_marginTop="20dp" />
+
         <TextView
             android:id="@+id/rc_audio_timer"
             android:layout_width="105dp"
