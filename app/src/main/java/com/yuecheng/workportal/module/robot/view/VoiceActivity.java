@@ -61,7 +61,9 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     private TextView mTimerTV;
     private TextView mStateTV;
     private ImageView mStateIV;
+    private ImageView getmStateIV;
     private PopupWindow mRecordWindow;
+    private ObjectAnimator icon_anim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,6 +177,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     public void showTipView() {
         View view = View.inflate(this, R.layout.popup_audio_wi_vo, null);
         mStateIV = view.findViewById(R.id.rc_audio_state_image);
+        getmStateIV = view.findViewById(R.id.rc_audio_state);
         mStateTV = view.findViewById(R.id.rc_audio_state_text);
         mTimerTV = view.findViewById(R.id.rc_audio_timer);
         mRecordWindow = new PopupWindow(view, -1, -1);
@@ -191,12 +194,15 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
             this.mStateTV.setVisibility(View.VISIBLE);
             this.mStateTV.setText("正在识别中...");
             this.mStateTV.setBackgroundResource(R.drawable.bg_voice_popup);
-            this.mStateIV.setImageResource(R.mipmap.waiting);
-            ObjectAnimator icon_anim = ObjectAnimator.ofFloat(mStateIV, "rotation", 0.0F, 360f);//
+            mStateIV.setVisibility(View.GONE);
+            this.getmStateIV.setImageResource(R.mipmap.waiting);
+            //
+            icon_anim = ObjectAnimator.ofFloat(getmStateIV, "rotation", 0.0F, 360f);
             icon_anim.setRepeatCount(-1);
             icon_anim.setDuration(1000);
             icon_anim.setInterpolator(new LinearInterpolator()); //设置匀速旋转，不卡顿
             icon_anim.start();
+
         }
     }
 
@@ -234,12 +240,18 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     @Override
     public void destroyTipView() {
         if (this.mRecordWindow != null) {
+            mStateIV.setVisibility(View.VISIBLE);
             this.mRecordWindow.dismiss();
             this.mRecordWindow = null;
             this.mStateIV = null;
             this.mStateTV = null;
             this.mTimerTV = null;
         }
+    }
+
+    @Override
+    public void showYuYin(boolean isShow) {
+
     }
 
     private boolean isCancelled(View view, MotionEvent event) {

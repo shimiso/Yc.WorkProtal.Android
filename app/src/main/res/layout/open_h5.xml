@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/open_h5_relative"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:visibility="gone"
-        android:background="@color/primary_dark">
+        android:background="@color/primary_dark"
+        android:visibility="gone">
+
         <ImageView
             android:id="@+id/back_iv"
             android:layout_width="wrap_content"
@@ -16,6 +19,7 @@
             android:layout_centerVertical="true"
             android:padding="10dp"
             android:src="@mipmap/back_btn" />
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -25,10 +29,20 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
+
     <wendu.dsbridge.DWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/vital_signs"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+         />
+
+</RelativeLayout>

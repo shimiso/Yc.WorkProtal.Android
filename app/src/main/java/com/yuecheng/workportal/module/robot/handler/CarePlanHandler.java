@@ -34,6 +34,10 @@ public class CarePlanHandler extends IntentHandler {
 //                    intent1.putExtra("name",name);
                     MainApplication.getApplication().startActivity(intent1);
                     break;
+                case instruction.VITAL_SIGNS_ENTER://生命体征录入
+                    //{"gaoya":100}
+
+
                 default:
                     MainPresenter.responseAnswer(R.string.grammar_error+"");
                     break;

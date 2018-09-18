@@ -16,4 +16,6 @@ public interface IMainView {
 
     //销毁提示
     void destroyTipView();
+
+    void showYuYin(boolean isShow);
 }

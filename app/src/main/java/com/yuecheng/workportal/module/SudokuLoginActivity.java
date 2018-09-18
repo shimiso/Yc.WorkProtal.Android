@@ -79,7 +79,7 @@ public class SudokuLoginActivity extends BaseActivity {
                 userDao.insert(user);
                 List<LoginUser> list = userDao.loadAll();
 
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, WXEntryActivity.class));
                 finish();
         }
     }

@@ -41,7 +41,6 @@ public interface instruction {
      String CHECK_ON_BUDGET_ADJUSTMENT = "check_on_budget_adjustment"; //查借款
      //照护计划
      String ZHAOHU_PLAN = "zhaohu_plan"; //照护计划
-
-
+     String VITAL_SIGNS_ENTER = "vital_signs_enter";//生命体征录入
 
 }
