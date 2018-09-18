@@ -13,18 +13,6 @@ import android.widget.TextView;
 import com.yuecheng.workportal.base.BaseActivity;
 import com.yuecheng.workportal.module.mycenter.view.LoginActivity;
 import com.yuecheng.workportal.module.update.CheckVersionPresenter;
-import com.yuecheng.workportal.module.update.Version;
-import com.yuecheng.workportal.module.update.VersionUpdateDialog;
-import com.yuecheng.workportal.utils.AndroidUtil;
-import com.yuecheng.workportal.utils.StringUtils;
-import com.yuecheng.workportal.utils.ToastUtil;
-import com.yuecheng.workportal.R;
-import com.yuecheng.workportal.base.BaseActivity;
-import com.yuecheng.workportal.module.mycenter.view.LoginActivity;
-import com.yuecheng.workportal.module.update.CheckVersionPresenter;
-import com.yuecheng.workportal.module.update.Version;
-import com.yuecheng.workportal.module.update.VersionUpdateDialog;
-import com.yuecheng.workportal.utils.AndroidUtil;
 import com.yuecheng.workportal.utils.StringUtils;
 import com.yuecheng.workportal.utils.ToastUtil;
 
@@ -125,7 +113,10 @@ public class WelcomeActivity extends BaseActivity {
      * 检查网络并请求数据
      */
     private void checkNetworkAndRequestData() {
-        //验证存储和网络
+        startActivity( new Intent(context, MainActivity.class));
+        finish();
+
+       /* //验证存储和网络
         if (androidUtil.checkStoragePathAndSetBaseApp()) {
             //版本验证
             checkVersionPresenter.checkVersion(androidUtil.getApkVersionCode(), new CheckVersionPresenter.CheckVersionListener() {
@@ -149,7 +140,7 @@ public class WelcomeActivity extends BaseActivity {
                     toLogin();
                 }
             });
-        }
+        }*/
     }
 
     @Override

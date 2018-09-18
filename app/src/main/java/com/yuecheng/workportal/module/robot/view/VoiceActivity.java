@@ -1,7 +1,5 @@
 package com.yuecheng.workportal.module.robot.view;
 
-import android.animation.AnimatorSet;
-import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -24,9 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jude.swipbackhelper.SwipeBackHelper;
-import com.yuecheng.workportal.module.robot.adapter.TalkListAdapter;
-import com.yuecheng.workportal.module.robot.presenter.MainPresenter;
-import com.yuecheng.workportal.module.robot.service.MusicService;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.module.robot.adapter.TalkListAdapter;
 import com.yuecheng.workportal.module.robot.bean.TalkBean;
@@ -247,6 +241,11 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
             this.mStateTV = null;
             this.mTimerTV = null;
         }
+    }
+
+    @Override
+    public void isShowVoiceDialog(boolean isShow) {
+
     }
 
 

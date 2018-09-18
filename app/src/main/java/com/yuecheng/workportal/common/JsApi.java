@@ -1,15 +1,12 @@
 package com.yuecheng.workportal.common;
 
 import android.os.CountDownTimer;
-import android.view.View;
 import android.webkit.JavascriptInterface;
-import android.widget.Button;
 
-import com.yuecheng.workportal.MainApplication;
-import com.yuecheng.workportal.R;
-import com.yuecheng.workportal.bean.LoginUser;
+import com.yuecheng.workportal.bean.MessageEvent;
 import com.yuecheng.workportal.module.robot.OpenH5Activity;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,8 +27,9 @@ public class JsApi {
     @JavascriptInterface
     public String testSyn(Object msg)  {
         //将当前token传给H5页面
-        LoginUser loginUser = MainApplication.getApplication().getLoginUser();
-        return loginUser.getAccess_token();
+//        LoginUser loginUser = MainApplication.getApplication().getLoginUser();
+//        return loginUser.getAccess_token();
+        return "111";
     }
     //同步API
     @JavascriptInterface
@@ -48,21 +46,18 @@ public class JsApi {
 
     @JavascriptInterface
     public void isShowbut(Object msg, CompletionHandler<String> handler){
+//        activity.runOnUiThread(new Runnable(){
+//            public void run()
+//            {
+//               // activity.isShowVoiceDialog(isshow);
+//
+//            }
+//        });
 
-        Button vital_signs = (Button) activity.findViewById(R.id.vital_signs);
+        EventBus.getDefault().post(new MessageEvent(isshow));
+        isshow = !isshow;
 
-        activity.runOnUiThread(new Runnable(){
-            public void run()
-            {
-                if(isshow){
-                    vital_signs.setVisibility(View.VISIBLE);
-                }else{
-                    vital_signs.setVisibility(View.GONE);
-                }
-                isshow = !isshow;
-            }
-        });
-
+        handler.complete( "isShowbut   called [ asyn call]");
     }
 
     @JavascriptInterface
