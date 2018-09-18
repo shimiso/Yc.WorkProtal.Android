@@ -82,7 +82,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/my_share_img"
+            android:id="@+id/to_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

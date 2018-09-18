@@ -16,16 +16,7 @@ import android.widget.Toast;
 import com.yuecheng.workportal.base.BaseActivity;
 import com.yuecheng.workportal.module.MyRobotFragment;
 import com.yuecheng.workportal.module.contacts.view.MyContactsFragment;
-import com.yuecheng.workportal.module.message.MyMessageFragment;
-import com.yuecheng.workportal.module.mycenter.view.MyCenterFragment;
-import com.yuecheng.workportal.module.robot.view.VoiceActivity;
-import com.yuecheng.workportal.module.work.MyTaskFragment;
-import com.yuecheng.workportal.widget.BottomNavigationViewEx;
-import com.yuecheng.workportal.R;
-import com.yuecheng.workportal.base.BaseActivity;
-import com.yuecheng.workportal.module.MyRobotFragment;
-import com.yuecheng.workportal.module.contacts.view.MyContactsFragment;
-import com.yuecheng.workportal.module.message.MyMessageFragment;
+import com.yuecheng.workportal.module.conversation.MyMessageFragment;
 import com.yuecheng.workportal.module.mycenter.view.MyCenterFragment;
 import com.yuecheng.workportal.module.robot.view.VoiceActivity;
 import com.yuecheng.workportal.module.work.MyTaskFragment;
@@ -40,7 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
-
+    String token= "/nSs/6rvra+vLjKBp0U9HB7ejVA8RiPEVS0kvcsxneNyyi2l8Drtww4CA52AuVOXsYlHjCZLuDLTBAWcEsRKuA==";
     @BindView(R.id.viewPager)
     ViewPager vp;
     @BindView(R.id.navigation)
@@ -77,7 +68,7 @@ public class MainActivity extends BaseActivity {
         }
 
         initData();
-
+        connectRongIM(token);
         initEvent();
     }
 

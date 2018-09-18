@@ -18,11 +18,6 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.yuecheng.workportal.bean.LoginUser;
-import com.yuecheng.workportal.module.mycenter.view.LoginActivity;
-import com.yuecheng.workportal.receive.MyReceiveMessageListener;
-import com.yuecheng.workportal.utils.AndroidUtil;
-import com.yuecheng.workportal.utils.SharePreferenceUtil;
-import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.module.mycenter.view.LoginActivity;
 import com.yuecheng.workportal.receive.MyReceiveMessageListener;
@@ -67,7 +62,6 @@ public class MainApplication extends MultiDexApplication {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
-
     private void initRongIM() {
         /**
          *
@@ -82,7 +76,7 @@ public class MainApplication extends MultiDexApplication {
             RongIM.init(this);
         }
 
-        RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener());
+        RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener(this));
     }
 
     public static MainApplication getApplication() {

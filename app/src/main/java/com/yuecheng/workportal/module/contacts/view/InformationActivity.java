@@ -1,6 +1,7 @@
 package com.yuecheng.workportal.module.contacts.view;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -8,20 +9,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.luck.picture.lib.entity.LocalMedia;
-import com.yuecheng.workportal.base.BaseActivity;
-import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
 import com.yuecheng.workportal.bean.ResultInfo;
 import com.yuecheng.workportal.common.CommonPostView;
-import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
 import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
-import com.yuecheng.workportal.module.mycenter.view.LanguageSettingsDialog;
+import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.rong.imkit.RongIM;
 
 
 public class InformationActivity extends BaseActivity implements CommonPostView<PersonnelDetailsBean> {
@@ -57,15 +55,16 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
     TextView contactRenName;
     @BindView(R.id.contact_ren_jobs)
     TextView contactRenJobs;
+    Context context;
 
     private List<LocalMedia> selectList = new ArrayList<>();
-
+    PersonnelDetailsBean personnelDetailsBean;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contacts_information);
         ButterKnife.bind(this);
-
+        context = this;
         Intent intent = getIntent();
         int staffId = intent.getIntExtra("StaffId", -1);
         String name = intent.getStringExtra("name");
@@ -79,7 +78,7 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
 
 
 
-    @OnClick({R.id.back_iv, R.id.my_phone_tv, R.id.my_landline_tv, R.id.my_email_tv, R.id.my_share_img, R.id.share})
+    @OnClick({R.id.back_iv, R.id.my_phone_tv, R.id.my_landline_tv, R.id.my_email_tv, R.id.to_chat, R.id.share})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back_iv:
@@ -123,8 +122,16 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
                     }
                 });
                 break;
-            case R.id.my_share_img://IM聊天
-
+            case R.id.to_chat://IM聊天
+                if (RongIM.getInstance() != null)
+                /**
+                 * 启动单聊界面。
+                 * @param context      应用上下文。
+                 * @param targetUserId 要与之聊天的用户 Id。
+                 * @param title        聊天的标题，开发者需要在聊天界面通过 intent.getData().getQueryParameter("title")
+                 *                     获取该值, 再手动设置为聊天界面的标题。
+                 */
+                RongIM.getInstance().startPrivateChat(context, personnelDetailsBean.getId()+"", "与"+personnelDetailsBean.getName()+"对话");
                 break;
 
         }
@@ -133,17 +140,17 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
     @Override
     public void postSuccess(ResultInfo<PersonnelDetailsBean> resultInfo) {
         if (resultInfo.isSuccess()) {
-            PersonnelDetailsBean result = resultInfo.getResult();
-            contactRenName.setText(result.getName());
-            myWorkNumberTv.setText(result.getCode());
-            myPhoneTv.setText(result.getMobilePhone());
-            myLandlineTv.setText(result.getTelephone());
-            myEmailTv.setText(result.getEmail());
-            myJobsTv.setText(result.getPositionName());
-            contactRenJobs.setText(result.getPositionName());
-            myDirectoryTv.setText(result.getOrganizationName());
+            personnelDetailsBean = resultInfo.getResult();
+            contactRenName.setText(personnelDetailsBean.getName());
+            myWorkNumberTv.setText(personnelDetailsBean.getCode());
+            myPhoneTv.setText(personnelDetailsBean.getMobilePhone());
+            myLandlineTv.setText(personnelDetailsBean.getTelephone());
+            myEmailTv.setText(personnelDetailsBean.getEmail());
+            myJobsTv.setText(personnelDetailsBean.getPositionName());
+            contactRenJobs.setText(personnelDetailsBean.getPositionName());
+            myDirectoryTv.setText(personnelDetailsBean.getOrganizationName());
             myDeputyTv.setText("");
-            myMmediateSuperiorTv.setText(result.getDirectSupervisor());
+            myMmediateSuperiorTv.setText(personnelDetailsBean.getDirectSupervisor());
             myPhoneTv.setTextColor(Color.parseColor("#509FFF"));
             myLandlineTv.setTextColor(Color.parseColor("#509FFF"));
             myEmailTv.setTextColor(Color.parseColor("#509FFF"));

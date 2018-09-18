@@ -1,23 +1,14 @@
 package com.yuecheng.workportal.module.mycenter.presenter;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.bean.ResultInfo;
 import com.yuecheng.workportal.bean.SsoToken;
-import com.yuecheng.workportal.callback.DialogCallback;
-import com.yuecheng.workportal.common.CommonPostView;
-import com.yuecheng.workportal.common.UrlConstant;
-import com.yuecheng.workportal.db.DaoManager;
-import com.yuecheng.workportal.greendao.LoginUserDao;
-import com.yuecheng.workportal.bean.LoginUser;
-import com.yuecheng.workportal.bean.ResultInfo;
-import com.yuecheng.workportal.bean.SsoToken;
-import com.yuecheng.workportal.callback.DialogCallback;
 import com.yuecheng.workportal.common.CommonPostView;
 import com.yuecheng.workportal.common.UrlConstant;
 import com.yuecheng.workportal.db.DaoManager;
@@ -54,7 +45,7 @@ public class UserPresenter {
                 .params("client_secret", "secret")//接入方客户密码
                 .params("grant_type", "password")//授权类型固定不可修改
                 .params("scopes", "StaffInfo")//请求的资源范围
-                .execute(new DialogCallback<String>(context) {
+                .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         int responseCode = response.getRawResponse().code();

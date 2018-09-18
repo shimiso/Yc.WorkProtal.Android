@@ -39,6 +39,16 @@
         <item name="android:activityCloseExitAnimation">@anim/push_bottom_out</item>
     </style>
 
+    <!--服务器加载出错样式-->
+    <style name="service_error_text">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:gravity">left</item>
+    </style>
 
     <!--默认样式-->
     <style name="picture.my.style" parent="Theme.AppCompat.Light.DarkActionBar">

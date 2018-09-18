@@ -6,9 +6,7 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.yuecheng.workportal.greendao.DaoMaster;
-import com.yuecheng.workportal.greendao.DaoSession;
-import com.yuecheng.workportal.greendao.LoginUserDao;
+import com.yuecheng.workportal.greendao.ConversationDao;
 import com.yuecheng.workportal.greendao.DaoMaster;
 import com.yuecheng.workportal.greendao.DaoSession;
 import com.yuecheng.workportal.greendao.LoginUserDao;
@@ -158,6 +156,11 @@ public class DaoManager {
     //对外定义方法
     public LoginUserDao getUserDao(){
         return mDaoSession.getLoginUserDao();
+    }
+
+    //对外定义方法
+    public ConversationDao getConversationDao(){
+        return mDaoSession.getConversationDao();
     }
 
     //是否开启Log

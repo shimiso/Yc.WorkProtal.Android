@@ -18,6 +18,17 @@
     <string name="update_desc_hint">描述:</string>
     <string name="update_dialog_title">发现新版本v</string>
 
+    <!--加载数据提示-->
+    <string name="amicable_view_tryagain">轻触屏幕，重新加载试试</string>
+    <string name="amicable_view_loading">正在加载&#8230;</string>
+    <string name="service_error_text1">网络不稳定</string>
+    <string name="maybe_reason">可能原因:</string>
+    <string name="service_error_text2">尚未接入互联网</string>
+    <string name="service_error_text3">安全软件禁止访问网络</string>
+    <string name="service_error_text4">服务器发生未知异常</string>
+    <string name="empty_list">这里啥也没有！</string>
+
+
     <string name="save">保存</string>
     <string name="old_password_hint">请输入旧密码</string>
     <string name="new_password_hint">新密码长度6-10，必须包含字母</string>

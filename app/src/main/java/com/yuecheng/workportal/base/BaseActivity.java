@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -12,6 +13,9 @@ import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.utils.AndroidUtil;
 import com.yuecheng.workportal.utils.SharePreferenceUtil;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 
 /**
@@ -96,6 +100,43 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 建立与融云服务器的连接
+     *
+     * @param token
+     */
+    protected void connectRongIM(String token) {
+        /**
+         * IMKit SDK调用第二步,建立与服务器的连接
+         */
+        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+            /**
+             * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
+             */
+            @Override
+            public void onTokenIncorrect() {
+                Log.d("LoginActivity", "--onTokenIncorrect");
+            }
+
+            /**
+             * 连接融云成功
+             * @param userid 当前 token
+             */
+            @Override
+            public void onSuccess(String userid) {
+                Log.d("LoginActivity", "--onSuccess" + userid);
+            }
+            /**
+             * 连接融云失败
+             * @param errorCode 错误码，可到官网 查看错误码对应的注释
+             *                  http://www.rongcloud.cn/docs/android.html#常见错误码
+             */
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Log.d("LoginActivity", "--onError" + errorCode);
+            }
+        });
+    }
     @Override
     protected void onResume() {
         super.onResume();

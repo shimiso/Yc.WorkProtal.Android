@@ -1147,7 +1147,7 @@ public class StringUtils {
         if (ex != null) {
             StringBuffer sb = new StringBuffer();
             sb.append("Class: " + shortClassName(ex));
-            sb.append("Message: " + ellipsisText(ex.getMessage(), 32));
+            sb.append("Conversation: " + ellipsisText(ex.getMessage(), 32));
             return sb.toString();
         } else {
             return "null";

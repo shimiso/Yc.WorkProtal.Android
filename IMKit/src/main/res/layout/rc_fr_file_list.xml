@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false">
     <LinearLayout
         android:id="@+id/rc_ad_ll_file_list_title"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:paddingTop="20dp"
+        android:layout_height="68dp"
         android:orientation="horizontal"
         android:background="@color/rc_main_theme">
 

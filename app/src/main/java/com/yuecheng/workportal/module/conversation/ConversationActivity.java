@@ -1,4 +1,4 @@
-package com.yuecheng.workportal.module.message;
+package com.yuecheng.workportal.module.conversation;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -22,12 +22,10 @@ import io.rong.imlib.model.Conversation;
  * 会话页面
  */
 public class ConversationActivity extends BaseActivity {
-
-    String token= "6mtPOclnXCMgg/LzVsCFe+blyNka7gTIOsDS5cBS+QCKoIfBOuUkBZxo2Klo86jo+DZRbBlFe0Zx2yWqDQ0HyQ==";
-
+    String token= "/nSs/6rvra+vLjKBp0U9HB7ejVA8RiPEVS0kvcsxneNyyi2l8Drtww4CA52AuVOXsYlHjCZLuDLTBAWcEsRKuA==";
     private TextView mTitle;
     private RelativeLayout mBack;
-
+    private String title;
     private String mTargetId;
 
     /**
@@ -45,11 +43,8 @@ public class ConversationActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversation);
         Intent intent = getIntent();
-
         setActionBar();
-
         getIntentDate(intent);
-
         isReconnect(intent);
     }
 
@@ -57,14 +52,14 @@ public class ConversationActivity extends BaseActivity {
      * 展示如何从 Intent 中得到 融云会话页面传递的 Uri
      */
     private void getIntentDate(Intent intent) {
-
         mTargetId = intent.getData().getQueryParameter("targetId");
         mTargetIds = intent.getData().getQueryParameter("targetIds");
+        title = intent.getData().getQueryParameter("title");
         //intent.getData().getLastPathSegment();//获得当前会话类型
         mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
 
         enterFragment(mConversationType, mTargetId);
-        setActionBarTitle(mTargetId);
+        mTitle.setText(title);
     }
 
 
@@ -90,19 +85,15 @@ public class ConversationActivity extends BaseActivity {
      * 判断消息是否是 push 消息
      */
     private void isReconnect(Intent intent) {
-
         //push或通知过来
         if (intent != null && intent.getData() != null && intent.getData().getScheme().equals("rong")) {
-
             //通过intent.getData().getQueryParameter("push") 为true，判断是否是push消息
             if (intent.getData().getQueryParameter("push") != null
                     && intent.getData().getQueryParameter("push").equals("true")) {
-
                 reconnect(token);
             } else {
                 //程序切到后台，收到消息后点击进入,会执行这里
                 if (RongIM.getInstance() == null || RongIM.getInstance().getRongIMClient() == null) {
-
                     reconnect(token);
                 } else {
                     enterFragment(mConversationType, mTargetId);
@@ -115,10 +106,8 @@ public class ConversationActivity extends BaseActivity {
      * 设置 actionbar 事件
      */
     private void setActionBar() {
-
         mTitle =  findViewById(R.id.txt1);
         mBack = findViewById(R.id.back);
-
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,13 +118,6 @@ public class ConversationActivity extends BaseActivity {
 
 
 
-    /**
-     * 设置 actionbar title
-     */
-    private void setActionBarTitle(String targetid) {
-
-        mTitle.setText(targetid);
-    }
 
     /**
      * 重连
@@ -143,9 +125,7 @@ public class ConversationActivity extends BaseActivity {
      * @param token
      */
     private void reconnect(String token) {
-
         if (getApplicationInfo().packageName.equals(androidUtil.getCurProcessName(getApplicationContext()))) {
-
             RongIM.connect(token, new RongIMClient.ConnectCallback() {
                 @Override
                 public void onTokenIncorrect() {
@@ -154,7 +134,6 @@ public class ConversationActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(String s) {
-
                     enterFragment(mConversationType, mTargetId);
                 }
 

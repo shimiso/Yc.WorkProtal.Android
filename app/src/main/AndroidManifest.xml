@@ -94,7 +94,7 @@
 
         <!--会话页面-->
         <activity
-            android:name="com.yuecheng.workportal.module.message.ConversationActivity"
+            android:name="com.yuecheng.workportal.module.conversation.ConversationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
 

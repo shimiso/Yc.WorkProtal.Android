@@ -142,7 +142,7 @@ android {
     //greendao配置
     greendao {
         //版本号，升级时可配置
-        schemaVersion 1
+        schemaVersion 4
         //DaoSession、DaoMaster以及所有实体类的dao生成的目录,默认为你的entity所在的包名
         daoPackage 'com.yuecheng.workportal.greendao'
         //工程路径
@@ -190,6 +190,7 @@ dependencies {
     // add library
     //GreeDao数据库加密
     //implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
-    compile 'com.github.wendux:DSBridge-Android:master-SNAPSHOT'
+    implementation 'com.github.wendux:DSBridge-Android:master-SNAPSHOT'
+    implementation 'org.greenrobot:eventbus:3.1.1'
     api project(':IMKit')
 }

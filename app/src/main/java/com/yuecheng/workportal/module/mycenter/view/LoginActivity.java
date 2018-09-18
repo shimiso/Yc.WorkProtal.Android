@@ -15,9 +15,11 @@ import com.yuecheng.workportal.base.BaseActivity;
 import com.yuecheng.workportal.bean.ResultInfo;
 import com.yuecheng.workportal.bean.SsoToken;
 import com.yuecheng.workportal.common.CommonPostView;
+import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
 import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.utils.StringUtils;
 import com.yuecheng.workportal.utils.ToastUtil;
+import com.yuecheng.workportal.widget.LoadingDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,8 +43,9 @@ public class LoginActivity extends BaseActivity {
     private boolean isPassword = false;
     private TimeCount time;
     private UserPresenter userPresenter;
+    private ContactsPresenter contactsPresenter;
     private Context context;
-
+    LoadingDialog loadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setFullFullscreen();//全屏
@@ -51,9 +54,9 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         time = new TimeCount(60000, 1000);
         userPresenter = new UserPresenter(this);
+        contactsPresenter = new ContactsPresenter(this);
         context = this;
         initEvent();
-
     }
 
     @OnClick({R.id.login_btn,R.id.obtain_text})
@@ -70,9 +73,13 @@ public class LoginActivity extends BaseActivity {
                     ToastUtil.error(context,"密码不能为空");
                     return;
                 }
+                loadingDialog = LoadingDialog.createDialog(context);
+                loadingDialog.show();
                 userPresenter.login(username,passWD,new CommonPostView<SsoToken>() {
                     @Override
                     public void postSuccess(ResultInfo<SsoToken> resultInfo) {
+                        //TODO 获取用户信息
+                        loadingDialog.dismiss();
                         spUtil.setCurrentUserName(username);
                         startActivity(new Intent(context, MainActivity.class));
                         finish();
@@ -80,6 +87,7 @@ public class LoginActivity extends BaseActivity {
 
                     @Override
                     public void postError(String errorMsg) {
+                        loadingDialog.dismiss();
                         ToastUtil.error(context,errorMsg);
                         startActivity(new Intent(context, MainActivity.class));
                         finish();
