@@ -1,18 +1,18 @@
 package com.yuecheng.workportal.common;
 
 import android.os.CountDownTimer;
+import android.view.View;
 import android.webkit.JavascriptInterface;
-import android.widget.Toast;
+import android.widget.Button;
 
 import com.yuecheng.workportal.MainApplication;
+import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.module.robot.OpenH5Activity;
-import com.yuecheng.workportal.utils.ToastUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import io.rong.eventbus.EventBus;
 import wendu.dsbridge.CompletionHandler;
 
 /**
@@ -22,6 +22,7 @@ import wendu.dsbridge.CompletionHandler;
  */
 public class JsApi {
     private OpenH5Activity activity;
+    private boolean isshow = true;
     public JsApi(OpenH5Activity activity) {
         this.activity = activity;
     }
@@ -47,13 +48,21 @@ public class JsApi {
 
     @JavascriptInterface
     public void isShowbut(Object msg, CompletionHandler<String> handler){
-            activity.showYuYin(true);
-//        ToastUtil.info(activity,"111111");
-//        EventBus.getDefault().post(isShow);
-//        OpenH5Activity openH5Activity = new OpenH5Activity();
-//        openH5Activity.refresh();
 
-        //handler.complete(msg+" [ asyn call]");
+        Button vital_signs = (Button) activity.findViewById(R.id.vital_signs);
+
+        activity.runOnUiThread(new Runnable(){
+            public void run()
+            {
+                if(isshow){
+                    vital_signs.setVisibility(View.VISIBLE);
+                }else{
+                    vital_signs.setVisibility(View.GONE);
+                }
+                isshow = !isshow;
+            }
+        });
+
     }
 
     @JavascriptInterface

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
-import android.webkit.JavascriptInterface;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -30,7 +29,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.rong.eventbus.EventBus;
 import wendu.dsbridge.DWebView;
 
 public class OpenH5Activity extends AppCompatActivity implements IMainView {
@@ -58,7 +56,6 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
         }
         setContentView(R.layout.open_h5);
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
 
         url = getIntent().getStringExtra("url");
         name = getIntent().getStringExtra("name");
@@ -76,14 +73,8 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
         DWebView.setWebContentsDebuggingEnabled(true);
         mWebView.addJavascriptObject(new JsApi(this), "");
         mWebView.addJavascriptObject(new JsEchoApi(), "echo");
-        // mWebView.loadUrl("file:///android_asset/BridgeWebView/js-call-native.html");
+//        mWebView.loadUrl("file:///android_asset/BridgeWebView/js-call-native.html");
         mWebView.loadUrl(url);//动态获取需要打开的链接
-    }
-    /**
-     * 刷新, 这种刷新方法，只有一个Activity实例。
-     */
-    public void refresh() {
-        onCreate(null);
     }
 
     private void initEvent() {
@@ -212,25 +203,6 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
             this.mStateIV = null;
             this.mStateTV = null;
             this.mTimerTV = null;
-        }
-    }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(Boolean isShow) {
-        if(isShow){
-            vitalSigns.setVisibility(View.VISIBLE);
-        }else{
-            vitalSigns.setVisibility(View.GONE);
-        }
-    }
-
-
-    @Override
-    public void showYuYin(boolean isShow) {
-        if(isShow){
-
-            vitalSigns.setVisibility(View.VISIBLE);
-        }else{
-            vitalSigns.setVisibility(View.GONE);
         }
     }
 

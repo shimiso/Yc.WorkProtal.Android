@@ -249,10 +249,6 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         }
     }
 
-    @Override
-    public void showYuYin(boolean isShow) {
-
-    }
 
     private boolean isCancelled(View view, MotionEvent event) {
         int[] location = new int[2];
