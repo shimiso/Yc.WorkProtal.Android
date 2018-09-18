@@ -1,5 +1,6 @@
 package com.yuecheng.workportal.module;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.widget.Toast;
 
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseFragment;
+import com.yuecheng.workportal.module.robot.OpenH5Activity;
+import com.yuecheng.workportal.module.robot.view.VoiceActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,7 +46,7 @@ public class MyRobotFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.dbgz, R.id.fqbd, R.id.xt, R.id.fqxt, R.id.xjhy, R.id.cxhy, R.id.sjap, R.id.dhys, R.id.qyyx, R.id.itfw, R.id.wdsc, R.id.qyzd, R.id.wdzx, R.id.xw, R.id.gg, R.id.dc})
+    @OnClick({R.id.dbgz, R.id.fqbd, R.id.xt, R.id.fqxt, R.id.xjhy, R.id.cxhy, R.id.sjap, R.id.dhys, R.id.qyyx, R.id.itfw, R.id.wdsc, R.id.qyzd, R.id.wdzx, R.id.xw, R.id.gg, R.id.dc, R.id.oms})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.dbgz:
@@ -93,6 +96,14 @@ public class MyRobotFragment extends BaseFragment {
                 break;
             case R.id.dc:
                 Toast.makeText(getContext(),"dc",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.oms:
+                String url = "http://192.168.0.150:8684";
+                Intent intent1 = new Intent(getContext(), OpenH5Activity.class);
+                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                intent1.putExtra("url",url);
+//                    intent1.putExtra("name",name);
+                getContext().startActivity(intent1);
                 break;
         }
     }

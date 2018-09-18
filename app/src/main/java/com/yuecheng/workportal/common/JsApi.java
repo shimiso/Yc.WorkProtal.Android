@@ -1,7 +1,12 @@
 package com.yuecheng.workportal.common;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.CountDownTimer;
 import android.webkit.JavascriptInterface;
+
+import com.yuecheng.workportal.MainApplication;
+import com.yuecheng.workportal.module.robot.OpenH5Activity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +19,11 @@ import wendu.dsbridge.CompletionHandler;
  * 时间: 2018/9/14 15:20
  */
 public class JsApi {
+
+    private Activity activity;
+    public JsApi(Activity activity) {
+        this.activity = activity;
+    }
     //同步API
     @JavascriptInterface
     public String testSyn(Object msg)  {
@@ -23,7 +33,9 @@ public class JsApi {
     //异步API
     @JavascriptInterface
     public void testAsyn(Object msg, CompletionHandler<String> handler){
-        handler.complete(msg+" [ asyn call]");
+        activity.finish();
+
+        //handler.complete(msg+" [ asyn call]");
     }
 
     @JavascriptInterface

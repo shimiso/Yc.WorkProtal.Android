@@ -1,7 +1,14 @@
 package com.yuecheng.workportal.module.robot;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.yuecheng.workportal.R;
@@ -12,7 +19,7 @@ import com.yuecheng.workportal.common.JsEchoApi;
 import wendu.dsbridge.DWebView;
 
 
-public class OpenH5Activity extends BaseActivity {
+public class OpenH5Activity extends AppCompatActivity {
 
     private DWebView mWebView;
     private TextView title;
@@ -22,6 +29,10 @@ public class OpenH5Activity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT){
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
         setContentView(R.layout.open_h5);
         url = getIntent().getStringExtra("url");
         name = getIntent().getStringExtra("name");
@@ -33,10 +44,11 @@ public class OpenH5Activity extends BaseActivity {
         title.setText(name);
         mWebView = findViewById(R.id.webview);
         DWebView.setWebContentsDebuggingEnabled(true);
-        mWebView.addJavascriptObject(new JsApi(), "");
+        mWebView.addJavascriptObject(new JsApi(this), "");
         mWebView.addJavascriptObject(new JsEchoApi(),"echo");
-        mWebView.loadUrl("file:///android_asset/BridgeWebView/js-call-native.html");
-        //mWebView.loadUrl(url);//动态获取需要打开的链接
+       // mWebView.loadUrl("file:///android_asset/BridgeWebView/js-call-native.html");
+        mWebView.loadUrl(url);//动态获取需要打开的链接
+
     }
 
 
