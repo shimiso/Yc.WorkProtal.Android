@@ -14,12 +14,14 @@ import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.module.conversation.bean.Conversation;
 import com.yuecheng.workportal.module.robot.view.VoiceActivity;
 import com.yuecheng.workportal.utils.DateTime;
+import com.yuecheng.workportal.utils.SharePreferenceUtil;
 import com.yuecheng.workportal.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 /**
  * 描述: 工单列表
@@ -38,9 +40,11 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
     private int viewType = DATA_VIEW;
     public View.OnClickListener onClickListener;
     private String errorMsg;
+    SharePreferenceUtil spUtil = null;
 
     public ConversationListAdapter(Context context) {
         this.context = context;
+        this.spUtil = new SharePreferenceUtil(context);
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -125,11 +129,43 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (holder instanceof DataViewHolder) {
             DataViewHolder dataViewHolder = (DataViewHolder) holder;
             final Conversation conversation = mList.get(position);
-            dataViewHolder.message_title.setText(conversation.getTitle());
-            if(conversation.getReceivedTime()!=null){
-                dataViewHolder.message_time.setText(new DateTime().getTimePoint(conversation.getReceivedTime()));
+            if(spUtil.getCurrentUserName().equals(conversation.getSenderUserId())&&conversation.getSentTime()!=null){
+                dataViewHolder.message_time.setText(new DateTime().getTimePoint(conversation.getSentTime()));
+            }else{
+                if(conversation.getReceivedTime()!=null){
+                    dataViewHolder.message_time.setText(new DateTime().getTimePoint(conversation.getReceivedTime()));
+                }
             }
             dataViewHolder.message_content.setText(conversation.getContent());
+            dataViewHolder.message_title.setText(conversation.getTitle());
+            //获取未读消息数
+            RongIMClient.getInstance().getUnreadCount(io.rong.imlib.model.Conversation.ConversationType.PRIVATE, conversation.getTargetId(), new RongIMClient.ResultCallback<Integer>() {
+                @Override
+                public void onSuccess(Integer integer) {
+                    if(integer>99){
+                        dataViewHolder.unReadMsgCountIcon.setVisibility(View.VISIBLE);
+                        dataViewHolder.unReadMsgCount.setVisibility(View.VISIBLE);
+                        dataViewHolder.unReadMsgCountIcon.setImageResource(io.rong.imkit.R.drawable.rc_unread_count_bg);
+                        dataViewHolder.unReadMsgCount.setText(Integer.toString(99));
+                    }else if(integer<=0){
+                        dataViewHolder.unReadMsgCountIcon.setVisibility(View.GONE);
+                        dataViewHolder.unReadMsgCount.setVisibility(View.GONE);
+                    }else {
+                        dataViewHolder.unReadMsgCountIcon.setVisibility(View.VISIBLE);
+                        dataViewHolder.unReadMsgCount.setVisibility(View.VISIBLE);
+                        dataViewHolder.unReadMsgCountIcon.setImageResource(io.rong.imkit.R.drawable.rc_unread_count_bg);
+                        dataViewHolder.unReadMsgCount.setText(Integer.toString(integer));
+                    }
+
+
+                }
+
+                @Override
+                public void onError(RongIMClient.ErrorCode errorCode) {
+
+                }
+            });
+
             dataViewHolder.itemView.setOnClickListener(view -> {
                 switch (conversation.getType()){
                     case 0:
@@ -139,7 +175,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
                         break;
                     case 1:
                         if (RongIM.getInstance() != null)
-                            RongIM.getInstance().startPrivateChat(context, conversation.getSendId(), conversation.getTitle());
+                            RongIM.getInstance().startPrivateChat(context, conversation.getTargetId(), conversation.getTitle());
                         break;
                 }
             });
@@ -158,6 +194,8 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
         public TextView message_time;
         public TextView message_content;
         public ImageView message_icon;
+        public ImageView  unReadMsgCountIcon;
+        public TextView unReadMsgCount;
 
         DataViewHolder(View view) {
             super(view);
@@ -165,6 +203,8 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
             message_time =  view.findViewById(R.id.message_time);
             message_content =  view.findViewById(R.id.message_content);
             message_icon = view.findViewById(R.id.message_icon);
+            unReadMsgCountIcon = view.findViewById(R.id.rc_unread_message_icon);
+            unReadMsgCount = view.findViewById(R.id.rc_unread_message);
         }
     }
 

@@ -21,6 +21,7 @@ import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.module.mycenter.view.LoginActivity;
 import com.yuecheng.workportal.receive.MyReceiveMessageListener;
+import com.yuecheng.workportal.receive.MySendMessageListener;
 import com.yuecheng.workportal.utils.AndroidUtil;
 import com.yuecheng.workportal.utils.SharePreferenceUtil;
 
@@ -75,8 +76,10 @@ public class MainApplication extends MultiDexApplication {
              */
             RongIM.init(this);
         }
-
+        //消息接受监听
         RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener(this));
+        //消息发送监听
+        RongIM.getInstance().setSendMessageListener(new MySendMessageListener(this));
     }
 
     public static MainApplication getApplication() {

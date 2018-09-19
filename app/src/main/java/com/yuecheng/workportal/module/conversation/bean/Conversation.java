@@ -20,33 +20,43 @@ public class Conversation {
     @Id(autoincrement = true)
     private Long id;
 
+    private int messageId;
+
     private String title;
 
     private String content;
-    //发送者ID
-    private String sendId;
-    //发送者名字
-    private String sendName;
-    //发送者头像
+    //目标ID
+    private String targetId;
+    //目标名字
+    private String targetName;
+    //目标头像
     private String icon;
+
+    //发送者id
+    private String senderUserId;
+    //发送者姓名
+    private Long senderName;
     //发送时间
-    private Long sendTime;
+    private Long sentTime;
     //接收时间
     private Long receivedTime;
 
     private Integer type;
 
-    @Generated(hash = 187026784)
-    public Conversation(Long id, String title, String content, String sendId,
-            String sendName, String icon, Long sendTime, Long receivedTime,
-            Integer type) {
+    @Generated(hash = 394068825)
+    public Conversation(Long id, int messageId, String title, String content,
+            String targetId, String targetName, String icon, String senderUserId,
+            Long senderName, Long sentTime, Long receivedTime, Integer type) {
         this.id = id;
+        this.messageId = messageId;
         this.title = title;
         this.content = content;
-        this.sendId = sendId;
-        this.sendName = sendName;
+        this.targetId = targetId;
+        this.targetName = targetName;
         this.icon = icon;
-        this.sendTime = sendTime;
+        this.senderUserId = senderUserId;
+        this.senderName = senderName;
+        this.sentTime = sentTime;
         this.receivedTime = receivedTime;
         this.type = type;
     }
@@ -61,6 +71,14 @@ public class Conversation {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getMessageId() {
+        return this.messageId;
+    }
+
+    public void setMessageId(int messageId) {
+        this.messageId = messageId;
     }
 
     public String getTitle() {
@@ -79,20 +97,20 @@ public class Conversation {
         this.content = content;
     }
 
-    public String getSendId() {
-        return this.sendId;
+    public String getTargetId() {
+        return this.targetId;
     }
 
-    public void setSendId(String sendId) {
-        this.sendId = sendId;
+    public void setTargetId(String targetId) {
+        this.targetId = targetId;
     }
 
-    public String getSendName() {
-        return this.sendName;
+    public String getTargetName() {
+        return this.targetName;
     }
 
-    public void setSendName(String sendName) {
-        this.sendName = sendName;
+    public void setTargetName(String targetName) {
+        this.targetName = targetName;
     }
 
     public String getIcon() {
@@ -103,12 +121,28 @@ public class Conversation {
         this.icon = icon;
     }
 
-    public Long getSendTime() {
-        return this.sendTime;
+    public String getSenderUserId() {
+        return this.senderUserId;
     }
 
-    public void setSendTime(Long sendTime) {
-        this.sendTime = sendTime;
+    public void setSenderUserId(String senderUserId) {
+        this.senderUserId = senderUserId;
+    }
+
+    public Long getSenderName() {
+        return this.senderName;
+    }
+
+    public void setSenderName(Long senderName) {
+        this.senderName = senderName;
+    }
+
+    public Long getSentTime() {
+        return this.sentTime;
+    }
+
+    public void setSentTime(Long sentTime) {
+        this.sentTime = sentTime;
     }
 
     public Long getReceivedTime() {
@@ -126,5 +160,7 @@ public class Conversation {
     public void setType(Integer type) {
         this.type = type;
     }
+
+
 
 }

@@ -36,10 +36,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.yuecheng.workportal.widget.ConfirmDialog;
 import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.widget.ConfirmDialog;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -513,5 +513,15 @@ public class AndroidUtil {
             }
         }
         return level;
+    }
+
+    /**
+     * 得到string.xml中的字符串
+     *
+     * @param resId
+     * @return
+     */
+    public  String getString(int resId) {
+        return context.getResources().getString(resId);
     }
 }

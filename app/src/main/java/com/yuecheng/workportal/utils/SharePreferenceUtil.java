@@ -3,9 +3,9 @@ package com.yuecheng.workportal.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.yuecheng.workportal.common.Constants;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.common.Constants;
+
 import java.io.File;
 
 /**
@@ -150,7 +150,7 @@ public class SharePreferenceUtil {
      * @return
      */
     public String getCurrentUserName() {
-        String currentUserId = sp.getString(Constants.CURRENT_USER_NAME, null);
+        String currentUserId = sp.getString(Constants.CURRENT_USER_NAME, "");
         return currentUserId;
     }
 

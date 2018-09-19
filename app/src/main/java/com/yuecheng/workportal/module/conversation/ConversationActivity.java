@@ -22,7 +22,7 @@ import io.rong.imlib.model.Conversation;
  * 会话页面
  */
 public class ConversationActivity extends BaseActivity {
-    String token= "/nSs/6rvra+vLjKBp0U9HB7ejVA8RiPEVS0kvcsxneNyyi2l8Drtww4CA52AuVOXsYlHjCZLuDLTBAWcEsRKuA==";
+    String token= "dsXupLOn3vINFdvIH02IgB7ejVA8RiPEVS0kvcsxneNyyi2l8Drtw727YQZG1HKJ0Z/un+dttIDTBAWcEsRKuA==";
     private TextView mTitle;
     private RelativeLayout mBack;
     private String title;

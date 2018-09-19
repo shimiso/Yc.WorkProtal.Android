@@ -36,7 +36,7 @@ public class ConversationPresenter {
         List<Conversation> list;
         try {
             list = conversationDao.queryBuilder()
-                    .where(ConversationDao.Properties.SendId.eq(temp.getSendId()))
+                    .where(ConversationDao.Properties.TargetId.eq(temp.getTargetId()))
                     .build().list();
             if(list!=null){
                 conversationDao.deleteInTx(list);

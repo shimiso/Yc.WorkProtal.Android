@@ -125,6 +125,7 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String userid) {
                 Log.d("LoginActivity", "--onSuccess" + userid);
+                spUtil.setCurrentUserName(userid);
             }
             /**
              * 连接融云失败

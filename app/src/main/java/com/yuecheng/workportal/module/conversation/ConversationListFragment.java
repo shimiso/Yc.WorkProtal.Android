@@ -26,15 +26,15 @@ import butterknife.ButterKnife;
  * Created by huochangsheng on 2018/7/25.
  */
 
-public class MyMessageFragment extends BaseFragment {
+public class ConversationListFragment extends BaseFragment {
     @BindView(R.id.list)
     RecyclerView recyclerView;
     ConversationPresenter conversationPresenter;
     ConversationListAdapter conversationListAdapter;
 
-    public static MyMessageFragment newInstance() {
+    public static ConversationListFragment newInstance() {
         Bundle args = new Bundle();
-        MyMessageFragment fragment = new MyMessageFragment();
+        ConversationListFragment fragment = new ConversationListFragment();
 //        fragment.setArguments(args);
         return fragment;
     }
@@ -72,11 +72,17 @@ public class MyMessageFragment extends BaseFragment {
         Conversation conversation = new Conversation();
         conversation.setTitle("我的个人助理");
         conversation.setContent("如需帮助请联系我");
-        conversation.setSendId("roboe_assistant");
+        conversation.setTargetId("roboe_assistant");
         conversation.setType(Conversation.ROBOT_ASSISTANT);
         conversationPresenter.saveConversation(conversation);
         loadData();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
     }
 
     /**
