@@ -3,6 +3,8 @@ package com.yuecheng.workportal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +12,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.SparseIntArray;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yuecheng.workportal.base.BaseActivity;
@@ -22,6 +27,10 @@ import com.yuecheng.workportal.module.robot.view.VoiceActivity;
 import com.yuecheng.workportal.module.work.MyTaskFragment;
 import com.yuecheng.workportal.widget.BottomNavigationViewEx;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -29,6 +38,9 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 
 public class MainActivity extends BaseActivity {
     String token= "dsXupLOn3vINFdvIH02IgB7ejVA8RiPEVS0kvcsxneNyyi2l8Drtw727YQZG1HKJ0Z/un+dttIDTBAWcEsRKuA==";
@@ -39,7 +51,7 @@ public class MainActivity extends BaseActivity {
     // collections
     private SparseIntArray items;// used for change ViewPager selected item
     private List<Fragment> fragments;// used for ViewPager adapter
-
+    private TextView countTextView;
     private VpAdapter adapter;
     private ConversationListFragment conversationListFragment;
     private MyTaskFragment myTaskFragment;
@@ -96,6 +108,68 @@ public class MainActivity extends BaseActivity {
         adapter = new VpAdapter(getSupportFragmentManager(), fragments);
         vp.setAdapter(adapter);
         vp.setOffscreenPageLimit(3);
+
+        //获取整个的NavigationView
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
+
+        //这里就是获取所添加的每一个Tab(或者叫menu)，
+        View tab = menuView.getChildAt(0);
+        BottomNavigationItemView itemView = (BottomNavigationItemView) tab;
+
+        //加载我们的角标View，新创建的一个布局
+        View badge = LayoutInflater.from(this).inflate(R.layout.menu_badge, menuView, false);
+
+        countTextView = badge.findViewById(R.id.tv_msg_count);
+        //添加到Tab上
+        itemView.addView(badge);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUnReadCount(0);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(com.yuecheng.workportal.module.conversation.bean.Conversation conversation) {
+        setUnReadCount(0);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    protected void setUnReadCount(final int count){
+        RongIM.getInstance().getUnreadCount(new Conversation.ConversationType[]{Conversation.ConversationType.PRIVATE}, new RongIMClient.ResultCallback<Integer>() {
+            @Override
+            public void onSuccess(Integer integer) {
+                int newCount = count + integer;
+                if(newCount<=0){
+                    countTextView.setVisibility(View.GONE);
+                }else if(count>=99){
+                    countTextView.setText(String.valueOf(99));
+                    countTextView.setVisibility(View.VISIBLE);
+                }else {
+                    countTextView.setText(String.valueOf(newCount));
+                    countTextView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+
+            }
+        });
+
+
     }
 
 
