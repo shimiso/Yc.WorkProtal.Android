@@ -21,6 +21,7 @@ import java.util.List;
 
 /**
  * Created by huochangsheng on 2018/8/15.
+ * 方言对话框
  */
 
 public class FangYanSettingsDialog extends Dialog {

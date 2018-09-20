@@ -3,6 +3,7 @@ package com.yuecheng.workportal.module.mycenter.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
@@ -13,6 +14,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 意见反馈
+ */
 public class FeedbackActivity extends BaseActivity {
 
     @BindView(R.id.opinion_msg_et)
@@ -30,16 +34,16 @@ public class FeedbackActivity extends BaseActivity {
     @OnClick({R.id.back_iv, R.id.title_voice, R.id.submit_button})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.back_iv:
+            case R.id.back_iv: //返回
                 finish();
                 break;
-            case R.id.title_voice:
+            case R.id.title_voice: //标题栏机器人
                 Intent intent = new Intent(this, VoiceActivity.class);
                 startActivity(intent);
                 //使其由下向上弹出
                 overridePendingTransition(R.anim.push_bottom_in, R.anim.push_bottom_out);
                 break;
-            case R.id.submit_button:
+            case R.id.submit_button: //提交
                 break;
         }
     }

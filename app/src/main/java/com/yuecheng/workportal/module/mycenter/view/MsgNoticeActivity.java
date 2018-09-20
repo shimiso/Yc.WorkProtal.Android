@@ -12,6 +12,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 消息通知
+ */
 public class MsgNoticeActivity extends BaseActivity {
 
     @BindView(R.id.message_button)

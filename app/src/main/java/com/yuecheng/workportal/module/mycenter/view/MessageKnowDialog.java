@@ -21,6 +21,7 @@ import java.util.List;
 
 /**
  * Created by huochangsheng on 2018/8/15.
+ * “知道了”提示对话框
  */
 
 public class MessageKnowDialog extends Dialog {

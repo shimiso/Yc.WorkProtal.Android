@@ -21,6 +21,7 @@ import java.util.List;
 
 /**
  * Created by huochangsheng on 2018/8/15.
+ * 语言设置
  */
 
 public class LanguageSettingsDialog extends Dialog {
