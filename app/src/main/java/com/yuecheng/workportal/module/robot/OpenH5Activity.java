@@ -52,6 +52,7 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
     private ImageView getmStateIV;
     private PopupWindow mRecordWindow;
     private ObjectAnimator icon_anim;
+    private Boolean isShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +121,9 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //这是一个监听用的按键的方法，keyCode 监听用户的动作，如果是按了返回键，同时Webview要返回的话，WebView执行回退操作，因为mWebView.canGoBack()返回的是一个Boolean类型，所以我们把它返回为true
         if (keyCode == KeyEvent.KEYCODE_BACK && mWebView.canGoBack()) {
+            if (keyCode == KeyEvent.KEYCODE_BACK && isShow ) {
+                isShowVoiceDialog(false);
+            }
             mWebView.goBack();
             return true;
         }
@@ -232,6 +236,7 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent messageEvent) {
         if(messageEvent.type==MessageEvent.SMTZLU_VOCE_DIALOG){
+            isShow = messageEvent.isShow;
             isShowVoiceDialog(messageEvent.isShow);
         }else if(messageEvent.type==MessageEvent.VITAL_SIGNS_JSON){
             ToastUtil.info(OpenH5Activity.this,messageEvent.json);
