@@ -12,6 +12,7 @@ import com.yuecheng.workportal.MainActivity;
 import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
+import com.yuecheng.workportal.module.robot.view.VoiceActivity;
 
 import java.util.Locale;
 
@@ -33,13 +34,15 @@ public class SettingsActivity extends BaseActivity {
     }
 
     @OnClick({R.id.modify_password,R.id.message_notification,R.id.language_settings,R.id.index_settings,
-            R.id.fangyan_settings,R.id.exit_btn,R.id.back_iv})
+            R.id.fangyan_settings,R.id.exit_btn,R.id.back_iv,R.id.title_voice})
     protected void onClick(View view){
         switch (view.getId()){
             case R.id.modify_password://修改密码
                 startActivity(new Intent(context,ModifyPasswordActivity.class));
                 break;
             case R.id.message_notification://消息提醒
+                Intent magintent = new Intent(context, MsgNoticeActivity.class);
+                startActivity(magintent);
                 break;
             case R.id.language_settings://语言设置
                 showLanguageDialog();
@@ -48,6 +51,12 @@ public class SettingsActivity extends BaseActivity {
                 showFangYanDialog();
                 break;
             case R.id.index_settings://首页设置
+                break;
+            case R.id.title_voice://跳转到语音页面
+                Intent intent = new Intent(context, VoiceActivity.class);
+                startActivity(intent);
+                //使其由下向上弹出
+                overridePendingTransition(R.anim.push_bottom_in, R.anim.push_bottom_out);
                 break;
             case R.id.exit_btn://退出
                 MainApplication.getApplication().exit();

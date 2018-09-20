@@ -38,6 +38,13 @@
     <string name="server_error">Server error</string>
     <string name="check_sdcard">Check sdcard！</string>
     <string name="settings">Settings</string>
+    <string name="msg_notice">message notification</string>
+    <string name="voice_prompt">Voice prompt</string>
+    <string name="vibration_notice">vibration prompt</string>
+    <string name="synergy_notice">Collaborative notice</string>
+    <string name="meeting_notice">Meeting notice</string>
+    <string name="meeting_remind">meeting to remind</string>
+    <string name="opinion_feedback">Opinion feedback</string>
     <string name="close">Close</string>
     <string name="exit">Exit</string>
     <string name="lost_session">Login is invalid, please login again. </string>
@@ -47,6 +54,7 @@
     <string name="exit_app_message">Are you sure you want to quit? </string>
     <string name="version_update">Version update</string>
     <string name="version_update_hint">"It's the latest version." </string>
+    <string name="no_message">No message reminders will be received after closing.</string>
 
     <string name="assistant">My work assistant</string>
     <string name="message">Message</string>
@@ -61,6 +69,12 @@
     <string name="my_login_web">Login web version </string>
     <string name="my_directions">Instructions</string>
     <string name="my_feedback">Feedback</string>
+
+    <string name="opinion">如果您遇到功能，内容方面的错误</string>
+    <string name="opinion_phone">Please enter your phone number/email address for us to contact (optional)</string>
+    <string name="submit">Submit</string>
+    <string name="hr_prompt">Dear, wait to open ~</string>
+    <string name="know">Know</string>
 
     <!--设置-->
     <string name="title_message">Message</string>

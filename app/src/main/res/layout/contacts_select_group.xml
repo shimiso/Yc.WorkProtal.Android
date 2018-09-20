@@ -38,6 +38,8 @@
         android:id="@+id/yuecheng_rl"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:background="@drawable/list_item_bg">
     <TextView
         android:id="@+id/yuecheng"
@@ -45,14 +47,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:padding="10dp"
         android:text="乐成集团"/>
         <ImageView
             android:id="@+id/yuecheng_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_centerVertical="true"
+            android:src="@mipmap/dh"/>
     </RelativeLayout>
     <View
         style="@style/divider_horizontal" />
@@ -60,6 +62,8 @@
         android:id="@+id/bcis_rl"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:background="@drawable/list_item_bg">
         <TextView
             android:id="@+id/bcis"
@@ -67,14 +71,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:padding="10dp"
             android:text="BCIS "/>
         <ImageView
             android:id="@+id/bcis_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_centerVertical="true"
+            android:src="@mipmap/dh"/>
     </RelativeLayout>
     <View
         style="@style/divider_horizontal" />
@@ -82,6 +86,8 @@
         android:id="@+id/laonian_rl"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:background="@drawable/list_item_bg">
         <TextView
             android:id="@+id/laonian"
@@ -89,14 +95,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:padding="10dp"
             android:text="乐成老年事业投资有限公司"/>
         <ImageView
             android:id="@+id/laonian_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_centerVertical="true"
+            android:src="@mipmap/dh"/>
     </RelativeLayout>
     <View
         style="@style/divider_horizontal" />

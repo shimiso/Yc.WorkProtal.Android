@@ -23,6 +23,7 @@ import com.yuecheng.workportal.common.JsEchoApi;
 import com.yuecheng.workportal.module.robot.bean.TalkBean;
 import com.yuecheng.workportal.module.robot.presenter.MainPresenter;
 import com.yuecheng.workportal.module.robot.view.IMainView;
+import com.yuecheng.workportal.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -66,6 +67,7 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
         name = getIntent().getStringExtra("name");
         //init presenter
         mIMainPresenter = new MainPresenter(this);
+        mIMainPresenter.setIsAdd(false);//设置录入生命体征的时候不展示在对话列表中
         initView();
         initEvent();
     }
@@ -78,8 +80,10 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
         DWebView.setWebContentsDebuggingEnabled(true);
         mWebView.addJavascriptObject(new JsApi(this), "");
         mWebView.addJavascriptObject(new JsEchoApi(), "echo");
-        mWebView.loadUrl("file:///android_asset/BridgeWebView/js-call-native.html");
-//        mWebView.loadUrl(url);//动态获取需要打开的链接
+//        mWebView.loadUrl("file:///android_asset/BridgeWebView/js-call-native.html");
+        mWebView.loadUrl(url);//动态获取需要打开的链接
+
+
     }
 
     private void initEvent() {
@@ -227,13 +231,20 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent messageEvent) {
-        isShowVoiceDialog(messageEvent.isShow);
+        if(messageEvent.type==MessageEvent.SMTZLU_VOCE_DIALOG){
+            isShowVoiceDialog(messageEvent.isShow);
+        }else if(messageEvent.type==MessageEvent.VITAL_SIGNS_JSON){
+            ToastUtil.info(OpenH5Activity.this,messageEvent.json);
+            //将获取的生命体征的json传递给H5
+            mWebView.callHandler("append", new String[]{messageEvent.json});
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+        mIMainPresenter.setIsAdd(true);
     }
 
     @Override

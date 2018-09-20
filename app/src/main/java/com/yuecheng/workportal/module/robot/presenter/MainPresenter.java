@@ -91,6 +91,7 @@ public class MainPresenter implements IMainPresenter {
     private static IMainModel mIMainModel;
     private static Handler mHandler;
     private IntentHandler intentHandler;
+    private static Boolean isadd = true;
     /**
      * 存储听写结果
      */
@@ -99,6 +100,9 @@ public class MainPresenter implements IMainPresenter {
     private static String resultString = null;
     private SemanticResult parsedSemanticResult;
 
+    public void setIsAdd( Boolean isadd) {
+        this.isadd = isadd;
+    }
     public MainPresenter(IMainView IMainView) {
         mIMainView = IMainView;
         mHandler = new Handler(Looper.getMainLooper());
@@ -233,6 +237,7 @@ public class MainPresenter implements IMainPresenter {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
+                if(!isadd)return;
                 TalkBean talkBean = new TalkBean(question,resultString,
                         System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_USER);
                 mTalkBeanList.add(talkBean);
@@ -287,12 +292,12 @@ public class MainPresenter implements IMainPresenter {
         LogUtils.e("语义理解失败，错误码=" + speechError.getErrorCode());
     }
 
-
     public static void responseAnswer(final String answerText ) {
         if (!TextUtils.isEmpty(answerText)) {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
+                    if(!isadd)return;
                     TalkBean talkBean = new TalkBean(answerText,resultString,
                             System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_ROBOT_CHAT);
                     mTalkBeanList.add(talkBean);

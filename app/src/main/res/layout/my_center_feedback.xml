@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.yuecheng.workportal.module.mycenter.view.FeedbackActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/primary_dark">
+        <ImageView
+            android:id="@+id/back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/back_btn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/opinion_feedback"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+        <ImageView
+            android:id="@+id/title_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/title_voice" />
+    </RelativeLayout>
+
+    <com.yuecheng.workportal.widget.XEditText
+        android:id="@+id/opinion_msg_et"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_edittext"
+        android:gravity="left|top"
+        android:hint="@string/opinion"
+        android:inputType="textMultiLine"
+        android:padding="5dp"
+        android:textSize="16sp" />
+
+    <com.yuecheng.workportal.widget.XEditText
+        android:id="@+id/opinion_phone_et"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg_edittext"
+        android:gravity="center"
+        android:hint="@string/opinion_phone"
+        android:inputType="textMultiLine"
+        android:padding="5dp"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/submit_button"
+        style="@style/comm_btn_style"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/submit"
+        android:textColor="@color/white" />
+</LinearLayout>

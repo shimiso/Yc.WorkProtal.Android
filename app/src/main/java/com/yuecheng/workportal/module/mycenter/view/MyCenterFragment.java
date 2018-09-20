@@ -55,17 +55,32 @@ public class MyCenterFragment extends BaseFragment {
             case R.id.my_information_rl://个人详情
                 startActivity(new Intent(getContext(),MyDetailActivity.class));
                 break;
-            case R.id.my_hr:
+            case R.id.my_hr: //HR自助
+                showHRDialog();
                 break;
-            case R.id.my_login_web:
+            case R.id.my_login_web: //登录网页版
                 break;
-            case R.id.my_directions:
+            case R.id.my_directions://使用说明
                 break;
-            case R.id.my_feedback:
+            case R.id.my_feedback://意见反馈
+                startActivity(new Intent(getContext(),FeedbackActivity.class));
                 break;
-            case R.id.my_setting:
+            case R.id.my_setting: //设置
                 startActivity(new Intent(getContext(),SettingsActivity.class));
                 break;
         }
     }
-}
+    /**
+     * HR自助
+     */
+    private void showHRDialog() {
+        MessageKnowDialog centerDialog = new MessageKnowDialog(getContext());
+        centerDialog.setClicklistener(new MessageKnowDialog.ClickListenerInterface() {
+
+            @Override
+            public void onOneClick() {
+                centerDialog.dismissDialog();
+            }
+
+        });
+    }}

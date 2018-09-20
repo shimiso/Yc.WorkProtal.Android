@@ -122,7 +122,7 @@ android {
             res.srcDirs = ['src/main/res']
             assets.srcDirs = ['src/main/assets']
             jni.srcDirs = []
-            jniLibs.srcDirs = ['libs','src/main/jniLibs']
+            jniLibs.srcDirs = ['libs', 'src/main/jniLibs']
         }
     }
     // 打包配置 排除一些文件
@@ -192,5 +192,7 @@ dependencies {
     //implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
     implementation 'com.github.wendux:DSBridge-Android:master-SNAPSHOT'
     implementation 'org.greenrobot:eventbus:3.1.1'
+    //滑动开关
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
     api project(':IMKit')
 }
