@@ -28,7 +28,7 @@
             android:layout_marginRight="20dp"
             android:hint="请输入您的手机号"
             android:inputType="text"
-            android:text="alice" />
+            android:text="" />
 
         <View
             style="@style/divider_horizontal"

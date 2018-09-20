@@ -43,7 +43,7 @@ import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 
 public class MainActivity extends BaseActivity {
-    String token= "vpcy7Ii2evaZ0wC+rNWfNUSX7Tw9w+o/VPdoX3hvxXzqamP3FaTyN37WGRVIWzfj7OySyhVriLHsTMXp1EUpJQ==";
+    String token= MainApplication.getApplication().getLoginUser().getRongCloudToken();
     @BindView(R.id.viewPager)
     ViewPager vp;
     @BindView(R.id.navigation)

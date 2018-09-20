@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import com.yuecheng.workportal.base.BaseActivity;
 import com.yuecheng.workportal.module.update.CheckVersionPresenter;
-import com.yuecheng.workportal.module.update.Version;
-import com.yuecheng.workportal.module.update.VersionUpdateDialog;
-import com.yuecheng.workportal.utils.AndroidUtil;
 import com.yuecheng.workportal.utils.StringUtils;
 import com.yuecheng.workportal.utils.ToastUtil;
 
@@ -115,31 +112,31 @@ public class WelcomeActivity extends BaseActivity {
      * 检查网络并请求数据
      */
     private void checkNetworkAndRequestData() {
-        //验证存储和网络
-        if (androidUtil.checkStoragePathAndSetBaseApp()) {
-            //版本验证
-            checkVersionPresenter.checkVersion(androidUtil.getApkVersionCode(), new CheckVersionPresenter.CheckVersionListener() {
-
-                @Override
-                public void toNext() {
+//        //验证存储和网络
+//        if (androidUtil.checkStoragePathAndSetBaseApp()) {
+//            //版本验证
+//            checkVersionPresenter.checkVersion(androidUtil.getApkVersionCode(), new CheckVersionPresenter.CheckVersionListener() {
+//
+//                @Override
+//                public void toNext() {
                     toLogin();
-                }
-
-                @Override
-                public void updateNewVersion(Version version) {
-                    if (!AndroidUtil.isActivityRunning(context, VersionUpdateDialog.class.getName())) {
-                        Intent in = new Intent(context, VersionUpdateDialog.class);
-                        in.putExtra("VERSION",version);
-                        startActivityForResult(in, UpdateReqCode);
-                    }
-                }
-
-                @Override
-                public void onError(String errorMessage) {
-                    toLogin();
-                }
-            });
-        }
+//                }
+//
+//                @Override
+//                public void updateNewVersion(Version version) {
+//                    if (!AndroidUtil.isActivityRunning(context, VersionUpdateDialog.class.getName())) {
+//                        Intent in = new Intent(context, VersionUpdateDialog.class);
+//                        in.putExtra("VERSION",version);
+//                        startActivityForResult(in, UpdateReqCode);
+//                    }
+//                }
+//
+//                @Override
+//                public void onError(String errorMessage) {
+//                    toLogin();
+//                }
+//            });
+//        }
     }
 
     @Override

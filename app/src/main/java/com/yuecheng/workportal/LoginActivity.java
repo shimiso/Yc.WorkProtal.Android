@@ -76,19 +76,31 @@ public class LoginActivity extends BaseActivity {
                 userPresenter.login(username,passWD,new CommonPostView<LoginUser>() {
                     @Override
                     public void postSuccess(ResultInfo<LoginUser> resultInfo) {
-                        //TODO 获取用户信息
-                        loadingDialog.dismiss();
-                        spUtil.setCurrentUserName(username);
-                        startActivity(new Intent(context, MainActivity.class));
-                        finish();
+                        LoginUser loginUser = resultInfo.getResult();
+                        userPresenter.identity(loginUser, new CommonPostView<LoginUser>() {
+                            @Override
+                            public void postSuccess(ResultInfo<LoginUser> resultInfo) {
+                                //TODO 获取用户信息
+                                loadingDialog.dismiss();
+                                spUtil.setCurrentUserName(username);
+                                LoginUser loginUser1=MainApplication.getApplication().getLoginUser();
+                                startActivity(new Intent(context, MainActivity.class));
+                                finish();
+                            }
+
+                            @Override
+                            public void postError(String errorMsg) {
+                                loadingDialog.dismiss();
+                                ToastUtil.error(context,errorMsg);
+                            }
+                        });
+
                     }
 
                     @Override
                     public void postError(String errorMsg) {
                         loadingDialog.dismiss();
                         ToastUtil.error(context,errorMsg);
-                        startActivity(new Intent(context, MainActivity.class));
-                        finish();
                     }
                 });
                 break;

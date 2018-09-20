@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
 
@@ -22,7 +23,7 @@ import io.rong.imlib.model.Conversation;
  * 会话页面
  */
 public class ConversationActivity extends BaseActivity {
-    String token= "vpcy7Ii2evaZ0wC+rNWfNUSX7Tw9w+o/VPdoX3hvxXzqamP3FaTyN37WGRVIWzfj7OySyhVriLHsTMXp1EUpJQ==";
+    String token= MainApplication.getApplication().getLoginUser().getRongCloudToken();
     private TextView mTitle;
     private RelativeLayout mBack;
     private String title;

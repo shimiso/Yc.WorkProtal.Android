@@ -17,6 +17,8 @@ import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 /**
  * 描述:
  * 作者: Shims
@@ -35,8 +37,6 @@ public class UserPresenter {
         LoginUser loginUser = loginUserDao.queryBuilder()
                 .where(LoginUserDao.Properties.Username.eq(username))
                 .build().unique();
-        if (loginUser == null)
-            loginUser = new LoginUser();
         return loginUser;
     }
 
@@ -56,19 +56,19 @@ public class UserPresenter {
                         String result = new String(response.body());
                         if (responseCode == 200) {
                             try {
+                                ResultInfo<LoginUser> resultInfo = new ResultInfo<>();
                                 Gson gson = new Gson();
                                 SsoToken ssoToken = gson.fromJson(result, SsoToken.class);
-                                LoginUser loginUser = getUser(username);
+                                LoginUser loginUser = new LoginUser();
                                 loginUser.setExpires_in(ssoToken.getExpires_in());
                                 loginUser.setAccess_token(ssoToken.getAccess_token());
                                 loginUser.setToken_type(ssoToken.getToken_type());
                                 loginUser.setUsername(username);
                                 loginUser.setPassword(password);
-                                LoginUserDao loginUserDao = DaoManager.getInstance(context).getUserDao();
-                                loginUserDao.save(loginUser);
 
+                                resultInfo.result = loginUser;
                                 //获取个人信息
-                                identity(ssoToken.getAccess_token(),loginUser,commonPostView);
+                                commonPostView.postSuccess(resultInfo);
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 commonPostView.postError("服务器发生未知异常");
@@ -90,14 +90,13 @@ public class UserPresenter {
 
     /**
      * 获取个人信息
-     * @param authorization
      * @param loginUser
      * @param commonPostView
      */
-    public void identity(String authorization,LoginUser loginUser, final CommonPostView<LoginUser> commonPostView) {
+    public void identity(LoginUser loginUser, final CommonPostView<LoginUser> commonPostView) {
         OkGo.<String>get(UrlConstant.SSO_IDENTITY)//
                 .tag(this)//
-                .headers("Authorization", "Bearer "+authorization)
+                .headers("Authorization", "Bearer "+loginUser.getAccess_token())
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -119,6 +118,7 @@ public class UserPresenter {
                             loginUser.setPositionName(person.getPositionName());
                             loginUser.setRongCloudToken(person.getRongCloudToken());
                             resultInfo.result = loginUser;
+                            saveLoginUser(loginUser);
 
                             commonPostView.postSuccess(resultInfo);
                         } catch (Exception e) {
@@ -132,5 +132,20 @@ public class UserPresenter {
                         commonPostView.postError("发生未知异常");
                     }
                 });
+    }
+
+    public void saveLoginUser(LoginUser loginUser){
+        List<LoginUser> list;
+        try {
+            list = loginUserDao.queryBuilder()
+                    .where(LoginUserDao.Properties.Username.eq(loginUser.getUsername()))
+                    .build().list();
+            if(list!=null){
+                loginUserDao.deleteInTx(list);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        loginUserDao.save(loginUser);
     }
 }

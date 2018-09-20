@@ -88,7 +88,7 @@ public class MainApplication extends MultiDexApplication {
     //获取当前登陆用户信息
     public LoginUser getLoginUser() {
         if(loginUser==null){
-            userPresenter.getUser(spUtil.getCurrentUserName());
+            loginUser = userPresenter.getUser(spUtil.getCurrentUserName());
         }
         return loginUser;
     }
