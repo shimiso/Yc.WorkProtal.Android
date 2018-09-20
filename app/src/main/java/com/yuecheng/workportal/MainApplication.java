@@ -19,7 +19,6 @@ import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
-import com.yuecheng.workportal.module.mycenter.view.LoginActivity;
 import com.yuecheng.workportal.receive.MyReceiveMessageListener;
 import com.yuecheng.workportal.receive.MySendMessageListener;
 import com.yuecheng.workportal.utils.AndroidUtil;

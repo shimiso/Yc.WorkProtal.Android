@@ -56,7 +56,7 @@
             android:launchMode="singleTop"
             android:theme="@style/ToolBarTheme" />
         <activity
-            android:name=".module.mycenter.view.LoginActivity"
+            android:name=".LoginActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.robot.view.JsonActivity"

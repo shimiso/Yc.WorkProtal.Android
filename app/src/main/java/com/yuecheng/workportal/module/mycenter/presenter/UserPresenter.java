@@ -13,6 +13,9 @@ import com.yuecheng.workportal.common.CommonPostView;
 import com.yuecheng.workportal.common.UrlConstant;
 import com.yuecheng.workportal.db.DaoManager;
 import com.yuecheng.workportal.greendao.LoginUserDao;
+import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
+
+import org.json.JSONObject;
 
 /**
  * 描述:
@@ -22,21 +25,22 @@ import com.yuecheng.workportal.greendao.LoginUserDao;
 public class UserPresenter {
     private Context context;
     LoginUserDao loginUserDao;
+
     public UserPresenter(Context context) {
         this.context = context;
-        this.loginUserDao =  DaoManager.getInstance(context).getUserDao();
+        this.loginUserDao = DaoManager.getInstance(context).getUserDao();
     }
 
     public LoginUser getUser(String username) {
-        LoginUser loginUser=loginUserDao.queryBuilder()
+        LoginUser loginUser = loginUserDao.queryBuilder()
                 .where(LoginUserDao.Properties.Username.eq(username))
                 .build().unique();
-        if(loginUser==null)
+        if (loginUser == null)
             loginUser = new LoginUser();
         return loginUser;
     }
 
-    public void login(String username,String password,final CommonPostView<SsoToken> commonPostView){
+    public void login(String username, String password, final CommonPostView<LoginUser> commonPostView) {
         OkGo.<String>post(UrlConstant.SSO_LOGIN)//
                 .tag(this)//
                 .params("username", username)//用户名
@@ -50,35 +54,81 @@ public class UserPresenter {
                     public void onSuccess(Response<String> response) {
                         int responseCode = response.getRawResponse().code();
                         String result = new String(response.body());
-                        if(responseCode==200){
+                        if (responseCode == 200) {
                             try {
-                                ResultInfo<SsoToken> resultInfo = new ResultInfo<SsoToken>();
                                 Gson gson = new Gson();
                                 SsoToken ssoToken = gson.fromJson(result, SsoToken.class);
-                                resultInfo.result = ssoToken;
+                                LoginUser loginUser = getUser(username);
+                                loginUser.setExpires_in(ssoToken.getExpires_in());
+                                loginUser.setAccess_token(ssoToken.getAccess_token());
+                                loginUser.setToken_type(ssoToken.getToken_type());
+                                loginUser.setUsername(username);
+                                loginUser.setPassword(password);
+                                LoginUserDao loginUserDao = DaoManager.getInstance(context).getUserDao();
+                                loginUserDao.save(loginUser);
 
-                                LoginUser user =getUser(username);
-                                user.setExpires_in(ssoToken.getExpires_in());
-                                user.setAccess_token(ssoToken.getAccess_token());
-                                user.setToken_type(ssoToken.getToken_type());
-                                user.setUsername(username);
-                                user.setPassword(password);
-                                LoginUserDao loginUserDao =  DaoManager.getInstance(context).getUserDao();
-                                loginUserDao.save(user);
-                                commonPostView.postSuccess(resultInfo);
+                                //获取个人信息
+                                identity(ssoToken.getAccess_token(),loginUser,commonPostView);
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 commonPostView.postError("服务器发生未知异常");
                             }
-                        }else if(responseCode ==400){
+                        } else if (responseCode == 400) {
                             commonPostView.postError(result);
-                        }else {
+                        } else {
                             commonPostView.postError("服务器发生未知异常");
                         }
                     }
 
                     @Override
-                    public void onError(Response<String> response){
+                    public void onError(Response<String> response) {
+                        commonPostView.postError("发生未知异常");
+                    }
+                });
+    }
+
+
+    /**
+     * 获取个人信息
+     * @param authorization
+     * @param loginUser
+     * @param commonPostView
+     */
+    public void identity(String authorization,LoginUser loginUser, final CommonPostView<LoginUser> commonPostView) {
+        OkGo.<String>get(UrlConstant.SSO_IDENTITY)//
+                .tag(this)//
+                .headers("Authorization", "Bearer "+authorization)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String json = new String(response.body());
+                        try {
+                            ResultInfo<LoginUser> resultInfo = new ResultInfo<>();
+                            Gson gson = new Gson();
+                            JSONObject jsonObj = new JSONObject(json);
+                            JSONObject resultObj = jsonObj.getJSONObject("result");
+                            PersonnelDetailsBean person = gson.fromJson(resultObj.toString(), PersonnelDetailsBean.class);
+                            loginUser.setCode(person.getCode());
+                            loginUser.setStaffGrade(person.getStaffGrade());
+                            loginUser.setEmail(person.getEmail());
+                            loginUser.setGender(person.getGender());
+                            loginUser.setMobilePhone(person.getMobilePhone());
+                            loginUser.setName(person.getName());
+                            loginUser.setOrganizationName(person.getOrganizationName());
+                            loginUser.setPartTimeJobs(person.getPartTimeJobs());
+                            loginUser.setPositionName(person.getPositionName());
+                            loginUser.setRongCloudToken(person.getRongCloudToken());
+                            resultInfo.result = loginUser;
+
+                            commonPostView.postSuccess(resultInfo);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            commonPostView.postError("服务器发生未知异常");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
                         commonPostView.postError("发生未知异常");
                     }
                 });

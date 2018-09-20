@@ -1,4 +1,4 @@
-package com.yuecheng.workportal.module.mycenter.view;
+package com.yuecheng.workportal;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,11 +9,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.yuecheng.workportal.MainActivity;
-import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
+import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.bean.ResultInfo;
-import com.yuecheng.workportal.bean.SsoToken;
 import com.yuecheng.workportal.common.CommonPostView;
 import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
 import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
@@ -75,9 +73,9 @@ public class LoginActivity extends BaseActivity {
                 }
                 loadingDialog = LoadingDialog.createDialog(context);
                 loadingDialog.show();
-                userPresenter.login(username,passWD,new CommonPostView<SsoToken>() {
+                userPresenter.login(username,passWD,new CommonPostView<LoginUser>() {
                     @Override
-                    public void postSuccess(ResultInfo<SsoToken> resultInfo) {
+                    public void postSuccess(ResultInfo<LoginUser> resultInfo) {
                         //TODO 获取用户信息
                         loadingDialog.dismiss();
                         spUtil.setCurrentUserName(username);

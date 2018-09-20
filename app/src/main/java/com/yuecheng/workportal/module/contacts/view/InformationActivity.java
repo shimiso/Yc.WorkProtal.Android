@@ -150,7 +150,7 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
             contactRenJobs.setText(personnelDetailsBean.getPositionName());
             myDirectoryTv.setText(personnelDetailsBean.getOrganizationName());
             myDeputyTv.setText("");
-            myMmediateSuperiorTv.setText(personnelDetailsBean.getDirectSupervisor());
+//            myMmediateSuperiorTv.setText(personnelDetailsBean.getDirectSupervisor());
             myPhoneTv.setTextColor(Color.parseColor("#509FFF"));
             myLandlineTv.setTextColor(Color.parseColor("#509FFF"));
             myEmailTv.setTextColor(Color.parseColor("#509FFF"));

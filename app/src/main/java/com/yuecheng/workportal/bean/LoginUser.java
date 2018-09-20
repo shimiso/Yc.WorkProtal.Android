@@ -2,9 +2,8 @@ package com.yuecheng.workportal.bean;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Transient;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Unique;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Bean 对象注释的解释
@@ -19,7 +18,7 @@ import org.greenrobot.greendao.annotation.Unique;
  * Id：对象的Id，使用Long类型作为EntityId，否则会报错。(autoincrement = true)表示主键会自增，如果false就会使用旧值
  * Property：可以自定义字段名，注意外键不能使用该属性  @Property(nameInDb = "price")
  * NotNull：属性不能为空
- * Transient：使用该注释的属性不会被存入数据库的字段中
+ * Transient：使用该注释的属性不会被存入数据库的字段中 只是作为一个普通的java类字段，用来临时存储数据的，不会被持久化
  * Unique：该属性值必须在数据库中是唯一值
  * Generated：编译后自动生成的构造函数、方法等的注释，提示构造函数、方法等不能被修改
  * ToMany 一对多
@@ -45,15 +44,51 @@ public class LoginUser {
 
     private String token_type;
 
-    @Generated(hash = 1364567019)
+    private String code;
+
+    private String staffGrade;
+
+    private String name;
+
+    private String email;
+
+    private int gender;
+
+    private String mobilePhone;
+
+    private String telephone;
+
+    private String organizationName;
+
+    private String positionName;
+
+    private String partTimeJobs;
+
+    private String rongCloudToken;//融云token
+
+    @Generated(hash = 224987295)
     public LoginUser(Long id, String username, String password, String access_token,
-            int expires_in, String token_type) {
+            int expires_in, String token_type, String code, String staffGrade,
+            String name, String email, int gender, String mobilePhone,
+            String telephone, String organizationName, String positionName,
+            String partTimeJobs, String rongCloudToken) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.access_token = access_token;
         this.expires_in = expires_in;
         this.token_type = token_type;
+        this.code = code;
+        this.staffGrade = staffGrade;
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+        this.mobilePhone = mobilePhone;
+        this.telephone = telephone;
+        this.organizationName = organizationName;
+        this.positionName = positionName;
+        this.partTimeJobs = partTimeJobs;
+        this.rongCloudToken = rongCloudToken;
     }
 
     @Generated(hash = 1159929338)
@@ -108,6 +143,92 @@ public class LoginUser {
         this.token_type = token_type;
     }
 
-    //@Transient：表明这个字段不会被写入数据库，只是作为一个普通的java类字段，用来临时存储数据的，不会被持久化
+    public String getCode() {
+        return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getStaffGrade() {
+        return this.staffGrade;
+    }
+
+    public void setStaffGrade(String staffGrade) {
+        this.staffGrade = staffGrade;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getGender() {
+        return this.gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public String getMobilePhone() {
+        return this.mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    public String getTelephone() {
+        return this.telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getOrganizationName() {
+        return this.organizationName;
+    }
+
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
+    }
+
+    public String getPositionName() {
+        return this.positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
+    }
+
+    public String getPartTimeJobs() {
+        return this.partTimeJobs;
+    }
+
+    public void setPartTimeJobs(String partTimeJobs) {
+        this.partTimeJobs = partTimeJobs;
+    }
+
+    public String getRongCloudToken() {
+        return this.rongCloudToken;
+    }
+
+    public void setRongCloudToken(String rongCloudToken) {
+        this.rongCloudToken = rongCloudToken;
+    }
 
 }

@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import com.yuecheng.workportal.MainActivity;
+import com.yuecheng.workportal.LoginActivity;
 import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
