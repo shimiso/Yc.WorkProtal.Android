@@ -83,7 +83,6 @@ public class LoginActivity extends BaseActivity {
                                 //TODO 获取用户信息
                                 loadingDialog.dismiss();
                                 spUtil.setCurrentUserName(username);
-                                LoginUser loginUser1=MainApplication.getApplication().getLoginUser();
                                 startActivity(new Intent(context, MainActivity.class));
                                 finish();
                             }

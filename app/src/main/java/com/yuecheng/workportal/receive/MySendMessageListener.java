@@ -3,7 +3,9 @@ package com.yuecheng.workportal.receive;
 import android.content.Context;
 import android.util.Log;
 
+import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
+import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.module.conversation.ConversationPresenter;
 import com.yuecheng.workportal.module.conversation.bean.Conversation;
 import com.yuecheng.workportal.utils.AndroidUtil;
@@ -13,6 +15,7 @@ import org.greenrobot.eventbus.EventBus;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
+import io.rong.imlib.model.UserInfo;
 import io.rong.message.ImageMessage;
 import io.rong.message.RichContentMessage;
 import io.rong.message.TextMessage;
@@ -39,6 +42,9 @@ public class MySendMessageListener implements RongIM.OnSendMessageListener {
     @Override
     public Message onSend(Message message) {
         //开发者根据自己需求自行处理逻辑
+        MessageContent messageContent = message.getContent();
+        LoginUser loginUser = MainApplication.getApplication().getLoginUser();
+        messageContent.setUserInfo(new UserInfo(message.getSenderUserId(),loginUser.getName(),null));
         return message;
     }
 

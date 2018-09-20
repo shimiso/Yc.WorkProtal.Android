@@ -14,6 +14,7 @@ import com.yuecheng.workportal.common.UrlConstant;
 import com.yuecheng.workportal.db.DaoManager;
 import com.yuecheng.workportal.greendao.LoginUserDao;
 import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
+import com.yuecheng.workportal.utils.StringUtils;
 
 import org.json.JSONObject;
 
@@ -107,20 +108,24 @@ public class UserPresenter {
                             JSONObject jsonObj = new JSONObject(json);
                             JSONObject resultObj = jsonObj.getJSONObject("result");
                             PersonnelDetailsBean person = gson.fromJson(resultObj.toString(), PersonnelDetailsBean.class);
-                            loginUser.setCode(person.getCode());
-                            loginUser.setStaffGrade(person.getStaffGrade());
-                            loginUser.setEmail(person.getEmail());
-                            loginUser.setGender(person.getGender());
-                            loginUser.setMobilePhone(person.getMobilePhone());
-                            loginUser.setName(person.getName());
-                            loginUser.setOrganizationName(person.getOrganizationName());
-                            loginUser.setPartTimeJobs(person.getPartTimeJobs());
-                            loginUser.setPositionName(person.getPositionName());
-                            loginUser.setRongCloudToken(person.getRongCloudToken());
-                            resultInfo.result = loginUser;
-                            saveLoginUser(loginUser);
+                            if(StringUtils.isEmpty(person.getRongCloudToken())){
+                                commonPostView.postError("服务器返回数据异常");
+                            }else {
+                                loginUser.setCode(person.getCode());
+                                loginUser.setStaffGrade(person.getStaffGrade());
+                                loginUser.setEmail(person.getEmail());
+                                loginUser.setGender(person.getGender());
+                                loginUser.setMobilePhone(person.getMobilePhone());
+                                loginUser.setName(person.getName());
+                                loginUser.setOrganizationName(person.getOrganizationName());
+                                loginUser.setPartTimeJobs(person.getPartTimeJobs());
+                                loginUser.setPositionName(person.getPositionName());
+                                loginUser.setRongCloudToken(person.getRongCloudToken());
+                                resultInfo.result = loginUser;
+                                saveLoginUser(loginUser);
 
-                            commonPostView.postSuccess(resultInfo);
+                                commonPostView.postSuccess(resultInfo);
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                             commonPostView.postError("服务器发生未知异常");
