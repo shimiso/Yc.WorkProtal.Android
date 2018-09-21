@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.yuecheng.workportal.module.contacts.adapter.AlphabetAdp;
+import com.yuecheng.workportal.module.contacts.adapter.ContactSearchAdapter;
 import com.yuecheng.workportal.module.contacts.bean.ContactBean;
 import com.yuecheng.workportal.module.contacts.bean.PinYinStyle;
 import com.yuecheng.workportal.utils.PinYinUtil;
@@ -66,6 +67,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
     private View view;
     private List<ContactBean.StaffsBean> staffs;
     private LoadingDialog loadingDialog;
+    private ArrayList<ContactBean.StaffsBean> mSortList;
 
     public static MyTabContactsFragment newInstance() {
         Bundle args = new Bundle();
@@ -262,7 +264,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
     }
     private ArrayList<ContactBean.StaffsBean> dataList() {
         // 数据
-        ArrayList<ContactBean.StaffsBean> mSortList = new ArrayList<ContactBean.StaffsBean>();
+        mSortList = new ArrayList<ContactBean.StaffsBean>();
         for(int i=0;i<staffs.size();i++){
             staffs.get(i).conversionpinyin(staffs.get(i).getName());
             staffs.get(i).pinYinStyle = parsePinYinStyle(staffs.get(i).getName());
@@ -279,7 +281,11 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
         if (TextUtils.isEmpty(str)){
             sideLetterBar.setVisibility(View.VISIBLE);
             null_personnel.setVisibility(View.GONE);
-            filterDateList = dataList();
+            filterDateList = mSortList;
+           // contactList = filterDateList;
+            adapter = new ContactAdapter(getContext(),filterDateList);
+            lv_contact.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         }else {
             filterDateList.clear();
             sideLetterBar.setVisibility(View.GONE);
@@ -288,7 +294,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
             if(m.matches()){
                 str = PinYinUtil.getPinyin(str);
             }
-            for(ContactBean.StaffsBean contactBean : dataList()){
+            for(ContactBean.StaffsBean contactBean : mSortList){
                 String name = contactBean.getName();
 
                 if(name.contains(name1)||
@@ -296,11 +302,13 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
                     filterDateList.add(contactBean);
                 }
             }
+          //  contactList = filterDateList;
+            ContactSearchAdapter adapter = new ContactSearchAdapter(getContext(),filterDateList);
+            lv_contact.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
         }
-        contactList = filterDateList;
-        adapter = new ContactAdapter(getContext(),filterDateList);
-        lv_contact.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
         if(filterDateList.size()==0){
             null_personnel.setVisibility(View.VISIBLE);
         }else{
