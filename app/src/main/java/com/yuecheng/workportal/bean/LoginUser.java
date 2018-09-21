@@ -44,6 +44,8 @@ public class LoginUser {
 
     private String token_type;
 
+    private String userId;
+
     private String code;
 
     private String staffGrade;
@@ -66,18 +68,19 @@ public class LoginUser {
 
     private String rongCloudToken;//融云token
 
-    @Generated(hash = 224987295)
+    @Generated(hash = 794197730)
     public LoginUser(Long id, String username, String password, String access_token,
-            int expires_in, String token_type, String code, String staffGrade,
-            String name, String email, int gender, String mobilePhone,
-            String telephone, String organizationName, String positionName,
-            String partTimeJobs, String rongCloudToken) {
+            int expires_in, String token_type, String userId, String code,
+            String staffGrade, String name, String email, int gender,
+            String mobilePhone, String telephone, String organizationName,
+            String positionName, String partTimeJobs, String rongCloudToken) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.access_token = access_token;
         this.expires_in = expires_in;
         this.token_type = token_type;
+        this.userId = userId;
         this.code = code;
         this.staffGrade = staffGrade;
         this.name = name;
@@ -141,6 +144,14 @@ public class LoginUser {
 
     public void setToken_type(String token_type) {
         this.token_type = token_type;
+    }
+
+    public String getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getCode() {
@@ -230,5 +241,6 @@ public class LoginUser {
     public void setRongCloudToken(String rongCloudToken) {
         this.rongCloudToken = rongCloudToken;
     }
+
 
 }

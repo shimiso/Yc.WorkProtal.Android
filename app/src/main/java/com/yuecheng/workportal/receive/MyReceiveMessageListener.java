@@ -72,7 +72,12 @@ public class MyReceiveMessageListener implements RongIMClient.OnReceiveMessageLi
     }
 
     private void  sendNotifyEvent(Message message,Conversation conversation){
-        conversation.setTitle("与" + message.getSenderUserId() + "会话");
+        if(message.getContent().getUserInfo()!=null){
+            conversation.setTargetName(message.getContent().getUserInfo().getName());
+            conversation.setTitle("与" + conversation.getTargetName() + "会话");
+        }else{
+            conversation.setTitle("与" + message.getSenderUserId() + "会话");
+        }
         conversation.setType(Conversation.PRIVATE_CHAT);
         conversation.setSenderUserId(message.getSenderUserId());
         conversation.setReceivedTime(message.getReceivedTime());

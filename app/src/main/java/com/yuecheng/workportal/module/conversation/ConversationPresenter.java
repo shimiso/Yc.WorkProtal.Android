@@ -41,9 +41,28 @@ public class ConversationPresenter {
             if(list!=null){
                 conversationDao.deleteInTx(list);
             }
+            conversationDao.save(temp);
         }catch (Exception e){
             e.printStackTrace();
         }
-        conversationDao.save(temp);
+
+    }
+
+    public void updateConversation(Conversation temp){
+        List<Conversation> list;
+        try {
+            list = conversationDao.queryBuilder()
+                    .where(ConversationDao.Properties.TargetId.eq(temp.getTargetId()))
+                    .build().list();
+            if(list!=null&&list.size()>0){
+                temp.setTargetName(list.get(0).getTargetName());
+                temp.setTitle(list.get(0).getTitle());
+                conversationDao.deleteInTx(list);
+            }
+            conversationDao.save(temp);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }

@@ -111,6 +111,7 @@ public class UserPresenter {
                             if(StringUtils.isEmpty(person.getRongCloudToken())){
                                 commonPostView.postError("服务器返回数据异常");
                             }else {
+                                loginUser.setUserId(person.getId()+"");
                                 loginUser.setCode(person.getCode());
                                 loginUser.setStaffGrade(person.getStaffGrade());
                                 loginUser.setEmail(person.getEmail());

@@ -79,6 +79,7 @@ public class MainApplication extends MultiDexApplication {
         RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener(this));
         //消息发送监听
         RongIM.getInstance().setSendMessageListener(new MySendMessageListener(this));
+        RongIM.getInstance().setMessageAttachedUserInfo(true);
     }
 
     public static MainApplication getApplication() {

@@ -44,7 +44,7 @@ public class MySendMessageListener implements RongIM.OnSendMessageListener {
         //开发者根据自己需求自行处理逻辑
         MessageContent messageContent = message.getContent();
         LoginUser loginUser = MainApplication.getApplication().getLoginUser();
-        messageContent.setUserInfo(new UserInfo(message.getSenderUserId(),loginUser.getName(),null));
+        messageContent.setUserInfo(new UserInfo(loginUser.getUserId(),loginUser.getName(),null));
         return message;
     }
 
@@ -103,14 +103,18 @@ public class MySendMessageListener implements RongIM.OnSendMessageListener {
     }
 
     private void sendEvent(Message message, Conversation conversation) {
-        conversation.setTitle("与" + message.getSenderUserId() + "会话");
+        if(message.getContent().getUserInfo()!=null){
+            conversation.setTitle("与" + conversation.getTargetName() + "会话");
+        }else{
+            conversation.setTitle("与" + message.getSenderUserId() + "会话");
+        }
         conversation.setType(Conversation.PRIVATE_CHAT);
         conversation.setSenderUserId(message.getSenderUserId());
         conversation.setReceivedTime(message.getReceivedTime());
         conversation.setTargetId(message.getTargetId());
         conversation.setSentTime(message.getSentTime());
 
-        conversationPresenter.saveConversation(conversation);
+        conversationPresenter.updateConversation(conversation);
         EventBus.getDefault().post(conversation);
     }
 }
