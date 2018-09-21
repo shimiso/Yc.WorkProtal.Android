@@ -9,7 +9,7 @@
         android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:background="#0195ff">
+        android:background="@color/primary">
 
         <RelativeLayout
             android:id="@+id/back"
@@ -25,22 +25,14 @@
                 android:layout_marginLeft="12dp"
                 android:background="@mipmap/back_btn" />
 
-            <ImageView
-                android:id="@+id/img2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/img1"
-                android:background="@mipmap/de_bar_logo" />
-
             <TextView
                 android:id="@+id/txt1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
-                android:layout_toRightOf="@+id/img2"
+                android:layout_toRightOf="@+id/img1"
+                android:textSize="18sp"
                 android:textColor="#e4e4e4" />
         </RelativeLayout>
 

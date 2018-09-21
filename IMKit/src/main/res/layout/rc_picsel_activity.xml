@@ -7,8 +7,9 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:paddingTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="68dp"
         android:background="@color/rc_picsel_toolbar">
 
         <ImageButton
@@ -34,7 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/rc_sel_picsel_toolbar_send"
             android:enabled="false"

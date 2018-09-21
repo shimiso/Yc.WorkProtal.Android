@@ -80,7 +80,6 @@ public class LoginActivity extends BaseActivity {
                         userPresenter.identity(loginUser, new CommonPostView<LoginUser>() {
                             @Override
                             public void postSuccess(ResultInfo<LoginUser> resultInfo) {
-                                //TODO 获取用户信息
                                 loadingDialog.dismiss();
                                 spUtil.setCurrentUserName(username);
                                 startActivity(new Intent(context, MainActivity.class));

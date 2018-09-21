@@ -3,7 +3,6 @@ package com.yuecheng.workportal.module.conversation;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -109,12 +108,7 @@ public class ConversationActivity extends BaseActivity {
     private void setActionBar() {
         mTitle =  findViewById(R.id.txt1);
         mBack = findViewById(R.id.back);
-        mBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mBack.setOnClickListener(v -> finish());
     }
 
 

@@ -7,7 +7,8 @@
     <LinearLayout
         android:id="@+id/rc_ac_ll_base_title"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:paddingTop="20dp"
+        android:layout_height="68dp"
         android:background="@color/rc_main_theme"
         android:orientation="horizontal">
 
