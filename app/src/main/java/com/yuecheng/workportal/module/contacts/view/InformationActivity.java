@@ -66,12 +66,12 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
         ButterKnife.bind(this);
         context = this;
         Intent intent = getIntent();
-        int staffId = intent.getIntExtra("StaffId", -1);
+        String code = intent.getStringExtra("Code");
         String name = intent.getStringExtra("name");
         titleName.setText(name);
-        if (staffId != -1) {
+        if (code != null) {
             ContactsPresenter contactsPresenter = new ContactsPresenter(this);
-            contactsPresenter.getContactInformation(staffId + "", this);
+            contactsPresenter.getContactInformation(code, this);
         }
 
     }
@@ -141,16 +141,21 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
     public void postSuccess(ResultInfo<PersonnelDetailsBean> resultInfo) {
         if (resultInfo.isSuccess()) {
             personnelDetailsBean = resultInfo.getResult();
-            contactRenName.setText(personnelDetailsBean.getName());
-            myWorkNumberTv.setText(personnelDetailsBean.getCode());
-            myPhoneTv.setText(personnelDetailsBean.getMobilePhone());
-            myLandlineTv.setText(personnelDetailsBean.getTelephone());
-            myEmailTv.setText(personnelDetailsBean.getEmail());
-            myJobsTv.setText(personnelDetailsBean.getPositionName());
-            contactRenJobs.setText(personnelDetailsBean.getPositionName());
-            myDirectoryTv.setText(personnelDetailsBean.getOrganizationName());
+            //直属上级
+            PersonnelDetailsBean.DirectSupervisorBean directSupervisor = personnelDetailsBean.getDirectSupervisor();
+
+            contactRenName.setText(personnelDetailsBean.getName());//name
+            myWorkNumberTv.setText(personnelDetailsBean.getCode());//工号
+            myPhoneTv.setText(personnelDetailsBean.getMobilePhone());//手机号
+            myLandlineTv.setText(personnelDetailsBean.getTelephone());//座机
+            myEmailTv.setText(personnelDetailsBean.getEmail());//邮件
+            myJobsTv.setText(personnelDetailsBean.getPositionName());//岗位
+            contactRenJobs.setText(personnelDetailsBean.getPositionName());//岗位
+            myDirectoryTv.setText(personnelDetailsBean.getOrganizationName()); //组织路径
             myDeputyTv.setText("");
-            myMmediateSuperiorTv.setText(personnelDetailsBean.getDirectSupervisor().getName());
+            if(directSupervisor!=null){
+                myMmediateSuperiorTv.setText(directSupervisor.getName());//直属上级
+            }
             myPhoneTv.setTextColor(Color.parseColor("#509FFF"));
             myLandlineTv.setTextColor(Color.parseColor("#509FFF"));
             myEmailTv.setTextColor(Color.parseColor("#509FFF"));
@@ -159,6 +164,5 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
 
     @Override
     public void postError(String errorMsg) {
-
     }
 }

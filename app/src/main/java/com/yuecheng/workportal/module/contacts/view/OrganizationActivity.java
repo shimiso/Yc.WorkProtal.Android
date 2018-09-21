@@ -98,18 +98,60 @@ public class OrganizationActivity extends BaseActivity {
             @Override
             public void postSuccess(ResultInfo<ChildInstitutionsBean> resultInfo) {
 
+                //设置title名字
                 ChildInstitutionsBean result1 = resultInfo.getResult();
                 String[] split2 = result1.getDeepOrgNames().split(">");
                 titleName.setText(split2[split2.length - 1]);
+                //刷新适配器
                 ChildInstitutionsBean.OrgsBean result = result1.getOrgs().get(0);
                 subOrgsList = result.getSubOrgs();
                 staffsList = result.getStaffs();
                 organizationAdapter.onRefresh(staffsList, subOrgsList);
 
-                TextView textView = new TextView(OrganizationActivity.this);
+                //更新组织路径
                 String[] split = result1.getDeepOrgNames().split(">");
-                textView.setText(" > " + split[split.length - 1]);
-                myLinearlayout.addView(textView);
+                myLinearlayout.removeAllViews();
+                for(int index=1;index<split.length;index++){
+                    TextView textView = new TextView(OrganizationActivity.this);
+                    textView.setText(" > " + split[index]);
+                    myLinearlayout.addView(textView);
+                    //路劲导航条点击事件
+                    textView.setOnClickListener(v -> {
+                        int Vindex=myLinearlayout.indexOfChild(v);//获取当前点击view的下标
+                        for (int i = myLinearlayout.getChildCount() - 1; i > Vindex; i--) {
+                            myLinearlayout.removeViewAt(i);
+                        }
+
+                        for (int i = 0; i < myLinearlayout.getChildCount(); i++) {
+                            if (i == myLinearlayout.getChildCount() - 1) {
+                                TextView childAt = (TextView) myLinearlayout.getChildAt(i);
+                                childAt.setTextColor(Color.parseColor("#282828"));
+                            } else {
+                                TextView childAt = (TextView) myLinearlayout.getChildAt(i);
+                                childAt.setTextColor(Color.parseColor("#3189f4"));
+                            }
+                        }
+                        String[] split1 = result1.getDeepOrgIds().split(">");
+                        ContactsPresenter Presenter = new ContactsPresenter(OrganizationActivity.this);
+                        Presenter.getAddressOrgQuery(Integer.parseInt(split1[Vindex+1]), new CommonPostView<ChildInstitutionsBean>() {
+                            @Override
+                            public void postSuccess(ResultInfo<ChildInstitutionsBean> resultInfo) {
+                                ChildInstitutionsBean result1 = resultInfo.getResult();
+                                ChildInstitutionsBean.OrgsBean result = result1.getOrgs().get(0);
+                                subOrgsList = result.getSubOrgs();
+                                staffsList = result.getStaffs();
+                                organizationAdapter.onRefresh(staffsList, subOrgsList);
+                            }
+
+                            @Override
+                            public void postError(String errorMsg) {
+                                Toast.makeText(OrganizationActivity.this, "服务器发生未知异常", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    });
+                }
+
                 for (int i = 0; i < myLinearlayout.getChildCount(); i++) {
                     if (i == myLinearlayout.getChildCount() - 1) {
                         TextView childAt = (TextView) myLinearlayout.getChildAt(i);
@@ -119,39 +161,7 @@ public class OrganizationActivity extends BaseActivity {
                         childAt.setTextColor(Color.parseColor("#3189f4"));
                     }
                 }
-                textView.setOnClickListener(v -> {
-                    for (int i = myLinearlayout.getChildCount() - 1; i >= split.length - 1; i--) {
-                        myLinearlayout.removeViewAt(i);
-                    }
 
-                    for (int i = 0; i < myLinearlayout.getChildCount(); i++) {
-                        if (i == myLinearlayout.getChildCount() - 1) {
-                            TextView childAt = (TextView) myLinearlayout.getChildAt(i);
-                            childAt.setTextColor(Color.parseColor("#282828"));
-                        } else {
-                            TextView childAt = (TextView) myLinearlayout.getChildAt(i);
-                            childAt.setTextColor(Color.parseColor("#3189f4"));
-                        }
-                    }
-                    String[] split1 = result1.getDeepOrgIds().split(">");
-                    ContactsPresenter Presenter = new ContactsPresenter(OrganizationActivity.this);
-                    Presenter.getAddressOrgQuery(Integer.parseInt(split1[split1.length - 1]), new CommonPostView<ChildInstitutionsBean>() {
-                        @Override
-                        public void postSuccess(ResultInfo<ChildInstitutionsBean> resultInfo) {
-                            ChildInstitutionsBean result1 = resultInfo.getResult();
-                            ChildInstitutionsBean.OrgsBean result = result1.getOrgs().get(0);
-                            subOrgsList = result.getSubOrgs();
-                            staffsList = result.getStaffs();
-                            organizationAdapter.onRefresh(staffsList, subOrgsList);
-                        }
-
-                        @Override
-                        public void postError(String errorMsg) {
-                            Toast.makeText(OrganizationActivity.this, "服务器发生未知异常", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                });
             }
 
             @Override

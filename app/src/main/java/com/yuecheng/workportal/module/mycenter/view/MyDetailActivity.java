@@ -21,6 +21,7 @@ import com.yuecheng.workportal.bean.ResultInfo;
 import com.yuecheng.workportal.common.CommonPostView;
 import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
 import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
+import com.yuecheng.workportal.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +67,7 @@ public class MyDetailActivity extends BaseActivity implements CommonPostView<Per
         ButterKnife.bind(this);
         context = this;
         ContactsPresenter contactsPresenter = new ContactsPresenter(this);
-        contactsPresenter.getContactInformation("11", this);
+        contactsPresenter.getContactInformation("", this);
     }
 
     @OnClick({R.id.back_iv, R.id.set_user_head})
@@ -139,6 +140,6 @@ public class MyDetailActivity extends BaseActivity implements CommonPostView<Per
 
     @Override
     public void postError(String errorMsg) {
-
+        ToastUtil.info(MyDetailActivity.this,errorMsg);
     }
 }

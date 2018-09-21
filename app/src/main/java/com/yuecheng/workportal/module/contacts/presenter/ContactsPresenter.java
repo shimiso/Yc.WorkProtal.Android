@@ -43,7 +43,6 @@ public class ContactsPresenter {
         LoginUser loginUser = MainApplication.getApplication().getLoginUser();
         OkGo.<String>post(UrlConstant.ADDRESSSTAFFQUEY)//
                 .tag(this)//
-                .params("guid", "E16432D2-413B-46D8-94E0-7A3F37A10322")//
                 .headers("Authorization", "Bearer "+loginUser.getAccess_token())
                 .execute(new StringCallback(){
                     @Override
@@ -79,14 +78,16 @@ public class ContactsPresenter {
 
     /**
      * 获取个人详细信息
-     * @param StaffId
+     * @param Code
      * @param commonPostView
      */
-    public void getContactInformation(String StaffId, final CommonPostView commonPostView){
+    public void getContactInformation(String Code, final CommonPostView commonPostView){
 
-        OkGo.<String>post(UrlConstant.STAFFBASICINFOGET)//
+        LoginUser loginUser = MainApplication.getApplication().getLoginUser();
+        OkGo.<String>get(UrlConstant.SSO_IDENTITY)//
                 .tag(this)//
-                .params("StaffId", StaffId)//
+                .params("Code", Code)//
+                .headers("Authorization", "Bearer "+loginUser.getAccess_token())
                 .execute(new StringCallback(){
                     @Override
                     public void onSuccess(Response<String> result) {
@@ -121,15 +122,13 @@ public class ContactsPresenter {
 
     /**
      * 获取顶级组织机构
-     * @param staffId
+
      * @param commonPostView
      */
-    public void getAddressTopOrgQuery(String staffId, final CommonPostView commonPostView){
-
+    public void getAddressTopOrgQuery(final CommonPostView commonPostView){
         LoginUser loginUser = MainApplication.getApplication().getLoginUser();
         OkGo.<String>post(UrlConstant.ADDRESSTOPORGQUERY)
                 .tag(this)
-                .params("guid", staffId)
                 .headers("Authorization", "Bearer "+loginUser.getAccess_token())
                 .execute(new StringCallback(){
                     @Override

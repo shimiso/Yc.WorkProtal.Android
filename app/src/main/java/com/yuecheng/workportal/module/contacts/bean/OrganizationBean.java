@@ -192,6 +192,7 @@ public class OrganizationBean {
              */
 
             private int staffId;
+            private String code;
             private String name;
             private String positionName;
             private String headPortraitUrl;
@@ -202,6 +203,13 @@ public class OrganizationBean {
 
             public void setStaffId(int staffId) {
                 this.staffId = staffId;
+            }
+            public String getCode() {
+                return code;
+            }
+
+            public void setCode(String code) {
+                this.code = code;
             }
 
             public String getName() {

@@ -11,12 +11,12 @@ public interface UrlConstant {
 
     String  GET_NEW_VERSION = HTTP_HOST + "";
     String  ADDRESSSTAFFQUEY = HTTP_HOST + "AddressBook/GetAddressStaffQuery";//通讯录整体人员
-    String  STAFFBASICINFOGET = HTTP_HOST + "api/Identity";//获取人员详情
+    String  STAFFBASICINFOGET = HTTP_HOST + "api/Identity";
     String  ADDRESSTOPORGQUERY = HTTP_HOST + "AddressBook/GetAddressTopOrgQuery";//组织机构顶级
     String  ADDRESSORGQUERY = HTTP_HOST + "AddressBook/GetAddressOrgQuery";//组织机构子机构
 
 
 
     String SSO_LOGIN = "http://192.168.0.141:5000/connect/token";
-    String SSO_IDENTITY = "http://192.168.0.141:5005/api/Identity";
+    String SSO_IDENTITY = "http://192.168.0.141:5005/api/Identity";//获取人员详情
 }

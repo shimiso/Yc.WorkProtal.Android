@@ -87,6 +87,9 @@
     <string name="set_fangyan">Set dialects</string>
     <string name="modify_password">Nodify password</string>
     <string name="message_notification">Notification</string>
+    <string name="mandarin">mandarin</string>
+    <string name="cantonese">cantonese</string>
+    <string name="lmz">Sichuan dialect</string>
 
     <!--语音-->
     <string name="grammar_error">semantic error</string>

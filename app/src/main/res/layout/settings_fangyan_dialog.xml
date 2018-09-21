@@ -26,7 +26,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="普通话"
+            android:text="@string/mandarin"
             android:textColor="@color/blue"
             android:textSize="18sp" />
 
@@ -40,7 +40,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="粤语"
+            android:text="@string/cantonese"
             android:textColor="@color/blue"
             android:textSize="18sp" />
 
@@ -54,7 +54,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="四川话"
+            android:text="@string/lmz"
             android:textColor="@color/blue"
             android:textSize="18sp" />
 </LinearLayout>

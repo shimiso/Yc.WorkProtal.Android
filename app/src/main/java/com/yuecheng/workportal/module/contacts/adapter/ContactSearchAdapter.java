@@ -69,7 +69,7 @@ public class ContactSearchAdapter extends BaseAdapter {
             public void onClick(View v) {
                 //条目点击
                 Intent intent = new Intent(context, InformationActivity.class);
-                intent.putExtra("StaffId",contactBean.getStaffId());
+                intent.putExtra("Code",contactBean.getCode());
                 intent.putExtra("name",contactBean.getName());
                 context.startActivity(intent);
             }

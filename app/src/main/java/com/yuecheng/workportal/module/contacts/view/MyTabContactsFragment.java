@@ -151,13 +151,6 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
         lv_contact.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int scrollState) {
-                //SCROLL_STATE_FLING  		用户之前已经使用触屏实现了一个滚动。也就是手指离开屏幕，但屏幕还在滚动
-                //SCROLL_STATE_IDLE  		视图静止，空闲状态
-                //SCROLL_STATE_TOUCH_SCROLL 用户的手指还在屏幕上，正在触屏滑动
-//                if(scrollState== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-//                    //如果垂直滑动，则需要关闭已经打开的layout
-//                    SwipeManager.getInstance().closeCurrentLayout();
-//                }
 
             }
 
@@ -166,7 +159,6 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
                                  int visibleItemCount, int totalItemCount) {
                 int pos = lv_contact.getFirstVisiblePosition();
                 if (contactList.size()>0){
-                    tv_alphabet.setVisibility(View.VISIBLE);
                     String text = contactList.get(pos).getPinyin().charAt(0)+"";
                     Pattern p = Pattern.compile("[0-9]*");
                     Matcher m1 = p.matcher(text);
@@ -175,8 +167,6 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
                     }else {
                         tv_alphabet.setText(text);
                     }
-                }else {
-                    tv_alphabet.setVisibility(View.GONE);
                 }
             }
         });
@@ -281,6 +271,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
         if (TextUtils.isEmpty(str)){
             sideLetterBar.setVisibility(View.VISIBLE);
             null_personnel.setVisibility(View.GONE);
+            tv_alphabet.setVisibility(View.VISIBLE);
             filterDateList = mSortList;
            // contactList = filterDateList;
             adapter = new ContactAdapter(getContext(),filterDateList);
@@ -289,6 +280,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
         }else {
             filterDateList.clear();
             sideLetterBar.setVisibility(View.GONE);
+            tv_alphabet.setVisibility(View.GONE);
             Pattern p = Pattern.compile("[\u4e00-\u9fa5]+");
             Matcher m = p.matcher(str);
             if(m.matches()){
