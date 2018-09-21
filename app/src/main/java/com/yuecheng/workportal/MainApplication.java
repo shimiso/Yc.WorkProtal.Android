@@ -114,7 +114,7 @@ public class MainApplication extends MultiDexApplication {
         for (Activity activity : activityList) {
             activity.finish();
         }
-        startActivity(new Intent(app, LoginActivity.class));
+        spUtil.setCurrentUserName("");
     }
 
     /**
