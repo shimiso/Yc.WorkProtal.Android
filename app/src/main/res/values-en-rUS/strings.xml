@@ -105,6 +105,7 @@
     <string name="click_talk">Clicking on speech</string>
     <string name="default_voice_answer">"Sorry, I don't know what you say"</string>
     <string name="normal">Hold to talk </string>
+    <string name="normal_end">Loosen the end</string>
     <string name="voice_rec">Finger slide, cancel send</string>
     <string name="voice_cancel">Loosen your fingers and cancel sending</string>
     <string name="voice_short">The recording time is too short. </string>

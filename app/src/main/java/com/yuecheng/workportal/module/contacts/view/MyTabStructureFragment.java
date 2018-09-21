@@ -65,7 +65,7 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
         unbinder = ButterKnife.bind(this, view);
         ContactsPresenter contactsPresenter = new ContactsPresenter(getActivity());
         //参数一是登录人员的id
-        contactsPresenter.getAddressTopOrgQuery(11, this);
+        contactsPresenter.getAddressTopOrgQuery("E16432D2-413B-46D8-94E0-7A3F37A10322", this);
 
         //设置RecyclerView管理器
         myContacterRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -127,7 +127,7 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
                 myLinearlayout.removeAllViews();
                 ContactsPresenter contactsPresenter = new ContactsPresenter(getActivity());
                 //参数一是登录人员的id
-                contactsPresenter.getAddressTopOrgQuery(11, this);
+                contactsPresenter.getAddressTopOrgQuery("E16432D2-413B-46D8-94E0-7A3F37A10322", this);
             });
         }
     }
@@ -183,8 +183,8 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
         textView.setOnClickListener(v -> {
             myLinearlayout.removeAllViews();
             ContactsPresenter contactsPresenter = new ContactsPresenter(getActivity());
-            //参数一是登录人员的id
-            contactsPresenter.getAddressTopOrgQuery(11, this);
+            //参数一是登录人员的guid
+            contactsPresenter.getAddressTopOrgQuery("E16432D2-413B-46D8-94E0-7A3F37A10322", this);
         });
         if(orgs == null) return;
         List<OrganizationBean.OrgsBean.StaffsBean>  staffsList = null;

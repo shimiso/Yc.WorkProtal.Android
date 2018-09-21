@@ -46,7 +46,7 @@ android {
             versionNameSuffix "(Dev_Build" + defaultConfig.versionCode + ")"
             buildConfigField "String", "CERTIFICATE_NAME", "\"debug_cer.pem\""
 //            buildConfigField "String", "HTTP_HOST", "\"http://jujia02.ycsenior.com\""
-            buildConfigField "String", "HTTP_HOST", "\"http://192.168.0.150:8683/\""
+            buildConfigField "String", "HTTP_HOST", "\"http://192.168.0.141:5005/\""
             buildConfigField "boolean", "IS_HTTPS", "false"
             buildConfigField "boolean", "LOG_DEBUG", "true"
             minifyEnabled false

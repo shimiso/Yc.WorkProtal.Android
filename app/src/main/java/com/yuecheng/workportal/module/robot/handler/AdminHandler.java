@@ -29,7 +29,7 @@ public class AdminHandler extends IntentHandler {
             switch(intent) {
                 case instruction.STAMP_APPLICATION://申请盖章
                     MainPresenter.responseAnswer("跳转页面到申请盖章!");
-                    String url = "http://www.baidu.com";
+                    String url = "http://omstest.gongheyuan.com/portal/#/CarePlan";
                     Intent intent1 = new Intent(MainApplication.getApplication(), OpenH5Activity.class);
                     intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
                     intent1.putExtra("url",url);

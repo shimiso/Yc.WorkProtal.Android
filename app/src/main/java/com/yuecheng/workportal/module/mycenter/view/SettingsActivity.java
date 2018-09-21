@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.TextUnderstander;
+import com.yuecheng.workportal.MainActivity;
 import com.yuecheng.workportal.LoginActivity;
 import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
@@ -94,17 +98,22 @@ public class SettingsActivity extends BaseActivity {
     private void showFangYanDialog() {
         FangYanSettingsDialog centerDialog = new FangYanSettingsDialog(context);
         centerDialog.setClicklistener(new FangYanSettingsDialog.ClickListenerInterface() {
-
             @Override
             public void onOneClick() {
+                setFangYan("mandarin");
+                centerDialog.dismissDialog();
             }
 
             @Override
             public void onTwoClick() {
+                setFangYan("cantonese");
+                centerDialog.dismissDialog();
             }
 
             @Override
             public void onThreeClick() {
+                setFangYan("lmz");
+                centerDialog.dismissDialog();
             }
         });
     }
@@ -139,5 +148,21 @@ public class SettingsActivity extends BaseActivity {
         resources.updateConfiguration(config, dm);
         //模拟重启页面
         MainApplication.getApplication().toIndex();
+    }
+    //设置方言
+    private void setFangYan(String fangyan){
+        Locale curLocale = context.getResources().getConfiguration().locale;
+        SpeechRecognizer recognizer = SpeechRecognizer.createRecognizer(SettingsActivity.this, null);
+        TextUnderstander textUnderstander = TextUnderstander.createTextUnderstander(SettingsActivity.this, null);
+        //通过Locale的equals方法，判断出当前语言环境
+        if (curLocale.equals(Locale.SIMPLIFIED_CHINESE)) {
+            //中文
+            recognizer.setParameter(SpeechConstant.ACCENT, fangyan);
+            textUnderstander.setParameter(SpeechConstant.ACCENT, fangyan);
+        }else{
+            //英文状态下没有方言设置
+            recognizer.setParameter(SpeechConstant.ACCENT, null);
+            textUnderstander.setParameter(SpeechConstant.ACCENT, null);
+        }
     }
 }

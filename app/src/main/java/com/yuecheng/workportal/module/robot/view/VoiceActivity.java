@@ -179,6 +179,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         mRecordWindow.setFocusable(true);
         mRecordWindow.setOutsideTouchable(false);
         mRecordWindow.setTouchable(false);
+        voice_btn.setText(R.string.normal_end);
     }
 
     //识别中
@@ -226,6 +227,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
             this.mStateIV.setImageResource(R.mipmap.ic_volume_cancel);
             this.mStateTV.setVisibility(View.VISIBLE);
             this.mStateTV.setText(R.string.voice_cancel);
+            voice_btn.setText(R.string.voice_rec);
             this.mStateTV.setBackgroundResource(R.drawable.corner_voice_style);
         }
     }
@@ -240,6 +242,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
             this.mStateIV = null;
             this.mStateTV = null;
             this.mTimerTV = null;
+            voice_btn.setText(R.string.normal);
         }
     }
 
