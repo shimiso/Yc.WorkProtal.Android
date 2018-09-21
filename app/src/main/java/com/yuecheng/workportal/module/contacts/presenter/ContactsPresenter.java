@@ -7,6 +7,8 @@ import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.yuecheng.workportal.MainApplication;
+import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.common.UrlConstant;
 import com.yuecheng.workportal.module.contacts.bean.ChildInstitutionsBean;
 import com.yuecheng.workportal.module.contacts.bean.ContactBean;
@@ -38,10 +40,11 @@ public class ContactsPresenter {
      * @param commonPostView
      */
     public void getContact(final CommonPostView commonPostView){
-
+        LoginUser loginUser = MainApplication.getApplication().getLoginUser();
         OkGo.<String>post(UrlConstant.ADDRESSSTAFFQUEY)//
                 .tag(this)//
-                .params("staffId", 11)//
+                .params("guid", "E16432D2-413B-46D8-94E0-7A3F37A10322")//
+                .headers("Authorization", "Bearer "+loginUser.getAccess_token())
                 .execute(new StringCallback(){
                     @Override
                     public void onSuccess(Response<String> result) {
@@ -121,11 +124,13 @@ public class ContactsPresenter {
      * @param staffId
      * @param commonPostView
      */
-    public void getAddressTopOrgQuery(int staffId, final CommonPostView commonPostView){
+    public void getAddressTopOrgQuery(String staffId, final CommonPostView commonPostView){
 
+        LoginUser loginUser = MainApplication.getApplication().getLoginUser();
         OkGo.<String>post(UrlConstant.ADDRESSTOPORGQUERY)
                 .tag(this)
-                .params("staffId", staffId)
+                .params("guid", staffId)
+                .headers("Authorization", "Bearer "+loginUser.getAccess_token())
                 .execute(new StringCallback(){
                     @Override
                     public void onSuccess(Response<String> result) {
@@ -165,9 +170,11 @@ public class ContactsPresenter {
      */
     public void getAddressOrgQuery(int orgId, final CommonPostView commonPostView){
 
+        LoginUser loginUser = MainApplication.getApplication().getLoginUser();
         OkGo.<String>post(UrlConstant.ADDRESSORGQUERY)
                 .tag(this)
                 .params("orgId", orgId)
+                .headers("Authorization", "Bearer "+loginUser.getAccess_token())
                 .execute(new StringCallback(){
                     @Override
                     public void onSuccess(Response<String> result) {

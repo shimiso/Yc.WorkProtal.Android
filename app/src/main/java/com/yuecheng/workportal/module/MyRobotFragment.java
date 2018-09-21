@@ -98,7 +98,7 @@ public class MyRobotFragment extends BaseFragment {
                 Toast.makeText(getContext(),"dc",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.oms:
-                String url = "http://192.168.0.150:8684";
+                String url = "http://omstest.gongheyuan.com/portal/#/CarePlan";
                 Intent intent1 = new Intent(getContext(), OpenH5Activity.class);
                 intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
                 intent1.putExtra("url",url);

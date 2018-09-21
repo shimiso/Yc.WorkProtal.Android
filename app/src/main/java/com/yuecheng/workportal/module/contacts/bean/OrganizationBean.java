@@ -18,6 +18,7 @@ public class OrganizationBean {
 
     private int myselfTopOrgId;
     private Object deepOrgNames;
+    private Object deepOrgIds;
     private List<OrgsBean> orgs;
 
     public int getMyselfTopOrgId() {
@@ -34,6 +35,13 @@ public class OrganizationBean {
 
     public void setDeepOrgNames(Object deepOrgNames) {
         this.deepOrgNames = deepOrgNames;
+    }
+    public Object getDeepOrgIds() {
+        return deepOrgIds;
+    }
+
+    public void setDeepOrgIds(Object deepOrgIds) {
+        this.deepOrgIds = deepOrgIds;
     }
 
     public List<OrgsBean> getOrgs() {
