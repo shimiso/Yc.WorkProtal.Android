@@ -83,7 +83,7 @@ public class OrganizationActivity extends BaseActivity {
                 if (subOrgsList != null && position >= subOrgsList.size()) {
                     //条目点击
                     Intent intent = new Intent(OrganizationActivity.this, InformationActivity.class);
-                    intent.putExtra("StaffId", staffsList.get(position - subOrgsList.size()).getStaffId());
+                    intent.putExtra("Code", staffsList.get(position - subOrgsList.size()).getCode());
                     intent.putExtra("name", staffsList.get(position - subOrgsList.size()).getName());
                     startActivity(intent);
                 }

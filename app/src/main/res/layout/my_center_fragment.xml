@@ -49,23 +49,22 @@
                 android:id="@+id/imageView" />
 
             <TextView
+                android:id="@+id/tit_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/imageView"
                 android:layout_marginLeft="20dp"
                 android:layout_toEndOf="@+id/imageView"
-                android:text="张三"
                 android:textSize="18sp"
-                android:textColor="#000"
-                android:id="@+id/textView2" />
+                android:textColor="#000" />
 
             <TextView
+                android:id="@+id/tit_jobs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/textView2"
-                android:layout_below="@+id/textView2"
+                android:layout_alignStart="@+id/tit_name"
+                android:layout_below="@+id/tit_name"
                 android:layout_marginTop="5dp"
-                android:text="线上产品主管"
                 android:textSize="16sp" />
 
             <ImageView

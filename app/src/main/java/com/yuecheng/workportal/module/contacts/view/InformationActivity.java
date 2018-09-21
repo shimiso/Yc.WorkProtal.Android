@@ -19,6 +19,8 @@ import com.yuecheng.workportal.bean.ResultInfo;
 import com.yuecheng.workportal.common.CommonPostView;
 import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
 import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
+import com.yuecheng.workportal.utils.ToastUtil;
+import com.yuecheng.workportal.widget.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,8 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
 
     private List<LocalMedia> selectList = new ArrayList<>();
     PersonnelDetailsBean personnelDetailsBean;
+    private LoadingDialog loadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +73,9 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
         String code = intent.getStringExtra("Code");
         String name = intent.getStringExtra("name");
         titleName.setText(name);
+        loadingDialog = LoadingDialog.createDialog(this);
+        loadingDialog.setMessage("请求网络中...");
+        loadingDialog.show();
         if (code != null) {
             ContactsPresenter contactsPresenter = new ContactsPresenter(this);
             contactsPresenter.getContactInformation(code, this);
@@ -159,10 +166,14 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
             myPhoneTv.setTextColor(Color.parseColor("#509FFF"));
             myLandlineTv.setTextColor(Color.parseColor("#509FFF"));
             myEmailTv.setTextColor(Color.parseColor("#509FFF"));
+
+            loadingDialog.dismiss();
         }
     }
 
     @Override
     public void postError(String errorMsg) {
+        ToastUtil.error(InformationActivity.this,errorMsg);
+        loadingDialog.dismiss();
     }
 }

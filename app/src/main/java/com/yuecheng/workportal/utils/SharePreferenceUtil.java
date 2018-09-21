@@ -143,7 +143,27 @@ public class SharePreferenceUtil {
         edit.putBoolean(key, value);
         edit.apply();
     }
+    /**
+     * 获取一个String值
+     *
+     * @param key      存储的key值
+     * @param defValue 默认值
+     */
+    public String getStrings(String key, String defValue) {
+        return sp.getString(key, defValue);
+    }
 
+    /**
+     * 获取一个String值
+     *
+     * @param key   存储的key值
+     * @param value 存储的boolean值
+     */
+    public void setString(String key, String value) {
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putString(key, value);
+        edit.apply();
+    }
     /**
      * 获取当前登录用户名
      *

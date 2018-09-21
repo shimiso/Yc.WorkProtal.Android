@@ -19,6 +19,8 @@ public  class MessageEvent{
         this.type = type;
         this.json = json;
     }
+    /**修改展示的语言**/
+    public static final Integer SET_LANGUAGE_TEXT = 2;
 
 
 

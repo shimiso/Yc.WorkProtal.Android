@@ -99,8 +99,17 @@
             android:layout_centerVertical="true"
             android:text="@string/set_language"
             android:textSize="16sp" />
+        <TextView
+            android:id="@+id/language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/set_language"
+            android:layout_marginRight="8dp"
+            android:textSize="16sp" />
 
         <ImageView
+            android:id="@+id/set_language"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
@@ -125,7 +134,16 @@
             android:text="@string/set_fangyan"
             android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/fanyan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/set_fanyan"
+            android:layout_marginRight="8dp"
+            android:textSize="16sp" />
         <ImageView
+            android:id="@+id/set_fanyan"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
@@ -150,7 +168,16 @@
             android:text="@string/set_index"
             android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/home_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/set_home_page"
+            android:layout_marginRight="8dp"
+            android:textSize="16sp" />
         <ImageView
+            android:id="@+id/set_home_page"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
