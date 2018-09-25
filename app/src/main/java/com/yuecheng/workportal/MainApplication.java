@@ -115,6 +115,7 @@ public class MainApplication extends MultiDexApplication {
             activity.finish();
         }
         spUtil.setCurrentUserName("");
+        loginUser = null;
     }
 
     /**
