@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yuecheng.workportal.base.BaseFragment;
 import com.yuecheng.workportal.module.contacts.bean.OrganizationBean;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.bean.ResultInfo;
@@ -23,6 +24,7 @@ import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
 import com.yuecheng.workportal.module.contacts.bean.ChildInstitutionsBean;
 import com.yuecheng.workportal.module.contacts.bean.OrganizationBean;
 import com.yuecheng.workportal.module.contacts.adapter.OrganizationAdapter;
+import com.yuecheng.workportal.utils.LoadViewUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +39,7 @@ import butterknife.Unbinder;
  * Created by huochangsheng on 2018/8/30.
  */
 
-public class MyTabStructureFragment extends Fragment implements CommonPostView<OrganizationBean> {
+public class MyTabStructureFragment extends BaseFragment {
 
     @BindView(R.id.my_contacter_recyclerView)
     RecyclerView myContacterRecyclerView;
@@ -50,6 +52,7 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
     private List<OrganizationBean.OrgsBean.SubOrgsBean> subOrgsList;
     private List<OrganizationBean.OrgsBean> orgs;
     private String selectname;
+    private LoadViewUtil viewUtil;
 
     public static MyTabStructureFragment newInstance() {
         Bundle args = new Bundle();
@@ -63,10 +66,15 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.contacts_tab_structure, container, false);
         unbinder = ButterKnife.bind(this, view);
-        ContactsPresenter contactsPresenter = new ContactsPresenter(getActivity());
-        //参数一是登录人员的id
-        contactsPresenter.getAddressTopOrgQuery(this);
+        viewUtil = LoadViewUtil.init(view, getContext());
 
+        init();
+        initEvent();
+        loadData();
+        return view;
+    }
+
+    private void init() {
         //设置RecyclerView管理器
         myContacterRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         //初始化适配器
@@ -75,7 +83,9 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
         myContacterRecyclerView.setItemAnimator(new DefaultItemAnimator());
         //设置适配器
         myContacterRecyclerView.setAdapter(organizationAdapter);
+    }
 
+    private void initEvent() {
         //条目点击事件
         organizationAdapter.setOnRecyclerViewItemClickLintemet(position -> {
             if (subOrgsList != null && position < subOrgsList.size()) {
@@ -95,47 +105,73 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
                 }
             }
         });
-
-
-        return view;
     }
 
-    @Override
-    public void postSuccess(ResultInfo<OrganizationBean> resultInfo) {
-        if (resultInfo.isSuccess()) {
-            OrganizationBean result = resultInfo.getResult();
-            orgs = result.getOrgs();
-            if(orgs == null) return;
-            OrganizationBean.OrgsBean orgsBean = null;
-            for(int i=0;i<orgs.size();i++){
-                if(result.getMyselfTopOrgId() == orgs.get(i).getOrgId()){
-                    orgsBean = orgs.get(i);
-                }
-            }
-            selectname=orgsBean.getOrgName(); //获取当前机构name
-            //根目录下人员
-            staffsList = orgsBean.getStaffs();
-            //根目录下部门
-            subOrgsList = orgsBean.getSubOrgs();
-
-            TextView textView = new TextView(getContext());
-            textView.setText(orgsBean.getOrgName());
-            textView.setTextColor(Color.parseColor("#282828"));
-            myLinearlayout.addView(textView);
-            organizationAdapter.onRefresh(staffsList, subOrgsList);
-            textView.setOnClickListener(v -> {
-                myLinearlayout.removeAllViews();
-                ContactsPresenter contactsPresenter = new ContactsPresenter(getActivity());
-                //参数一是登录人员的id
-                contactsPresenter.getAddressTopOrgQuery( this);
+    /**
+     * 加载数据
+     */
+    private void loadData() {
+        //如果没有网络就直接返回
+        if (!androidUtil.hasInternetConnected()) {
+            viewUtil.stopLoading();
+            viewUtil.showLoadingErrorView(LoadViewUtil.LOADING_NONET_VIEW, () -> {
+                viewUtil.startLoading();
+                loadData();
             });
+            return;
         }
+        getData();
+    }
+    //获取组织架构数据
+    public void getData() {
+        ContactsPresenter contactsPresenter = new ContactsPresenter(getActivity());
+        //参数一是登录人员的id
+        contactsPresenter.getAddressTopOrgQuery(new CommonPostView<OrganizationBean>(){
+
+            @Override
+            public void postSuccess(ResultInfo<OrganizationBean> resultInfo) {
+                if (resultInfo.isSuccess()) {
+                    OrganizationBean result = resultInfo.getResult();
+                    orgs = result.getOrgs();
+                    if(orgs == null) return;
+                    OrganizationBean.OrgsBean orgsBean = null;
+                    for(int i=0;i<orgs.size();i++){
+                        if(result.getMyselfTopOrgId() == orgs.get(i).getOrgId()){
+                            orgsBean = orgs.get(i);
+                        }
+                    }
+                    selectname=orgsBean.getOrgName(); //获取当前机构name
+                    //根目录下人员
+                    staffsList = orgsBean.getStaffs();
+                    //根目录下部门
+                    subOrgsList = orgsBean.getSubOrgs();
+
+                    TextView textView = new TextView(getContext());
+                    textView.setText(orgsBean.getOrgName());
+                    textView.setTextColor(Color.parseColor("#282828"));
+                    myLinearlayout.addView(textView);
+                    organizationAdapter.onRefresh(staffsList, subOrgsList);
+                    textView.setOnClickListener(v -> {
+                        myLinearlayout.removeAllViews();
+                        ContactsPresenter contactsPresenter = new ContactsPresenter(getActivity());
+                        //参数一是登录人员的id
+                        contactsPresenter.getAddressTopOrgQuery( this);
+                    });
+                }
+                viewUtil.stopLoading();
+            }
+
+            @Override
+            public void postError(String errorMsg) {
+                viewUtil.stopLoading();
+                viewUtil.showLoadingErrorView(LoadViewUtil.LOADING_ERROR_VIEW, () -> {
+                    viewUtil.startLoading();
+                    loadData();
+                });
+            }
+        });
     }
 
-    @Override
-    public void postError(String errorMsg) {
-
-    }
 
     @Override
     public void onDestroyView() {
@@ -182,9 +218,7 @@ public class MyTabStructureFragment extends Fragment implements CommonPostView<O
         organizationAdapter.onRefresh(staffsList, subOrgsList);
         textView.setOnClickListener(v -> {
             myLinearlayout.removeAllViews();
-            ContactsPresenter contactsPresenter = new ContactsPresenter(getActivity());
-            //参数一是登录人员的guid
-            contactsPresenter.getAddressTopOrgQuery( this);
+            getData();
         });
         if(orgs == null) return;
         List<OrganizationBean.OrgsBean.StaffsBean>  staffsList = null;
