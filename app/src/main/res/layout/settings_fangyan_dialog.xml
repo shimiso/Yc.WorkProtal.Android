@@ -14,7 +14,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="@string/set_language"
+            android:text="@string/set_fangyan"
             android:textSize="18sp" />
 
         <View style="@style/linehorizontal"

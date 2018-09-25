@@ -45,6 +45,7 @@ public class SettingsActivity extends BaseActivity {
     TextView fanyan;
     @BindView(R.id.home_page)
     TextView homePage;
+    private HomePageSettingsDialog homePageSettingsDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -54,9 +55,31 @@ public class SettingsActivity extends BaseActivity {
         ButterKnife.bind(this);
         context = this;
 
+        init();
+    }
+
+    private void init() {
         String language1 = spUtil.getStrings("Language", "中文");
         String FangYan = spUtil.getStrings("FangYan", "普通话");
-
+        int HomeSetting = spUtil.getInt("HomeSetting", 0);
+        homePageSettingsDialog = new HomePageSettingsDialog(context,HomeSetting);
+        switch (HomeSetting) {
+            case 0:
+                homePage.setText(getString(R.string.message));
+                break;
+            case 1:
+                homePage.setText(getString(R.string.task));
+                break;
+            case 2:
+                homePage.setText(getString(R.string.workbench));
+                break;
+            case 3:
+                homePage.setText(getString(R.string.address_books));
+                break;
+            case 4:
+                homePage.setText(getString(R.string.my));
+                break;
+        }
         language.setText(language1);
         fanyan.setText(FangYan);
     }
@@ -66,10 +89,13 @@ public class SettingsActivity extends BaseActivity {
         super.onStart();
         EventBus.getDefault().register(this);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent messageEvent) {
-        if(messageEvent.type==MessageEvent.SET_LANGUAGE_TEXT) {
-            fanyan.setText(messageEvent.json);
+        if (messageEvent.type == MessageEvent.SET_LANGUAGE_TEXT) {
+            fanyan.setText(messageEvent.json);//展示选中方言
+        } else if (messageEvent.type == MessageEvent.HOME_PAGE_TEXT) {
+            homePage.setText(messageEvent.json);//展示选中首页
         }
     }
 
@@ -78,6 +104,7 @@ public class SettingsActivity extends BaseActivity {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+
     @OnClick({R.id.modify_password, R.id.message_notification, R.id.language_settings, R.id.index_settings,
             R.id.fangyan_settings, R.id.exit_btn, R.id.back_iv, R.id.title_voice})
     protected void onClick(View view) {
@@ -96,6 +123,7 @@ public class SettingsActivity extends BaseActivity {
                 showFangYanDialog();
                 break;
             case R.id.index_settings://首页设置
+                showHomePageDialog();
                 break;
             case R.id.title_voice://跳转到语音页面
                 Intent intent = new Intent(context, VoiceActivity.class);
@@ -112,6 +140,47 @@ public class SettingsActivity extends BaseActivity {
                 finish();
                 break;
         }
+    }
+
+    //设置展示首页
+    private void showHomePageDialog() {
+        homePageSettingsDialog.showDialog();
+        homePageSettingsDialog.setClicklistener(new HomePageSettingsDialog.ClickListenerInterface() {
+            @Override
+            public void onMessageClick() {
+                spUtil.setInt("HomeSetting", 0);
+                homePageSettingsDialog.dismissDialog();
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.HOME_PAGE_TEXT, getString(R.string.message)));
+            }
+
+            @Override
+            public void onTaskClick() {
+                spUtil.setInt("HomeSetting", 1);
+                homePageSettingsDialog.dismissDialog();
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.HOME_PAGE_TEXT, getString(R.string.task)));
+            }
+
+            @Override
+            public void onWorkbenchClick() {
+                spUtil.setInt("HomeSetting", 2);
+                homePageSettingsDialog.dismissDialog();
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.HOME_PAGE_TEXT, getString(R.string.workbench)));
+            }
+
+            @Override
+            public void onAddressClick() {
+                spUtil.setInt("HomeSetting", 3);
+                homePageSettingsDialog.dismissDialog();
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.HOME_PAGE_TEXT, getString(R.string.address_books)));
+            }
+
+            @Override
+            public void onMyClick() {
+                spUtil.setInt("HomeSetting", 4);
+                homePageSettingsDialog.dismissDialog();
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.HOME_PAGE_TEXT, getString(R.string.my)));
+            }
+        });
     }
 
     /**
@@ -143,10 +212,10 @@ public class SettingsActivity extends BaseActivity {
         centerDialog.setClicklistener(new FangYanSettingsDialog.ClickListenerInterface() {
             @Override
             public void onOneClick() {
-                spUtil.setString("FangYan",  getString(R.string.mandarin));
+                spUtil.setString("FangYan", getString(R.string.mandarin));
                 setFangYan("mandarin");
                 centerDialog.dismissDialog();
-                EventBus.getDefault().post(new MessageEvent(MessageEvent.SET_LANGUAGE_TEXT,  getString(R.string.mandarin)));
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.SET_LANGUAGE_TEXT, getString(R.string.mandarin)));
             }
 
             @Override
@@ -154,7 +223,7 @@ public class SettingsActivity extends BaseActivity {
                 spUtil.setString("FangYan", getString(R.string.cantonese));
                 setFangYan("cantonese");
                 centerDialog.dismissDialog();
-                EventBus.getDefault().post(new MessageEvent(MessageEvent.SET_LANGUAGE_TEXT,  getString(R.string.cantonese)));
+                EventBus.getDefault().post(new MessageEvent(MessageEvent.SET_LANGUAGE_TEXT, getString(R.string.cantonese)));
             }
 
             @Override
@@ -199,6 +268,7 @@ public class SettingsActivity extends BaseActivity {
         //模拟重启页面
         MainApplication.getApplication().toIndex();
     }
+
     //设置方言
     private void setFangYan(String fangyan) {
         Locale curLocale = context.getResources().getConfiguration().locale;

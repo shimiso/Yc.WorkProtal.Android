@@ -21,6 +21,8 @@ public  class MessageEvent{
     }
     /**修改展示的语言**/
     public static final Integer SET_LANGUAGE_TEXT = 2;
+    /**默认首页**/
+    public static final Integer HOME_PAGE_TEXT = 3;
 
 
 

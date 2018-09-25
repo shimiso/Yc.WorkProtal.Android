@@ -20,7 +20,7 @@
         android:title="@string/title_contacts" />
     <item
         android:id="@+id/navigation_mycenter"
-        android:icon="@mipmap/my"
+        android:icon="@mipmap/my_f"
         android:title="@string/title_mycenter" />
 
 </menu>

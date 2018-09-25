@@ -84,6 +84,7 @@
     <string name="title_android">Voice</string>
     <string name="set_index">Set index</string>
     <string name="set_language">Set language</string>
+    <string name="set_home_page">Please select home page</string>
     <string name="set_fangyan">Set dialects</string>
     <string name="modify_password">Nodify password</string>
     <string name="message_notification">Notification</string>

@@ -92,6 +92,7 @@
     <string name="title_android">语音</string>
     <string name="set_index">设置首页</string>
     <string name="set_language">设置语言</string>
+    <string name="set_home_page">请选择首页</string>
     <string name="set_fangyan">设置方言</string>
     <string name="modify_password">修改密码</string>
     <string name="message_notification">消息提醒</string>
