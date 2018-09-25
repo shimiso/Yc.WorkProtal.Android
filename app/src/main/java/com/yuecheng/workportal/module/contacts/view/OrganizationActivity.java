@@ -20,6 +20,7 @@ import com.yuecheng.workportal.module.contacts.adapter.OrganizationAdapter;
 import com.yuecheng.workportal.module.contacts.bean.ChildInstitutionsBean;
 import com.yuecheng.workportal.module.contacts.bean.OrganizationBean;
 import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
+import com.yuecheng.workportal.utils.LoadViewUtil;
 
 import java.util.List;
 
@@ -44,13 +45,36 @@ public class OrganizationActivity extends BaseActivity {
     private OrganizationAdapter organizationAdapter;
     private List<OrganizationBean.OrgsBean.StaffsBean> staffsList;
     private List<OrganizationBean.OrgsBean.SubOrgsBean> subOrgsList;
+    protected LoadViewUtil viewUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_organization);
         ButterKnife.bind(this);
+        viewUtil = LoadViewUtil.init(getWindow().getDecorView(), this);
+        init();
+        loadData();
+        initEvent();
+    }
+    /**
+     * 加载数据
+     */
+    protected void loadData() {
+        //如果没有网络就直接返回
+        if (!androidUtil.hasInternetConnected()) {
+            viewUtil.stopLoading();
+            viewUtil.showLoadingErrorView(LoadViewUtil.LOADING_NONET_VIEW, () -> {
+                viewUtil.startLoading();
+                loadData();
+            });
+            return;
+        }
 
+        viewUtil.startLoading();
+        initData(orgid);
+    }
+    private void init() {
         //去除到头使阴影
         horScrollview.setOverScrollMode(View.OVER_SCROLL_NEVER);
         //水平方向的水平滚动条是否显示
@@ -67,10 +91,6 @@ public class OrganizationActivity extends BaseActivity {
         myContacterRecyclerView.setItemAnimator(new DefaultItemAnimator());
         //设置适配器
         myContacterRecyclerView.setAdapter(organizationAdapter);
-
-
-        initData(orgid);
-        initEvent();
     }
 
     //点击事件
@@ -97,7 +117,7 @@ public class OrganizationActivity extends BaseActivity {
         Presenter.getAddressOrgQuery(orgid, new CommonPostView<ChildInstitutionsBean>() {
             @Override
             public void postSuccess(ResultInfo<ChildInstitutionsBean> resultInfo) {
-
+                viewUtil.stopLoading();
                 //设置title名字
                 ChildInstitutionsBean result1 = resultInfo.getResult();
                 String[] split2 = result1.getDeepOrgNames().split(">");
@@ -166,7 +186,11 @@ public class OrganizationActivity extends BaseActivity {
 
             @Override
             public void postError(String errorMsg) {
-                Toast.makeText(OrganizationActivity.this, "服务器发生未知异常", Toast.LENGTH_SHORT).show();
+                viewUtil.stopLoading();
+                viewUtil.showLoadingErrorView(LoadViewUtil.LOADING_ERROR_VIEW, () -> {
+                    viewUtil.startLoading();
+                    loadData();
+                });
             }
         });
     }
