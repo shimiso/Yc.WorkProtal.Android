@@ -3,7 +3,6 @@ package com.yuecheng.workportal.module.contacts.presenter;
 import android.app.Activity;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -16,11 +15,6 @@ import com.yuecheng.workportal.module.contacts.bean.OrganizationBean;
 import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
 import com.yuecheng.workportal.bean.ResultInfo;
 import com.yuecheng.workportal.common.CommonPostView;
-import com.yuecheng.workportal.common.UrlConstant;
-import com.yuecheng.workportal.module.contacts.bean.ChildInstitutionsBean;
-import com.yuecheng.workportal.module.contacts.bean.ContactBean;
-import com.yuecheng.workportal.module.contacts.bean.OrganizationBean;
-import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
 
 import org.json.JSONObject;
 

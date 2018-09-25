@@ -107,8 +107,11 @@ public class MainActivity extends BaseActivity {
         // set adapter
         adapter = new VpAdapter(getSupportFragmentManager(), fragments);
         vp.setAdapter(adapter);
-        vp.setOffscreenPageLimit(3);
-
+        vp.setOffscreenPageLimit(3);//默认预加载几个页面
+        //设置默认页
+        int HomeSetting = spUtil.getInt("HomeSetting", 0);
+        vp.setCurrentItem(HomeSetting);
+        navigation.setCurrentItem(HomeSetting);
         //获取整个的NavigationView
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
 

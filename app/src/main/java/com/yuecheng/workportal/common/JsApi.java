@@ -3,6 +3,8 @@ package com.yuecheng.workportal.common;
 import android.os.CountDownTimer;
 import android.webkit.JavascriptInterface;
 
+import com.yuecheng.workportal.MainApplication;
+import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.bean.MessageEvent;
 import com.yuecheng.workportal.module.robot.OpenH5Activity;
 import com.yuecheng.workportal.utils.LogUtils;
@@ -30,9 +32,8 @@ public class JsApi {
     @JavascriptInterface
     public String testSyn(Object msg)  {
         //将当前token传给H5页面
-//        LoginUser loginUser = MainApplication.getApplication().getLoginUser();
-//        return loginUser.getAccess_token();
-        return "111";
+        LoginUser loginUser = MainApplication.getApplication().getLoginUser();
+        return loginUser.getAccess_token();
     }
     //同步API
     @JavascriptInterface

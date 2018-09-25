@@ -21,6 +21,7 @@ import com.yuecheng.workportal.module.contacts.adapter.AlphabetAdp;
 import com.yuecheng.workportal.module.contacts.adapter.ContactSearchAdapter;
 import com.yuecheng.workportal.module.contacts.bean.ContactBean;
 import com.yuecheng.workportal.module.contacts.bean.PinYinStyle;
+import com.yuecheng.workportal.utils.LoadViewUtil;
 import com.yuecheng.workportal.utils.PinYinUtil;
 import com.yuecheng.workportal.widget.LoadingDialog;
 import com.yuecheng.workportal.widget.PinyinComparator;
@@ -51,6 +52,7 @@ import java.util.regex.Pattern;
 
 public class MyTabContactsFragment extends BaseFragment implements CommonPostView<ContactBean> {
 
+    protected LoadViewUtil viewUtil;
     private SideLetterBar sideLetterBar;
     private ListView lv_contact;
     private ListView lv_alphabet;
@@ -68,6 +70,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
     private List<ContactBean.StaffsBean> staffs;
     private LoadingDialog loadingDialog;
     private ArrayList<ContactBean.StaffsBean> mSortList;
+    private ContactsPresenter contactsPresenter;
 
     public static MyTabContactsFragment newInstance() {
         Bundle args = new Bundle();
@@ -80,11 +83,28 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.contacts_tab_people, container, false);
+        this.viewUtil = LoadViewUtil.init(view, getActivity());
+        contactsPresenter = new ContactsPresenter(getActivity());
 
-        ContactsPresenter contactsPresenter = new ContactsPresenter(getActivity());
-        contactsPresenter.getContact(this);
-
+        loadData();
         return view;
+    }
+    /**
+     * 加载数据
+     */
+    protected void loadData() {
+        //如果没有网络就直接返回
+        if (!androidUtil.hasInternetConnected()) {
+            viewUtil.stopLoading();
+            viewUtil.showLoadingErrorView(LoadViewUtil.LOADING_NONET_VIEW, () -> {
+                viewUtil.startLoading();
+                loadData();
+            });
+            return;
+        }
+
+        viewUtil.startLoading();
+        contactsPresenter.getContact(this);
     }
     private void initView() {
         sideLetterBar = (SideLetterBar) view.findViewById(R.id.sideLetterBar);
@@ -329,6 +349,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
     @Override
     public void postSuccess(ResultInfo<ContactBean> resultInfo) {
         if(resultInfo.isSuccess()){
+            viewUtil.stopLoading();
             ContactBean result = resultInfo.getResult();
             staffs = result.getStaffs();
             contactList = dataList();
@@ -341,7 +362,11 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
 
     @Override
     public void postError(String errorMsg) {
-
-        Log.i("MyTabContactsFragment",errorMsg);
+        viewUtil.stopLoading();
+        if (loadingDialog != null) loadingDialog.dismiss();
+        viewUtil.showLoadingErrorView(LoadViewUtil.LOADING_ERROR_VIEW, () -> {
+            viewUtil.startLoading();
+            loadData();
+        });
     }
 }
