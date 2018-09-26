@@ -169,7 +169,7 @@ public class ApkDownloadService extends BaseService {
      * 创建通知
      */
     private void setUpNotification() {
-        mNotification = new Notification(R.mipmap.ic_launcher, "开始下载", System.currentTimeMillis());
+        mNotification = new Notification(R.mipmap.ic_launcher_round, "开始下载", System.currentTimeMillis());
         // 放置在"正在运行"栏目中
         mNotification.flags = Notification.FLAG_ONGOING_EVENT;
 

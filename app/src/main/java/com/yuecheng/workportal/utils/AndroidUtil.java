@@ -485,7 +485,7 @@ public class AndroidUtil {
     public static void showNotification(Context context, long id, String title, String content, PendingIntent intent) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setAutoCancel(true);
-        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setSmallIcon(R.mipmap.ic_launcher_round);
         builder.setContentTitle(title);
         builder.setContentText(content);
         builder.setContentIntent(intent);
