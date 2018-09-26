@@ -8,6 +8,7 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.bean.LoginUser;
+import com.yuecheng.workportal.callback.StringCustomCallback;
 import com.yuecheng.workportal.common.UrlConstant;
 import com.yuecheng.workportal.module.contacts.bean.ChildInstitutionsBean;
 import com.yuecheng.workportal.module.contacts.bean.ContactBean;
@@ -38,7 +39,7 @@ public class ContactsPresenter {
         OkGo.<String>post(UrlConstant.ADDRESSSTAFFQUEY)//
                 .tag(this)//
                 .headers("Authorization", "Bearer "+loginUser.getAccess_token())
-                .execute(new StringCallback(){
+                .execute(new StringCustomCallback(){
                     @Override
                     public void onSuccess(Response<String> result) {
                         String stringresult = new String(result.body());
@@ -82,7 +83,7 @@ public class ContactsPresenter {
                 .tag(this)//
                 .params("Code", Code)//
                 .headers("Authorization", "Bearer "+loginUser.getAccess_token())
-                .execute(new StringCallback(){
+                .execute(new StringCustomCallback(){
                     @Override
                     public void onSuccess(Response<String> result) {
                         String stringresult = new String(result.body());
@@ -124,7 +125,7 @@ public class ContactsPresenter {
         OkGo.<String>post(UrlConstant.ADDRESSTOPORGQUERY)
                 .tag(this)
                 .headers("Authorization", "Bearer "+loginUser.getAccess_token())
-                .execute(new StringCallback(){
+                .execute(new StringCustomCallback(){
                     @Override
                     public void onSuccess(Response<String> result) {
                         String stringresult = new String(result.body());
@@ -168,7 +169,7 @@ public class ContactsPresenter {
                 .tag(this)
                 .params("orgId", orgId)
                 .headers("Authorization", "Bearer "+loginUser.getAccess_token())
-                .execute(new StringCallback(){
+                .execute(new StringCustomCallback(){
                     @Override
                     public void onSuccess(Response<String> result) {
                         String stringresult = new String(result.body());
