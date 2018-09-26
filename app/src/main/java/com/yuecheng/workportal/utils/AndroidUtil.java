@@ -202,7 +202,7 @@ public class AndroidUtil {
                         @Override
                         public void onClick(View view, DialogInterface dialog) {
                             dialog.cancel();
-                            mainApplication.exit();
+                            mainApplication.relogin();
                         }
                     });
             dialog.show();
@@ -280,7 +280,7 @@ public class AndroidUtil {
                     @Override
                     public void onClick(View view, DialogInterface dialog) {
                         dialog.cancel();
-                        mainApplication.exit();
+                        mainApplication.relogin();
                     }
                 });
         dialog.show();

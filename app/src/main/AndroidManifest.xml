@@ -86,14 +86,18 @@
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL}" />
 
-        <activity android:name=".module.contacts.view.SelectGroupActivity" />
-        <activity android:name=".module.contacts.view.OrganizationActivity" />
-        <activity android:name=".module.mycenter.view.SettingsActivity" />
-        <activity android:name=".module.mycenter.view.FeedbackActivity" />
-        <activity android:name=".module.mycenter.view.MsgNoticeActivity" />
-        <activity android:name=".module.robot.view.ViewMoreActivity" />
-        <activity android:name=".module.mycenter.view.ModifyPasswordActivity" />
-        <activity android:name=".module.mycenter.view.MyDetailActivity"/>
+        <activity android:name=".module.contacts.view.SelectGroupActivity" android:launchMode="singleTop"/>
+        <activity android:name=".module.contacts.view.OrganizationActivity" android:launchMode="singleTop"/>
+        <activity android:name=".module.mycenter.view.SettingsActivity" android:launchMode="singleTop"/>
+        <activity android:name=".module.mycenter.view.FeedbackActivity" android:launchMode="singleTop"/>
+        <activity android:name=".module.mycenter.view.MsgNoticeActivity" android:launchMode="singleTop"/>
+        <activity android:name=".module.robot.view.ViewMoreActivity" android:launchMode="singleTop"/>
+        <activity android:name=".module.mycenter.view.ModifyPasswordActivity" android:launchMode="singleTop"/>
+        <activity android:name=".module.mycenter.view.MyDetailActivity" android:launchMode="singleTop"/>
+        <activity android:name=".InvalidateActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/DialogStyleBottom" />
 
         <!-- 会话页面 -->
         <activity

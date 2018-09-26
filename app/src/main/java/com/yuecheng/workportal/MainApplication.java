@@ -108,7 +108,22 @@ public class MainApplication extends MultiDexApplication {
         activityList.add(activity);
     }
     /**
-     * 退出回到登陆页面
+     * 重新登陆
+     *
+     * @author 史明松
+     * @update 2014年6月26日 上午10:55:28
+     */
+    public void relogin() {
+        for (Activity activity : activityList) {
+            activity.finish();
+        }
+        spUtil.setCurrentUserName("");
+        loginUser = null;//把当前登陆用户置空
+        RongIM.getInstance().logout();//断开与融云服务器的连接，并且不再接收 Push 消息
+        startActivity(new Intent(app, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+    /**
+     * 退出
      *
      * @author 史明松
      * @update 2014年6月26日 上午10:55:28
@@ -118,10 +133,10 @@ public class MainApplication extends MultiDexApplication {
             activity.finish();
         }
         spUtil.setCurrentUserName("");
-        loginUser = null;
-        startActivity(new Intent(app, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        loginUser = null;//把当前登陆用户置空
+        RongIM.getInstance().logout();//断开与融云服务器的连接，并且不再接收 Push 消息
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
-
     /**
      * 重启进入首页
      */
@@ -130,6 +145,13 @@ public class MainApplication extends MultiDexApplication {
             activity.finish();
         }
         startActivity(new Intent(app, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+
+    /**
+     * 登陆失效
+     */
+    public void toInvalidate() {
+        startActivity(new Intent(app, InvalidateActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     private void initXunfei() {

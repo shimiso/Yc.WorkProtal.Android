@@ -128,7 +128,7 @@ public class SettingsActivity extends BaseActivity {
                 overridePendingTransition(R.anim.push_bottom_in, R.anim.push_bottom_out);
                 break;
             case R.id.exit_btn://退出
-                MainApplication.getApplication().exit();
+                MainApplication.getApplication().relogin();
                 break;
             case R.id.back_iv://返回
                 finish();

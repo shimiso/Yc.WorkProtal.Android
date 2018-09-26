@@ -271,8 +271,13 @@ public class MainActivity extends BaseActivity {
                 };
                 timer.schedule(task, 2000);
             } else {
-                //关闭打开的activity
-                MainApplication.getApplication().exit();
+                //回到HOME
+                Intent intent = new Intent();
+                // 为Intent设置Action、Category属性
+                intent.setAction(Intent.ACTION_MAIN);// "android.intent.action.MAIN"
+                intent.addCategory(Intent.CATEGORY_HOME); //"android.intent.category.HOME"
+                startActivity(intent);
+
             }
         } else {
         }

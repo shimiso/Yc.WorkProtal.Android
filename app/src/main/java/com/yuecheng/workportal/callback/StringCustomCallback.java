@@ -15,15 +15,10 @@
  */
 package com.yuecheng.workportal.callback;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.view.Window;
 
 import com.lzy.okgo.callback.AbsCallback;
-import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.convert.StringConvert;
-import com.lzy.okgo.request.base.Request;
 import com.yuecheng.workportal.LoginActivity;
 import com.yuecheng.workportal.MainApplication;
 
@@ -57,7 +52,7 @@ public abstract class StringCustomCallback extends AbsCallback<String> {
         boolean success = jsonObj.optBoolean("success");
         boolean unAuthorizedRequest = jsonObj.optBoolean("unAuthorizedRequest");
         if(!success && unAuthorizedRequest){
-            MainApplication.getApplication().exit();
+            MainApplication.getApplication().relogin();
             MainApplication.getApplication().startActivity(new Intent(MainApplication.getApplication(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
         response.close();

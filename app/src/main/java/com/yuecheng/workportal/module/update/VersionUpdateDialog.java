@@ -142,7 +142,7 @@ public class VersionUpdateDialog extends BaseActivity implements OnClickListener
 		@Override
 		public void OnBackResult(Integer progress, String message) {
 			if (BACK_RESULT_FINISH.equals(message)) {
-				mainApplication.exit();
+				mainApplication.relogin();
 				return;
 			} else if (BACK_RESULT_FAILED.equals(message)) {
 				showRetry();
@@ -209,7 +209,7 @@ public class VersionUpdateDialog extends BaseActivity implements OnClickListener
 			downloadBinder.retryDownload();
 			break;
 		case R.id.update_exit_btn:
-			mainApplication.exit();
+			mainApplication.relogin();
 			break;
 		}
 	}
