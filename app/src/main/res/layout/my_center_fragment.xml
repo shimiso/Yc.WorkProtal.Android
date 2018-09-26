@@ -114,8 +114,8 @@
             android:textSize="16sp" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/right_in_btn"/>
@@ -147,8 +147,8 @@
             android:text="@string/my_login_web"
             android:textSize="16sp" />
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/right_in_btn"/>
@@ -183,8 +183,8 @@
             android:textSize="16sp" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/right_in_btn" />
@@ -216,8 +216,8 @@
             android:text="@string/my_feedback"
             android:textSize="16sp" />
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/right_in_btn"/>
@@ -249,8 +249,8 @@
             android:text="@string/settings"
             android:textSize="16sp" />
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/right_in_btn"/>

@@ -51,8 +51,8 @@
             android:textSize="16sp" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/right_in_btn"/>
@@ -76,8 +76,8 @@
             android:textSize="16sp" />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/right_in_btn"/>
@@ -110,8 +110,8 @@
 
         <ImageView
             android:id="@+id/set_language"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/right_in_btn"/>
@@ -144,8 +144,8 @@
             android:textSize="16sp" />
         <ImageView
             android:id="@+id/set_fanyan"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/right_in_btn"/>
@@ -178,8 +178,8 @@
             android:textSize="16sp" />
         <ImageView
             android:id="@+id/set_home_page"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/right_in_btn"/>
