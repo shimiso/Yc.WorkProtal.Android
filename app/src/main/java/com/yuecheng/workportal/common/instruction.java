@@ -9,9 +9,9 @@ package com.yuecheng.workportal.common;
 public interface instruction {
 
      //通讯录
-     String FIND = "find"; //查找
-     String CALL = "call"; //打电话
-     String TEXT = "text"; //发短信
+     String FIND = "find_contacts"; //查找
+     String CALL = "call_contacts"; //打电话
+     String TEXT = "text_contacts"; //发短信
      //会议
      String BOOK_MEETING = "book_meeting"; //订会议室
      String CANCEL_MEETING = "cancel_meeting"; //取消会议室

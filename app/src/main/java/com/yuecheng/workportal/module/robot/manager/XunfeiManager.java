@@ -116,8 +116,10 @@ public class XunfeiManager {
         if (mTextUnderstander == null)
             mTextUnderstander = TextUnderstander.createTextUnderstander(context, mInitListener);
             Locale curLocale = context.getResources().getConfiguration().locale;
-            //通过Locale的equals方法，判断出当前语言环境
-            if (curLocale.equals(Locale.SIMPLIFIED_CHINESE)) {
+            String curLocale_s = curLocale.toString();
+            String zh_cn_s = Locale.SIMPLIFIED_CHINESE.toString();
+        //通过Locale的equals方法，判断出当前语言环境
+            if (curLocale_s.indexOf(zh_cn_s) != -1) {
                 //中文
                 mTextUnderstander.setParameter(SpeechConstant.SCENE, "chinese");
             } else{
@@ -220,8 +222,10 @@ public class XunfeiManager {
         mIat.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
         // 设置返回结果格式
         mIat.setParameter(SpeechConstant.RESULT_TYPE, "json");
+        String curLocale_s = curLocale.toString();
+        String zh_cn_s = Locale.SIMPLIFIED_CHINESE.toString();
         //通过Locale的equals方法，判断出当前语言环境
-        if (curLocale.equals(Locale.SIMPLIFIED_CHINESE)) {
+        if (curLocale_s.indexOf(zh_cn_s) != -1) {
             //中文
             // 设置语言
             mIat.setParameter(SpeechConstant.LANGUAGE, "zh_cn");

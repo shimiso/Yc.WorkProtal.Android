@@ -35,7 +35,7 @@ public class CarePlanHandler extends IntentHandler {
             switch(intent) {
                 case instruction.ZHAOHU_PLAN://照护计划
                     MainPresenter.responseAnswer("跳转页面到照护计划!");
-                    String url = "http://192.168.0.150:8684";
+                    String url = "http://omstest.gongheyuan.com/portal/#/CarePlan";
                     Intent intent1 = new Intent(MainApplication.getApplication(), OpenH5Activity.class);
                     intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
                     intent1.putExtra("url",url);

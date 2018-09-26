@@ -66,6 +66,11 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         ButterKnife.bind(this);
         lateralDestroy();
         instance = this;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         init();
         afterView();
     }
@@ -140,6 +145,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     @Override
     public void setVoiceChanged(int volume) {
         if (this.mStateIV == null) return;
+        mStateIV.setVisibility(View.VISIBLE);
         switch (volume / 4) {
             case 0:
                 this.mStateIV.setImageResource(R.mipmap.ic_volume_1);
