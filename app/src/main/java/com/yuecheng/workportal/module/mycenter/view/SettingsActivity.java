@@ -6,7 +6,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.LocaleList;
 import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -15,14 +14,11 @@ import android.widget.TextView;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.TextUnderstander;
-import com.yuecheng.workportal.LoginActivity;
 import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
 import com.yuecheng.workportal.bean.MessageEvent;
-import com.yuecheng.workportal.module.robot.OpenH5Activity;
 import com.yuecheng.workportal.module.robot.view.VoiceActivity;
-import com.yuecheng.workportal.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -133,8 +129,6 @@ public class SettingsActivity extends BaseActivity {
                 break;
             case R.id.exit_btn://退出
                 MainApplication.getApplication().exit();
-                startActivity(new Intent(context, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                finish();
                 break;
             case R.id.back_iv://返回
                 finish();

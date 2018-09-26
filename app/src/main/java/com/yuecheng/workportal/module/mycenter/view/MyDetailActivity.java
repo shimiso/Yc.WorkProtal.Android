@@ -2,6 +2,7 @@ package com.yuecheng.workportal.module.mycenter.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -12,9 +13,6 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.PictureFileUtils;
-import com.yuecheng.workportal.base.BaseActivity;
-import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
-import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
 import com.yuecheng.workportal.bean.ResultInfo;
@@ -30,6 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.UserInfo;
 
 /**
  * 个人详情
@@ -120,7 +120,13 @@ public class MyDetailActivity extends BaseActivity implements CommonPostView<Per
     @Override
     public void postSuccess(ResultInfo<PersonnelDetailsBean> resultInfo) {
         if (resultInfo.isSuccess()) {
-            PersonnelDetailsBean result = resultInfo.getResult();
+           PersonnelDetailsBean result = resultInfo.getResult();
+            /**
+             * 刷新用户缓存数据。
+             * @param userInfo 需要更新的用户缓存数据。
+             */
+            RongIM.getInstance().refreshUserInfoCache(new UserInfo(result.getCode(), result.getName(), Uri.parse("http://rongcloud-web.qiniudn.com/docs_demo_rongcloud_logo.png")));//默认头像
+
             myName.setText(result.getName());
             myWorkNumberTv.setText(result.getCode());
             myPhoneTv.setText(result.getMobilePhone());

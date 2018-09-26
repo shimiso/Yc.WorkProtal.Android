@@ -31,17 +31,18 @@ public class LoginUserDao extends AbstractDao<LoginUser, Long> {
         public final static Property Expires_in = new Property(4, int.class, "expires_in", false, "EXPIRES_IN");
         public final static Property Token_type = new Property(5, String.class, "token_type", false, "TOKEN_TYPE");
         public final static Property UserId = new Property(6, String.class, "userId", false, "USER_ID");
-        public final static Property Code = new Property(7, String.class, "code", false, "CODE");
-        public final static Property StaffGrade = new Property(8, String.class, "staffGrade", false, "STAFF_GRADE");
-        public final static Property Name = new Property(9, String.class, "name", false, "NAME");
-        public final static Property Email = new Property(10, String.class, "email", false, "EMAIL");
-        public final static Property Gender = new Property(11, int.class, "gender", false, "GENDER");
-        public final static Property MobilePhone = new Property(12, String.class, "mobilePhone", false, "MOBILE_PHONE");
-        public final static Property Telephone = new Property(13, String.class, "telephone", false, "TELEPHONE");
-        public final static Property OrganizationName = new Property(14, String.class, "organizationName", false, "ORGANIZATION_NAME");
-        public final static Property PositionName = new Property(15, String.class, "positionName", false, "POSITION_NAME");
-        public final static Property PartTimeJobs = new Property(16, String.class, "partTimeJobs", false, "PART_TIME_JOBS");
-        public final static Property RongCloudToken = new Property(17, String.class, "rongCloudToken", false, "RONG_CLOUD_TOKEN");
+        public final static Property UserIcon = new Property(7, String.class, "userIcon", false, "USER_ICON");
+        public final static Property Code = new Property(8, String.class, "code", false, "CODE");
+        public final static Property StaffGrade = new Property(9, String.class, "staffGrade", false, "STAFF_GRADE");
+        public final static Property Name = new Property(10, String.class, "name", false, "NAME");
+        public final static Property Email = new Property(11, String.class, "email", false, "EMAIL");
+        public final static Property Gender = new Property(12, int.class, "gender", false, "GENDER");
+        public final static Property MobilePhone = new Property(13, String.class, "mobilePhone", false, "MOBILE_PHONE");
+        public final static Property Telephone = new Property(14, String.class, "telephone", false, "TELEPHONE");
+        public final static Property OrganizationName = new Property(15, String.class, "organizationName", false, "ORGANIZATION_NAME");
+        public final static Property PositionName = new Property(16, String.class, "positionName", false, "POSITION_NAME");
+        public final static Property PartTimeJobs = new Property(17, String.class, "partTimeJobs", false, "PART_TIME_JOBS");
+        public final static Property RongCloudToken = new Property(18, String.class, "rongCloudToken", false, "RONG_CLOUD_TOKEN");
     }
 
 
@@ -64,17 +65,18 @@ public class LoginUserDao extends AbstractDao<LoginUser, Long> {
                 "\"EXPIRES_IN\" INTEGER NOT NULL ," + // 4: expires_in
                 "\"TOKEN_TYPE\" TEXT," + // 5: token_type
                 "\"USER_ID\" TEXT," + // 6: userId
-                "\"CODE\" TEXT," + // 7: code
-                "\"STAFF_GRADE\" TEXT," + // 8: staffGrade
-                "\"NAME\" TEXT," + // 9: name
-                "\"EMAIL\" TEXT," + // 10: email
-                "\"GENDER\" INTEGER NOT NULL ," + // 11: gender
-                "\"MOBILE_PHONE\" TEXT," + // 12: mobilePhone
-                "\"TELEPHONE\" TEXT," + // 13: telephone
-                "\"ORGANIZATION_NAME\" TEXT," + // 14: organizationName
-                "\"POSITION_NAME\" TEXT," + // 15: positionName
-                "\"PART_TIME_JOBS\" TEXT," + // 16: partTimeJobs
-                "\"RONG_CLOUD_TOKEN\" TEXT);"); // 17: rongCloudToken
+                "\"USER_ICON\" TEXT," + // 7: userIcon
+                "\"CODE\" TEXT," + // 8: code
+                "\"STAFF_GRADE\" TEXT," + // 9: staffGrade
+                "\"NAME\" TEXT," + // 10: name
+                "\"EMAIL\" TEXT," + // 11: email
+                "\"GENDER\" INTEGER NOT NULL ," + // 12: gender
+                "\"MOBILE_PHONE\" TEXT," + // 13: mobilePhone
+                "\"TELEPHONE\" TEXT," + // 14: telephone
+                "\"ORGANIZATION_NAME\" TEXT," + // 15: organizationName
+                "\"POSITION_NAME\" TEXT," + // 16: positionName
+                "\"PART_TIME_JOBS\" TEXT," + // 17: partTimeJobs
+                "\"RONG_CLOUD_TOKEN\" TEXT);"); // 18: rongCloudToken
     }
 
     /** Drops the underlying database table. */
@@ -118,55 +120,60 @@ public class LoginUserDao extends AbstractDao<LoginUser, Long> {
             stmt.bindString(7, userId);
         }
  
+        String userIcon = entity.getUserIcon();
+        if (userIcon != null) {
+            stmt.bindString(8, userIcon);
+        }
+ 
         String code = entity.getCode();
         if (code != null) {
-            stmt.bindString(8, code);
+            stmt.bindString(9, code);
         }
  
         String staffGrade = entity.getStaffGrade();
         if (staffGrade != null) {
-            stmt.bindString(9, staffGrade);
+            stmt.bindString(10, staffGrade);
         }
  
         String name = entity.getName();
         if (name != null) {
-            stmt.bindString(10, name);
+            stmt.bindString(11, name);
         }
  
         String email = entity.getEmail();
         if (email != null) {
-            stmt.bindString(11, email);
+            stmt.bindString(12, email);
         }
-        stmt.bindLong(12, entity.getGender());
+        stmt.bindLong(13, entity.getGender());
  
         String mobilePhone = entity.getMobilePhone();
         if (mobilePhone != null) {
-            stmt.bindString(13, mobilePhone);
+            stmt.bindString(14, mobilePhone);
         }
  
         String telephone = entity.getTelephone();
         if (telephone != null) {
-            stmt.bindString(14, telephone);
+            stmt.bindString(15, telephone);
         }
  
         String organizationName = entity.getOrganizationName();
         if (organizationName != null) {
-            stmt.bindString(15, organizationName);
+            stmt.bindString(16, organizationName);
         }
  
         String positionName = entity.getPositionName();
         if (positionName != null) {
-            stmt.bindString(16, positionName);
+            stmt.bindString(17, positionName);
         }
  
         String partTimeJobs = entity.getPartTimeJobs();
         if (partTimeJobs != null) {
-            stmt.bindString(17, partTimeJobs);
+            stmt.bindString(18, partTimeJobs);
         }
  
         String rongCloudToken = entity.getRongCloudToken();
         if (rongCloudToken != null) {
-            stmt.bindString(18, rongCloudToken);
+            stmt.bindString(19, rongCloudToken);
         }
     }
 
@@ -205,55 +212,60 @@ public class LoginUserDao extends AbstractDao<LoginUser, Long> {
             stmt.bindString(7, userId);
         }
  
+        String userIcon = entity.getUserIcon();
+        if (userIcon != null) {
+            stmt.bindString(8, userIcon);
+        }
+ 
         String code = entity.getCode();
         if (code != null) {
-            stmt.bindString(8, code);
+            stmt.bindString(9, code);
         }
  
         String staffGrade = entity.getStaffGrade();
         if (staffGrade != null) {
-            stmt.bindString(9, staffGrade);
+            stmt.bindString(10, staffGrade);
         }
  
         String name = entity.getName();
         if (name != null) {
-            stmt.bindString(10, name);
+            stmt.bindString(11, name);
         }
  
         String email = entity.getEmail();
         if (email != null) {
-            stmt.bindString(11, email);
+            stmt.bindString(12, email);
         }
-        stmt.bindLong(12, entity.getGender());
+        stmt.bindLong(13, entity.getGender());
  
         String mobilePhone = entity.getMobilePhone();
         if (mobilePhone != null) {
-            stmt.bindString(13, mobilePhone);
+            stmt.bindString(14, mobilePhone);
         }
  
         String telephone = entity.getTelephone();
         if (telephone != null) {
-            stmt.bindString(14, telephone);
+            stmt.bindString(15, telephone);
         }
  
         String organizationName = entity.getOrganizationName();
         if (organizationName != null) {
-            stmt.bindString(15, organizationName);
+            stmt.bindString(16, organizationName);
         }
  
         String positionName = entity.getPositionName();
         if (positionName != null) {
-            stmt.bindString(16, positionName);
+            stmt.bindString(17, positionName);
         }
  
         String partTimeJobs = entity.getPartTimeJobs();
         if (partTimeJobs != null) {
-            stmt.bindString(17, partTimeJobs);
+            stmt.bindString(18, partTimeJobs);
         }
  
         String rongCloudToken = entity.getRongCloudToken();
         if (rongCloudToken != null) {
-            stmt.bindString(18, rongCloudToken);
+            stmt.bindString(19, rongCloudToken);
         }
     }
 
@@ -272,17 +284,18 @@ public class LoginUserDao extends AbstractDao<LoginUser, Long> {
             cursor.getInt(offset + 4), // expires_in
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // token_type
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // userId
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // code
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // staffGrade
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // name
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // email
-            cursor.getInt(offset + 11), // gender
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // mobilePhone
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // telephone
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // organizationName
-            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // positionName
-            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // partTimeJobs
-            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17) // rongCloudToken
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // userIcon
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // code
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // staffGrade
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // name
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // email
+            cursor.getInt(offset + 12), // gender
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // mobilePhone
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // telephone
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // organizationName
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // positionName
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // partTimeJobs
+            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18) // rongCloudToken
         );
         return entity;
     }
@@ -296,17 +309,18 @@ public class LoginUserDao extends AbstractDao<LoginUser, Long> {
         entity.setExpires_in(cursor.getInt(offset + 4));
         entity.setToken_type(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setUserId(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setCode(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setStaffGrade(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setName(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setEmail(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setGender(cursor.getInt(offset + 11));
-        entity.setMobilePhone(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
-        entity.setTelephone(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
-        entity.setOrganizationName(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
-        entity.setPositionName(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
-        entity.setPartTimeJobs(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
-        entity.setRongCloudToken(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setUserIcon(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setCode(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setStaffGrade(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setName(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setEmail(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setGender(cursor.getInt(offset + 12));
+        entity.setMobilePhone(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setTelephone(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setOrganizationName(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setPositionName(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setPartTimeJobs(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setRongCloudToken(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
      }
     
     @Override

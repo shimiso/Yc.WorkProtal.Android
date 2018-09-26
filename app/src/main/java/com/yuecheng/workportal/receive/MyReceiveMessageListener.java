@@ -3,12 +3,14 @@ package com.yuecheng.workportal.receive;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 
 import com.yuecheng.workportal.MainActivity;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.module.conversation.ConversationPresenter;
 import com.yuecheng.workportal.module.conversation.bean.Conversation;
 import com.yuecheng.workportal.utils.AndroidUtil;
+import com.yuecheng.workportal.utils.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -50,45 +52,54 @@ public class MyReceiveMessageListener implements RongIMClient.OnReceiveMessageLi
             TextMessage textMessage = (TextMessage) message.getContent();
             conversation.setContent(textMessage.getContent());
             sendNotifyEvent(message,conversation);
+            return true;
         }else if(messageContent instanceof VoiceMessage){
             VoiceMessage voiceMessage = (VoiceMessage) message.getContent();
             conversation.setContent("[" + androidUtil.getString(R.string.voice) + "]");
             sendNotifyEvent(message,conversation);
+            return true;
         }else if(messageContent instanceof ImageMessage){
             ImageMessage imageMessage = (ImageMessage) message.getContent();
             conversation.setContent("[" + androidUtil.getString(R.string.picture) + "]");
             sendNotifyEvent(message,conversation);
+            return true;
         }else if(messageContent instanceof LocationMessage){
             LocationMessage locationMessage = (LocationMessage) message.getContent();
             conversation.setContent("[" + androidUtil.getString(R.string.location) + "]");
             sendNotifyEvent(message,conversation);
+            return true;
         }else if(messageContent instanceof FileMessage){
             FileMessage fileMessage = (FileMessage) message.getContent();
             conversation.setContent("[" + androidUtil.getString(R.string.file) + "]");
             sendNotifyEvent(message,conversation);
+            return true;
         }
 
-        return false;
+        return true;
     }
 
     private void  sendNotifyEvent(Message message,Conversation conversation){
         if(message.getContent().getUserInfo()!=null){
-            conversation.setTargetName(message.getContent().getUserInfo().getName());
+            String name = message.getContent().getUserInfo().getName();
+            Uri uri = message.getContent().getUserInfo().getPortraitUri();
+            conversation.setTargetName(name);
+            conversation.setTargetIcon(StringUtils.doEmpty(uri.toString()));
             conversation.setTitle("与" + conversation.getTargetName() + "会话");
         }else{
             conversation.setTitle("与" + message.getSenderUserId() + "会话");
         }
         conversation.setType(Conversation.PRIVATE_CHAT);
-        conversation.setSenderUserId(message.getSenderUserId());
-        conversation.setReceivedTime(message.getReceivedTime());
         conversation.setTargetId(message.getTargetId());
+        conversation.setSenderUserId(message.getSenderUserId());
         conversation.setSentTime(message.getSentTime());
+        conversation.setReceivedTime(message.getReceivedTime());
 
         conversationPresenter.saveConversation(conversation);
         Intent subjectIntent = new Intent(context, MainActivity.class);
         subjectIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent subjectPendingIntent = PendingIntent.getActivity(context, 0, subjectIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AndroidUtil.showNotification(context, 001, conversation.getTargetId() + "发来消息", conversation.getContent(), subjectPendingIntent);
+        AndroidUtil.showNotification(context, 001, StringUtils.isEmpty(conversation.getTargetName())?conversation.getTargetId():conversation.getTargetName()
+                + "发来消息", conversation.getContent(), subjectPendingIntent);
         EventBus.getDefault().post(conversation);
     }
 

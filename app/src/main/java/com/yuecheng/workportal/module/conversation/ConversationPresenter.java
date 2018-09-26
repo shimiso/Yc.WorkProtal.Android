@@ -56,6 +56,7 @@ public class ConversationPresenter {
                     .build().list();
             if(list!=null&&list.size()>0){
                 temp.setTargetName(list.get(0).getTargetName());
+                temp.setTargetIcon(list.get(0).getTargetIcon());
                 temp.setTitle(list.get(0).getTitle());
                 conversationDao.deleteInTx(list);
             }

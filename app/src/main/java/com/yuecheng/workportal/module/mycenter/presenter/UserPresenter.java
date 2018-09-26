@@ -122,6 +122,8 @@ public class UserPresenter {
                                 loginUser.setPartTimeJobs(person.getPartTimeJobs());
                                 loginUser.setPositionName(person.getPositionName());
                                 loginUser.setRongCloudToken(person.getRongCloudToken());
+                                loginUser.setUserIcon( "http://rongcloud-web.qiniudn.com/docs_demo_rongcloud_logo.png");//默认头像
+
                                 resultInfo.result = loginUser;
                                 saveLoginUser(loginUser);
 

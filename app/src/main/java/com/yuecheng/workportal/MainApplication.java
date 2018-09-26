@@ -19,6 +19,7 @@ import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
+import com.yuecheng.workportal.receive.MyConnectionStatusListener;
 import com.yuecheng.workportal.receive.MyReceiveMessageListener;
 import com.yuecheng.workportal.receive.MySendMessageListener;
 import com.yuecheng.workportal.utils.AndroidUtil;
@@ -79,6 +80,9 @@ public class MainApplication extends MultiDexApplication {
         RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener(this));
         //消息发送监听
         RongIM.getInstance().setSendMessageListener(new MySendMessageListener(this));
+        //接状态监听器
+        RongIM.setConnectionStatusListener(new MyConnectionStatusListener(this));
+
     }
 
     public static MainApplication getApplication() {
@@ -104,18 +108,18 @@ public class MainApplication extends MultiDexApplication {
         activityList.add(activity);
     }
     /**
-     * 遍历所有Activity并finish.
+     * 退出回到登陆页面
      *
      * @author 史明松
      * @update 2014年6月26日 上午10:55:28
      */
     public void exit() {
-        spUtil.setCurrentUserName(null);
         for (Activity activity : activityList) {
             activity.finish();
         }
         spUtil.setCurrentUserName("");
         loginUser = null;
+        startActivity(new Intent(app, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**

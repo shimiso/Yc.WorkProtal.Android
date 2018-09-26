@@ -46,6 +46,8 @@ public class LoginUser {
 
     private String userId;
 
+    private String userIcon;
+
     private String code;
 
     private String staffGrade;
@@ -68,10 +70,10 @@ public class LoginUser {
 
     private String rongCloudToken;//融云token
 
-    @Generated(hash = 794197730)
+    @Generated(hash = 570262779)
     public LoginUser(Long id, String username, String password, String access_token,
-            int expires_in, String token_type, String userId, String code,
-            String staffGrade, String name, String email, int gender,
+            int expires_in, String token_type, String userId, String userIcon,
+            String code, String staffGrade, String name, String email, int gender,
             String mobilePhone, String telephone, String organizationName,
             String positionName, String partTimeJobs, String rongCloudToken) {
         this.id = id;
@@ -81,6 +83,7 @@ public class LoginUser {
         this.expires_in = expires_in;
         this.token_type = token_type;
         this.userId = userId;
+        this.userIcon = userIcon;
         this.code = code;
         this.staffGrade = staffGrade;
         this.name = name;
@@ -152,6 +155,14 @@ public class LoginUser {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserIcon() {
+        return this.userIcon;
+    }
+
+    public void setUserIcon(String userIcon) {
+        this.userIcon = userIcon;
     }
 
     public String getCode() {
@@ -241,6 +252,7 @@ public class LoginUser {
     public void setRongCloudToken(String rongCloudToken) {
         this.rongCloudToken = rongCloudToken;
     }
+
 
 
 }

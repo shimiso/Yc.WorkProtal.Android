@@ -1,6 +1,7 @@
 package com.yuecheng.workportal.receive;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import com.yuecheng.workportal.MainApplication;
@@ -9,6 +10,7 @@ import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.module.conversation.ConversationPresenter;
 import com.yuecheng.workportal.module.conversation.bean.Conversation;
 import com.yuecheng.workportal.utils.AndroidUtil;
+import com.yuecheng.workportal.utils.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -26,6 +28,7 @@ public class MySendMessageListener implements RongIM.OnSendMessageListener {
     Context context;
     ConversationPresenter conversationPresenter;
     AndroidUtil androidUtil;
+    LoginUser loginUser;
 
     public MySendMessageListener(Context context) {
         this.context = context;
@@ -43,8 +46,9 @@ public class MySendMessageListener implements RongIM.OnSendMessageListener {
     public Message onSend(Message message) {
         //开发者根据自己需求自行处理逻辑
         MessageContent messageContent = message.getContent();
-        LoginUser loginUser = MainApplication.getApplication().getLoginUser();
-        messageContent.setUserInfo(new UserInfo(loginUser.getUserId(),loginUser.getName(),null));
+        loginUser = MainApplication.getApplication().getLoginUser();
+        Uri uri = Uri.parse(StringUtils.doEmpty(loginUser.getUserIcon()));
+        messageContent.setUserInfo(new UserInfo(loginUser.getCode(),loginUser.getName(),uri));
         return message;
     }
 
@@ -103,16 +107,13 @@ public class MySendMessageListener implements RongIM.OnSendMessageListener {
     }
 
     private void sendEvent(Message message, Conversation conversation) {
-        if(message.getContent().getUserInfo()!=null){
-            conversation.setTitle("与" + conversation.getTargetName() + "会话");
-        }else{
-            conversation.setTitle("与" + message.getSenderUserId() + "会话");
-        }
         conversation.setType(Conversation.PRIVATE_CHAT);
+        conversation.setSenderName(loginUser.getName());
+        conversation.setSenderIcon(StringUtils.doEmpty(loginUser.getUserIcon()));
         conversation.setSenderUserId(message.getSenderUserId());
-        conversation.setReceivedTime(message.getReceivedTime());
-        conversation.setTargetId(message.getTargetId());
         conversation.setSentTime(message.getSentTime());
+
+        conversation.setTargetId(message.getTargetId());
 
         conversationPresenter.updateConversation(conversation);
         EventBus.getDefault().post(conversation);

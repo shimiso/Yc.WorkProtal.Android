@@ -30,12 +30,13 @@ public class ConversationDao extends AbstractDao<Conversation, Long> {
         public final static Property Content = new Property(3, String.class, "content", false, "CONTENT");
         public final static Property TargetId = new Property(4, String.class, "targetId", false, "TARGET_ID");
         public final static Property TargetName = new Property(5, String.class, "targetName", false, "TARGET_NAME");
-        public final static Property Icon = new Property(6, String.class, "icon", false, "ICON");
+        public final static Property TargetIcon = new Property(6, String.class, "targetIcon", false, "TARGET_ICON");
         public final static Property SenderUserId = new Property(7, String.class, "senderUserId", false, "SENDER_USER_ID");
-        public final static Property SenderName = new Property(8, Long.class, "senderName", false, "SENDER_NAME");
-        public final static Property SentTime = new Property(9, Long.class, "sentTime", false, "SENT_TIME");
-        public final static Property ReceivedTime = new Property(10, Long.class, "receivedTime", false, "RECEIVED_TIME");
-        public final static Property Type = new Property(11, Integer.class, "type", false, "TYPE");
+        public final static Property SenderName = new Property(8, String.class, "senderName", false, "SENDER_NAME");
+        public final static Property SenderIcon = new Property(9, String.class, "senderIcon", false, "SENDER_ICON");
+        public final static Property SentTime = new Property(10, Long.class, "sentTime", false, "SENT_TIME");
+        public final static Property ReceivedTime = new Property(11, Long.class, "receivedTime", false, "RECEIVED_TIME");
+        public final static Property Type = new Property(12, Integer.class, "type", false, "TYPE");
     }
 
 
@@ -57,12 +58,13 @@ public class ConversationDao extends AbstractDao<Conversation, Long> {
                 "\"CONTENT\" TEXT," + // 3: content
                 "\"TARGET_ID\" TEXT," + // 4: targetId
                 "\"TARGET_NAME\" TEXT," + // 5: targetName
-                "\"ICON\" TEXT," + // 6: icon
+                "\"TARGET_ICON\" TEXT," + // 6: targetIcon
                 "\"SENDER_USER_ID\" TEXT," + // 7: senderUserId
-                "\"SENDER_NAME\" INTEGER," + // 8: senderName
-                "\"SENT_TIME\" INTEGER," + // 9: sentTime
-                "\"RECEIVED_TIME\" INTEGER," + // 10: receivedTime
-                "\"TYPE\" INTEGER);"); // 11: type
+                "\"SENDER_NAME\" TEXT," + // 8: senderName
+                "\"SENDER_ICON\" TEXT," + // 9: senderIcon
+                "\"SENT_TIME\" INTEGER," + // 10: sentTime
+                "\"RECEIVED_TIME\" INTEGER," + // 11: receivedTime
+                "\"TYPE\" INTEGER);"); // 12: type
     }
 
     /** Drops the underlying database table. */
@@ -101,9 +103,9 @@ public class ConversationDao extends AbstractDao<Conversation, Long> {
             stmt.bindString(6, targetName);
         }
  
-        String icon = entity.getIcon();
-        if (icon != null) {
-            stmt.bindString(7, icon);
+        String targetIcon = entity.getTargetIcon();
+        if (targetIcon != null) {
+            stmt.bindString(7, targetIcon);
         }
  
         String senderUserId = entity.getSenderUserId();
@@ -111,24 +113,29 @@ public class ConversationDao extends AbstractDao<Conversation, Long> {
             stmt.bindString(8, senderUserId);
         }
  
-        Long senderName = entity.getSenderName();
+        String senderName = entity.getSenderName();
         if (senderName != null) {
-            stmt.bindLong(9, senderName);
+            stmt.bindString(9, senderName);
+        }
+ 
+        String senderIcon = entity.getSenderIcon();
+        if (senderIcon != null) {
+            stmt.bindString(10, senderIcon);
         }
  
         Long sentTime = entity.getSentTime();
         if (sentTime != null) {
-            stmt.bindLong(10, sentTime);
+            stmt.bindLong(11, sentTime);
         }
  
         Long receivedTime = entity.getReceivedTime();
         if (receivedTime != null) {
-            stmt.bindLong(11, receivedTime);
+            stmt.bindLong(12, receivedTime);
         }
  
         Integer type = entity.getType();
         if (type != null) {
-            stmt.bindLong(12, type);
+            stmt.bindLong(13, type);
         }
     }
 
@@ -162,9 +169,9 @@ public class ConversationDao extends AbstractDao<Conversation, Long> {
             stmt.bindString(6, targetName);
         }
  
-        String icon = entity.getIcon();
-        if (icon != null) {
-            stmt.bindString(7, icon);
+        String targetIcon = entity.getTargetIcon();
+        if (targetIcon != null) {
+            stmt.bindString(7, targetIcon);
         }
  
         String senderUserId = entity.getSenderUserId();
@@ -172,24 +179,29 @@ public class ConversationDao extends AbstractDao<Conversation, Long> {
             stmt.bindString(8, senderUserId);
         }
  
-        Long senderName = entity.getSenderName();
+        String senderName = entity.getSenderName();
         if (senderName != null) {
-            stmt.bindLong(9, senderName);
+            stmt.bindString(9, senderName);
+        }
+ 
+        String senderIcon = entity.getSenderIcon();
+        if (senderIcon != null) {
+            stmt.bindString(10, senderIcon);
         }
  
         Long sentTime = entity.getSentTime();
         if (sentTime != null) {
-            stmt.bindLong(10, sentTime);
+            stmt.bindLong(11, sentTime);
         }
  
         Long receivedTime = entity.getReceivedTime();
         if (receivedTime != null) {
-            stmt.bindLong(11, receivedTime);
+            stmt.bindLong(12, receivedTime);
         }
  
         Integer type = entity.getType();
         if (type != null) {
-            stmt.bindLong(12, type);
+            stmt.bindLong(13, type);
         }
     }
 
@@ -207,12 +219,13 @@ public class ConversationDao extends AbstractDao<Conversation, Long> {
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // content
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // targetId
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // targetName
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // icon
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // targetIcon
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // senderUserId
-            cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8), // senderName
-            cursor.isNull(offset + 9) ? null : cursor.getLong(offset + 9), // sentTime
-            cursor.isNull(offset + 10) ? null : cursor.getLong(offset + 10), // receivedTime
-            cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11) // type
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // senderName
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // senderIcon
+            cursor.isNull(offset + 10) ? null : cursor.getLong(offset + 10), // sentTime
+            cursor.isNull(offset + 11) ? null : cursor.getLong(offset + 11), // receivedTime
+            cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12) // type
         );
         return entity;
     }
@@ -225,12 +238,13 @@ public class ConversationDao extends AbstractDao<Conversation, Long> {
         entity.setContent(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setTargetId(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setTargetName(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setIcon(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setTargetIcon(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setSenderUserId(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setSenderName(cursor.isNull(offset + 8) ? null : cursor.getLong(offset + 8));
-        entity.setSentTime(cursor.isNull(offset + 9) ? null : cursor.getLong(offset + 9));
-        entity.setReceivedTime(cursor.isNull(offset + 10) ? null : cursor.getLong(offset + 10));
-        entity.setType(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
+        entity.setSenderName(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setSenderIcon(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setSentTime(cursor.isNull(offset + 10) ? null : cursor.getLong(offset + 10));
+        entity.setReceivedTime(cursor.isNull(offset + 11) ? null : cursor.getLong(offset + 11));
+        entity.setType(cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12));
      }
     
     @Override

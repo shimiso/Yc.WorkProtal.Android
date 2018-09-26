@@ -30,32 +30,38 @@ public class Conversation {
     //目标名字
     private String targetName;
     //目标头像
-    private String icon;
+    private String targetIcon;
 
     //发送者id
     private String senderUserId;
     //发送者姓名
-    private Long senderName;
+    private String senderName;
+    //目发送者头像
+    private String senderIcon;
+
     //发送时间
     private Long sentTime;
     //接收时间
     private Long receivedTime;
 
+    //消息类型
     private Integer type;
 
-    @Generated(hash = 394068825)
+    @Generated(hash = 447431449)
     public Conversation(Long id, int messageId, String title, String content,
-            String targetId, String targetName, String icon, String senderUserId,
-            Long senderName, Long sentTime, Long receivedTime, Integer type) {
+            String targetId, String targetName, String targetIcon,
+            String senderUserId, String senderName, String senderIcon,
+            Long sentTime, Long receivedTime, Integer type) {
         this.id = id;
         this.messageId = messageId;
         this.title = title;
         this.content = content;
         this.targetId = targetId;
         this.targetName = targetName;
-        this.icon = icon;
+        this.targetIcon = targetIcon;
         this.senderUserId = senderUserId;
         this.senderName = senderName;
+        this.senderIcon = senderIcon;
         this.sentTime = sentTime;
         this.receivedTime = receivedTime;
         this.type = type;
@@ -113,12 +119,12 @@ public class Conversation {
         this.targetName = targetName;
     }
 
-    public String getIcon() {
-        return this.icon;
+    public String getTargetIcon() {
+        return this.targetIcon;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public void setTargetIcon(String targetIcon) {
+        this.targetIcon = targetIcon;
     }
 
     public String getSenderUserId() {
@@ -129,12 +135,20 @@ public class Conversation {
         this.senderUserId = senderUserId;
     }
 
-    public Long getSenderName() {
+    public String getSenderName() {
         return this.senderName;
     }
 
-    public void setSenderName(Long senderName) {
+    public void setSenderName(String senderName) {
         this.senderName = senderName;
+    }
+
+    public String getSenderIcon() {
+        return this.senderIcon;
+    }
+
+    public void setSenderIcon(String senderIcon) {
+        this.senderIcon = senderIcon;
     }
 
     public Long getSentTime() {

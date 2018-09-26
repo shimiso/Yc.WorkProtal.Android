@@ -136,6 +136,10 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
                     dataViewHolder.message_time.setText(new DateTime().getTimePoint(conversation.getReceivedTime()));
                 }
             }
+            if(!StringUtils.isEmpty(conversation.getTargetIcon())){
+                Glide.with(context).load(conversation.getTargetIcon()).into(dataViewHolder.message_icon);
+            }
+
             dataViewHolder.message_content.setText(conversation.getContent());
             dataViewHolder.message_title.setText(conversation.getTitle());
             //获取未读消息数

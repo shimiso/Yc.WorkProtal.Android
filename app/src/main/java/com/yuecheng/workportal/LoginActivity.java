@@ -28,6 +28,8 @@ public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.username)
     TextView username;
+    @BindView(R.id.phone_text)
+    TextView phone_text;
     @BindView(R.id.password_text)
     TextView password_text;
     @BindView(R.id.password)
@@ -112,6 +114,8 @@ public class LoginActivity extends BaseActivity {
         dynamic_password.setOnClickListener(v -> {
 
             if (!isPassword) {
+                phone_text.setText("手机号");
+                username.setHint("请输入手机号");
                 password_text.setText("短信验证码");
                 password.setHint("请输入短信验证码");
                 password.setText("");
@@ -119,6 +123,8 @@ public class LoginActivity extends BaseActivity {
                 obtain_text.setVisibility(View.VISIBLE);
                 isPassword = true;
             } else {
+                phone_text.setText("用户名");
+                username.setHint("请输入用户名");
                 password_text.setText("密码");
                 password.setHint("请输入密码");
                 password.setText("");
