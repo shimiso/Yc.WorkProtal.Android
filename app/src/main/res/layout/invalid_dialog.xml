@@ -77,7 +77,7 @@
 
                 <View
                     android:id="@+id/fengx1"
-                    style="@style/vertical_light_thin_divider" />
+                    style="@style/divider_vertical" />
 
                 <Button
                     android:id="@+id/exit_btn"
