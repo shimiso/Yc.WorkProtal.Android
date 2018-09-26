@@ -5,11 +5,14 @@
 
 package com.yuecheng.workportal;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.yuecheng.workportal.base.BaseActivity;
 
@@ -19,14 +22,19 @@ import com.yuecheng.workportal.base.BaseActivity;
  * 作者：shims
  */
 public class InvalidateActivity extends BaseActivity implements OnClickListener {
+    public static final String INVALIDATE_MESSAGE = "invalidate_message";
     protected MainApplication mainApplication;
     private Button reLoginBtn, exitBtn;//重新登录和退出按钮
-
+    Intent lastIntent;
+    private String message;//超时提示信息
+    private TextView tv_message;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setFullFullscreen();//全屏
         super.onCreate(savedInstanceState);
         setContentView(R.layout.invalid_dialog);
+        lastIntent = getIntent();
+        message = lastIntent.getStringExtra(INVALIDATE_MESSAGE);
         mainApplication = MainApplication.getApplication();
         initView();
     }
@@ -75,6 +83,11 @@ public class InvalidateActivity extends BaseActivity implements OnClickListener 
         exitBtn = findViewById(R.id.exit_btn);
         reLoginBtn.setOnClickListener(this);
         exitBtn.setOnClickListener(this);
+
+        tv_message = findViewById(R.id.message);
+        if (!TextUtils.isEmpty(message)) {
+            tv_message.setText(message);
+        }
     }
     @Override
     public void finish() {

@@ -29,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
 
 
 public class InformationActivity extends BaseActivity implements CommonPostView<PersonnelDetailsBean> {
@@ -130,15 +131,19 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
                 });
                 break;
             case R.id.to_chat://IM聊天
-                if (RongIM.getInstance() != null)
-                /**
-                 * 启动单聊界面。
-                 * @param context      应用上下文。
-                 * @param targetUserId 要与之聊天的用户 Id。
-                 * @param title        聊天的标题，开发者需要在聊天界面通过 intent.getData().getQueryParameter("title")
-                 *                     获取该值, 再手动设置为聊天界面的标题。
-                 */
-                RongIM.getInstance().startPrivateChat(context, personnelDetailsBean.getCode()+"", "与"+personnelDetailsBean.getName()+"对话");
+                if (RongIM.getInstance() != null){
+                    Bundle bundle = new Bundle();
+                    bundle.putString("targetName", personnelDetailsBean.getName());
+                    bundle.putString("targetIcon", "http://rongcloud-web.qiniudn.com/docs_demo_rongcloud_logo.png");
+                    /**
+                     * 启动单聊界面。
+                     * @param context      应用上下文。
+                     * @param targetUserId 要与之聊天的用户 Id。
+                     * @param title        聊天的标题，开发者需要在聊天界面通过 intent.getData().getQueryParameter("title")
+                     *                     获取该值, 再手动设置为聊天界面的标题。
+                     */
+                    RongIM.getInstance().startConversation(context, Conversation.ConversationType.PRIVATE, personnelDetailsBean.getCode()+"", "与"+personnelDetailsBean.getName()+"对话",bundle);
+                }
                 break;
 
         }

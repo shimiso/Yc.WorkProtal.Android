@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
+import com.yuecheng.workportal.receive.MySendMessageListener;
 
 import java.util.Locale;
 
@@ -27,7 +28,8 @@ public class ConversationActivity extends BaseActivity {
     private RelativeLayout mBack;
     private String title;
     private String mTargetId;
-
+    private String targetName;
+    private String targetIcon;
     /**
      * 刚刚创建完讨论组后获得讨论组的id 为targetIds，需要根据 为targetIds 获取 targetId
      */
@@ -46,6 +48,8 @@ public class ConversationActivity extends BaseActivity {
         setActionBar();
         getIntentDate(intent);
         isReconnect(intent);
+        //消息发送监听
+        RongIM.getInstance().setSendMessageListener(new MySendMessageListener(this,title,targetName,targetIcon));
     }
 
     /**
@@ -55,6 +59,12 @@ public class ConversationActivity extends BaseActivity {
         mTargetId = intent.getData().getQueryParameter("targetId");
         mTargetIds = intent.getData().getQueryParameter("targetIds");
         title = intent.getData().getQueryParameter("title");
+        Bundle bundle = intent.getExtras();
+        if(bundle!=null){
+            targetName=bundle.getString("targetName");
+            targetIcon=bundle.getString("targetIcon");
+        }
+
         //intent.getData().getLastPathSegment();//获得当前会话类型
         mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
 

@@ -75,6 +75,8 @@ public class UserPresenter {
                                 commonPostView.postError("服务器发生未知异常");
                             }
                         } else if (responseCode == 400) {
+
+
                             commonPostView.postError(result);
                         } else {
                             commonPostView.postError("服务器发生未知异常");

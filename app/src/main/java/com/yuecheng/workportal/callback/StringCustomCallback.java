@@ -15,12 +15,10 @@
  */
 package com.yuecheng.workportal.callback;
 
-import android.content.Intent;
-
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.convert.StringConvert;
-import com.yuecheng.workportal.LoginActivity;
 import com.yuecheng.workportal.MainApplication;
+import com.yuecheng.workportal.R;
 
 import org.json.JSONObject;
 
@@ -52,8 +50,7 @@ public abstract class StringCustomCallback extends AbsCallback<String> {
         boolean success = jsonObj.optBoolean("success");
         boolean unAuthorizedRequest = jsonObj.optBoolean("unAuthorizedRequest");
         if(!success && unAuthorizedRequest){
-            MainApplication.getApplication().relogin();
-            MainApplication.getApplication().startActivity(new Intent(MainApplication.getApplication(), LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            MainApplication.getApplication().toInvalidate(R.string.lost_session);
         }
         response.close();
         return json;

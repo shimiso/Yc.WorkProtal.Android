@@ -29,9 +29,15 @@ public class MySendMessageListener implements RongIM.OnSendMessageListener {
     ConversationPresenter conversationPresenter;
     AndroidUtil androidUtil;
     LoginUser loginUser;
+    String targetName;
+    String targetIcon;
+    String title;
 
-    public MySendMessageListener(Context context) {
+    public MySendMessageListener(Context context,String title,String targetName,String targetIcon) {
         this.context = context;
+        this.title = title;
+        this.targetName = targetName;
+        this.targetIcon = targetIcon;
         this.androidUtil = AndroidUtil.init(context);
         this.conversationPresenter = new ConversationPresenter(context);
     }
@@ -113,6 +119,8 @@ public class MySendMessageListener implements RongIM.OnSendMessageListener {
         conversation.setSenderUserId(message.getSenderUserId());
         conversation.setSentTime(message.getSentTime());
 
+        conversation.setTitle(title);
+        conversation.setTargetName(targetName);
         conversation.setTargetId(message.getTargetId());
 
         conversationPresenter.updateConversation(conversation);

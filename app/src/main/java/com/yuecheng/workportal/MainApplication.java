@@ -21,7 +21,6 @@ import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.receive.MyConnectionStatusListener;
 import com.yuecheng.workportal.receive.MyReceiveMessageListener;
-import com.yuecheng.workportal.receive.MySendMessageListener;
 import com.yuecheng.workportal.utils.AndroidUtil;
 import com.yuecheng.workportal.utils.SharePreferenceUtil;
 
@@ -33,6 +32,8 @@ import java.util.logging.Level;
 
 import io.rong.imkit.RongIM;
 import okhttp3.OkHttpClient;
+
+import static com.yuecheng.workportal.InvalidateActivity.INVALIDATE_MESSAGE;
 
 public class MainApplication extends MultiDexApplication {
     private static MainApplication app;
@@ -78,11 +79,8 @@ public class MainApplication extends MultiDexApplication {
         }
         //消息接受监听
         RongIM.setOnReceiveMessageListener(new MyReceiveMessageListener(this));
-        //消息发送监听
-        RongIM.getInstance().setSendMessageListener(new MySendMessageListener(this));
         //接状态监听器
         RongIM.setConnectionStatusListener(new MyConnectionStatusListener(this));
-
     }
 
     public static MainApplication getApplication() {
@@ -150,10 +148,15 @@ public class MainApplication extends MultiDexApplication {
     /**
      * 登陆失效
      */
-    public void toInvalidate() {
-        startActivity(new Intent(app, InvalidateActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    public void toInvalidate(String message) {
+        startActivity(new Intent(app, InvalidateActivity.class).putExtra(INVALIDATE_MESSAGE,message).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
-
+    /**
+     * 登陆失效
+     */
+    public void toInvalidate(Integer id) {
+        startActivity(new Intent(app, InvalidateActivity.class).putExtra(INVALIDATE_MESSAGE,getString(id)).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
     private void initXunfei() {
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5b7287ac");
     }

@@ -48,6 +48,8 @@
     <string name="close">Close</string>
     <string name="exit">Exit</string>
     <string name="lost_session">Login is invalid, please login again. </string>
+    <string name="offline_session">The account is logged on by other devices. Please login again. </string>
+    <string name="delete">delete</string>
     <string name="relogin">Re logged in</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>

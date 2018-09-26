@@ -55,9 +55,6 @@ public class ConversationPresenter {
                     .where(ConversationDao.Properties.TargetId.eq(temp.getTargetId()))
                     .build().list();
             if(list!=null&&list.size()>0){
-                temp.setTargetName(list.get(0).getTargetName());
-                temp.setTargetIcon(list.get(0).getTargetIcon());
-                temp.setTitle(list.get(0).getTitle());
                 conversationDao.deleteInTx(list);
             }
             conversationDao.save(temp);
@@ -65,5 +62,11 @@ public class ConversationPresenter {
             e.printStackTrace();
         }
 
+    }
+
+    public void remove(Conversation conversation) {
+        if(conversation!=null){
+            conversationDao.delete(conversation);
+        }
     }
 }

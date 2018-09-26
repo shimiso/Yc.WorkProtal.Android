@@ -2,7 +2,10 @@ package com.yuecheng.workportal.module.conversation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +51,24 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
         layoutInflater = LayoutInflater.from(context);
     }
 
+    private int position;
+
+    /**
+     * 获取当前选中位置
+     * @return
+     */
+    public int getPosition() {
+        return position;
+    }
+
+    /**
+     * 设置当前选中位置
+     * @param position
+     */
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     /**
      * 刷新数据
      *
@@ -60,6 +81,25 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.mList = list;
         this.viewType = DATA_VIEW;
         this.notifyDataSetChanged();
+    }
+
+    /**
+     * 删除
+     *
+     * @param index
+     */
+    public void remove(int index) {
+        this.mList.remove(index);
+        this.notifyDataSetChanged();
+    }
+
+    /**
+     * 获取item
+     *
+     * @param index
+     */
+    public Conversation getItem(int index) {
+        return this.mList.get(index);
     }
 
     public void showLoadingView() {
@@ -129,14 +169,14 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (holder instanceof DataViewHolder) {
             DataViewHolder dataViewHolder = (DataViewHolder) holder;
             final Conversation conversation = mList.get(position);
-            if(spUtil.getCurrentUserName().equals(conversation.getSenderUserId())&&conversation.getSentTime()!=null){
+            if (spUtil.getCurrentUserName().equals(conversation.getSenderUserId()) && conversation.getSentTime() != null) {
                 dataViewHolder.message_time.setText(new DateTime().getTimePoint(conversation.getSentTime()));
-            }else{
-                if(conversation.getReceivedTime()!=null){
+            } else {
+                if (conversation.getReceivedTime() != null) {
                     dataViewHolder.message_time.setText(new DateTime().getTimePoint(conversation.getReceivedTime()));
                 }
             }
-            if(!StringUtils.isEmpty(conversation.getTargetIcon())){
+            if (!StringUtils.isEmpty(conversation.getTargetIcon())) {
                 Glide.with(context).load(conversation.getTargetIcon()).into(dataViewHolder.message_icon);
             }
 
@@ -146,22 +186,20 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
             RongIMClient.getInstance().getUnreadCount(io.rong.imlib.model.Conversation.ConversationType.PRIVATE, conversation.getTargetId(), new RongIMClient.ResultCallback<Integer>() {
                 @Override
                 public void onSuccess(Integer integer) {
-                    if(integer>99){
+                    if (integer > 99) {
                         dataViewHolder.unReadMsgCountIcon.setVisibility(View.VISIBLE);
                         dataViewHolder.unReadMsgCount.setVisibility(View.VISIBLE);
                         dataViewHolder.unReadMsgCountIcon.setImageResource(io.rong.imkit.R.drawable.rc_unread_count_bg);
                         dataViewHolder.unReadMsgCount.setText(Integer.toString(99));
-                    }else if(integer<=0){
+                    } else if (integer <= 0) {
                         dataViewHolder.unReadMsgCountIcon.setVisibility(View.GONE);
                         dataViewHolder.unReadMsgCount.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         dataViewHolder.unReadMsgCountIcon.setVisibility(View.VISIBLE);
                         dataViewHolder.unReadMsgCount.setVisibility(View.VISIBLE);
                         dataViewHolder.unReadMsgCountIcon.setImageResource(io.rong.imkit.R.drawable.rc_unread_count_bg);
                         dataViewHolder.unReadMsgCount.setText(Integer.toString(integer));
                     }
-
-
                 }
 
                 @Override
@@ -171,22 +209,51 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
             });
 
             dataViewHolder.itemView.setOnClickListener(view -> {
-                switch (conversation.getType()){
+                switch (conversation.getType()) {
                     case 0:
                         Glide.with(context).load(R.mipmap.assistant).into(dataViewHolder.message_icon);
                         Intent intent = new Intent(context, VoiceActivity.class);
                         context.startActivity(intent);
                         break;
                     case 1:
-                        if (RongIM.getInstance() != null)
-                            RongIM.getInstance().startPrivateChat(context, conversation.getTargetId(), conversation.getTitle());
+                        if (RongIM.getInstance() != null) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString("targetName", conversation.getTargetName());
+                            bundle.putString("targetIcon", conversation.getTargetIcon());
+                            //启动单聊界面。  targetUserId 要与之聊天的用户 Id。
+                            RongIM.getInstance().startConversation(context, io.rong.imlib.model.Conversation.ConversationType.PRIVATE, conversation.getTargetId(), conversation.getTitle(), bundle);
+                        }
                         break;
                 }
             });
+            if(position>0){
+                holder.itemView.setOnLongClickListener(view -> {
+                    setPosition(holder.getLayoutPosition());
+                    showPopupMenu(holder.itemView,position);
+                    return false;
+                });
+            }
         }
     }
-
-
+    private void showPopupMenu(View view,int position) {
+        // 这里的view代表popupMenu需要依附的view
+        PopupMenu popupMenu = new PopupMenu(context, view, Gravity.END);
+        // 获取布局文件
+        popupMenu.getMenuInflater().inflate(R.menu.conversation, popupMenu.getMenu());
+        popupMenu.show();
+        // 通过上面这几行代码，就可以把控件显示出来了
+        popupMenu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.delete:
+                    new ConversationPresenter(context).remove(getItem(position));
+                    remove(position);
+                    break;
+            }
+            return true;
+        });
+        popupMenu.setOnDismissListener(menu -> menu.dismiss());
+        popupMenu.show();
+    }
 
     @Override
     public int getItemCount() {
@@ -198,17 +265,17 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
         public TextView message_time;
         public TextView message_content;
         public ImageView message_icon;
-        public ImageView  unReadMsgCountIcon;
+        public ImageView unReadMsgCountIcon;
         public TextView unReadMsgCount;
 
-        DataViewHolder(View view) {
-            super(view);
-            message_title =  view.findViewById(R.id.message_title);
-            message_time =  view.findViewById(R.id.message_time);
-            message_content =  view.findViewById(R.id.message_content);
-            message_icon = view.findViewById(R.id.message_icon);
-            unReadMsgCountIcon = view.findViewById(R.id.rc_unread_message_icon);
-            unReadMsgCount = view.findViewById(R.id.rc_unread_message);
+        DataViewHolder(View itemView) {
+            super(itemView);
+            message_title = itemView.findViewById(R.id.message_title);
+            message_time = itemView.findViewById(R.id.message_time);
+            message_content = itemView.findViewById(R.id.message_content);
+            message_icon = itemView.findViewById(R.id.message_icon);
+            unReadMsgCountIcon = itemView.findViewById(R.id.rc_unread_message_icon);
+            unReadMsgCount = itemView.findViewById(R.id.rc_unread_message);
         }
     }
 
@@ -246,7 +313,7 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         public EmptyViewHolder(View view) {
             super(view);
-            error_msg_tv =  view.findViewById(R.id.error_msg_tv);
+            error_msg_tv = view.findViewById(R.id.error_msg_tv);
             error_img = view.findViewById(R.id.error_img);
             error_img.setVisibility(View.GONE);
             error_msg_tv.setVisibility(View.VISIBLE);

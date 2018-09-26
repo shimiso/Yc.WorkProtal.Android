@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -56,11 +57,17 @@ public class ConversationListFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.conversation_list_fragment, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         conversationPresenter = new ConversationPresenter(getActivity());
         //这里用线性显示 类似于listview
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -85,6 +92,21 @@ public class ConversationListFragment extends BaseFragment {
         loadData();
     }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (getUserVisibleHint()) {
+            int position = conversationListAdapter.getPosition();
+            switch (item.getItemId()) {
+                case 0:
+                    conversationPresenter.remove(conversationListAdapter.getItem(position));
+                    conversationListAdapter.remove(position);
+                    break;
+            }
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
     /**
      * 加载数据
      */
@@ -94,13 +116,13 @@ public class ConversationListFragment extends BaseFragment {
         if (!androidUtil.hasInternetConnected()) {
             conversationListAdapter.showNoNetView(v -> loadData());
 
-        }else {
+        } else {
             conversationPresenter.getConversationList(new CommonResultView<List<Conversation>>() {
                 @Override
                 public void success(List<Conversation> result) {
-                    if(result==null||result.size()==0){
+                    if (result == null || result.size() == 0) {
                         conversationListAdapter.showEmptyView(v -> loadData());
-                    }else {
+                    } else {
                         conversationListAdapter.onRefresh(result);
                     }
                 }
@@ -112,7 +134,6 @@ public class ConversationListFragment extends BaseFragment {
             });
         }
     }
-
 
 
 }
