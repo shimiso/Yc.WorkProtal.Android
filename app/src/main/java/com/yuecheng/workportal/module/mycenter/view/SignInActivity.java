@@ -340,7 +340,7 @@ public class SignInActivity extends BaseActivity
 				String errText = "定位失败," + amapLocation.getErrorCode() + ": "
 						+ amapLocation.getErrorInfo();
 				Log.e("AmapErr", errText);
-				Toast.makeText(SignInActivity.this,errText, Toast.LENGTH_LONG).show();
+//				Toast.makeText(SignInActivity.this,errText, Toast.LENGTH_LONG).show();
 			}
 		}
 	}
