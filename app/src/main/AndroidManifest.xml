@@ -63,6 +63,9 @@
             android:name=".module.robot.view.JsonActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".module.mycenter.view.SignInActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".module.contacts.view.InformationActivity"
             android:launchMode="singleTop" />
         <activity
@@ -140,7 +143,7 @@
         <!-- 高德地图-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="e09af6a2b26c02086e9216bd07c960ae" />
+            android:value="aa35c3f064476e2ab79d11538b818eac" />
     </application>
 
 </manifest>

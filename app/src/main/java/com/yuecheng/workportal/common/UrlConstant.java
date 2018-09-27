@@ -18,5 +18,5 @@ public interface UrlConstant {
 
 
     String SSO_LOGIN = "http://192.168.0.141:5000/connect/token";
-    String SSO_IDENTITY = "http://192.168.0.141:5005/api/Identity";//获取人员详情
+    String SSO_IDENTITY = "http://192.168.0.141:5005/Identity/GetBasicInfo";//获取人员详情
 }

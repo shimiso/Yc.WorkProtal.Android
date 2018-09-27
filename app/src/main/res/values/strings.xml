@@ -79,6 +79,7 @@
     <string name="my_login_web">登录网页版</string>
     <string name="my_directions">使用说明</string>
     <string name="my_feedback">意见反馈</string>
+    <string name="my_sign_in">考勤打卡</string>
 
     <string name="opinion">如果您遇到功能，内容方面的错误</string>
     <string name="opinion_phone">请输入您的电话/邮箱，方便我们联系（选填）</string>
