@@ -160,6 +160,13 @@
     <!--通讯录-->
     <string name="personnel">personnel</string>
     <string name="organization">organization</string>
+    <string name="work_number">Work number</string>
+    <string name="mobile_phone">Mobile phone</string>
+    <string name="landline">landline</string>
+    <string name="email">email</string>
+    <string name="jobs">jobs</string>
+    <string name="deputy_post">Deputy post</string>
+    <string name="immediate_superior">Immediate superior</string>
 
     <string-array name="voice_type_params">
         <item>xiaoqi</item>

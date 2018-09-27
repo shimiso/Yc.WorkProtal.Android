@@ -66,12 +66,16 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         ButterKnife.bind(this);
         lateralDestroy();
         instance = this;
+        init();
+        //init RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        //设置item间距，30dp
+        recyclerView.addItemDecoration(new SpaceItemDecoration(30));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        init();
         afterView();
     }
 
@@ -185,6 +189,8 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
         mRecordWindow.setFocusable(true);
         mRecordWindow.setOutsideTouchable(false);
         mRecordWindow.setTouchable(false);
+        this.mStateTV.setBackgroundResource(R.drawable.bg_voice_popup);
+        this.mStateTV.setText(R.string.voice_rec);
         voice_btn.setText(R.string.normal_end);
     }
 
@@ -280,10 +286,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
 
     private void afterView() {
 
-        //init RecyclerView
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        //设置item间距，30dp
-        recyclerView.addItemDecoration(new SpaceItemDecoration(30));
+
         mTalkListAdapter = new TalkListAdapter(mTalkBeanList, this);
         recyclerView.setAdapter(mTalkListAdapter);
 

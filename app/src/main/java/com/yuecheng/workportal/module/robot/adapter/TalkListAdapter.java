@@ -20,8 +20,8 @@ import android.webkit.WebViewClient;
 
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
+import com.yuecheng.workportal.module.contacts.view.InformationActivity;
 import com.yuecheng.workportal.module.robot.JavaSctiptMethods;
-import com.yuecheng.workportal.module.robot.OpenH5Activity;
 import com.yuecheng.workportal.module.robot.bean.TalkBean;
 import com.yuecheng.workportal.module.robot.view.JsonActivity;
 import com.yuecheng.workportal.module.robot.view.PeopleDetailTalkListViewHolder;
@@ -33,7 +33,7 @@ import java.util.List;
 
 import io.rong.imkit.RongIM;
 
-public class TalkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
+public class TalkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int VIEW_TYPE_ROBOT_CHAT = 1;
     public static final int VIEW_TYPE_ROBOT_WEB = 2;
     public static final int VIEW_TYPE_USER = 3;
@@ -102,7 +102,7 @@ public class TalkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             webHolder.mTvRobotWeb.setWebViewClient(new WebViewClient());
             webHolder.mTvRobotWeb.setWebChromeClient(new WebChromeClient());
         } else if (holder instanceof PeopleDetailTalkListViewHolder) {
-            personnelDetailsBean = talkBean.getPersonnelDetailsBean();
+            personnelDetailsBean =  mTalkBeanList.get(position).getPersonnelDetailsBean();
             peopleHolder = (PeopleDetailTalkListViewHolder) holder;
             String[] split = personnelDetailsBean.getOrganizationName().split(">");
 
@@ -118,11 +118,40 @@ public class TalkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             peopleHolder.landlineTv.setTextColor(Color.parseColor("#008CFF"));
             peopleHolder.phoneTv.setTextColor(Color.parseColor("#008CFF"));
 
-
-            peopleHolder.send_mail_ll.setOnClickListener(this);//邮件点击事件
-            peopleHolder.send_msg_ll.setOnClickListener(this);//发送消息的点击事件
-            peopleHolder.phoneTv.setOnClickListener(this);//手机号
-            peopleHolder.landlineTv.setOnClickListener(this);//座机
+            peopleHolder.send_mail_ll.setOnClickListener(v ->{//邮件点击事件
+                    Intent data=new Intent(Intent.ACTION_SENDTO);
+                    data.setData(Uri.parse("mailto:"+mTalkBeanList.get(position).getPersonnelDetailsBean().getEmail()));
+                    context.startActivity(data);
+            });
+            peopleHolder.send_msg_ll.setOnClickListener(v ->{//发送消息的点击事件
+                    if (RongIM.getInstance() != null){
+                        RongIM.getInstance().startPrivateChat(context, mTalkBeanList.get(position).getPersonnelDetailsBean().getGuid()+"", "与"+mTalkBeanList.get(position).getPersonnelDetailsBean().getName()+"对话");
+                    }
+                });
+            peopleHolder.phoneTv.setOnClickListener(v ->{//手机号
+                   String number = mTalkBeanList.get(position).getPersonnelDetailsBean().getMobilePhone();
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number));
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+            });
+            peopleHolder.landlineTv.setOnClickListener(v ->{//座机
+                    String number = mTalkBeanList.get(position).getPersonnelDetailsBean().getTelephone();
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number));
+                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+            });
+            peopleHolder.details_rl.setOnClickListener(v ->{//跳转主页
+                    Intent detailsIntent = new Intent(context, InformationActivity.class);
+                    detailsIntent.putExtra("Guid",mTalkBeanList.get(position).getPersonnelDetailsBean().getGuid());
+                    detailsIntent.putExtra("name",mTalkBeanList.get(position).getPersonnelDetailsBean().getName());
+                    context.startActivity(detailsIntent);
+            });
         }
     }
 
@@ -135,34 +164,4 @@ public class TalkListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return super.getItemViewType(position);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.landline_tv:
-            case R.id.phone_tv: //打电话
-                String number;
-                if (v.getId() == R.id.phone_tv) {
-                    number = peopleHolder.phoneTv.getText().toString();
-                } else {
-                    number = peopleHolder.landlineTv.getText().toString();
-                }
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number));
-                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-                break;
-            case R.id.send_msg_ll://发送消息
-                if (RongIM.getInstance() != null){
-                    RongIM.getInstance().startPrivateChat(context, personnelDetailsBean.getGuid()+"", "与"+personnelDetailsBean.getName()+"对话");
-                }
-                break;
-            case R.id.send_mail_ll: //发送邮件
-                Intent data=new Intent(Intent.ACTION_SENDTO);
-                data.setData(Uri.parse("mailto:"+personnelDetailsBean.getEmail()));
-                context.startActivity(data);
-                break;
-        }
-    }
 }
