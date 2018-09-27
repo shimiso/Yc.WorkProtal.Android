@@ -86,7 +86,7 @@ public class ContactAdapter extends BaseAdapter {
             public void onClick(View v) {
                 //条目点击
                 Intent intent = new Intent(context, InformationActivity.class);
-                intent.putExtra("Code",contactBean.getCode());
+                intent.putExtra("Guid",contactBean.getGuid());
                 intent.putExtra("name",contactBean.getName());
                 context.startActivity(intent);
             }

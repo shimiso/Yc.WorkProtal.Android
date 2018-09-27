@@ -12,6 +12,7 @@ public interface instruction {
      String FIND = "find_contacts"; //查找
      String CALL = "call_contacts"; //打电话
      String TEXT = "text_contacts"; //发短信
+     String OPEN = "open_contacts"; //打开@@主页
      //会议
      String BOOK_MEETING = "book_meeting"; //订会议室
      String CANCEL_MEETING = "cancel_meeting"; //取消会议室

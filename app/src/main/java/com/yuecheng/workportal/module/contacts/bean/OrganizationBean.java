@@ -192,7 +192,7 @@ public class OrganizationBean {
              */
 
             private int staffId;
-            private String code;
+            private String guid;
             private String name;
             private String positionName;
             private String headPortraitUrl;
@@ -204,12 +204,12 @@ public class OrganizationBean {
             public void setStaffId(int staffId) {
                 this.staffId = staffId;
             }
-            public String getCode() {
-                return code;
+            public String getGuid() {
+                return guid;
             }
 
-            public void setCode(String code) {
-                this.code = code;
+            public void setGuid(String guid) {
+                this.guid = guid;
             }
 
             public String getName() {

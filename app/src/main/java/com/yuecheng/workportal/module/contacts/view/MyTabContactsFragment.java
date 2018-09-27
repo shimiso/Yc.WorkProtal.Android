@@ -104,7 +104,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
         }
 
         viewUtil.startLoading();
-        contactsPresenter.getContact(this);
+        contactsPresenter.getContact("",this);
     }
     private void initView() {
         sideLetterBar = (SideLetterBar) view.findViewById(R.id.sideLetterBar);

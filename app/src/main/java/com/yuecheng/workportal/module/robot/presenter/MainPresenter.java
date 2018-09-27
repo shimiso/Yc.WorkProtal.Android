@@ -14,6 +14,7 @@ import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.TextUnderstanderListener;
 import com.iflytek.cloud.UnderstanderResult;
 import com.yuecheng.workportal.R;
+import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
 import com.yuecheng.workportal.module.robot.adapter.TalkListAdapter;
 import com.yuecheng.workportal.module.robot.bean.SemanticResult;
 import com.yuecheng.workportal.module.robot.bean.TalkBean;
@@ -245,7 +246,18 @@ public class MainPresenter implements IMainPresenter {
             }
         });
     }
-
+    public static void personDetailsMessage(final String question,final PersonnelDetailsBean personnelDetailsBean) {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if(!isadd)return;
+                TalkBean talkBean = new TalkBean(question,personnelDetailsBean,
+                        System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_PEOPLE);
+                mTalkBeanList.add(talkBean);
+                mIMainView.updateList(mTalkBeanList);
+            }
+        });
+    }
 
     private void onTextUnderstanderSuccess(UnderstanderResult understanderResult) {
         if (understanderResult == null) return;

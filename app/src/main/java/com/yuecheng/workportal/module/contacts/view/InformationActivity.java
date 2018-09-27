@@ -71,15 +71,15 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
         ButterKnife.bind(this);
         context = this;
         Intent intent = getIntent();
-        String code = intent.getStringExtra("Code");
+        String guid = intent.getStringExtra("Guid");
         String name = intent.getStringExtra("name");
         titleName.setText(name);
         loadingDialog = LoadingDialog.createDialog(this);
         loadingDialog.setMessage("请求网络中...");
         loadingDialog.show();
-        if (code != null) {
+        if (guid != null) {
             ContactsPresenter contactsPresenter = new ContactsPresenter(this);
-            contactsPresenter.getContactInformation(code, this);
+            contactsPresenter.getContactInformation(guid, this);
         }
 
     }

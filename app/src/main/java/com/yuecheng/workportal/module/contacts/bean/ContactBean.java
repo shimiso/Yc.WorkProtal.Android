@@ -40,13 +40,14 @@ public class ContactBean {
 		public static class StaffsBean implements Comparable<StaffsBean> {
 			/**
 			 * staffId : 21
+			 * guid: "0AB718D6-513A-4D84-AD40-81F3639F21BD"
 			 * name : 李忠诚
 			 * positionName : 人事主管
 			 * headPortraitUrl :
 			 */
 
 			private int staffId;
-			private String code;
+			private String guid;
 			private String name;
 			private String positionName;
 			private String headPortraitUrl;
@@ -75,12 +76,12 @@ public class ContactBean {
 			public void setStaffId(int staffId) {
 				this.staffId = staffId;
 			}
-			public String getCode() {
-				return code;
+			public String getGuid() {
+				return guid;
 			}
 
-			public void setCode(String code) {
-				this.code = code;
+			public void setGuid(String guid) {
+				this.guid = guid;
 			}
 
 			public String getName() {

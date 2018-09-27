@@ -1,6 +1,7 @@
 package com.yuecheng.workportal.module.contacts.presenter;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -25,19 +26,20 @@ import org.json.JSONObject;
 
 public class ContactsPresenter {
 
-    private Activity activity;
-    public ContactsPresenter(Activity activity) {
-        this.activity = activity;
+    private Context context;
+    public ContactsPresenter(Context context) {
+        this.context = context;
     }
 
     /**
      * 获取通讯录人员
      * @param commonPostView
      */
-    public void getContact(final CommonPostView commonPostView){
+    public void getContact(String keyword,final CommonPostView commonPostView){
         LoginUser loginUser = MainApplication.getApplication().getLoginUser();
         OkGo.<String>post(UrlConstant.ADDRESSSTAFFQUEY)//
                 .tag(this)//
+                .params("keyword", keyword)//
                 .headers("Authorization", "Bearer "+loginUser.getAccess_token())
                 .execute(new StringCustomCallback(){
                     @Override
@@ -73,15 +75,15 @@ public class ContactsPresenter {
 
     /**
      * 获取个人详细信息
-     * @param Code
+     * @param guid
      * @param commonPostView
      */
-    public void getContactInformation(String Code, final CommonPostView commonPostView){
+    public void getContactInformation(String guid, final CommonPostView commonPostView){
 
         LoginUser loginUser = MainApplication.getApplication().getLoginUser();
         OkGo.<String>get(UrlConstant.SSO_IDENTITY)//
                 .tag(this)//
-                .params("Code", Code)//
+                .params("Guid", guid)//
                 .headers("Authorization", "Bearer "+loginUser.getAccess_token())
                 .execute(new StringCustomCallback(){
                     @Override
