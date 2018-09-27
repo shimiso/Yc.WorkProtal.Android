@@ -13,11 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
+import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.module.conversation.bean.Conversation;
 import com.yuecheng.workportal.module.robot.view.VoiceActivity;
 import com.yuecheng.workportal.utils.DateTime;
-import com.yuecheng.workportal.utils.SharePreferenceUtil;
+import com.yuecheng.workportal.utils.LogUtils;
 import com.yuecheng.workportal.utils.StringUtils;
 
 import java.util.ArrayList;
@@ -43,11 +45,11 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
     private int viewType = DATA_VIEW;
     public View.OnClickListener onClickListener;
     private String errorMsg;
-    SharePreferenceUtil spUtil = null;
+    LoginUser loginUser = null;
 
     public ConversationListAdapter(Context context) {
         this.context = context;
-        this.spUtil = new SharePreferenceUtil(context);
+        this.loginUser = MainApplication.getApplication().getLoginUser();
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -169,44 +171,15 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (holder instanceof DataViewHolder) {
             DataViewHolder dataViewHolder = (DataViewHolder) holder;
             final Conversation conversation = mList.get(position);
-            if (spUtil.getCurrentUserName().equals(conversation.getSenderUserId()) && conversation.getSentTime() != null) {
-                dataViewHolder.message_time.setText(new DateTime().getTimePoint(conversation.getSentTime()));
-            } else {
-                if (conversation.getReceivedTime() != null) {
-                    dataViewHolder.message_time.setText(new DateTime().getTimePoint(conversation.getReceivedTime()));
-                }
-            }
+
             if (!StringUtils.isEmpty(conversation.getTargetIcon())) {
                 Glide.with(context).load(conversation.getTargetIcon()).into(dataViewHolder.message_icon);
             }
 
             dataViewHolder.message_content.setText(conversation.getContent());
             dataViewHolder.message_title.setText(conversation.getTitle());
-            //获取未读消息数
-            RongIMClient.getInstance().getUnreadCount(io.rong.imlib.model.Conversation.ConversationType.PRIVATE, conversation.getTargetId(), new RongIMClient.ResultCallback<Integer>() {
-                @Override
-                public void onSuccess(Integer integer) {
-                    if (integer > 99) {
-                        dataViewHolder.unReadMsgCountIcon.setVisibility(View.VISIBLE);
-                        dataViewHolder.unReadMsgCount.setVisibility(View.VISIBLE);
-                        dataViewHolder.unReadMsgCountIcon.setImageResource(io.rong.imkit.R.drawable.rc_unread_count_bg);
-                        dataViewHolder.unReadMsgCount.setText(Integer.toString(99));
-                    } else if (integer <= 0) {
-                        dataViewHolder.unReadMsgCountIcon.setVisibility(View.GONE);
-                        dataViewHolder.unReadMsgCount.setVisibility(View.GONE);
-                    } else {
-                        dataViewHolder.unReadMsgCountIcon.setVisibility(View.VISIBLE);
-                        dataViewHolder.unReadMsgCount.setVisibility(View.VISIBLE);
-                        dataViewHolder.unReadMsgCountIcon.setImageResource(io.rong.imkit.R.drawable.rc_unread_count_bg);
-                        dataViewHolder.unReadMsgCount.setText(Integer.toString(integer));
-                    }
-                }
-
-                @Override
-                public void onError(RongIMClient.ErrorCode errorCode) {
-
-                }
-            });
+            //设置未读消息
+            setUnreadCount(dataViewHolder,conversation.getTargetId());
 
             dataViewHolder.itemView.setOnClickListener(view -> {
                 switch (conversation.getType()) {
@@ -226,7 +199,15 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
                         break;
                 }
             });
+
             if(position>0){
+                if (loginUser.getGuid().equals(conversation.getSenderUserId()) && conversation.getSentTime() != null) {
+                    dataViewHolder.message_time.setText(new DateTime().getTimePoint(conversation.getSentTime()));
+                } else {
+                    if (conversation.getReceivedTime() != null) {
+                        dataViewHolder.message_time.setText(new DateTime().getTimePoint(conversation.getReceivedTime()));
+                    }
+                }
                 holder.itemView.setOnLongClickListener(view -> {
                     setPosition(holder.getLayoutPosition());
                     showPopupMenu(holder.itemView,position);
@@ -235,6 +216,45 @@ public class ConversationListAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
         }
     }
+
+    /**
+     * 设置未读消息
+     * @param dataViewHolder
+     * @param targetId
+     */
+    private void setUnreadCount(DataViewHolder dataViewHolder,String targetId){
+        //获取未读消息数
+        RongIMClient.getInstance().getUnreadCount(io.rong.imlib.model.Conversation.ConversationType.PRIVATE,targetId , new RongIMClient.ResultCallback<Integer>() {
+            @Override
+            public void onSuccess(Integer integer) {
+                if (integer > 99) {
+                    dataViewHolder.unReadMsgCountIcon.setVisibility(View.VISIBLE);
+                    dataViewHolder.unReadMsgCount.setVisibility(View.VISIBLE);
+                    dataViewHolder.unReadMsgCountIcon.setImageResource(io.rong.imkit.R.drawable.rc_unread_count_bg);
+                    dataViewHolder.unReadMsgCount.setText(Integer.toString(99));
+                } else if (integer <= 0) {
+                    dataViewHolder.unReadMsgCountIcon.setVisibility(View.GONE);
+                    dataViewHolder.unReadMsgCount.setVisibility(View.GONE);
+                } else {
+                    dataViewHolder.unReadMsgCountIcon.setVisibility(View.VISIBLE);
+                    dataViewHolder.unReadMsgCount.setVisibility(View.VISIBLE);
+                    dataViewHolder.unReadMsgCountIcon.setImageResource(io.rong.imkit.R.drawable.rc_unread_count_bg);
+                    dataViewHolder.unReadMsgCount.setText(Integer.toString(integer));
+                }
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                LogUtils.e("ConversationListAdapter",errorCode);
+            }
+        });
+    }
+
+    /**
+     * 显示悬浮菜单
+     * @param view
+     * @param position
+     */
     private void showPopupMenu(View view,int position) {
         // 这里的view代表popupMenu需要依附的view
         PopupMenu popupMenu = new PopupMenu(context, view, Gravity.END);
