@@ -12,6 +12,7 @@
         android:src="@mipmap/assistant" />
 
     <RelativeLayout
+        android:id="@+id/details_rl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/chat_msg_content_bg_left_normal">

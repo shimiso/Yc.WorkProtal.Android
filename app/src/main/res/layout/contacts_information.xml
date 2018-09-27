@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="工号"
+            android:text="@string/work_number"
             android:textSize="16sp" />
 
         <TextView
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="手机"
+            android:text="@string/mobile_phone"
             android:textSize="16sp" />
 
         <TextView
@@ -163,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="座机"
+            android:text="@string/landline"
             android:textSize="16sp" />
 
         <TextView
@@ -192,7 +192,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="邮箱"
+            android:text="@string/email"
             android:textSize="16sp" />
 
         <TextView
@@ -221,7 +221,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="岗位"
+            android:text="@string/jobs"
             android:textSize="16sp" />
 
         <TextView
@@ -271,7 +271,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="副岗"
+            android:text="@string/deputy_post"
             android:textSize="16sp" />
 
         <TextView
@@ -300,7 +300,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="所属上级"
+            android:text="@string/immediate_superior"
             android:textSize="16sp" />
 
         <TextView

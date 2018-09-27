@@ -167,6 +167,14 @@
     <!--通讯录-->
     <string name="personnel">人员</string>
     <string name="organization">组织架构</string>
+    <string name="work_number">工号</string>
+    <string name="mobile_phone">手机</string>
+    <string name="landline">座机</string>
+    <string name="email">邮箱</string>
+    <string name="jobs">岗位</string>
+    <string name="deputy_post">副岗</string>
+    <string name="immediate_superior">直属上级</string>
+
 
     <string-array name="voice_type_params">
         <item>xiaoqi</item>
