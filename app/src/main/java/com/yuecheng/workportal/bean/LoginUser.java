@@ -35,47 +35,50 @@ public class LoginUser {
     @Unique
     private String username;  //用户名
 
-    private String password;
+    private String password;//密码
 
     @Unique
-    private String access_token;
+    private String access_token;//token
 
-    private int expires_in;
+    private int expires_in;//token有效期
 
-    private String token_type;
+    private String token_type;//token类型
 
-    private String userId;
+    private String userId;//用户id
 
-    private String userIcon;
+    private String userIcon;//用户头像
 
-    private String code;
+    private String code;//用户编码
+
+    private String guid;//guid
 
     private String staffGrade;
 
-    private String name;
+    private String name;//名字
 
-    private String email;
+    private String email;//邮箱
 
-    private int gender;
+    private int gender;//性别
 
-    private String mobilePhone;
+    private String mobilePhone;//手机号
 
-    private String telephone;
+    private String telephone;//座机号
 
-    private String organizationName;
+    private String organizationName;//所在部门
 
-    private String positionName;
+    private String positionName;//岗位
 
-    private String partTimeJobs;
+    private String partTimeJobs;//职位
 
     private String rongCloudToken;//融云token
 
-    @Generated(hash = 570262779)
+    @Generated(hash = 445782110)
     public LoginUser(Long id, String username, String password, String access_token,
             int expires_in, String token_type, String userId, String userIcon,
-            String code, String staffGrade, String name, String email, int gender,
-            String mobilePhone, String telephone, String organizationName,
-            String positionName, String partTimeJobs, String rongCloudToken) {
+            String code, String guid, String staffGrade, String name, String email,
+            int gender, String mobilePhone, String telephone,
+            String organizationName, String positionName, String partTimeJobs,
+            String rongCloudToken) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -85,6 +88,7 @@ public class LoginUser {
         this.userId = userId;
         this.userIcon = userIcon;
         this.code = code;
+        this.guid = guid;
         this.staffGrade = staffGrade;
         this.name = name;
         this.email = email;
@@ -173,6 +177,14 @@ public class LoginUser {
         this.code = code;
     }
 
+    public String getGuid() {
+        return this.guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
+    }
+
     public String getStaffGrade() {
         return this.staffGrade;
     }
@@ -252,7 +264,6 @@ public class LoginUser {
     public void setRongCloudToken(String rongCloudToken) {
         this.rongCloudToken = rongCloudToken;
     }
-
 
 
 }

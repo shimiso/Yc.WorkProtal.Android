@@ -29,6 +29,7 @@ public class PersonnelDetailsBean {
 
     private int id;
     private String code;
+    private String guid;
     private String staffGrade;
     private String name;
     private String email;
@@ -56,6 +57,14 @@ public class PersonnelDetailsBean {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
     }
 
     public String getStaffGrade() {

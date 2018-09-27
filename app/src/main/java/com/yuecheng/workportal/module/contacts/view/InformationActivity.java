@@ -142,7 +142,7 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
                      * @param title        聊天的标题，开发者需要在聊天界面通过 intent.getData().getQueryParameter("title")
                      *                     获取该值, 再手动设置为聊天界面的标题。
                      */
-                    RongIM.getInstance().startConversation(context, Conversation.ConversationType.PRIVATE, personnelDetailsBean.getCode()+"", "与"+personnelDetailsBean.getName()+"对话",bundle);
+                    RongIM.getInstance().startConversation(context, Conversation.ConversationType.PRIVATE, personnelDetailsBean.getGuid()+"", "与"+personnelDetailsBean.getName()+"对话",bundle);
                 }
                 break;
 

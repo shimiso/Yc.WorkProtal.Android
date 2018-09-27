@@ -115,6 +115,7 @@ public class UserPresenter {
                             }else {
                                 loginUser.setUserId(person.getId()+"");
                                 loginUser.setCode(person.getCode());
+                                loginUser.setGuid(person.getGuid());
                                 loginUser.setStaffGrade(person.getStaffGrade());
                                 loginUser.setEmail(person.getEmail());
                                 loginUser.setGender(person.getGender());
