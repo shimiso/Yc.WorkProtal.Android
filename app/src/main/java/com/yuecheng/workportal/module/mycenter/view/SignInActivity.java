@@ -12,8 +12,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,19 +47,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.amap.api.fence.GeoFenceClient.GEOFENCE_IN;
+import static com.amap.api.fence.GeoFenceClient.GEOFENCE_OUT;
+import static com.amap.api.fence.GeoFenceClient.GEOFENCE_STAYED;
+
 /**
  * 圆形地理围栏
  * 
  * @author hongming.wang
  * @since 3.2.0
  */
-public class SignInActivity extends BaseActivity
-		implements
-        OnClickListener,
-			GeoFenceListener,
-        LocationSource,
-			AMapLocationListener,
-        OnCheckedChangeListener {
+public class SignInActivity extends BaseActivity implements OnClickListener,GeoFenceListener,LocationSource,AMapLocationListener{
 	/** 用于显示当前的位置 **/
 	private AMapLocationClient mlocationClient;
 	private OnLocationChangedListener mListener;
@@ -114,21 +110,13 @@ public class SignInActivity extends BaseActivity
 		filter.addAction(GEOFENCE_BROADCAST_ACTION);
 		registerReceiver(mGeoFenceReceiver, filter);
 
-		/**
-		 * 创建pendingIntent
-		 */
+		/** 创建pendingIntent */
 		fenceClient.createPendingIntent(GEOFENCE_BROADCAST_ACTION);
 		fenceClient.setGeoFenceListener(this);
-		/**
-		 * 设置地理围栏的触发行为,默认为进入
-		 */
-		fenceClient.setActivateAction(GeoFenceClient.GEOFENCE_IN);
-
+		/** 设置地理围栏的触发行为,GEOFENCE_IN 进入地理围栏 GEOFENCE_OUT 退出地理围栏 GEOFENCE_STAYED 停留在地理围栏内10分钟*/
+        fenceClient.setActivateAction(GEOFENCE_IN|GEOFENCE_OUT|GEOFENCE_STAYED);
 		mHandler.post(run);//设置系统时间
 	}
-
-
-
 
 	/**
 	 * 设置系统时间
@@ -205,7 +193,6 @@ public class SignInActivity extends BaseActivity
 			unregisterReceiver(mGeoFenceReceiver);
 		} catch (Throwable e) {
 		}
-
 		if (null != fenceClient) {
 			fenceClient.removeGeoFence();
 		}
@@ -260,7 +247,6 @@ public class SignInActivity extends BaseActivity
 			}
 		}.start();
 	}
-
 
 	List<GeoFence> fenceList = new ArrayList<>();
 	@Override
@@ -328,17 +314,14 @@ public class SignInActivity extends BaseActivity
 			if (amapLocation != null && amapLocation.getErrorCode() == 0) {
 				currentLocation = amapLocation;
 				//Toast.makeText(SignInActivity.this,"定位成功",Toast.LENGTH_LONG).show();
-
 				LatLng end= new LatLng(centerPoint1.getLatitude(), centerPoint1.getLongitude());
 				LatLng start = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 
 				mDistance = AMapUtils.calculateLineDistance(start, end);
 				mDistance_tv.setText("距离乐成集团：" + mDistance + "米");
-
 				mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
 			} else {
-				String errText = "定位失败," + amapLocation.getErrorCode() + ": "
-						+ amapLocation.getErrorInfo();
+				String errText = "定位失败," + amapLocation.getErrorCode() + ": "+ amapLocation.getErrorInfo();
 				Log.e("AmapErr", errText);
 //				Toast.makeText(SignInActivity.this,errText, Toast.LENGTH_LONG).show();
 			}
@@ -378,52 +361,9 @@ public class SignInActivity extends BaseActivity
 		}
 		mlocationClient = null;
 	}
-
-
-
-	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		/*switch (buttonView.getId()) {
-			case R.id.cb_alertIn :
-				if (isChecked) {
-					activatesAction |= GeoFenceClient.GEOFENCE_IN;
-				} else {
-					activatesAction = activatesAction
-							& (GeoFenceClient.GEOFENCE_OUT
-									| GeoFenceClient.GEOFENCE_STAYED);
-				}
-				break;
-			case R.id.cb_alertOut :
-				if (isChecked) {
-					activatesAction |= GeoFenceClient.GEOFENCE_OUT;
-				} else {
-					activatesAction = activatesAction
-							& (GeoFenceClient.GEOFENCE_IN
-									| GeoFenceClient.GEOFENCE_STAYED);
-				}
-				break;
-			case R.id.cb_alertStated :
-				if (isChecked) {
-					activatesAction |= GeoFenceClient.GEOFENCE_STAYED;
-				} else {
-					activatesAction = activatesAction
-							& (GeoFenceClient.GEOFENCE_IN
-									| GeoFenceClient.GEOFENCE_OUT);
-				}
-				break;
-			default :
-				break;
-		}
-		if (null != fenceClient) {
-			fenceClient.setActivateAction(activatesAction);
-		}*/
-	}
 	/**
 	 * 添加圆形围栏
-	 * 
 	 * @since 3.2.0
-	 * @author hongming.wang
-	 *
 	 */
 	private void addRoundFence() {
 		centerPoint1 = new DPoint(39.896387976936154,116.4766156118845);
