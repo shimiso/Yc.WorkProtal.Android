@@ -3,8 +3,7 @@ package com.yuecheng.workportal.base;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.yuecheng.workportal.utils.AndroidUtil;
-import com.yuecheng.workportal.utils.SharePreferenceUtil;
+import com.umeng.analytics.MobclickAgent;
 import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.utils.AndroidUtil;
 import com.yuecheng.workportal.utils.SharePreferenceUtil;
@@ -27,6 +26,14 @@ public class BaseFragment extends Fragment {
         this.spUtil = new SharePreferenceUtil(getActivity());
         this.mainApplication = (MainApplication)getActivity().getApplication();
         this.androidUtil = AndroidUtil.init(getActivity(),spUtil,mainApplication);
+    }
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(getContext());          //统计时长
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(getContext());
     }
 
 }

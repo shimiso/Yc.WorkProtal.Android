@@ -100,7 +100,7 @@
         <!-- 友盟应用统计配置 -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5b99bf178f4a9d03d6000118" />
+            android:value="5bad9649f1f556df24000098" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL}" />
@@ -161,6 +161,7 @@
             android:value="aa35c3f064476e2ab79d11538b818eac" />
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService"/>
+
     </application>
 
 </manifest>

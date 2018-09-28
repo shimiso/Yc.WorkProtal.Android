@@ -194,5 +194,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
     //滑动开关
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+    //友盟
+    implementation 'com.umeng.analytics:analytics:latest.integration'
     api project(':IMKit')
 }

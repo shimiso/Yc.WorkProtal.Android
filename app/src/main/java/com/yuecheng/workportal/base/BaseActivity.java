@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.umeng.analytics.MobclickAgent;
 import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.utils.AndroidUtil;
@@ -141,13 +142,13 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         //友盟页面统计：开始计时
-//        MobclickAgent.onResume(this);
+        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         //友盟页面统计：结束计时
-//        MobclickAgent.onPause(this);
+        MobclickAgent.onPause(this);
     }
 }
