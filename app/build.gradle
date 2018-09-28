@@ -197,4 +197,5 @@ dependencies {
     //友盟
     implementation 'com.umeng.analytics:analytics:latest.integration'
     api project(':IMKit')
+    api project(':Calendar')
 }

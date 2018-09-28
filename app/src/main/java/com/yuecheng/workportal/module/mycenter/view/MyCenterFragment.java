@@ -59,13 +59,16 @@ public class MyCenterFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.my_hr, R.id.my_login_web, R.id.my_directions, R.id.my_feedback, R.id.my_setting, R.id.my_information_rl, R.id.sign_in})
+    @OnClick({R.id.my_hr, R.id.my_login_web, R.id.my_directions, R.id.my_feedback, R.id.my_setting, R.id.my_information_rl, R.id.sign_in,R.id.work_attendance})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_information_rl://个人详情
                 startActivity(new Intent(getContext(), MyDetailActivity.class));
                 break;
-            case R.id.sign_in://考勤打卡
+            case R.id.work_attendance://考勤
+                startActivity(new Intent(getContext(), WorkAttendanceActivity.class));
+                break;
+            case R.id.sign_in://打卡
                 startActivity(new Intent(getContext(), SignInActivity.class));
                 break;
             case R.id.my_hr: //HR自助

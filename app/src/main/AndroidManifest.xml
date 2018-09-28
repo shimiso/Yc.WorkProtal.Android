@@ -23,29 +23,30 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <!-- 用于进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- 用于访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 用于提高GPS定位速度 -->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 读取缓存数据 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!-- 更改设置 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
     <!-- 3.2.0版本增加 -->
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <!-- 3.2.0版本增加 -->
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -78,8 +79,8 @@
         <activity
             android:name=".module.mycenter.view.SignInActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".module.contacts.view.InformationActivity"
             android:launchMode="singleTop" />
@@ -105,25 +106,46 @@
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL}" />
 
-        <activity android:name=".module.contacts.view.SelectGroupActivity" android:launchMode="singleTop"/>
-        <activity android:name=".module.contacts.view.OrganizationActivity" android:launchMode="singleTop"/>
-        <activity android:name=".module.mycenter.view.SettingsActivity" android:launchMode="singleTop"/>
-        <activity android:name=".module.mycenter.view.FeedbackActivity" android:launchMode="singleTop"/>
-        <activity android:name=".module.mycenter.view.MsgNoticeActivity" android:launchMode="singleTop"/>
-        <activity android:name=".module.robot.view.ViewMoreActivity" android:launchMode="singleTop"/>
-        <activity android:name=".module.mycenter.view.ModifyPasswordActivity" android:launchMode="singleTop"/>
-        <activity android:name=".module.mycenter.view.MyDetailActivity" android:launchMode="singleTop"/>
-        <activity android:name=".InvalidateActivity"
+        <activity
+            android:name=".module.contacts.view.SelectGroupActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.contacts.view.OrganizationActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mycenter.view.SettingsActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mycenter.view.FeedbackActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mycenter.view.MsgNoticeActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.robot.view.ViewMoreActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mycenter.view.ModifyPasswordActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mycenter.view.WorkAttendanceActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".module.mycenter.view.MyDetailActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".InvalidateActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/DialogStyleBottom" />
 
+
+
         <!-- 会话页面 -->
         <activity
-            android:name="com.yuecheng.workportal.module.conversation.ConversationActivity"
+            android:name=".module.conversation.ConversationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -136,7 +158,8 @@
             </intent-filter>
         </activity>
 
-       <!-- <provider
+        <!--
+        <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
@@ -144,7 +167,8 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>-->
+        </provider>
+        -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.yuecheng.workportal.FileProvider"
@@ -155,12 +179,12 @@
                 android:resource="@xml/rc_file_path" />
         </provider>
 
-        <!-- 高德地图-->
+        <!-- 高德地图 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="aa35c3f064476e2ab79d11538b818eac" />
         <!-- 定位需要的服务 -->
-        <service android:name="com.amap.api.location.APSService"/>
+        <service android:name="com.amap.api.location.APSService" />
 
     </application>
 

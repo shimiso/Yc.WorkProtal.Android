@@ -71,6 +71,8 @@
     <string name="my_login_web">Login web version </string>
     <string name="my_directions">Instructions</string>
     <string name="my_feedback">Feedback</string>
+    <string name="my_sign_in">Sign In</string>
+    <string name="my_work_attendance">Work Attendance</string>
 
     <string name="opinion">如果您遇到功能，内容方面的错误</string>
     <string name="opinion_phone">Please enter your phone number/email address for us to contact (optional)</string>
