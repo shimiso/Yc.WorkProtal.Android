@@ -6,10 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,17 +25,25 @@ import com.yuecheng.workportal.module.mycenter.adapter.ExampleAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class WorkAttendanceActivity extends BaseActivity {
+    @BindView(R.id.show_year_view)
     TextView tvYear;
+
+    @BindView(R.id.show_month_view)
     TextView tvMonth;
-    TextView backToday;
+
+    @BindView(R.id.content)
     CoordinatorLayout content;
+
+    @BindView(R.id.calendar_view)
     MonthPager monthPager;
+
+    @BindView(R.id.list)
     RecyclerView rvToDoList;
-    TextView scrollSwitch;
-    TextView themeSwitch;
-    TextView nextMonthBtn;
-    TextView lastMonthBtn;
 
     private ArrayList<Calendar> currentCalendars = new ArrayList<>();
     private CalendarViewAdapter calendarAdapter;
@@ -51,27 +57,16 @@ public class WorkAttendanceActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.work_attendance);
+        ButterKnife.bind(this);
         context = this;
-        content = (CoordinatorLayout) findViewById(R.id.content);
-        monthPager = (MonthPager) findViewById(R.id.calendar_view);
         //此处强行setViewHeight，毕竟你知道你的日历牌的高度
         monthPager.setViewHeight(Utils.dpi2px(context, 270));
-        tvYear = (TextView) findViewById(R.id.show_year_view);
-        tvMonth = (TextView) findViewById(R.id.show_month_view);
-        backToday = (TextView) findViewById(R.id.back_today_button);
-        scrollSwitch = (TextView) findViewById(R.id.scroll_switch);
-        themeSwitch = (TextView) findViewById(R.id.theme_switch);
-        nextMonthBtn = (TextView) findViewById(R.id.next_month);
-        lastMonthBtn = (TextView) findViewById(R.id.last_month);
-        rvToDoList = (RecyclerView) findViewById(R.id.list);
         rvToDoList.setHasFixedSize(true);
         //这里用线性显示 类似于listview
         rvToDoList.setLayoutManager(new LinearLayoutManager(this));
         rvToDoList.setAdapter(new ExampleAdapter(this));
         initCurrentDate();
         initCalendarView();
-        initToolbarClickListener();
-        Log.e("ldf","OnCreated");
         initMarkData();
     }
 
@@ -99,21 +94,13 @@ public class WorkAttendanceActivity extends BaseActivity {
         super.onResume();
     }
 
-    /**
-     * 初始化对应功能的listener
-     *
-     * @return void
-     */
-    private void initToolbarClickListener() {
-        backToday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @OnClick({R.id.back_today_button,R.id.scroll_switch,R.id.theme_switch,R.id.next_month,R.id.last_month})
+    protected void click(View view){
+        switch (view.getId()){
+            case R.id.back_today_button:
                 onClickBackToDayBtn();
-            }
-        });
-        scrollSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                break;
+            case R.id.scroll_switch:
                 if (calendarAdapter.getCalendarType() == CalendarAttr.CalendarType.WEEK) {
                     Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
                     calendarAdapter.switchToMonth();
@@ -121,26 +108,17 @@ public class WorkAttendanceActivity extends BaseActivity {
                     Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
                     calendarAdapter.switchToWeek(monthPager.getRowIndex());
                 }
-            }
-        });
-        themeSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                break;
+            case R.id.theme_switch:
                 refreshSelectBackground();
-            }
-        });
-        nextMonthBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                break;
+            case R.id.next_month:
                 monthPager.setCurrentItem(monthPager.getCurrentPosition() + 1);
-            }
-        });
-        lastMonthBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                break;
+            case R.id.last_month:
                 monthPager.setCurrentItem(monthPager.getCurrentPosition() - 1);
-            }
-        });
+                break;
+        }
     }
 
     /**
@@ -165,12 +143,7 @@ public class WorkAttendanceActivity extends BaseActivity {
                 onSelectDateListener,
                 CalendarAttr.WeekArrayType.Monday,
                 customDayView);
-        calendarAdapter.setOnCalendarTypeChangedListener(new CalendarViewAdapter.OnCalendarTypeChanged() {
-            @Override
-            public void onCalendarTypeChanged(CalendarAttr.CalendarType type) {
-                rvToDoList.scrollToPosition(0);
-            }
-        });
+        calendarAdapter.setOnCalendarTypeChangedListener(type -> rvToDoList.scrollToPosition(0));
         initMarkData();
         initMonthPager();
     }
@@ -242,12 +215,9 @@ public class WorkAttendanceActivity extends BaseActivity {
     private void initMonthPager() {
         monthPager.setAdapter(calendarAdapter);
         monthPager.setCurrentItem(MonthPager.CURRENT_DAY_INDEX);
-        monthPager.setPageTransformer(false, new ViewPager.PageTransformer() {
-            @Override
-            public void transformPage(View page, float position) {
-                position = (float) Math.sqrt(1 - Math.abs(position));
-                page.setAlpha(position);
-            }
+        monthPager.setPageTransformer(false, (page, position) -> {
+            position = (float) Math.sqrt(1 - Math.abs(position));
+            page.setAlpha(position);
         });
         monthPager.addOnPageChangeListener(new MonthPager.OnPageChangeListener() {
             @Override
