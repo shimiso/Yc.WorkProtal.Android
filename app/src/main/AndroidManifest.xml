@@ -51,7 +51,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".WelcomeActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,32 +61,40 @@
         </activity>
         <activity
             android:name=".module.work.editor.EditorApplicationActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.robot.view.VoiceActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/translucent" />
         <activity
             android:name=".module.robot.OpenH5Activity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:theme="@style/ToolBarTheme" />
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.robot.view.JsonActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.mycenter.view.SignInActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".module.contacts.view.InformationActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateUnspecified|adjustPan|stateHidden" />
         <activity
@@ -108,30 +117,39 @@
 
         <activity
             android:name=".module.contacts.view.SelectGroupActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.contacts.view.OrganizationActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.mycenter.view.SettingsActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.mycenter.view.FeedbackActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.mycenter.view.MsgNoticeActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.robot.view.ViewMoreActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.mycenter.view.ModifyPasswordActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.mycenter.view.WorkAttendanceActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".module.mycenter.view.MyDetailActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".InvalidateActivity"
