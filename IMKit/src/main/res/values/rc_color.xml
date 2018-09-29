@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--导航栏颜色-->
-    <color name="primary">#0077D9</color>
-    <color name="primary_dark">#0077D9</color>
-    <color name="colorAccent">#0077D9</color>
+    <color name="primary">#CF1413</color>
+    <color name="primary_dark">#CF1413</color>
+    <color name="colorAccent">#CF1413</color>
     <color name="primary_text">#474a51</color>
     <!-- 整个app的背景色 -->
     <color name="app_bg">#ebebeb</color>

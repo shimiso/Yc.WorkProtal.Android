@@ -1,8 +1,10 @@
 package com.yuecheng.workportal.module.robot.bean;
 
 
-import java.io.Serializable;
 import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
+
+import java.io.Serializable;
+import java.util.Objects;
 
 public class TalkBean implements Serializable {
     private String text;
@@ -62,5 +64,23 @@ public class TalkBean implements Serializable {
 
     public PersonnelDetailsBean getPersonnelDetailsBean() {
         return personnelDetailsBean;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TalkBean talkBean = (TalkBean) o;
+        return time == talkBean.time &&
+                type == talkBean.type &&
+                Objects.equals(text, talkBean.text) &&
+                Objects.equals(jsontext, talkBean.jsontext) &&
+                Objects.equals(personnelDetailsBean, talkBean.personnelDetailsBean);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(text, jsontext, personnelDetailsBean, time, type);
     }
 }

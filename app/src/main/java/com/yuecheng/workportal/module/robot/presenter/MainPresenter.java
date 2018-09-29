@@ -113,9 +113,11 @@ public class MainPresenter implements IMainPresenter {
     private void initData() {
         //show default data
         TalkBean talkBean = new TalkBean(((Activity) mIMainView).getResources().getString(R.string.talk_first),"这个Json是空的！！！",
-                System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_ROBOT_CHAT);
-        mTalkBeanList.add(talkBean);
-        mIMainView.updateList(mTalkBeanList);
+                0, TalkListAdapter.VIEW_TYPE_ROBOT_CHAT);
+        if(!mTalkBeanList.contains(talkBean)){
+            mTalkBeanList.add(talkBean);
+            mIMainView.updateList(mTalkBeanList);
+        }
     }
 
     public void cancelVoiceRobot(){
