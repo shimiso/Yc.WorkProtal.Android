@@ -42,6 +42,8 @@ public class SettingsActivity extends BaseActivity {
     @BindView(R.id.home_page)
     TextView homePage;
     private HomePageSettingsDialog homePageSettingsDialog;
+    @BindView(R.id.version_name)
+    TextView version_name;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -78,6 +80,8 @@ public class SettingsActivity extends BaseActivity {
         }
         language.setText(language1);
         fanyan.setText(FangYan);
+
+        version_name.setText("V" + androidUtil.getApkVersionName());
     }
 
     @Override
