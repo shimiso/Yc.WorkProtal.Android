@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.widget.Toast;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
@@ -19,7 +20,12 @@ import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 import com.yuecheng.workportal.bean.LoginUser;
+import com.yuecheng.workportal.module.contacts.view.ShareDialog;
 import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.receive.MyConnectionStatusListener;
 import com.yuecheng.workportal.receive.MyReceiveMessageListener;
@@ -216,4 +222,82 @@ public class MainApplication extends MultiDexApplication {
         PlatformConfig.setWeixin("wx75af2356bc439f25", "a2840cc69014df6c1d0c33a8145d2c6a");
         PlatformConfig.setQQZone("1107803171", "C9dxemWiTlf7EeaA");
     }
+
+    //分享
+    public void myShare(Activity activity) {
+        ShareDialog shareDialog = new ShareDialog(activity);
+        shareDialog.setClicklistener(new ShareDialog.ClickListenerInterface() {
+
+            @Override
+            public void onWXClick() {
+                new ShareAction(activity)
+                        .setPlatform(SHARE_MEDIA.WEIXIN.toSnsPlatform().mPlatform)//传入平台
+                        .withText("hello")//分享内容
+                        .setCallback(shareListener)//回调监听器
+                        .share();
+                shareDialog.dismissDialog();
+            }
+
+            @Override
+            public void onPYQClick() {
+                new ShareAction(activity)
+                        .setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE.toSnsPlatform().mPlatform)//传入平台
+                        .withText("hello")//分享内容
+                        .setCallback(shareListener)//回调监听器
+                        .share();
+                shareDialog.dismissDialog();
+            }
+
+            @Override
+            public void onQQClick() {
+                UMImage imagelocal = new UMImage(app, R.mipmap.dbgz);
+                imagelocal.setThumb(new UMImage(app, R.mipmap.dbgz));
+                new ShareAction(activity)
+                        .withMedia(imagelocal)
+                        .setPlatform(SHARE_MEDIA.QQ.toSnsPlatform().mPlatform)
+                        .setCallback(shareListener).share();
+                shareDialog.dismissDialog();
+            }
+        });
+    }
+    //分享回调
+    private UMShareListener shareListener = new UMShareListener() {
+        /**
+         * @descrption 分享开始的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+
+        }
+
+        /**
+         * @descrption 分享成功的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(app, "成功了", Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享失败的回调
+         * @param platform 平台类型
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(app, "失败" + t.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享取消的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(app, "取消了", Toast.LENGTH_LONG).show();
+
+        }
+    };
 }

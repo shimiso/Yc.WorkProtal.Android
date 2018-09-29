@@ -38,11 +38,20 @@ public class PersonnelDetailsBean {
     private String mobilePhone;
     private String telephone;
     private String organizationName;
+    private String deepOrgIds;
     private String positionName;
     private DirectSupervisorBean directSupervisor;
     private String partTimeJobs;
     private String rongCloudToken;
     private List<SubordinatesBean> subordinates;
+
+    public String getDeepOrgIds() {
+        return deepOrgIds;
+    }
+
+    public void setDeepOrgIds(String deepOrgIds) {
+        this.deepOrgIds = deepOrgIds;
+    }
 
     public int getId() {
         return id;
@@ -172,6 +181,24 @@ public class PersonnelDetailsBean {
 
         private String guid;
         private String name;
+        private String positionName;
+        private int gender;
+
+        public void setPositionName(String positionName) {
+            this.positionName = positionName;
+        }
+
+        public void setGender(int gender) {
+            this.gender = gender;
+        }
+
+        public String getPositionName() {
+            return positionName;
+        }
+
+        public int getGender() {
+            return gender;
+        }
 
         public String getGuid() {
             return guid;
@@ -198,6 +225,24 @@ public class PersonnelDetailsBean {
 
         private String guid;
         private String name;
+        private String positionName;
+        private int gender;
+
+        public void setPositionName(String positionName) {
+            this.positionName = positionName;
+        }
+
+        public void setGender(int gender) {
+            this.gender = gender;
+        }
+
+        public String getPositionName() {
+            return positionName;
+        }
+
+        public int getGender() {
+            return gender;
+        }
 
         public String getGuid() {
             return guid;

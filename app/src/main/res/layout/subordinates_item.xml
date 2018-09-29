@@ -7,14 +7,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="@drawable/list_item_bg"
         android:layout_below="@+id/tv_first_alphabet">
         <com.yuecheng.workportal.widget.CircleTextImage
             android:id="@+id/cti"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="16dp"
             android:layout_centerVertical="true"
             app:circle_text_size="18sp"
             app:random_color="true"/>
@@ -54,9 +54,10 @@
             android:id="@+id/to_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/contact_xx"/>
+            android:src="@mipmap/lt"/>
     </RelativeLayout>
     <View
         style="@style/divider_horizontal"

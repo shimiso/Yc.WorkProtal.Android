@@ -50,9 +50,9 @@ public class SubordinatesAdapter  extends RecyclerView.Adapter<RecyclerView.View
         if(holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.cti.setText4CircleImage(list.get(position).getName().subSequence(0, 1).toString());//头像
-            viewHolder.isboy.setImageResource(R.mipmap.boy);//性别
+            viewHolder.isboy.setImageResource(list.get(position).getGender()==1?R.mipmap.boy:R.mipmap.girl);//性别
             viewHolder.tv_contact_name.setText(list.get(position).getName());//name
-//            viewHolder.tv_contact_department.setText();//岗位
+            viewHolder.tv_contact_department.setText(list.get(position).getPositionName());//岗位
             viewHolder.to_chat.setOnClickListener(v -> {//跳转IM
                 if (RongIM.getInstance() != null) {
                     Bundle bundle = new Bundle();

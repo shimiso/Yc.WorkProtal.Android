@@ -9,17 +9,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.luck.picture.lib.entity.LocalMedia;
-import com.tencent.connect.share.QQShare;
-import com.umeng.socialize.ShareAction;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.media.UMImage;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
 import com.yuecheng.workportal.bean.ResultInfo;
@@ -29,8 +24,6 @@ import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
 import com.yuecheng.workportal.utils.ToastUtil;
 import com.yuecheng.workportal.widget.LoadingDialog;
 
-import org.w3c.dom.Text;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +32,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.rong.imkit.RongIM;
-import io.rong.imkit.utils.SystemUtils;
 import io.rong.imlib.model.Conversation;
 
 
@@ -72,6 +64,8 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
     Context context;
     @BindView(R.id.my_subordinates_tv)
     TextView mySubordinatesTv;
+    @BindView(R.id.isboy)
+    ImageView isboy;
 
     private List<LocalMedia> selectList = new ArrayList<>();
     PersonnelDetailsBean personnelDetailsBean;
@@ -118,7 +112,7 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
 
                 break;
             case R.id.share://分享
-                myShare();
+                mainApplication.myShare(this);//参数暂时为activity,后续待添加分享内容
                 break;
             case R.id.to_chat://IM聊天
                 if (RongIM.getInstance() != null) {
@@ -142,43 +136,6 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
         }
     }
 
-    //分享
-    private void myShare() {
-        ShareDialog shareDialog = new ShareDialog(this);
-        shareDialog.setClicklistener(new ShareDialog.ClickListenerInterface() {
-
-            @Override
-            public void onWXClick() {
-                new ShareAction(InformationActivity.this)
-                        .setPlatform(SHARE_MEDIA.WEIXIN.toSnsPlatform().mPlatform)//传入平台
-                        .withText("hello")//分享内容
-                        .setCallback(shareListener)//回调监听器
-                        .share();
-                shareDialog.dismissDialog();
-            }
-
-            @Override
-            public void onPYQClick() {
-                new ShareAction(InformationActivity.this)
-                        .setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE.toSnsPlatform().mPlatform)//传入平台
-                        .withText("hello")//分享内容
-                        .setCallback(shareListener)//回调监听器
-                        .share();
-                shareDialog.dismissDialog();
-            }
-
-            @Override
-            public void onQQClick() {
-                UMImage imagelocal = new UMImage(InformationActivity.this, R.mipmap.dbgz);
-                imagelocal.setThumb(new UMImage(InformationActivity.this, R.mipmap.dbgz));
-                new ShareAction(InformationActivity.this)
-                        .withMedia(imagelocal )
-                        .setPlatform(SHARE_MEDIA.QQ.toSnsPlatform().mPlatform)
-                        .setCallback(shareListener).share();
-                shareDialog.dismissDialog();
-            }
-        });
-    }
 
     //打电话
     private void myCall(View view) {
@@ -200,108 +157,65 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
     public void postSuccess(ResultInfo<PersonnelDetailsBean> resultInfo) {
         if (resultInfo.isSuccess()) {
             personnelDetailsBean = resultInfo.getResult();
-
-            contactRenName.setText(personnelDetailsBean.getName());//name
-            myWorkNumberTv.setText(personnelDetailsBean.getCode());//工号
-            myPhoneTv.setText(personnelDetailsBean.getMobilePhone());//手机号
-            myLandlineTv.setText(personnelDetailsBean.getTelephone());//座机
-            myEmailTv.setText(personnelDetailsBean.getEmail());//邮件
-            myJobsTv.setText(personnelDetailsBean.getPositionName());//岗位
-            contactRenJobs.setText(personnelDetailsBean.getPositionName());//岗位
-            myDirectoryTv.setText(personnelDetailsBean.getOrganizationName()); //组织路径
-            if(personnelDetailsBean.getPartTimeJobs().isEmpty()){
-                myDeputyTv.setText("无");//副岗
-            }else{
-                myDeputyTv.setText(personnelDetailsBean.getPartTimeJobs());//副岗
-            }
-
-            //直属上级
-            directSupervisor = personnelDetailsBean.getDirectSupervisor();
-            if (directSupervisor != null) {
-                myMmediateSuperiorTv.setText(directSupervisor.getName());//直属上级
-            } else {
-                myMmediateSuperiorTv.setText("");//直属上级
-            }
-            //下级员工
-            List<PersonnelDetailsBean.SubordinatesBean> subordinates = personnelDetailsBean.getSubordinates();
-            if (subordinates == null || subordinates.size() <= 0) {
-                mySubordinatesTv.setText("无");
-            }else if(subordinates.size() == 1){
-                mySubordinatesTv.setText(subordinates.get(0).getName());
-                mySubordinatesTv.setTextColor(Color.parseColor("#509FFF"));
-                mySubordinatesTv.setOnClickListener(v -> {
-                    titleName.setText(subordinates.get(0).getName());
-                    getInformationData(subordinates.get(0).getGuid());
-                });
-            }else if(subordinates.size() > 1){
-                mySubordinatesTv.setText(subordinates.size()+"人>");
-                mySubordinatesTv.setTextColor(Color.parseColor("#509FFF"));
-                mySubordinatesTv.setOnClickListener(v -> {
-                    Intent intent  = new Intent(this,SubordinatesActivity.class);
-                    intent.putExtra("subordinates", (Serializable) subordinates);
-                    startActivity(intent);
-                });
-            }
-            myMmediateSuperiorTv.setTextColor(Color.parseColor("#509FFF"));
-            myPhoneTv.setTextColor(Color.parseColor("#509FFF"));
-            myLandlineTv.setTextColor(Color.parseColor("#509FFF"));
-            myEmailTv.setTextColor(Color.parseColor("#509FFF"));
-
+            initView();
+            initEvent();
             loadingDialog.dismiss();
         }
+    }
+
+    private void initEvent() {
+        //下级员工
+        List<PersonnelDetailsBean.SubordinatesBean> subordinates = personnelDetailsBean.getSubordinates();
+        if (subordinates == null || subordinates.size() <= 0) {
+            mySubordinatesTv.setText("无");
+        } else if (subordinates.size() == 1) {
+            mySubordinatesTv.setText(subordinates.get(0).getName());
+            mySubordinatesTv.setTextColor(Color.parseColor("#509FFF"));
+            mySubordinatesTv.setOnClickListener(v -> {
+                titleName.setText(subordinates.get(0).getName());
+                getInformationData(subordinates.get(0).getGuid());
+            });
+        } else if (subordinates.size() > 1) {
+            mySubordinatesTv.setText(subordinates.size() + "人>");
+            mySubordinatesTv.setTextColor(Color.parseColor("#509FFF"));
+            mySubordinatesTv.setOnClickListener(v -> {
+                Intent intent = new Intent(this, SubordinatesActivity.class);
+                intent.putExtra("subordinates", (Serializable) subordinates);
+                startActivity(intent);
+            });
+        }
+        myEmailTv.setOnClickListener(v -> {
+            Intent data=new Intent(Intent.ACTION_SENDTO);
+            data.setData(Uri.parse("mailto:"+personnelDetailsBean.getEmail()));
+            context.startActivity(data);
+        });
+
+    }
+
+    private void initView() {
+        isboy.setImageResource(personnelDetailsBean.getGender()==1? R.mipmap.boy:R.mipmap.girl);//性别
+        contactRenName.setText(personnelDetailsBean.getName());//name
+        myWorkNumberTv.setText(personnelDetailsBean.getCode());//工号
+        myPhoneTv.setText(personnelDetailsBean.getMobilePhone());//手机号
+        myLandlineTv.setText(personnelDetailsBean.getTelephone());//座机
+        myEmailTv.setText(personnelDetailsBean.getEmail());//邮件
+        myJobsTv.setText(personnelDetailsBean.getPositionName());//岗位
+        contactRenJobs.setText(personnelDetailsBean.getPositionName());//岗位
+        myDirectoryTv.setText(personnelDetailsBean.getOrganizationName()); //组织路径
+        myDeputyTv.setText(personnelDetailsBean.getPartTimeJobs().isEmpty()?"无":personnelDetailsBean.getPartTimeJobs());//副岗
+        //直属上级
+        directSupervisor = personnelDetailsBean.getDirectSupervisor();
+        myMmediateSuperiorTv.setText(directSupervisor != null?directSupervisor.getName():"");//直属上级
+        //设置颜色
+        myMmediateSuperiorTv.setTextColor(Color.parseColor("#509FFF"));
+        myPhoneTv.setTextColor(Color.parseColor("#509FFF"));
+        myLandlineTv.setTextColor(Color.parseColor("#509FFF"));
+        myEmailTv.setTextColor(Color.parseColor("#509FFF"));
     }
 
     @Override
     public void postError(String errorMsg) {
         ToastUtil.error(InformationActivity.this, errorMsg);
         loadingDialog.dismiss();
-    }
-
-    //分享回调
-    private UMShareListener shareListener = new UMShareListener() {
-        /**
-         * @descrption 分享开始的回调
-         * @param platform 平台类型
-         */
-        @Override
-        public void onStart(SHARE_MEDIA platform) {
-
-        }
-
-        /**
-         * @descrption 分享成功的回调
-         * @param platform 平台类型
-         */
-        @Override
-        public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(InformationActivity.this, "成功了", Toast.LENGTH_LONG).show();
-        }
-
-        /**
-         * @descrption 分享失败的回调
-         * @param platform 平台类型
-         * @param t 错误原因
-         */
-        @Override
-        public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(InformationActivity.this, "失败" + t.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
-        /**
-         * @descrption 分享取消的回调
-         * @param platform 平台类型
-         */
-        @Override
-        public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(InformationActivity.this, "取消了", Toast.LENGTH_LONG).show();
-
-        }
-    };
-
-    //QQ分享使用
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 }

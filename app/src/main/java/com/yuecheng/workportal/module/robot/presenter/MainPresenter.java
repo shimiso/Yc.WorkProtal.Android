@@ -305,11 +305,12 @@ public class MainPresenter implements IMainPresenter {
     }
 
     public static void responseAnswer(final String answerText ) {
+        if(!isadd)return;
         if (!TextUtils.isEmpty(answerText)) {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(!isadd)return;
+
                     TalkBean talkBean = new TalkBean(answerText,resultString,
                             System.currentTimeMillis(), TalkListAdapter.VIEW_TYPE_ROBOT_CHAT);
                     mTalkBeanList.add(talkBean);

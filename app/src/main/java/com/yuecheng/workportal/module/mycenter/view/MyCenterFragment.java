@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yuecheng.workportal.MainApplication;
@@ -59,7 +60,7 @@ public class MyCenterFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.my_hr, R.id.my_login_web, R.id.my_directions, R.id.my_feedback, R.id.my_setting, R.id.my_information_rl, R.id.sign_in,R.id.work_attendance})
+    @OnClick({R.id.my_hr, R.id.my_login_web, R.id.my_directions, R.id.my_feedback, R.id.my_setting, R.id.my_information_rl, R.id.sign_in, R.id.work_attendance, R.id.share_iv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_information_rl://个人详情
@@ -83,6 +84,9 @@ public class MyCenterFragment extends BaseFragment {
                 break;
             case R.id.my_setting: //设置
                 startActivity(new Intent(getContext(), SettingsActivity.class));
+                break;
+            case R.id.share_iv: //分享
+                mainApplication.myShare(getActivity());
                 break;
         }
     }

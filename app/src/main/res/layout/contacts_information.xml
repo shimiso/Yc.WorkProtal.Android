@@ -56,7 +56,7 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_launcher_round" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
@@ -76,10 +76,19 @@
                 android:id="@+id/contact_ren_jobs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/contact_ren_name"
                 android:text=""
                 android:textSize="16sp" />
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/isboy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="4dp"
+                android:layout_toRightOf="@+id/contact_ren_name"
+                android:layout_alignBottom="@+id/contact_ren_name"
+                android:src="@mipmap/boy"/>
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/to_chat"
@@ -141,6 +150,7 @@
             android:id="@+id/my_phone_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textIsSelectable="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text=""
@@ -172,6 +182,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:textIsSelectable="true"
             android:text=""
             android:textSize="16sp" />
 
@@ -199,6 +210,7 @@
             android:id="@+id/my_email_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textIsSelectable="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text=""
