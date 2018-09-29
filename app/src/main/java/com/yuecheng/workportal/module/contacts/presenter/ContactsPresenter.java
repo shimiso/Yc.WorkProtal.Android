@@ -1,22 +1,21 @@
 package com.yuecheng.workportal.module.contacts.presenter;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.yuecheng.workportal.MainApplication;
+import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.bean.LoginUser;
+import com.yuecheng.workportal.bean.ResultInfo;
 import com.yuecheng.workportal.callback.StringCustomCallback;
+import com.yuecheng.workportal.common.CommonPostView;
 import com.yuecheng.workportal.common.UrlConstant;
 import com.yuecheng.workportal.module.contacts.bean.ChildInstitutionsBean;
 import com.yuecheng.workportal.module.contacts.bean.ContactBean;
 import com.yuecheng.workportal.module.contacts.bean.OrganizationBean;
 import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
-import com.yuecheng.workportal.bean.ResultInfo;
-import com.yuecheng.workportal.common.CommonPostView;
 
 import org.json.JSONObject;
 
@@ -58,17 +57,17 @@ public class ContactsPresenter {
                                 resultInfo.result = checkAccount;
                                 commonPostView.postSuccess(resultInfo);
                             } else {
-                                commonPostView.postError("服务器发生未知异常");
+                                commonPostView.postError(context.getString(R.string.server_net_error));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            commonPostView.postError("服务器发生未知异常");
+                            commonPostView.postError(context.getString(R.string.server_net_error));
                         }
                     }
 
                     @Override
                     public void onError(Response<String> response){
-                        commonPostView.postError("发生未知异常");
+                        commonPostView.postError(context.getString(R.string.server_net_error));
                     }
                 });
     }
@@ -102,17 +101,17 @@ public class ContactsPresenter {
                                 resultInfo.result = checkAccount;
                                 commonPostView.postSuccess(resultInfo);
                             } else {
-                                commonPostView.postError("服务器发生未知异常");
+                                commonPostView.postError(context.getString(R.string.server_net_error));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            commonPostView.postError("服务器发生未知异常");
+                            commonPostView.postError(context.getString(R.string.server_net_error));
                         }
                     }
 
                     @Override
                     public void onError(Response<String> response){
-                        commonPostView.postError("发生未知异常");
+                        commonPostView.postError(context.getString(R.string.server_net_error));
                     }
                 });
     }
@@ -144,17 +143,17 @@ public class ContactsPresenter {
                                 resultInfo.result = checkAccount;
                                 commonPostView.postSuccess(resultInfo);
                             } else {
-                                commonPostView.postError("服务器发生未知异常");
+                                commonPostView.postError(context.getString(R.string.server_net_error));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            commonPostView.postError("服务器发生未知异常");
+                            commonPostView.postError(context.getString(R.string.server_net_error));
                         }
                     }
 
                     @Override
                     public void onError(Response<String> response){
-                        commonPostView.postError("发生未知异常");
+                        commonPostView.postError(context.getString(R.string.server_net_error));
                     }
                 });
     }
@@ -188,17 +187,17 @@ public class ContactsPresenter {
                                 resultInfo.result = checkAccount;
                                 commonPostView.postSuccess(resultInfo);
                             } else {
-                                commonPostView.postError("服务器发生未知异常");
+                                commonPostView.postError(context.getString(R.string.server_net_error));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            commonPostView.postError("服务器发生未知异常");
+                            commonPostView.postError(context.getString(R.string.server_net_error));
                         }
                     }
 
                     @Override
                     public void onError(Response<String> response){
-                        commonPostView.postError("发生未知异常");
+                        commonPostView.postError(context.getString(R.string.server_net_error));
                     }
                 });
     }

@@ -7,14 +7,13 @@ import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.yuecheng.workportal.MainApplication;
+import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.bean.ResultInfo;
 import com.yuecheng.workportal.callback.StringCustomCallback;
 import com.yuecheng.workportal.common.CommonPostView;
 import com.yuecheng.workportal.common.UrlConstant;
-import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
 import com.yuecheng.workportal.module.workbench.bean.WorkbenchBean;
-import com.yuecheng.workportal.utils.LogUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -61,17 +60,17 @@ public class WorkbenchPresenter {
                                 resultInfo.result = checkAccount;
                                 commonPostView.postSuccess(resultInfo);
                             } else {
-                                commonPostView.postError("服务器发生未知异常");
+                                commonPostView.postError(context.getString(R.string.server_net_error));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            commonPostView.postError("服务器发生未知异常");
+                            commonPostView.postError(context.getString(R.string.server_net_error));
                         }
                     }
 
                     @Override
                     public void onError(Response<String> response){
-                        commonPostView.postError("发生未知异常"+response);
+                        commonPostView.postError(context.getString(R.string.server_net_error));
                     }
                 });
     }

@@ -1,18 +1,12 @@
 package com.yuecheng.workportal.module.update;
 
 import android.app.Activity;
-import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
-import com.yuecheng.workportal.callback.DialogCallback;
+import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.callback.DialogCallback;
 import com.yuecheng.workportal.common.UrlConstant;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * 类的说明：版本更新
@@ -70,7 +64,7 @@ public class CheckVersionPresenter {
 
                    @Override
                    public void onError(Response<String> response){
-                       checkVersionListener.onError("发生未知异常");
+                       checkVersionListener.onError(activity.getString(R.string.server_net_error));
                    }
                });
     }

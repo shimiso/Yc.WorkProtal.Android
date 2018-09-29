@@ -2,6 +2,7 @@ package com.yuecheng.workportal.module.conversation;
 
 import android.content.Context;
 
+import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.common.CommonResultView;
 import com.yuecheng.workportal.db.DaoManager;
 import com.yuecheng.workportal.greendao.ConversationDao;
@@ -28,7 +29,7 @@ public class ConversationPresenter {
             commonResultView.success(list);
         }catch (Exception e){
             e.printStackTrace();
-            commonResultView.error("服务器发生未知异常");
+            commonResultView.error(context.getString(R.string.server_net_error));
         }
     }
 

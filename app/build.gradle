@@ -12,7 +12,7 @@ android {
         applicationId "com.yuecheng.workportal"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
+        versionCode 3
         versionName "1.0.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -142,7 +142,7 @@ android {
     //greendao配置
     greendao {
         //版本号，升级时可配置
-        schemaVersion 7
+        schemaVersion 8
         //DaoSession、DaoMaster以及所有实体类的dao生成的目录,默认为你的entity所在的包名
         daoPackage 'com.yuecheng.workportal.greendao'
         //工程路径

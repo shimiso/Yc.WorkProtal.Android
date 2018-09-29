@@ -10,6 +10,9 @@ import android.graphics.Color;
 public interface Constants {
 	//当前登录用户ID
 	String CURRENT_USER_NAME = "current_user_name";
+	String INVALID_GRANT = "invalid_grant";
+	String INVALID_USERNAME_OR_PASSWORD = "invalid_username_or_password";
+
 	int LOAD_FIRST_MODEL = 0;
 	//下拉刷新
 	int LOAD_REFRESH_MODEL = 1;

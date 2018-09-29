@@ -6,10 +6,13 @@ import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.yuecheng.workportal.R;
+import com.yuecheng.workportal.bean.ErrorInfo;
 import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.bean.ResultInfo;
 import com.yuecheng.workportal.bean.SsoToken;
 import com.yuecheng.workportal.common.CommonPostView;
+import com.yuecheng.workportal.common.Constants;
 import com.yuecheng.workportal.common.UrlConstant;
 import com.yuecheng.workportal.db.DaoManager;
 import com.yuecheng.workportal.greendao.LoginUserDao;
@@ -18,7 +21,10 @@ import com.yuecheng.workportal.utils.StringUtils;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+
+import static com.yuecheng.workportal.common.Constants.INVALID_USERNAME_OR_PASSWORD;
 
 /**
  * 描述:
@@ -28,10 +34,14 @@ import java.util.List;
 public class UserPresenter {
     private Context context;
     LoginUserDao loginUserDao;
+    HashMap<String,String> errorMaps ;
 
     public UserPresenter(Context context) {
         this.context = context;
         this.loginUserDao = DaoManager.getInstance(context).getUserDao();
+        this.errorMaps= new HashMap<String,String>(){{
+            put(INVALID_USERNAME_OR_PASSWORD,context.getString(R.string.invalid_username_or_password));
+        }};
     }
 
     public LoginUser getUser(String username) {
@@ -72,20 +82,26 @@ public class UserPresenter {
                                 commonPostView.postSuccess(resultInfo);
                             } catch (Exception e) {
                                 e.printStackTrace();
-                                commonPostView.postError("服务器发生未知异常");
+                                commonPostView.postError(context.getString(R.string.server_net_error));
                             }
                         } else if (responseCode == 400) {
+                            Gson gson = new Gson();
+                            ErrorInfo errorInfo = gson.fromJson(result, ErrorInfo.class);
+                            if(errorInfo.getError().equals(Constants.INVALID_GRANT)&&!StringUtils.isEmpty(errorInfo.getError_description())){
+                                String errorMsg =errorMaps.get(errorInfo.getError_description());
+                                commonPostView.postError(errorMsg);
 
-
-                            commonPostView.postError(result);
+                            }else {
+                                commonPostView.postError(context.getString(R.string.server_net_error));
+                            }
                         } else {
-                            commonPostView.postError("服务器发生未知异常");
+                            commonPostView.postError(context.getString(R.string.server_net_error));
                         }
                     }
 
                     @Override
                     public void onError(Response<String> response) {
-                        commonPostView.postError("发生未知异常");
+                        commonPostView.postError(context.getString(R.string.server_net_error));
                     }
                 });
     }
@@ -111,7 +127,7 @@ public class UserPresenter {
                             JSONObject resultObj = jsonObj.getJSONObject("result");
                             PersonnelDetailsBean person = gson.fromJson(resultObj.toString(), PersonnelDetailsBean.class);
                             if(StringUtils.isEmpty(person.getRongCloudToken())){
-                                commonPostView.postError("服务器返回数据异常");
+                                commonPostView.postError(context.getString(R.string.server_net_error));
                             }else {
                                 loginUser.setUserId(person.getId()+"");
                                 loginUser.setCode(person.getCode());
@@ -134,13 +150,13 @@ public class UserPresenter {
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            commonPostView.postError("服务器发生未知异常");
+                            commonPostView.postError(context.getString(R.string.server_net_error));
                         }
                     }
 
                     @Override
                     public void onError(Response<String> response) {
-                        commonPostView.postError("发生未知异常");
+                        commonPostView.postError(context.getString(R.string.server_net_error));
                     }
                 });
     }
