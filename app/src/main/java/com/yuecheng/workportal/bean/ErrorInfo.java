@@ -3,7 +3,6 @@ package com.yuecheng.workportal.bean;
 /**
  * 描述:
  * 作者: Shims
- * 时间: ${date} ${time}
  */
 public class ErrorInfo {
 
