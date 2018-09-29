@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yuecheng.workportal.base.BaseActivity;
-import com.yuecheng.workportal.module.MyRobotFragment;
+import com.yuecheng.workportal.module.workbench.MyWorkbenchFragment;
 import com.yuecheng.workportal.module.contacts.view.MyContactsFragment;
 import com.yuecheng.workportal.module.conversation.ConversationListFragment;
 import com.yuecheng.workportal.module.mycenter.view.MyCenterFragment;
@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity {
     private MyTaskFragment myTaskFragment;
     private MyCenterFragment myCenterFragment;
     private MyContactsFragment myContactsFragment;
-    private MyRobotFragment myRobotFragment;
+    private MyWorkbenchFragment myRobotFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +70,13 @@ public class MainActivity extends BaseActivity {
             myTaskFragment = MyTaskFragment.newInstance();
             myCenterFragment = MyCenterFragment.newInstance();
             myContactsFragment = MyContactsFragment.newInstance();
-            myRobotFragment = MyRobotFragment.newInstance();
+            myRobotFragment = MyWorkbenchFragment.newInstance();
         } else {
             conversationListFragment = (ConversationListFragment) getSupportFragmentManager().getFragment(savedInstanceState, ConversationListFragment.class.getName());
             myTaskFragment = (MyTaskFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyTaskFragment.class.getName());
             myCenterFragment = (MyCenterFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyCenterFragment.class.getName());
             myContactsFragment = (MyContactsFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyContactsFragment.class.getName());
-            myRobotFragment = (MyRobotFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyRobotFragment.class.getName());
+            myRobotFragment = (MyWorkbenchFragment) getSupportFragmentManager().getFragment(savedInstanceState, MyWorkbenchFragment.class.getName());
         }
 
         initData();

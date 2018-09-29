@@ -176,6 +176,7 @@
     <string name="jobs">岗位</string>
     <string name="deputy_post">副岗</string>
     <string name="immediate_superior">直属上级</string>
+    <string name="subordinates">下属员工</string>
 
 
     <string-array name="voice_type_params">

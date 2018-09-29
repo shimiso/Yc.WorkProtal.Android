@@ -314,7 +314,7 @@ public class VoiceActivity extends AppCompatActivity implements IMainView {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.voice_sl:
-                
+
                 voiceTitle.setVisibility(View.VISIBLE);
 //                ObjectAnimator animator = ObjectAnimator.ofFloat(touming, "scaleY", 1f, 0f);
 //                animator.setDuration(2000);

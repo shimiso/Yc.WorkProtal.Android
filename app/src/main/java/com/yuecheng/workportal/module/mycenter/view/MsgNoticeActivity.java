@@ -42,9 +42,19 @@ public class MsgNoticeActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if(isChecked){
-                    ToastUtil.info(MsgNoticeActivity.this,"开");
+                    voiceButton.setEnabled(true);
+                    vibrationButton.setEnabled(true);
+                    synergyButton.setEnabled(true);
+                    meetingButton.setEnabled (true);
                 }else{
-                    ToastUtil.info(MsgNoticeActivity.this,"关");
+                    voiceButton.setChecked(false);
+                    voiceButton.setEnabled(false);
+                    vibrationButton.setChecked(false);
+                    vibrationButton.setEnabled(false);
+                    synergyButton.setChecked(false);
+                    synergyButton.setEnabled(false);
+                    meetingButton.setChecked(false);
+                    meetingButton.setEnabled (false);
                 }
             }
         });

@@ -169,6 +169,7 @@
     <string name="jobs">jobs</string>
     <string name="deputy_post">Deputy post</string>
     <string name="immediate_superior">Immediate superior</string>
+    <string name="subordinates">subordinates</string>
 
     <string-array name="voice_type_params">
         <item>xiaoqi</item>

@@ -17,6 +17,8 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.receive.MyConnectionStatusListener;
@@ -52,6 +54,8 @@ public class MainApplication extends MultiDexApplication {
         initXunfei();
         initOkGo();
         initRongIM();
+        UMConfigure.init(this,"5bad9649f1f556df24000098"
+                ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");//58edcfeb310c93091c000be2 5965ee00734be40b580001a0
     }
 
 
@@ -206,5 +210,10 @@ public class MainApplication extends MultiDexApplication {
                 .setRetryCount(3) ;                              //全局统一超时重连次数，默认为三次，那么最差的情况会请求4次(一次原始请求，三次重连请求)，不需要可以设置为0
 //                .addCommonHeaders(headers)                      //全局公共头
 //                .addCommonParams(params);                       //全局公共参数
+    }
+
+    {
+        PlatformConfig.setWeixin("wx75af2356bc439f25", "a2840cc69014df6c1d0c33a8145d2c6a");
+        PlatformConfig.setQQZone("1107803171", "C9dxemWiTlf7EeaA");
     }
 }

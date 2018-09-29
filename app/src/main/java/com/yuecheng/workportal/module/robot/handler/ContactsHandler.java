@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 
@@ -135,6 +136,9 @@ public class ContactsHandler extends IntentHandler {
                         MainApplication.getApplication().startActivity(intent);
                         return;
                     }else if(intent.equals(instruction.TEXT) && staffs.size() == 1 && RongIM.getInstance() != null){//发送消息
+                        Bundle bundle = new Bundle();
+                        bundle.putString("targetName", personnelDetailsBean.getName());
+                        bundle.putString("targetIcon", "http://rongcloud-web.qiniudn.com/docs_demo_rongcloud_logo.png");
                         RongIM.getInstance().startPrivateChat(MainApplication.getApplication(), personnelDetailsBean.getGuid()+"", "与"+personnelDetailsBean.getName()+"对话");
                         return;
                     }

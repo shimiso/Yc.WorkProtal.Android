@@ -1,5 +1,6 @@
 package com.yuecheng.workportal.module.contacts.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -189,7 +190,7 @@ public class PersonnelDetailsBean {
         }
     }
 
-    public static class SubordinatesBean {
+    public static class SubordinatesBean implements Serializable {
         /**
          * guid : 7B84BCB5-9EB0-470C-8593-FD8CCE3DA7B1
          * name : 高旭
