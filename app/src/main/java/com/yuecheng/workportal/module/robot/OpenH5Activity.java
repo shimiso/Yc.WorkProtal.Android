@@ -32,6 +32,8 @@ import com.yuecheng.workportal.utils.ToastUtil;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -304,8 +306,14 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
                 if (!TextUtils.isEmpty(isbn)) {
                     //todo something
                     Toast.makeText(this, "解析到的内容为" + isbn, Toast.LENGTH_LONG).show();
-
-                    mWebView.callHandler("getuserinfo", new String[]{isbn});
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = new JSONObject(isbn);
+                        int rid=jsonObject.optInt("rid");
+                        mWebView.callHandler("getuserinfo", new String[]{String.valueOf(rid)});
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

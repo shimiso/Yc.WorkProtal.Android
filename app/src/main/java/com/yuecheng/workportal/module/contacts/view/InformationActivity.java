@@ -70,6 +70,10 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
     LinearLayout myDirectoryLl;
     @BindView(R.id.hor_scrollview)
     HorizontalScrollView horScrollview;
+    @BindView(R.id.hor_scrollview_tv)
+    HorizontalScrollView horScrollviewTv;
+    @BindView(R.id.hor_scrollview_jobs)
+    HorizontalScrollView horScrollviewJobs;
 
     private List<LocalMedia> selectList = new ArrayList<>();
     PersonnelDetailsBean personnelDetailsBean;
@@ -84,8 +88,12 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
         context = this;
         //去除到头使阴影
         horScrollview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        horScrollviewTv.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        horScrollviewJobs.setOverScrollMode(View.OVER_SCROLL_NEVER);
         //水平方向的水平滚动条是否显示
         horScrollview.setHorizontalScrollBarEnabled(false);
+        horScrollviewTv.setHorizontalScrollBarEnabled(false);
+        horScrollviewJobs.setHorizontalScrollBarEnabled(false);
         Intent intent = getIntent();
         String guid = intent.getStringExtra("Guid");
         String name = intent.getStringExtra("name");
@@ -235,11 +243,11 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
             myDirectoryLl.addView(textView);
 
             textView.setOnClickListener(v -> {
-                int Vindex=myDirectoryLl.indexOfChild(v);//获取当前点击view的下标
+                int Vindex = myDirectoryLl.indexOfChild(v);//获取当前点击view的下标
                 String[] split1 = personnelDetailsBean.getDeepOrgIds().split(">");
                 Intent intent = new Intent(this, OrganizationActivity.class);
-                intent.putExtra("orgid",Integer.valueOf(split1[Vindex]));
-                intent.putExtra("orgname",split[0]);
+                intent.putExtra("orgid", Integer.valueOf(split1[Vindex]));
+                intent.putExtra("orgname", split[0]);
                 startActivity(intent);
             });
         }
