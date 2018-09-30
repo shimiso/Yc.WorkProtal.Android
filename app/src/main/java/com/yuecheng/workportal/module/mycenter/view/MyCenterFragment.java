@@ -1,6 +1,7 @@
 package com.yuecheng.workportal.module.mycenter.view;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ public class MyCenterFragment extends BaseFragment {
     TextView titName;
     @BindView(R.id.tit_jobs)
     TextView titJobs;
+    private LoginUser loginUser;
 
     public static MyCenterFragment newInstance() {
         Bundle args = new Bundle();
@@ -49,7 +51,7 @@ public class MyCenterFragment extends BaseFragment {
     }
 
     private void initView() {//设置登录人员信息
-        LoginUser loginUser = MainApplication.getApplication().getLoginUser();
+        loginUser = MainApplication.getApplication().getLoginUser();
         titName.setText(loginUser.getName());
         titJobs.setText(loginUser.getPositionName());
     }
@@ -60,7 +62,7 @@ public class MyCenterFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.my_hr, R.id.my_login_web, R.id.my_directions, R.id.my_feedback, R.id.my_setting, R.id.my_information_rl, R.id.sign_in, R.id.work_attendance, R.id.share_iv})
+    @OnClick({R.id.my_hr, R.id.my_login_web, R.id.my_directions, R.id.my_feedback, R.id.my_setting, R.id.my_information_rl,  R.id.work_attendance, R.id.share_iv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_information_rl://个人详情
@@ -68,9 +70,6 @@ public class MyCenterFragment extends BaseFragment {
                 break;
             case R.id.work_attendance://考勤
                 startActivity(new Intent(getContext(), WorkAttendanceActivity.class));
-                break;
-            case R.id.sign_in://打卡
-                startActivity(new Intent(getContext(), SignInActivity.class));
                 break;
             case R.id.my_hr: //HR自助
                 showHRDialog();
@@ -86,7 +85,12 @@ public class MyCenterFragment extends BaseFragment {
                 startActivity(new Intent(getContext(), SettingsActivity.class));
                 break;
             case R.id.share_iv: //分享
-                mainApplication.myShare(getActivity());
+                Bitmap mBitmap = mainApplication.getVcardBitmap(loginUser.getName(),//姓名
+                        loginUser.getPositionName(),//岗位
+                        loginUser.getMobilePhone(),//手机
+                        loginUser.getTelephone(),//座机
+                        loginUser.getEmail());//邮件
+                mainApplication.myShare(getActivity(),mBitmap);
                 break;
         }
     }

@@ -3,8 +3,10 @@ package com.yuecheng.workportal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.iflytek.cloud.SpeechConstant;
@@ -30,6 +32,7 @@ import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.receive.MyConnectionStatusListener;
 import com.yuecheng.workportal.receive.MyReceiveMessageListener;
 import com.yuecheng.workportal.utils.AndroidUtil;
+import com.yuecheng.workportal.utils.CodeUtils;
 import com.yuecheng.workportal.utils.SharePreferenceUtil;
 
 import java.io.IOException;
@@ -223,16 +226,36 @@ public class MainApplication extends MultiDexApplication {
         PlatformConfig.setQQZone("1107803171", "C9dxemWiTlf7EeaA");
     }
 
+    //将VCARD字符串转换为二维码
+    public Bitmap getVcardBitmap(String name,String jobs,String phone,String landline,String email){
+       String textContent = "BEGIN:VCARD" +
+                "\nN:"+ name +
+                "\nTITLE:"+ jobs +
+                "\nADR;WORK:北京市五环区GT路19号" +
+                "\nTEL;CELL,VOICE:"+ phone +
+                "\nTEL;WORK,VOICE:"+ landline +
+                "\nURL;WORK:www.gt.com" +
+                "\nEMAIL;INTERNET,HOME:"+ email +
+                "\nEND:VCARD";
+        if (TextUtils.isEmpty(textContent)) {
+            Toast.makeText(this, "您的输入为空!", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+        return  CodeUtils.createQRCode(textContent, 400);
+
+    }
     //分享
-    public void myShare(Activity activity) {
+    public void myShare(Activity activity,Bitmap mBitmap) {
         ShareDialog shareDialog = new ShareDialog(activity);
         shareDialog.setClicklistener(new ShareDialog.ClickListenerInterface() {
 
             @Override
             public void onWXClick() {
+                UMImage imagelocal = new UMImage(app, mBitmap);
+                imagelocal.setThumb(new UMImage(app, mBitmap));
                 new ShareAction(activity)
+                        .withMedia(imagelocal)
                         .setPlatform(SHARE_MEDIA.WEIXIN.toSnsPlatform().mPlatform)//传入平台
-                        .withText("hello")//分享内容
                         .setCallback(shareListener)//回调监听器
                         .share();
                 shareDialog.dismissDialog();
@@ -250,8 +273,9 @@ public class MainApplication extends MultiDexApplication {
 
             @Override
             public void onQQClick() {
-                UMImage imagelocal = new UMImage(app, R.mipmap.dbgz);
-                imagelocal.setThumb(new UMImage(app, R.mipmap.dbgz));
+//                UMImage imagelocal = new UMImage(app, R.mipmap.dbgz);
+                UMImage imagelocal = new UMImage(app, mBitmap);
+                imagelocal.setThumb(new UMImage(app, mBitmap));
                 new ShareAction(activity)
                         .withMedia(imagelocal)
                         .setPlatform(SHARE_MEDIA.QQ.toSnsPlatform().mPlatform)

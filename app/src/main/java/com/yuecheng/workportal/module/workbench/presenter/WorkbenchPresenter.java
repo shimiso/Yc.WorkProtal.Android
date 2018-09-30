@@ -41,6 +41,7 @@ public class WorkbenchPresenter {
         OkGo.<String>get(UrlConstant.GET_STAFF_PERMS)//
                 .tag(this)//
                 .params("Guid", guid)//
+                .params("clientType", 1)//客户端调用类型（客户端调用类型： 移动端 1, pc端 2 ）
                 .headers("Authorization", "Bearer "+loginUser.getAccess_token())
                 .execute(new StringCustomCallback(){
                     @Override

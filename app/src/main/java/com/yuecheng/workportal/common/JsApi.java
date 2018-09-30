@@ -1,14 +1,15 @@
 package com.yuecheng.workportal.common;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.webkit.JavascriptInterface;
 
+import com.google.zxing.client.android.CaptureActivity2;
 import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.bean.MessageEvent;
 import com.yuecheng.workportal.module.robot.OpenH5Activity;
 import com.yuecheng.workportal.utils.LogUtils;
-import com.yuecheng.workportal.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -22,7 +23,8 @@ import wendu.dsbridge.CompletionHandler;
  * 时间: 2018/9/14 15:20
  */
 public class JsApi {
-    private OpenH5Activity activity;
+    public static final int SCAN_REQUEST_CODE = 100;
+    private static OpenH5Activity activity;
     public JsApi(OpenH5Activity activity) {
         this.activity = activity;
     }
@@ -37,8 +39,13 @@ public class JsApi {
     }
     //同步API
     @JavascriptInterface
-    public static String vital_signs(Object msg)  {
-        //返回json
+    public  String callSweep(Object msg)  {
+
+        //调用扫一扫
+        Intent intent = new Intent(activity, CaptureActivity2.class);
+        intent.putExtra(CaptureActivity2.USE_DEFUALT_ISBN_ACTIVITY, true);
+        activity.startActivityForResult(intent,SCAN_REQUEST_CODE);
+
         return "";
     }
     //异步API

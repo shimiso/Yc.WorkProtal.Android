@@ -69,8 +69,9 @@
 
             <ImageView
                 android:id="@+id/share_iv"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="18dp"
@@ -153,41 +154,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/right_in_btn"/>
-
-    </RelativeLayout>
-
-    <View style="@style/divider_horizontal"/>
-    <RelativeLayout
-        android:id="@+id/sign_in"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/my_login_web"
-        android:layout_marginTop="0.1dp"
-        android:background="@drawable/list_item_bg"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/sysm" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="25dp"
-            android:text="@string/my_sign_in"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/right_in_btn" />
 
     </RelativeLayout>
 

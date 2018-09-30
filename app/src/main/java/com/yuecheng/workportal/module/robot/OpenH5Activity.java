@@ -1,9 +1,12 @@
 package com.yuecheng.workportal.module.robot;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.bean.MessageEvent;
@@ -35,6 +39,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import wendu.dsbridge.DWebView;
 
+import static com.yuecheng.workportal.common.JsApi.SCAN_REQUEST_CODE;
+
+
 public class OpenH5Activity extends AppCompatActivity implements IMainView {
     public  static Button vitalSigns;
     @BindView(R.id.open_h5_relative)
@@ -52,7 +59,7 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
     private ImageView getmStateIV;
     private PopupWindow mRecordWindow;
     private ObjectAnimator icon_anim;
-    private Boolean isShow;
+    private Boolean isShow = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -287,5 +294,20 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
                 this.mStateIV.setImageResource(R.mipmap.ic_volume_8);
         }
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == SCAN_REQUEST_CODE) {
+                //Todo Handle the isbn number entered manually
+                String isbn = data.getStringExtra("CaptureIsbn");
+                if (!TextUtils.isEmpty(isbn)) {
+                    //todo something
+                    Toast.makeText(this, "解析到的内容为" + isbn, Toast.LENGTH_LONG).show();
 
+                    mWebView.callHandler("getuserinfo", new String[]{isbn});
+                }
+            }
+        }
+    }
 }

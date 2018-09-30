@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/Calendar" />
             <option value="$PROJECT_DIR$/IMKit" />
             <option value="$PROJECT_DIR$/IMLib" />
+            <option value="$PROJECT_DIR$/LibZxing" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

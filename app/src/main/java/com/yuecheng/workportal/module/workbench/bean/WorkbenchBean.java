@@ -39,11 +39,33 @@ public class WorkbenchBean {
          * iconUrl : dbgz.png
          * linkAddress : null
          */
-
+        public String name;
         private String permName;
         private String iconUrl;
         private String enPermName;
         private String linkAddress;
+        public boolean isTitle = false;
+
+        public PermsBean(String name, boolean isTitle){
+            this.name = name;
+            this.isTitle = isTitle;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setTitle(boolean title) {
+            isTitle = title;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public boolean isTitle() {
+            return isTitle;
+        }
 
         public String getPermName() {
             return permName;

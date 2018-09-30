@@ -144,7 +144,7 @@
     <style name="divider_horizontal">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.1dp</item>
-        <item name="android:background">@color/lightgray</item>
+        <item name="android:background">@color/color_item_pressed</item>
     </style>
     <!-- 垂直分割线 -->
     <style name="divider_vertical">
@@ -297,5 +297,11 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">#ff25adff</item>
+    </style>
+    <!--二维码-->
+    <style name="AppTheme.Transparent" parent="AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 </resources>

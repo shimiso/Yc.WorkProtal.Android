@@ -146,6 +146,7 @@ public class OrganizationActivity extends BaseActivity {
                             if (i == myLinearlayout.getChildCount() - 1) {
                                 TextView childAt = (TextView) myLinearlayout.getChildAt(i);
                                 childAt.setTextColor(Color.parseColor("#282828"));
+                                titleName.setText(split[Vindex + 1]);//设置标题
                             } else {
                                 TextView childAt = (TextView) myLinearlayout.getChildAt(i);
                                 childAt.setTextColor(Color.parseColor("#3189f4"));

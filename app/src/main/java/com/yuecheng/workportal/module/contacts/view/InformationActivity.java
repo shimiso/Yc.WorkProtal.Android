@@ -4,15 +4,17 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.luck.picture.lib.entity.LocalMedia;
 import com.yuecheng.workportal.R;
@@ -47,8 +49,6 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
     TextView myEmailTv;
     @BindView(R.id.my_jobs_tv)
     TextView myJobsTv;
-    @BindView(R.id.my_directory_tv)
-    TextView myDirectoryTv;
     @BindView(R.id.my_deputy_tv)
     TextView myDeputyTv;
     @BindView(R.id.my_mmediate_superior_tv)
@@ -66,6 +66,10 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
     TextView mySubordinatesTv;
     @BindView(R.id.isboy)
     ImageView isboy;
+    @BindView(R.id.my_directory_ll)
+    LinearLayout myDirectoryLl;
+    @BindView(R.id.hor_scrollview)
+    HorizontalScrollView horScrollview;
 
     private List<LocalMedia> selectList = new ArrayList<>();
     PersonnelDetailsBean personnelDetailsBean;
@@ -78,6 +82,10 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
         setContentView(R.layout.contacts_information);
         ButterKnife.bind(this);
         context = this;
+        //去除到头使阴影
+        horScrollview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        //水平方向的水平滚动条是否显示
+        horScrollview.setHorizontalScrollBarEnabled(false);
         Intent intent = getIntent();
         String guid = intent.getStringExtra("Guid");
         String name = intent.getStringExtra("name");
@@ -112,7 +120,13 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
 
                 break;
             case R.id.share://分享
-                mainApplication.myShare(this);//参数暂时为activity,后续待添加分享内容
+
+                Bitmap mBitmap = mainApplication.getVcardBitmap(personnelDetailsBean.getName(),//姓名
+                        personnelDetailsBean.getPositionName(),//岗位
+                        personnelDetailsBean.getMobilePhone(),//手机
+                        personnelDetailsBean.getTelephone(),//座机
+                        personnelDetailsBean.getEmail());//邮件
+                mainApplication.myShare(this, mBitmap);//参数暂时为activity,后续待添加分享内容
                 break;
             case R.id.to_chat://IM聊天
                 if (RongIM.getInstance() != null) {
@@ -185,15 +199,15 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
             });
         }
         myEmailTv.setOnClickListener(v -> {
-            Intent data=new Intent(Intent.ACTION_SENDTO);
-            data.setData(Uri.parse("mailto:"+personnelDetailsBean.getEmail()));
+            Intent data = new Intent(Intent.ACTION_SENDTO);
+            data.setData(Uri.parse("mailto:" + personnelDetailsBean.getEmail()));
             context.startActivity(data);
         });
 
     }
 
     private void initView() {
-        isboy.setImageResource(personnelDetailsBean.getGender()==1? R.mipmap.boy:R.mipmap.girl);//性别
+        isboy.setImageResource(personnelDetailsBean.getGender() == 1 ? R.mipmap.boy : R.mipmap.girl);//性别
         contactRenName.setText(personnelDetailsBean.getName());//name
         myWorkNumberTv.setText(personnelDetailsBean.getCode());//工号
         myPhoneTv.setText(personnelDetailsBean.getMobilePhone());//手机号
@@ -201,16 +215,35 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
         myEmailTv.setText(personnelDetailsBean.getEmail());//邮件
         myJobsTv.setText(personnelDetailsBean.getPositionName());//岗位
         contactRenJobs.setText(personnelDetailsBean.getPositionName());//岗位
-        myDirectoryTv.setText(personnelDetailsBean.getOrganizationName()); //组织路径
-        myDeputyTv.setText(personnelDetailsBean.getPartTimeJobs().isEmpty()?"无":personnelDetailsBean.getPartTimeJobs());//副岗
+//        myDirectoryTv.setText(personnelDetailsBean.getOrganizationName()); //组织路径
+        myDeputyTv.setText(personnelDetailsBean.getPartTimeJobs().isEmpty() ? "无" : personnelDetailsBean.getPartTimeJobs());//副岗
         //直属上级
         directSupervisor = personnelDetailsBean.getDirectSupervisor();
-        myMmediateSuperiorTv.setText(directSupervisor != null?directSupervisor.getName():"");//直属上级
+        myMmediateSuperiorTv.setText(directSupervisor != null ? directSupervisor.getName() : "");//直属上级
         //设置颜色
         myMmediateSuperiorTv.setTextColor(Color.parseColor("#509FFF"));
         myPhoneTv.setTextColor(Color.parseColor("#509FFF"));
         myLandlineTv.setTextColor(Color.parseColor("#509FFF"));
         myEmailTv.setTextColor(Color.parseColor("#509FFF"));
+
+        String[] split = personnelDetailsBean.getOrganizationName().split(">");
+        myDirectoryLl.removeAllViews();
+        for (int index = 0; index < split.length; index++) {
+            TextView textView = new TextView(InformationActivity.this);
+            textView.setText(index == 0 ? split[index] : " > " + split[index]);
+            textView.setTextColor(Color.parseColor("#3189f4"));
+            myDirectoryLl.addView(textView);
+
+            textView.setOnClickListener(v -> {
+                int Vindex=myDirectoryLl.indexOfChild(v);//获取当前点击view的下标
+                String[] split1 = personnelDetailsBean.getDeepOrgIds().split(">");
+                Intent intent = new Intent(this, OrganizationActivity.class);
+                intent.putExtra("orgid",Integer.valueOf(split1[Vindex]));
+                intent.putExtra("orgname",split[0]);
+                startActivity(intent);
+            });
+        }
+
     }
 
     @Override
