@@ -61,41 +61,41 @@
         </activity>
         <activity
             android:name=".module.work.editor.EditorApplicationActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.robot.view.VoiceActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
             android:name=".module.robot.OpenH5Activity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/ToolBarTheme" />
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.robot.view.JsonActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.mycenter.view.SignInActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".module.contacts.view.InformationActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnspecified|adjustPan|stateHidden" />
         <activity
             android:name=".module.update.VersionUpdateDialog"
@@ -117,46 +117,45 @@
 
         <activity
             android:name=".module.contacts.view.SelectGroupActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.contacts.view.OrganizationActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.mycenter.view.SettingsActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.mycenter.view.FeedbackActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.mycenter.view.MsgNoticeActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.robot.view.ViewMoreActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.mycenter.view.ModifyPasswordActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.mycenter.view.WorkAttendanceActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.mycenter.view.MyDetailActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".InvalidateActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/DialogStyleBottom" />
-
 
         <!-- 会话页面 -->
         <activity
@@ -209,11 +208,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!--qq-->
+        <!-- qq -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -225,10 +224,10 @@
         </activity>
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
-        <activity android:name=".module.contacts.view.SubordinatesActivity"></activity>
-        <!--扫描二维码-->
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".module.contacts.view.SubordinatesActivity" />
+        <!-- 扫描二维码 -->
         <activity
             android:name="com.google.zxing.client.android.CaptureActivity2"
             android:configChanges="orientation|keyboardHidden"
@@ -280,6 +279,8 @@
                     android:scheme="http" />
             </intent-filter>
         </activity>
+        <activity android:name=".module.mycenter.view.HRActivity" />
+        <activity android:name=".module.mycenter.view.MultilingualActivity"></activity>
     </application>
 
 </manifest>

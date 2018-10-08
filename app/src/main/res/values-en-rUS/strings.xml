@@ -79,6 +79,8 @@
     <string name="submit">Submit</string>
     <string name="hr_prompt">Dear, wait to open ~</string>
     <string name="know">Know</string>
+    <string name="join_company_one">Today is your </string>
+    <string name="join_company_two">th day in the company</string>
 
     <!--设置-->
     <string name="title_message">Message</string>
@@ -89,12 +91,13 @@
     <string name="set_index">Set index</string>
     <string name="set_language">Set language</string>
     <string name="set_home_page">Please select home page</string>
-    <string name="set_fangyan">Set dialects</string>
+    <string name="set_fangyan">Dialects</string>
     <string name="modify_password">Nodify password</string>
     <string name="message_notification">Notification</string>
     <string name="mandarin">mandarin</string>
     <string name="cantonese">cantonese</string>
     <string name="lmz">Sichuan dialect</string>
+    <string name="multilingual">multilingual</string>
 
     <!--语音-->
     <string name="grammar_error">semantic error</string>
