@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.zxing.client.android.CaptureActivity2;
 import com.yuecheng.workportal.BuildConfig;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.module.mycenter.view.SignInActivity;

@@ -1,1 +1,1 @@
-include ':app', ':IMKit', ':IMLib', ':IMLib', ':Calendar', ':LibZxing'
+include ':app', ':IMKit', ':IMLib', ':IMLib', ':Calendar', ':QRCodeLibrary'

@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yuecheng.workportal.QRCActivity;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.bean.MessageEvent;
 import com.yuecheng.workportal.common.JsApi;
@@ -45,7 +46,7 @@ import static com.yuecheng.workportal.common.JsApi.SCAN_REQUEST_CODE;
 
 
 public class OpenH5Activity extends AppCompatActivity implements IMainView {
-    public  static Button vitalSigns;
+    public static Button vitalSigns;
     @BindView(R.id.open_h5_relative)
     RelativeLayout openH5Relative;
     @BindView(R.id.vital_signs)
@@ -130,7 +131,7 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //这是一个监听用的按键的方法，keyCode 监听用户的动作，如果是按了返回键，同时Webview要返回的话，WebView执行回退操作，因为mWebView.canGoBack()返回的是一个Boolean类型，所以我们把它返回为true
         if (keyCode == KeyEvent.KEYCODE_BACK && mWebView.canGoBack()) {
-            if (keyCode == KeyEvent.KEYCODE_BACK && isShow ) {
+            if (keyCode == KeyEvent.KEYCODE_BACK && isShow) {
                 isShowVoiceDialog(false);
             }
             mWebView.goBack();
@@ -230,9 +231,9 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
 
     @Override
     public void isShowVoiceDialog(boolean isShow) {
-        if(isShow){
+        if (isShow) {
             vital_signs.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             vital_signs.setVisibility(View.GONE);
         }
     }
@@ -242,13 +243,14 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
         super.onStart();
         EventBus.getDefault().register(this);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent messageEvent) {
-        if(messageEvent.type==MessageEvent.SMTZLU_VOCE_DIALOG){
+        if (messageEvent.type == MessageEvent.SMTZLU_VOCE_DIALOG) {
             isShow = messageEvent.isShow;
             isShowVoiceDialog(messageEvent.isShow);
-        }else if(messageEvent.type==MessageEvent.VITAL_SIGNS_JSON){
-            ToastUtil.info(OpenH5Activity.this,messageEvent.json);
+        } else if (messageEvent.type == MessageEvent.VITAL_SIGNS_JSON) {
+            ToastUtil.info(OpenH5Activity.this, messageEvent.json);
             //将获取的生命体征的json传递给H5
             mWebView.callHandler("append", new String[]{messageEvent.json});
         }
@@ -296,25 +298,21 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
                 this.mStateIV.setImageResource(R.mipmap.ic_volume_8);
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SCAN_REQUEST_CODE) {
-                //Todo Handle the isbn number entered manually
-                String isbn = data.getStringExtra("CaptureIsbn");
-                if (!TextUtils.isEmpty(isbn)) {
-                    //todo something
-                    Toast.makeText(this, "解析到的内容为" + isbn, Toast.LENGTH_LONG).show();
-                    JSONObject jsonObject = null;
-                    try {
-                        jsonObject = new JSONObject(isbn);
-                        int rid=jsonObject.optInt("rid");
-                        mWebView.callHandler("getuserinfo", new String[]{String.valueOf(rid)});
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+        if (resultCode == Activity.RESULT_OK && requestCode == SCAN_REQUEST_CODE && data != null) {
+            String result = data.getStringExtra(QRCActivity.RESULT_QRCODE_STRING);
+            if (!TextUtils.isEmpty(result)) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    int rid = jsonObject.optInt("rid");
+                    mWebView.callHandler("getuserinfo", new String[]{String.valueOf(rid)});
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+                Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
             }
         }
     }

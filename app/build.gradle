@@ -196,8 +196,7 @@ dependencies {
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
     //友盟
     implementation 'com.umeng.analytics:analytics:latest.integration'
-
     api project(':IMKit')
     api project(':Calendar')
-    api project(':LibZxing')
+    api project(':QRCodeLibrary')
 }

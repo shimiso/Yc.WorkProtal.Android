@@ -9,6 +9,7 @@ import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.google.zxing.WriterException;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.lzy.okgo.OkGo;
@@ -32,8 +33,9 @@ import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.receive.MyConnectionStatusListener;
 import com.yuecheng.workportal.receive.MyReceiveMessageListener;
 import com.yuecheng.workportal.utils.AndroidUtil;
-import com.yuecheng.workportal.utils.CodeUtils;
+//import com.yuecheng.workportal.utils.CodeUtils;
 import com.yuecheng.workportal.utils.SharePreferenceUtil;
+import com.zxing.encoding.EncodingHandler;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -227,7 +229,7 @@ public class MainApplication extends MultiDexApplication {
     }
 
     //将VCARD字符串转换为二维码
-    public Bitmap getVcardBitmap(String name,String jobs,String phone,String landline,String email){
+    public Bitmap getVcardBitmap(String name,String jobs,String phone,String landline,String email) {
        String textContent = "BEGIN:VCARD" +
                 "\nN:"+ name +
                 "\nTITLE:"+ jobs +
@@ -241,7 +243,9 @@ public class MainApplication extends MultiDexApplication {
             Toast.makeText(this, "您的输入为空!", Toast.LENGTH_SHORT).show();
             return null;
         }
-        return  CodeUtils.createQRCode(textContent, 400);
+
+
+        return EncodingHandler.createImage(textContent, 400,400,null);
 
     }
     //分享

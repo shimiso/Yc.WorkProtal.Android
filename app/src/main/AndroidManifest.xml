@@ -156,6 +156,22 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/DialogStyleBottom" />
+        <activity
+            android:name=".module.contacts.view.SubordinatesActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.mycenter.view.HRActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.mycenter.view.MultilingualActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".QRCActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <!-- 会话页面 -->
         <activity
@@ -226,61 +242,7 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".module.contacts.view.SubordinatesActivity" />
-        <!-- 扫描二维码 -->
-        <activity
-            android:name="com.google.zxing.client.android.CaptureActivity2"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Transparent"
-            android:windowSoftInputMode="stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="com.google.zxing.client.android.SCAN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <!--
-				Allow web apps to launch Barcode Scanner by linking to
-				http://zxing.appspot.com/scan.
-            -->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="zxing.appspot.com"
-                    android:path="/scan"
-                    android:scheme="http" />
-            </intent-filter>
-            <!-- We also support a Google Product Search URL. -->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="www.google.com"
-                    android:path="/m/products/scan"
-                    android:scheme="http" />
-            </intent-filter>
-            <!-- And the UK version. -->
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="www.google.co.uk"
-                    android:path="/m/products/scan"
-                    android:scheme="http" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".module.mycenter.view.HRActivity" />
-        <activity android:name=".module.mycenter.view.MultilingualActivity"></activity>
     </application>
 
 </manifest>

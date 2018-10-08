@@ -28,7 +28,7 @@ public class HRActivity extends BaseActivity {
         joinCompany.setText(getString(R.string.join_company_one) + "100" + getString(R.string.join_company_two));
     }
 
-    @OnClick({R.id.back_iv, R.id.title_voice,R.id.jbxx, R.id.gwxx, R.id.ht, R.id.xz, R.id.kq, R.id.jq})
+    @OnClick({R.id.back_iv, R.id.title_voice,R.id.wdzl, R.id.xzcx, R.id.htcx, R.id.kqcx, R.id.jqcx})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back_iv:
@@ -40,17 +40,15 @@ public class HRActivity extends BaseActivity {
                 //使其由下向上弹出
                 overridePendingTransition(R.anim.push_bottom_in, R.anim.push_bottom_out);
                 break;
-            case R.id.jbxx:
+            case R.id.wdzl:
                 break;
-            case R.id.gwxx:
+            case R.id.xzcx:
                 break;
-            case R.id.ht:
+            case R.id.htcx:
                 break;
-            case R.id.xz:
+            case R.id.kqcx:
                 break;
-            case R.id.kq:
-                break;
-            case R.id.jq:
+            case R.id.jqcx:
                 break;
         }
     }

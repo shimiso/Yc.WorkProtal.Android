@@ -46,14 +46,18 @@
         android:background="#fff"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:src="@mipmap/join_company"/>
         <TextView
             android:id="@+id/join_company"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="-16dp"
             android:text="今天是您加入公司的第100天"/>
     </LinearLayout>
     <View
@@ -68,7 +72,7 @@
         android:paddingTop="16dp">
 
         <LinearLayout
-            android:id="@+id/jbxx"
+            android:id="@+id/wdzl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -78,17 +82,17 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/wdzl" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="4dp"
-                android:text="基本信息" />
+                android:text="我的资料" />
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/gwxx"
+            android:id="@+id/xzcx"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -98,17 +102,17 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/xzcx" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="4dp"
-                android:text="岗位信息" />
+                android:text="薪资查询" />
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/ht"
+            android:id="@+id/htcx"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -118,14 +122,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/htcx" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="4dp"
-                android:text="合同" />
+                android:text="合同查询" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -137,7 +141,7 @@
         android:paddingTop="16dp">
 
         <LinearLayout
-            android:id="@+id/xz"
+            android:id="@+id/kqcx"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -147,17 +151,17 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/kqcx" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="4dp"
-                android:text="薪资" />
+                android:text="考勤查询" />
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/kq"
+            android:id="@+id/jqcx"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -167,34 +171,22 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/jqcx" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="4dp"
-                android:text="考勤" />
+                android:text="假期查询" />
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/jq"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="4dp"
-                android:text="假期" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

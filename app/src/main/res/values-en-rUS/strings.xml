@@ -81,6 +81,7 @@
     <string name="know">Know</string>
     <string name="join_company_one">Today is your </string>
     <string name="join_company_two">th day in the company</string>
+    <string name="rich_scan">Flicking a</string>
 
     <!--设置-->
     <string name="title_message">Message</string>

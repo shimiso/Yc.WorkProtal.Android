@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.webkit.JavascriptInterface;
 
-import com.google.zxing.client.android.CaptureActivity2;
 import com.yuecheng.workportal.MainApplication;
+import com.yuecheng.workportal.QRCActivity;
 import com.yuecheng.workportal.bean.LoginUser;
 import com.yuecheng.workportal.bean.MessageEvent;
 import com.yuecheng.workportal.module.robot.OpenH5Activity;
@@ -49,8 +49,7 @@ public class JsApi {
     public  String callSweep(Object msg)  {
 
         //调用扫一扫
-        Intent intent = new Intent(activity, CaptureActivity2.class);
-        intent.putExtra(CaptureActivity2.USE_DEFUALT_ISBN_ACTIVITY, true);
+        Intent intent = new Intent(activity, QRCActivity.class);
         activity.startActivityForResult(intent,SCAN_REQUEST_CODE);
 
         return "";
