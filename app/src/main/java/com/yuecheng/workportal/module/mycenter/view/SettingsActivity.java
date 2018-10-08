@@ -35,10 +35,6 @@ import butterknife.OnClick;
  */
 public class SettingsActivity extends BaseActivity {
     Context context;
-    @BindView(R.id.language)
-    TextView language;
-    @BindView(R.id.fanyan)
-    TextView fanyan;
     @BindView(R.id.home_page)
     TextView homePage;
     private HomePageSettingsDialog homePageSettingsDialog;
@@ -57,8 +53,6 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void init() {
-        String language1 = spUtil.getStrings("Language", "中文");
-        String FangYan = spUtil.getStrings("FangYan", "普通话");
         int HomeSetting = spUtil.getInt("HomeSetting", 0);
         homePageSettingsDialog = new HomePageSettingsDialog(context,HomeSetting);
         switch (HomeSetting) {
@@ -78,8 +72,6 @@ public class SettingsActivity extends BaseActivity {
                 homePage.setText(getString(R.string.my));
                 break;
         }
-        language.setText(language1);
-        fanyan.setText(FangYan);
 
         version_name.setText("V" + androidUtil.getApkVersionName());
     }
@@ -92,9 +84,7 @@ public class SettingsActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent messageEvent) {
-        if (messageEvent.type == MessageEvent.SET_LANGUAGE_TEXT) {
-            fanyan.setText(messageEvent.json);//展示选中方言
-        } else if (messageEvent.type == MessageEvent.HOME_PAGE_TEXT) {
+       if (messageEvent.type == MessageEvent.HOME_PAGE_TEXT) {
             homePage.setText(messageEvent.json);//展示选中首页
         }
     }
@@ -106,7 +96,7 @@ public class SettingsActivity extends BaseActivity {
     }
 
     @OnClick({R.id.modify_password, R.id.message_notification, R.id.language_settings, R.id.index_settings,
-            R.id.fangyan_settings, R.id.exit_btn, R.id.back_iv, R.id.title_voice})
+            R.id.exit_btn, R.id.back_iv, R.id.title_voice})
     protected void onClick(View view) {
         switch (view.getId()) {
             case R.id.modify_password://修改密码
@@ -117,10 +107,7 @@ public class SettingsActivity extends BaseActivity {
                 startActivity(magintent);
                 break;
             case R.id.language_settings://语言设置
-                showLanguageDialog();
-                break;
-            case R.id.fangyan_settings://方言设置
-                showFangYanDialog();
+                startActivity(new Intent(this,MultilingualActivity.class));
                 break;
             case R.id.index_settings://首页设置
                 showHomePageDialog();
@@ -179,108 +166,5 @@ public class SettingsActivity extends BaseActivity {
                 EventBus.getDefault().post(new MessageEvent(MessageEvent.HOME_PAGE_TEXT, getString(R.string.my)));
             }
         });
-    }
-
-    /**
-     * 设置语种
-     */
-    private void showLanguageDialog() {
-        LanguageSettingsDialog centerDialog = new LanguageSettingsDialog(context);
-        centerDialog.setClicklistener(new LanguageSettingsDialog.ClickListenerInterface() {
-
-            @Override
-            public void onOneClick() {
-                spUtil.setString("Language", "中文");
-                setChineseLanguage();
-            }
-
-            @Override
-            public void onTwoClick() {
-                spUtil.setString("Language", "English");
-                setEnglishLanguage();
-            }
-        });
-    }
-
-    /**
-     * 设置方言
-     */
-    private void showFangYanDialog() {
-        FangYanSettingsDialog centerDialog = new FangYanSettingsDialog(context);
-        centerDialog.setClicklistener(new FangYanSettingsDialog.ClickListenerInterface() {
-            @Override
-            public void onOneClick() {
-                spUtil.setString("FangYan", getString(R.string.mandarin));
-                setFangYan("mandarin");
-                centerDialog.dismissDialog();
-                EventBus.getDefault().post(new MessageEvent(MessageEvent.SET_LANGUAGE_TEXT, getString(R.string.mandarin)));
-            }
-
-            @Override
-            public void onTwoClick() {
-                spUtil.setString("FangYan", getString(R.string.cantonese));
-                setFangYan("cantonese");
-                centerDialog.dismissDialog();
-                EventBus.getDefault().post(new MessageEvent(MessageEvent.SET_LANGUAGE_TEXT, getString(R.string.cantonese)));
-            }
-
-            @Override
-            public void onThreeClick() {
-                spUtil.setString("FangYan", getString(R.string.lmz));
-                setFangYan("lmz");
-                centerDialog.dismissDialog();
-                EventBus.getDefault().post(new MessageEvent(MessageEvent.SET_LANGUAGE_TEXT, getString(R.string.lmz)));
-            }
-        });
-    }
-
-    /**
-     * 切换英文
-     */
-    private void setEnglishLanguage() {
-        // 获得res资源对象
-        Resources resources = getResources();
-        Configuration config = resources.getConfiguration();
-        // 获得屏幕参数：主要是分辨率，像素等。
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        // 英语
-        config.locale = Locale.US;
-        resources.updateConfiguration(config, dm);
-        //模拟重启页面
-        MainApplication.getApplication().toIndex();
-    }
-
-    /**
-     * 切换英文
-     */
-    private void setChineseLanguage() {
-
-        // 获得res资源对象
-        Resources resources = getResources();
-        Configuration config = resources.getConfiguration();
-        // 获得屏幕参数：主要是分辨率，像素等。
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        // 英语
-        config.locale = Locale.CHINA;
-        resources.updateConfiguration(config, dm);
-        //模拟重启页面
-        MainApplication.getApplication().toIndex();
-    }
-
-    //设置方言
-    private void setFangYan(String fangyan) {
-        Locale curLocale = context.getResources().getConfiguration().locale;
-        SpeechRecognizer recognizer = SpeechRecognizer.createRecognizer(SettingsActivity.this, null);
-        TextUnderstander textUnderstander = TextUnderstander.createTextUnderstander(SettingsActivity.this, null);
-        //通过Locale的equals方法，判断出当前语言环境
-        if (curLocale.equals(Locale.SIMPLIFIED_CHINESE)) {
-            //中文
-            recognizer.setParameter(SpeechConstant.ACCENT, fangyan);
-            textUnderstander.setParameter(SpeechConstant.ACCENT, fangyan);
-        } else {
-            //英文状态下没有方言设置
-            recognizer.setParameter(SpeechConstant.ACCENT, null);
-            textUnderstander.setParameter(SpeechConstant.ACCENT, null);
-        }
     }
 }

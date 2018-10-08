@@ -72,7 +72,7 @@ public class MyCenterFragment extends BaseFragment {
                 startActivity(new Intent(getContext(), WorkAttendanceActivity.class));
                 break;
             case R.id.my_hr: //HR自助
-                showHRDialog();
+                startActivity(new Intent(getContext(),HRActivity.class));
                 break;
             case R.id.my_login_web: //登录网页版
                 break;
@@ -95,18 +95,4 @@ public class MyCenterFragment extends BaseFragment {
         }
     }
 
-    /**
-     * HR自助
-     */
-    private void showHRDialog() {
-        MessageKnowDialog centerDialog = new MessageKnowDialog(getContext());
-        centerDialog.setClicklistener(new MessageKnowDialog.ClickListenerInterface() {
-
-            @Override
-            public void onOneClick() {
-                centerDialog.dismissDialog();
-            }
-
-        });
-    }
 }

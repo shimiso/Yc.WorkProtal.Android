@@ -88,6 +88,9 @@
     <string name="submit">提交</string>
     <string name="hr_prompt">亲，在等等快开放了~</string>
     <string name="know">知道了</string>
+    <string name="join_company_one">今天是您加入公司的第</string>
+    <string name="join_company_two">天</string>
+
 
     <!--设置-->
     <string name="title_message">消息</string>
@@ -96,14 +99,15 @@
     <string name="title_mycenter">我的</string>
     <string name="title_android">语音</string>
     <string name="set_index">设置首页</string>
-    <string name="set_language">设置语言</string>
+    <string name="set_language">语言设置</string>
     <string name="set_home_page">请选择首页</string>
-    <string name="set_fangyan">设置方言</string>
+    <string name="set_fangyan">方言</string>
     <string name="modify_password">修改密码</string>
     <string name="message_notification">消息提醒</string>
     <string name="mandarin">普通话</string>
     <string name="cantonese">粤语</string>
     <string name="lmz">四川话</string>
+    <string name="multilingual">多语言</string>
 
     <!--语音-->
     <string name="grammar_error">语义错误</string>

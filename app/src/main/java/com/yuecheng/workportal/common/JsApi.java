@@ -35,7 +35,14 @@ public class JsApi {
     public String testSyn(Object msg)  {
         //将当前token传给H5页面
         LoginUser loginUser = MainApplication.getApplication().getLoginUser();
-        return loginUser.getAccess_token();
+        JSONObject object=new JSONObject();
+        try {
+            object.put("token",loginUser.getAccess_token());
+            object.put("guid",loginUser.getGuid());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object.toString();
     }
     //同步API
     @JavascriptInterface
