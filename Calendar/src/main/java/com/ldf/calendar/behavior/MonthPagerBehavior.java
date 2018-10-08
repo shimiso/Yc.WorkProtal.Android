@@ -21,7 +21,7 @@ public class MonthPagerBehavior extends CoordinatorLayout.Behavior<MonthPager> {
 
     @Override
     public boolean layoutDependsOn(CoordinatorLayout parent, MonthPager child, View dependency) {
-        return false;
+        return dependency instanceof RecyclerView;
     }
 
     @Override

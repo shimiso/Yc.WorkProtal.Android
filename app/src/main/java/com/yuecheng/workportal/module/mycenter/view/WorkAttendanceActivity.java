@@ -170,16 +170,15 @@ public class WorkAttendanceActivity extends BaseActivity {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 HashMap<String, String> markData = new HashMap<>();
-                markData.put("2018-9-2", "1");
-                markData.put("2018-9-3", "0");
-                markData.put("2018-9-4", "1");
-                markData.put("2018-9-5", "0");
-                markData.put("2018-9-6", "0");
-                markData.put("2018-9-7", "0");
-                markData.put("2018-9-8", "0");
-                markData.put("2018-9-9", "0");
+                markData.put("2018-10-12", "1");
+                markData.put("2018-10-13", "0");
+                markData.put("2018-10-14", "1");
+                markData.put("2018-10-15", "0");
+                markData.put("2018-10-16", "0");
+                markData.put("2018-10-17", "0");
+                markData.put("2018-10-18", "0");
+                markData.put("2018-10-19", "0");
                 calendarAdapter.setMarkData(markData);
-                calendarAdapter.notifyDataChanged(currentDate);
             }
         }.execute();
 
