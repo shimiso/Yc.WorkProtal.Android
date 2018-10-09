@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yuecheng.workportal.base.BaseFragment;
+import com.yuecheng.workportal.bean.MessageEvent;
 import com.yuecheng.workportal.module.contacts.bean.OrganizationBean;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.bean.ResultInfo;
@@ -26,6 +27,9 @@ import com.yuecheng.workportal.module.contacts.bean.OrganizationBean;
 import com.yuecheng.workportal.module.contacts.adapter.OrganizationAdapter;
 import com.yuecheng.workportal.utils.LoadViewUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +57,8 @@ public class MyTabStructureFragment extends BaseFragment {
     private List<OrganizationBean.OrgsBean> orgs;
     private String selectname;
     private LoadViewUtil viewUtil;
+    private int orgid = -1;
+    private OrganizationBean result;
 
     public static MyTabStructureFragment newInstance() {
         Bundle args = new Bundle();
@@ -131,14 +137,29 @@ public class MyTabStructureFragment extends BaseFragment {
             @Override
             public void postSuccess(ResultInfo<OrganizationBean> resultInfo) {
                 if (resultInfo.isSuccess()) {
-                    OrganizationBean result = resultInfo.getResult();
+                    result = resultInfo.getResult();
+                    if(orgid==-1){
+                        orgid = result.getMyselfTopOrgId();
+                    }
                     orgs = result.getOrgs();
                     if(orgs == null) return;
                     OrganizationBean.OrgsBean orgsBean = null;
                     for(int i=0;i<orgs.size();i++){
-                        if(result.getMyselfTopOrgId() == orgs.get(i).getOrgId()){
+                        if(orgid == orgs.get(i).getOrgId()){
                             orgsBean = orgs.get(i);
                         }
+
+                    }
+                    if(orgsBean==null){
+                        myLinearlayout.removeAllViews();
+                        viewUtil.stopLoading();
+                        viewUtil.showLoadingErrorView(LoadViewUtil.LOADING_EMPTY_VIEW, () -> {
+                            viewUtil.startLoading();
+                            loadData();
+                        });
+                        return;
+                    }else{
+                        viewUtil.clearErrorView();
                     }
                     selectname=orgsBean.getOrgName(); //获取当前机构name
                     //根目录下人员
@@ -146,17 +167,15 @@ public class MyTabStructureFragment extends BaseFragment {
                     //根目录下部门
                     subOrgsList = orgsBean.getSubOrgs();
 
+                    myLinearlayout.removeAllViews();
                     TextView textView = new TextView(getContext());
                     textView.setText(orgsBean.getOrgName());
                     textView.setTextColor(Color.parseColor("#282828"));
                     myLinearlayout.addView(textView);
-                    organizationAdapter.onRefresh(staffsList, subOrgsList);
-                    textView.setOnClickListener(v -> {
-                        myLinearlayout.removeAllViews();
-                        ContactsPresenter contactsPresenter = new ContactsPresenter(getActivity());
-                        //参数一是登录人员的id
-                        contactsPresenter.getAddressTopOrgQuery( this);
-                    });
+                    if (staffsList != null && staffsList.size() > 0||
+                            subOrgsList != null && subOrgsList.size() > 0   ) {
+                        organizationAdapter.onRefresh(staffsList, subOrgsList);
+                    }
                 }
                 viewUtil.stopLoading();
             }
@@ -183,57 +202,18 @@ public class MyTabStructureFragment extends BaseFragment {
     public void onViewClicked() { //点击跳转事件
 
         Intent intent = new Intent(getContext(), SelectGroupActivity.class);
-        intent.putExtra("selectname",selectname);//传入当前的组织
+        intent.putExtra("orgs", (Serializable) orgs);//传入当前的组织
+        intent.putExtra("myselfTopOrgId", orgid);//传入当前的组织
         startActivityForResult(intent, 1);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data==null) return;
-        String selectname1 = data.getExtras().getString("selectname");
-        switch (selectname1) {
-            case "yuecheng":
-                selectname = "乐成集团";
-                RefreshInstitutions("乐成集团");
-                break;
-            case "bcis":
-                selectname = "BCIS";
-                RefreshInstitutions("BCIS");
-                break;
-            case "laonian":
-                selectname = "恭和苑";
-                RefreshInstitutions("恭和苑");
-                break;
-        }
-    }
-
-    private void RefreshInstitutions(String string) {
-        myLinearlayout.removeAllViews();
-
-        TextView textView = new TextView(getContext());
-//               textView.setText(orgsBean.getOrgName()); //将当前的机构名称展示
-        textView.setText(string);  //将返回的机构名称展示
-        textView.setTextColor(Color.parseColor("#282828"));
-        myLinearlayout.addView(textView);
-        organizationAdapter.onRefresh(staffsList, subOrgsList);
-        textView.setOnClickListener(v -> {
-            myLinearlayout.removeAllViews();
-            getData();
-        });
-        if(orgs == null) return;
-        List<OrganizationBean.OrgsBean.StaffsBean>  staffsList = null;
-        List<OrganizationBean.OrgsBean.SubOrgsBean> subOrgsList = null;
-        for(int i=0;i<orgs.size();i++){
-            OrganizationBean.OrgsBean orgsBean = orgs.get(i);
-            if(orgsBean.getOrgName().equals(string)){
-                selectname=orgsBean.getOrgName(); //获取当前机构name
-                //根目录下人员
-                staffsList = orgsBean.getStaffs();
-               //根目录下部门
-                subOrgsList = orgsBean.getSubOrgs();
-            }
-
-
-        }
+        int selectorgid = data.getExtras().getInt("orgid");
+        orgid = selectorgid; //将选中的orgid赋值
+        viewUtil.startLoading();
+        loadData();
+        EventBus.getDefault().post(new MessageEvent(MessageEvent.REFRESH_STAFF, (Integer)orgid));
     }
 }

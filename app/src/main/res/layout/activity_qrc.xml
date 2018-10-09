@@ -6,7 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.yuecheng.workportal.QRCActivity">
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/primary_dark"/>
     <RelativeLayout
         android:id="@+id/voice_title"
         android:layout_width="match_parent"

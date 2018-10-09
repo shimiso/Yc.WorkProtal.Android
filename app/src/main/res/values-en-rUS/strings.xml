@@ -74,7 +74,7 @@
     <string name="my_sign_in">Sign In</string>
     <string name="my_work_attendance">Work Attendance</string>
 
-    <string name="opinion">如果您遇到功能，内容方面的错误</string>
+    <string name="opinion">Please enter your Suggestions for product features and we will continue to optimize your experience</string>
     <string name="opinion_phone">Please enter your phone number/email address for us to contact (optional)</string>
     <string name="submit">Submit</string>
     <string name="hr_prompt">Dear, wait to open ~</string>
@@ -82,6 +82,8 @@
     <string name="join_company_one">Today is your </string>
     <string name="join_company_two">th day in the company</string>
     <string name="rich_scan">Flicking a</string>
+    <string name="verification">Verification</string>
+    <string name="enter_pin">Please enter your password</string>
 
     <!--设置-->
     <string name="title_message">Message</string>
@@ -174,6 +176,7 @@
     <string name="deputy_post">Deputy post</string>
     <string name="immediate_superior">Immediate superior</string>
     <string name="subordinates">subordinates</string>
+    <string name="select_group">Select group</string>
 
     <string-array name="voice_type_params">
         <item>xiaoqi</item>

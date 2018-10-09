@@ -83,7 +83,7 @@ public class ContactsHandler extends IntentHandler {
     //获取人员
     private void getPersonnelData(String namevalue) {
         contactsPresenter = new ContactsPresenter(MainApplication.getApplication());
-        contactsPresenter.getContact(namevalue, new CommonPostView<ContactBean>() {
+        contactsPresenter.getContact(namevalue,-1, new CommonPostView<ContactBean>() {
             @Override
             public void postSuccess(ResultInfo<ContactBean> resultInfo) {
                 if(resultInfo.isSuccess()){

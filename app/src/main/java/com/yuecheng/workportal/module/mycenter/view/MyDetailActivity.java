@@ -19,6 +19,7 @@ import com.yuecheng.workportal.bean.ResultInfo;
 import com.yuecheng.workportal.common.CommonPostView;
 import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
 import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
+import com.yuecheng.workportal.utils.LoadViewUtil;
 import com.yuecheng.workportal.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -56,20 +57,39 @@ public class MyDetailActivity extends BaseActivity implements CommonPostView<Per
     TextView myDeputyTv;
     @BindView(R.id.my_mmediate_superior_tv)
     TextView myMmediateSuperiorTv;
-    private List<LocalMedia> selectList = new ArrayList<>();
     @BindView(R.id.user_head)
     CircleImageView user_head;
+    private List<LocalMedia> selectList = new ArrayList<>();
+    protected LoadViewUtil viewUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_center_detail);
+        viewUtil = LoadViewUtil.init(getWindow().getDecorView(), this);
         ButterKnife.bind(this);
         context = this;
+        loadData();
+    }
+
+    /**
+     * 加载数据
+     */
+    protected void loadData() {
+        //如果没有网络就直接返回
+        if (!androidUtil.hasInternetConnected()) {
+            viewUtil.stopLoading();
+            viewUtil.showLoadingErrorView(LoadViewUtil.LOADING_NONET_VIEW, () -> {
+                viewUtil.startLoading();
+                loadData();
+            });
+            return;
+        }
+
+        viewUtil.startLoading();
         ContactsPresenter contactsPresenter = new ContactsPresenter(this);
         contactsPresenter.getContactInformation("", this);
     }
-
     @OnClick({R.id.back_iv, R.id.set_user_head})
     protected void onClick(View view) {
         switch (view.getId()) {
@@ -140,12 +160,16 @@ public class MyDetailActivity extends BaseActivity implements CommonPostView<Per
             }else{
                 myGen.setText("女");
             }
-
+            viewUtil.stopLoading();
         }
     }
 
     @Override
     public void postError(String errorMsg) {
-        ToastUtil.info(MyDetailActivity.this,errorMsg);
+        viewUtil.stopLoading();
+        viewUtil.showLoadingErrorView(LoadViewUtil.LOADING_ERROR_VIEW, () -> {
+            viewUtil.startLoading();
+            loadData();
+        });
     }
 }

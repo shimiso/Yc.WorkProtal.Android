@@ -1,5 +1,6 @@
 package com.yuecheng.workportal.module.contacts.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * 通讯录组织机构顶级机构数据
  */
 
-public class OrganizationBean {
+public class OrganizationBean implements Serializable{
 
 
     /**
@@ -52,7 +53,7 @@ public class OrganizationBean {
         this.orgs = orgs;
     }
 
-    public static class OrgsBean {
+    public static class OrgsBean implements Serializable {
         /**
          * orgId : 1
          * orgName : 恭和苑
@@ -117,7 +118,7 @@ public class OrganizationBean {
             this.staffs = staffs;
         }
 
-        public static class SubOrgsBean {
+        public static class SubOrgsBean implements Serializable {
             /**
              * orgId : 47
              * orgName : 我所在的部门
@@ -183,7 +184,7 @@ public class OrganizationBean {
             }
         }
 
-        public static class StaffsBean {
+        public static class StaffsBean implements Serializable {
             /**
              * staffId : 75
              * name : 杨柳

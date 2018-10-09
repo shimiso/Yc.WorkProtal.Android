@@ -23,8 +23,8 @@ import com.yuecheng.workportal.bean.ResultInfo;
 import com.yuecheng.workportal.common.CommonPostView;
 import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
 import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
-import com.yuecheng.workportal.utils.ToastUtil;
-import com.yuecheng.workportal.widget.LoadingDialog;
+import com.yuecheng.workportal.utils.LoadViewUtil;
+
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -77,13 +77,16 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
 
     private List<LocalMedia> selectList = new ArrayList<>();
     PersonnelDetailsBean personnelDetailsBean;
-    private LoadingDialog loadingDialog;
+    //    private LoadingDialog loadingDialog;
+    protected LoadViewUtil viewUtil;
     private PersonnelDetailsBean.DirectSupervisorBean directSupervisor;//直属上级
+    private String guid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contacts_information);
+        viewUtil = LoadViewUtil.init(getWindow().getDecorView(), this);
         ButterKnife.bind(this);
         context = this;
         //去除到头使阴影
@@ -95,22 +98,31 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
         horScrollviewTv.setHorizontalScrollBarEnabled(false);
         horScrollviewJobs.setHorizontalScrollBarEnabled(false);
         Intent intent = getIntent();
-        String guid = intent.getStringExtra("Guid");
+        guid = intent.getStringExtra("Guid");
         String name = intent.getStringExtra("name");
         titleName.setText(name);
-        getInformationData(guid);
+        if (guid != null) {
+            loadData();
+        }
 
     }
 
-    //获取网络数据
-    private void getInformationData(String guid) {
-        loadingDialog = LoadingDialog.createDialog(this);
-        loadingDialog.setMessage("请求网络中...");
-        loadingDialog.show();
-        if (guid != null) {
-            ContactsPresenter contactsPresenter = new ContactsPresenter(this);
-            contactsPresenter.getContactInformation(guid, this);
+    /**
+     * 加载数据
+     */
+    protected void loadData() {
+        //如果没有网络就直接返回
+        if (!androidUtil.hasInternetConnected()) {
+            viewUtil.stopLoading();
+            viewUtil.showLoadingErrorView(LoadViewUtil.LOADING_NONET_VIEW, () -> {
+                viewUtil.startLoading();
+                loadData();
+            });
+            return;
         }
+        viewUtil.startLoading();
+        ContactsPresenter contactsPresenter = new ContactsPresenter(this);
+        contactsPresenter.getContactInformation(guid, this);
     }
 
 
@@ -125,10 +137,12 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
                 myCall(view);
                 break;
             case R.id.my_email_tv://邮件
-
+                Intent data = new Intent(Intent.ACTION_SENDTO);
+                data.setData(Uri.parse("mailto:" + personnelDetailsBean.getEmail()));
+                context.startActivity(data);
                 break;
             case R.id.share://分享
-
+                if(personnelDetailsBean==null)return;
                 Bitmap mBitmap = mainApplication.getVcardBitmap(personnelDetailsBean.getName(),//姓名
                         personnelDetailsBean.getPositionName(),//岗位
                         personnelDetailsBean.getMobilePhone(),//手机
@@ -153,7 +167,10 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
                 break;
             case R.id.my_mmediate_superior_tv://直属上级
                 titleName.setText(directSupervisor.getName());
-                getInformationData(directSupervisor.getGuid());
+                guid = directSupervisor.getGuid();
+                if (guid != null) {
+                    loadData();
+                }
                 break;
         }
     }
@@ -181,7 +198,7 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
             personnelDetailsBean = resultInfo.getResult();
             initView();
             initEvent();
-            loadingDialog.dismiss();
+            viewUtil.stopLoading();
         }
     }
 
@@ -195,7 +212,10 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
             mySubordinatesTv.setTextColor(Color.parseColor("#509FFF"));
             mySubordinatesTv.setOnClickListener(v -> {
                 titleName.setText(subordinates.get(0).getName());
-                getInformationData(subordinates.get(0).getGuid());
+                guid = subordinates.get(0).getGuid();
+                if (guid != null) {
+                    loadData();
+                }
             });
         } else if (subordinates.size() > 1) {
             mySubordinatesTv.setText(subordinates.size() + "人>");
@@ -206,11 +226,6 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
                 startActivity(intent);
             });
         }
-        myEmailTv.setOnClickListener(v -> {
-            Intent data = new Intent(Intent.ACTION_SENDTO);
-            data.setData(Uri.parse("mailto:" + personnelDetailsBean.getEmail()));
-            context.startActivity(data);
-        });
 
     }
 
@@ -256,7 +271,10 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
 
     @Override
     public void postError(String errorMsg) {
-        ToastUtil.error(InformationActivity.this, errorMsg);
-        loadingDialog.dismiss();
+        viewUtil.stopLoading();
+        viewUtil.showLoadingErrorView(LoadViewUtil.LOADING_ERROR_VIEW, () -> {
+            viewUtil.startLoading();
+            loadData();
+        });
     }
 }

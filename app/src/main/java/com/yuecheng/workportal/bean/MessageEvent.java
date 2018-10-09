@@ -1,7 +1,5 @@
 package com.yuecheng.workportal.bean;
 
-import org.json.JSONArray;
-
 public  class MessageEvent{
     public int type = 0;
 
@@ -19,8 +17,13 @@ public  class MessageEvent{
         this.type = type;
         this.json = json;
     }
-    /**修改展示的语言**/
-    public static final Integer SET_LANGUAGE_TEXT = 2;
+    /**刷新通讯录人员列表**/
+    public static final Integer REFRESH_STAFF = 2;
+    public int id;
+    public MessageEvent(int type,int id) {
+        this.type = type;
+        this.id = id;
+    }
     /**默认首页**/
     public static final Integer HOME_PAGE_TEXT = 3;
 

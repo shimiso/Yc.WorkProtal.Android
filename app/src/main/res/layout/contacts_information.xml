@@ -36,334 +36,356 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/contact_fx"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:src="@mipmap/contact_fx" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/head"
+    <FrameLayout
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_below="@+id/title_text"
-        android:background="@color/white"
-        android:paddingLeft="20dp">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/my_portrait_img_contacts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/ic_launcher_round" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@+id/my_portrait_img_contacts"
-            android:gravity="center_vertical"
-            android:layout_toLeftOf="@+id/to_chat"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/contact_ren_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="#000"
-                android:textSize="18sp" />
+            <RelativeLayout
+                android:id="@+id/head"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/title_text"
+                android:background="@color/white"
+                android:paddingLeft="20dp">
+
+                <ImageView
+                    android:id="@+id/my_portrait_img_contacts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_launcher_round" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toLeftOf="@+id/to_chat"
+                    android:layout_toRightOf="@+id/my_portrait_img_contacts"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/contact_ren_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#000"
+                        android:textSize="18sp" />
+
+                    <HorizontalScrollView
+                        android:id="@+id/hor_scrollview_jobs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/contact_ren_name"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:id="@+id/contact_ren_jobs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="16sp" />
+                    </HorizontalScrollView>
+
+                    <ImageView
+                        android:id="@+id/isboy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/contact_ren_name"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/contact_ren_name"
+                        android:src="@mipmap/boy" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/to_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/contact_xx" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/my_work_number"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_below="@+id/my_gen"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/work_number"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/my_work_number_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/my_phone"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_below="@+id/my_work_number"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/mobile_phone"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/my_phone_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textIsSelectable="true"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/my_landline"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_below="@+id/my_phone"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/landline"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/my_landline_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textIsSelectable="true"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/my_email"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_below="@+id/my_landline"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/email"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/my_email_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textIsSelectable="true"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/my_jobs"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_below="@+id/my_email"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/gangwei"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/jobs"
+                    android:textSize="16sp" />
+
+                <HorizontalScrollView
+                    android:id="@+id/hor_scrollview_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_toRightOf="@+id/gangwei"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/my_jobs_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:gravity="right|center_vertical"
+                        android:textSize="16sp" />
+                </HorizontalScrollView>
+            </RelativeLayout>
 
             <HorizontalScrollView
-                android:id="@+id/hor_scrollview_jobs"
+                android:id="@+id/hor_scrollview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:layout_below="@+id/contact_ren_name">
-            <TextView
-                android:id="@+id/contact_ren_jobs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="16sp" />
+                android:layout_height="44dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/my_directory_ll"
+                    android:layout_width="fill_parent"
+                    android:layout_height="44dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:background="@color/white"
+                    android:gravity="right|center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp" />
             </HorizontalScrollView>
-            <ImageView
-                android:id="@+id/isboy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="4dp"
-                android:layout_toRightOf="@+id/contact_ren_name"
-                android:layout_alignBottom="@+id/contact_ren_name"
-                android:src="@mipmap/boy"/>
-        </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/to_chat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/contact_xx"/>
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/my_deputy"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_below="@+id/hor_scrollview"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-    <RelativeLayout
-        android:id="@+id/my_work_number"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/my_gen"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/deputy_post"
+                    android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/work_number"
-            android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/my_deputy_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/my_work_number_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text=""
-            android:textSize="16sp" />
+            </RelativeLayout>
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/my_mmediate_superior"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_below="@+id/my_deputy"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-    <RelativeLayout
-        android:id="@+id/my_phone"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/my_work_number"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/immediate_superior"
+                    android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/mobile_phone"
-            android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/my_mmediate_superior_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/my_phone_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textIsSelectable="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text=""
-            android:textSize="16sp" />
+            </RelativeLayout>
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/my_subordinates"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_below="@+id/my_deputy"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
-    <RelativeLayout
-        android:id="@+id/my_landline"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/my_phone"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/subordinates"
+                    android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/landline"
-            android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/my_subordinates_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/my_landline_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:textIsSelectable="true"
-            android:text=""
-            android:textSize="16sp" />
+            </RelativeLayout>
+        </LinearLayout>
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/my_email"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/my_landline"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/email"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/my_email_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textIsSelectable="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text=""
-            android:textSize="16sp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/my_jobs"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/my_email"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
-        <TextView
-            android:id="@+id/gangwei"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/jobs"
-            android:textSize="16sp" />
-
-        <HorizontalScrollView
-            android:id="@+id/hor_scrollview_tv"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_toRightOf="@+id/gangwei"
-            android:layout_height="44dp"
-            android:background="@color/white"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="1dp">
-        <TextView
-            android:id="@+id/my_jobs_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right|center_vertical"
-            android:layout_gravity="right|center_vertical"
-            android:textSize="16sp" />
-        </HorizontalScrollView>
-    </RelativeLayout>
-
-    <HorizontalScrollView
-        android:id="@+id/hor_scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@color/white"
-        android:layout_marginTop="1dp">
-    <LinearLayout
-        android:id="@+id/my_directory_ll"
-        android:layout_width="fill_parent"
-        android:layout_height="44dp"
-        android:gravity="right|center_vertical"
-        android:layout_gravity="right|center_vertical"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"/>
-    </HorizontalScrollView>
-    <RelativeLayout
-        android:id="@+id/my_deputy"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/hor_scrollview"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/deputy_post"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/my_deputy_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text=""
-            android:textSize="16sp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/my_mmediate_superior"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/my_deputy"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/immediate_superior"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/my_mmediate_superior_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text=""
-            android:textSize="16sp" />
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/my_subordinates"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_below="@+id/my_deputy"
-        android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/subordinates"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/my_subordinates_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text=""
-            android:textSize="16sp" />
-
-    </RelativeLayout>
+        <include
+            android:id="@+id/loading_view"
+            layout="@layout/loading_view" />
+    </FrameLayout>
 </LinearLayout>

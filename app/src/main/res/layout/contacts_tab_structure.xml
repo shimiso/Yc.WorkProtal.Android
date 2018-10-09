@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/content_frame"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical">
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="50dp">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/my_linearlayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:layout_toLeftOf="@+id/switch_img_iv"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp" />
 
-            <LinearLayout
-                android:id="@+id/my_linearlayout"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_toLeftOf="@+id/switch_img_iv"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp" />
+        <ImageView
+            android:id="@+id/switch_img_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@mipmap/switch_img" />
+    </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/switch_img_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:padding="10dp"
-                android:src="@mipmap/switch_img" />
-        </RelativeLayout>
-
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/my_contacter_recyclerView"
@@ -40,8 +39,9 @@
             android:layout_height="wrap_content"
             android:background="@color/white" />
 
-    </LinearLayout>
-    <include
-        android:id="@+id/loading_view"
-        layout="@layout/loading_view" />
-</FrameLayout>
+        <include
+            android:id="@+id/loading_view"
+            layout="@layout/loading_view" />
+    </FrameLayout>
+
+</LinearLayout>

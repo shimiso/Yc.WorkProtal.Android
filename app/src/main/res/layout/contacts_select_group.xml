@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.yuecheng.workportal.module.contacts.view.SelectGroupActivity">
 
     <RelativeLayout
@@ -28,82 +28,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="选择组织"
+            android:text="@string/select_group"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/yuecheng_rl"
+    <FrameLayout
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:background="@drawable/list_item_bg">
-    <TextView
-        android:id="@+id/yuecheng"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:text="乐成集团"/>
-        <ImageView
-            android:id="@+id/yuecheng_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/dh"/>
-    </RelativeLayout>
-    <View
-        style="@style/divider_horizontal" />
-    <RelativeLayout
-        android:id="@+id/bcis_rl"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:background="@drawable/list_item_bg">
-        <TextView
-            android:id="@+id/bcis"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_select_group_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="BCIS "/>
-        <ImageView
-            android:id="@+id/bcis_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/dh"/>
-    </RelativeLayout>
-    <View
-        style="@style/divider_horizontal" />
-    <RelativeLayout
-        android:id="@+id/laonian_rl"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:background="@drawable/list_item_bg">
-        <TextView
-            android:id="@+id/laonian"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="乐成老年事业投资有限公司"/>
-        <ImageView
-            android:id="@+id/laonian_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/dh"/>
-    </RelativeLayout>
-    <View
-        style="@style/divider_horizontal" />
+            android:background="@color/white" />
+
+        <include
+            android:id="@+id/loading_view"
+            layout="@layout/loading_view" />
+    </FrameLayout>
 </LinearLayout>

@@ -34,11 +34,12 @@ public class ContactsPresenter {
      * 获取通讯录人员
      * @param commonPostView
      */
-    public void getContact(String keyword,final CommonPostView commonPostView){
+    public void getContact(String keyword,int orgId ,final CommonPostView commonPostView){
         LoginUser loginUser = MainApplication.getApplication().getLoginUser();
         OkGo.<String>post(UrlConstant.ADDRESSSTAFFQUEY)//
                 .tag(this)//
                 .params("keyword", keyword)//
+                .params("orgId", orgId)//
                 .headers("Authorization", "Bearer "+loginUser.getAccess_token())
                 .execute(new StringCustomCallback(){
                     @Override

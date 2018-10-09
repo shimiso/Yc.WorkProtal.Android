@@ -43,8 +43,10 @@ public class HRActivity extends BaseActivity {
             case R.id.wdzl:
                 break;
             case R.id.xzcx:
+                showValidationDialog();
                 break;
             case R.id.htcx:
+                showValidationDialog();
                 break;
             case R.id.kqcx:
                 break;
@@ -53,5 +55,22 @@ public class HRActivity extends BaseActivity {
         }
     }
 
+    public void showValidationDialog(){
+        ValidationDialog validationDialog = new ValidationDialog(this);
+        validationDialog.showDialog();
+        validationDialog.setClicklistener(new ValidationDialog.ClickListenerInterface() {
+            @Override
+            public void onCancleClick() {
+                validationDialog.dismissDialog();
+            }
+
+            @Override
+            public void onConfirmClick() {
+                String s = validationDialog.et_dialog_one.getText().toString();
+
+                validationDialog.dismissDialog();
+            }
+        });
+    }
 
 }

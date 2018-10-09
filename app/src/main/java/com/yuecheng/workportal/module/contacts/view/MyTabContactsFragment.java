@@ -17,12 +17,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nineoldandroids.view.ViewPropertyAnimator;
+import com.yuecheng.workportal.bean.MessageEvent;
 import com.yuecheng.workportal.module.contacts.adapter.AlphabetAdp;
 import com.yuecheng.workportal.module.contacts.adapter.ContactSearchAdapter;
 import com.yuecheng.workportal.module.contacts.bean.ContactBean;
 import com.yuecheng.workportal.module.contacts.bean.PinYinStyle;
 import com.yuecheng.workportal.utils.LoadViewUtil;
 import com.yuecheng.workportal.utils.PinYinUtil;
+import com.yuecheng.workportal.utils.ToastUtil;
 import com.yuecheng.workportal.widget.LoadingDialog;
 import com.yuecheng.workportal.widget.PinyinComparator;
 import com.yuecheng.workportal.R;
@@ -37,6 +39,10 @@ import com.yuecheng.workportal.module.contacts.adapter.ContactAdapter;
 import com.yuecheng.workportal.utils.PinYinUtil;
 import com.yuecheng.workportal.widget.LoadingDialog;
 import com.yuecheng.workportal.widget.PinyinComparator;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -71,6 +77,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
     private LoadingDialog loadingDialog;
     private ArrayList<ContactBean.StaffsBean> mSortList;
     private ContactsPresenter contactsPresenter;
+    private int orgid = -1;
 
     public static MyTabContactsFragment newInstance() {
         Bundle args = new Bundle();
@@ -83,11 +90,29 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.contacts_tab_people, container, false);
+        EventBus.getDefault().register(this);
         this.viewUtil = LoadViewUtil.init(view, getActivity());
         contactsPresenter = new ContactsPresenter(getActivity());
 
         loadData();
         return view;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent messageEvent) {
+        if (messageEvent.type == MessageEvent.REFRESH_STAFF) {//接收改变组织机构后的orgid刷新数据
+            orgid = messageEvent.id;
+            if(orgid<=0){
+                orgid = -1;
+            }
+            loadData();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
     /**
      * 加载数据
@@ -104,7 +129,7 @@ public class MyTabContactsFragment extends BaseFragment implements CommonPostVie
         }
 
         viewUtil.startLoading();
-        contactsPresenter.getContact("",this);
+        contactsPresenter.getContact("",orgid,this);
     }
     private void initView() {
         sideLetterBar = (SideLetterBar) view.findViewById(R.id.sideLetterBar);

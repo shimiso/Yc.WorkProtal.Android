@@ -83,7 +83,7 @@
     <string name="my_sign_in">打卡签到</string>
     <string name="my_work_attendance">我的考勤</string>
 
-    <string name="opinion">如果您遇到功能，内容方面的错误</string>
+    <string name="opinion">请输入您对于产品功能的建议，我们将不断优化您的使用体验</string>
     <string name="opinion_phone">请输入您的电话/邮箱，方便我们联系（选填）</string>
     <string name="submit">提交</string>
     <string name="hr_prompt">亲，在等等快开放了~</string>
@@ -91,6 +91,8 @@
     <string name="join_company_one">今天是您加入公司的第</string>
     <string name="join_company_two">天</string>
     <string name="rich_scan">扫一扫</string>
+    <string name="validation">验证</string>
+    <string name="enter_pin">请输入您的密码</string>
 
 
     <!--设置-->
@@ -183,6 +185,7 @@
     <string name="deputy_post">副岗</string>
     <string name="immediate_superior">直属上级</string>
     <string name="subordinates">下属员工</string>
+    <string name="select_group">选择组织</string>
 
 
     <string-array name="voice_type_params">
