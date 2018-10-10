@@ -9,7 +9,6 @@ import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.google.zxing.WriterException;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.lzy.okgo.OkGo;
@@ -33,7 +32,6 @@ import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.receive.MyConnectionStatusListener;
 import com.yuecheng.workportal.receive.MyReceiveMessageListener;
 import com.yuecheng.workportal.utils.AndroidUtil;
-//import com.yuecheng.workportal.utils.CodeUtils;
 import com.yuecheng.workportal.utils.SharePreferenceUtil;
 import com.zxing.encoding.EncodingHandler;
 
@@ -43,10 +41,13 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
+import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
 import okhttp3.OkHttpClient;
 
 import static com.yuecheng.workportal.InvalidateActivity.INVALIDATE_MESSAGE;
+
+//import com.yuecheng.workportal.utils.CodeUtils;
 
 public class MainApplication extends MultiDexApplication {
     private static MainApplication app;
@@ -65,6 +66,8 @@ public class MainApplication extends MultiDexApplication {
         initXunfei();
         initOkGo();
         initRongIM();
+        JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);  // 初始化极光推送JPush
         UMConfigure.init(this,"5bad9649f1f556df24000098"
                 ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");//58edcfeb310c93091c000be2 5965ee00734be40b580001a0
     }

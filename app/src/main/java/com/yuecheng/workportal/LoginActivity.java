@@ -16,12 +16,17 @@ import com.yuecheng.workportal.common.CommonPostView;
 import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
 import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.utils.StringUtils;
+import com.yuecheng.workportal.utils.TagAliasOperatorHelper;
 import com.yuecheng.workportal.utils.ToastUtil;
 import com.yuecheng.workportal.widget.LoadingDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.yuecheng.workportal.utils.TagAliasOperatorHelper.ACTION_SET;
+import static com.yuecheng.workportal.utils.TagAliasOperatorHelper.sequence;
+import static com.yuecheng.workportal.utils.TagAliasOperatorHelper.TagAliasBean;
 
 
 public class LoginActivity extends BaseActivity {
@@ -82,6 +87,12 @@ public class LoginActivity extends BaseActivity {
                         userPresenter.identity(loginUser, new CommonPostView<LoginUser>() {
                             @Override
                             public void postSuccess(ResultInfo<LoginUser> resultInfo) {
+                                TagAliasBean tagAliasBean = new TagAliasBean();
+                                tagAliasBean.action = ACTION_SET;
+                                tagAliasBean.alias = resultInfo.getResult().getGuid().replaceAll("-","");
+                                tagAliasBean.isAliasAction = true;
+                                TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(), sequence, tagAliasBean);
+
                                 loadingDialog.dismiss();
                                 spUtil.setCurrentUserName(username);
                                 startActivity(new Intent(context, MainActivity.class));

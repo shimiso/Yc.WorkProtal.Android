@@ -4,6 +4,7 @@ import android.os.Environment;
 import android.util.Log;
 
 
+import com.yuecheng.workportal.BuildConfig;
 import com.yuecheng.workportal.MainApplication;
 
 import java.io.BufferedWriter;
@@ -28,7 +29,7 @@ public class LogUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    private static boolean logSwitch = true;
+    private static boolean logSwitch = BuildConfig.LOG_DEBUG;
     private static boolean log2FileSwitch = false;
     private static char logFilter = 'v';
     private static String tag = "TAG";
