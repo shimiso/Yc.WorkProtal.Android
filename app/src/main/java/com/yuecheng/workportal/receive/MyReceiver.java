@@ -42,7 +42,7 @@ public class MyReceiver extends BroadcastReceiver {
 			} else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
 				LogUtils.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: " + bundle.getString(JPushInterface.EXTRA_MESSAGE));
                 String content = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-                JSONObject jsonObj = new JSONObject(content).getJSONObject("jPushObject");
+                //JSONObject jsonObj = new JSONObject(content).getJSONObject("jPushObject");
                 //TODO 解析自定义消息
 
                 //发送通知提醒
