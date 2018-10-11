@@ -32,6 +32,7 @@
     <color name="color_6_e3e3e6_divider_color">#e3e3e6</color>
     <color name="red">#FF6347</color>
     <color name="pink">#FF6347</color>
+    <color name="green">#72d25c</color>
     <!--提示文件颜色-->
     <color name="hint_text">#9a9a9a</color>
     <!--语音-->

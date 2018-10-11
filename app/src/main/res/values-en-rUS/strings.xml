@@ -73,6 +73,12 @@
     <string name="my_feedback">Feedback</string>
     <string name="my_sign_in">Sign In</string>
     <string name="my_work_attendance">Work Attendance</string>
+    <string name="abnormal_attendance">Abnormal attendance</string>
+    <string name="leave_out">On leave/out</string>
+    <string name="late">late</string>
+    <string name="leave_early">Leave early</string>
+    <string name="absenteeism">absenteeism</string>
+    <string name="ask_for_leave">Ask for leave</string>
 
     <string name="opinion">Please enter your Suggestions for product features and we will continue to optimize your experience</string>
     <string name="opinion_phone">Please enter your phone number/email address for us to contact (optional)</string>

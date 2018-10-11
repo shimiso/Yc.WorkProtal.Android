@@ -7,6 +7,9 @@ import android.graphics.Bitmap;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iflytek.cloud.SpeechConstant;
@@ -231,15 +234,45 @@ public class MainApplication extends MultiDexApplication {
         PlatformConfig.setQQZone("1107803171", "C9dxemWiTlf7EeaA");
     }
 
+    //生成名片
+    public  Bitmap getViewBitmap(Activity activity,String name,String jobs,String phone,String landline,String email) {
+
+        View view =  activity.getLayoutInflater().inflate(R.layout.calling_card_layout, null);
+
+        TextView my_name = (TextView)view.findViewById(R.id.my_name);
+        TextView my_jobs = (TextView)view.findViewById(R.id.my_jobs);
+        TextView my_phone = (TextView)view.findViewById(R.id.location);
+        TextView my_landline = (TextView)view.findViewById(R.id.phone);
+        TextView my_email = (TextView)view.findViewById(R.id.email);
+        ImageView qr_code = (ImageView)view.findViewById(R.id.qr_code);
+        qr_code.setImageBitmap(getVcardBitmap(name,jobs,phone,landline,email));
+        my_name.setText(name);
+        my_jobs.setText(jobs);
+        my_phone.setText(phone);
+        my_landline.setText(landline);
+        my_email.setText(email);
+
+        int me = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        view.measure(me,me);
+
+        view.layout(0 ,0, view.getMeasuredWidth(), view.getMeasuredHeight());
+
+        view.buildDrawingCache();
+
+        Bitmap bitmap = view.getDrawingCache();
+
+
+
+        return bitmap;
+
+    }
     //将VCARD字符串转换为二维码
     public Bitmap getVcardBitmap(String name,String jobs,String phone,String landline,String email) {
        String textContent = "BEGIN:VCARD" +
                 "\nN:"+ name +
                 "\nTITLE:"+ jobs +
-                "\nADR;WORK:北京市五环区GT路19号" +
                 "\nTEL;CELL,VOICE:"+ phone +
                 "\nTEL;WORK,VOICE:"+ landline +
-                "\nURL;WORK:www.gt.com" +
                 "\nEMAIL;INTERNET,HOME:"+ email +
                 "\nEND:VCARD";
         if (TextUtils.isEmpty(textContent)) {

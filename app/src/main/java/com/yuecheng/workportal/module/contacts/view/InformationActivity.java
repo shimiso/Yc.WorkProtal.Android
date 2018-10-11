@@ -143,7 +143,7 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
                 break;
             case R.id.share://分享
                 if(personnelDetailsBean==null)return;
-                Bitmap mBitmap = mainApplication.getVcardBitmap(personnelDetailsBean.getName(),//姓名
+                Bitmap mBitmap = mainApplication.getViewBitmap(this,personnelDetailsBean.getName(),//姓名
                         personnelDetailsBean.getPositionName(),//岗位
                         personnelDetailsBean.getMobilePhone(),//手机
                         personnelDetailsBean.getTelephone(),//座机
@@ -207,7 +207,10 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
         List<PersonnelDetailsBean.SubordinatesBean> subordinates = personnelDetailsBean.getSubordinates();
         if (subordinates == null || subordinates.size() <= 0) {
             mySubordinatesTv.setText("无");
+            mySubordinatesTv.setTextColor(Color.parseColor("#595959"));
+            mySubordinatesTv.setClickable(false);
         } else if (subordinates.size() == 1) {
+            mySubordinatesTv.setClickable(true);
             mySubordinatesTv.setText(subordinates.get(0).getName());
             mySubordinatesTv.setTextColor(Color.parseColor("#509FFF"));
             mySubordinatesTv.setOnClickListener(v -> {
@@ -218,6 +221,7 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
                 }
             });
         } else if (subordinates.size() > 1) {
+            mySubordinatesTv.setClickable(true);
             mySubordinatesTv.setText(subordinates.size() + "人>");
             mySubordinatesTv.setTextColor(Color.parseColor("#509FFF"));
             mySubordinatesTv.setOnClickListener(v -> {

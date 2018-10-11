@@ -85,7 +85,7 @@ public class MyCenterFragment extends BaseFragment {
                 startActivity(new Intent(getContext(), SettingsActivity.class));
                 break;
             case R.id.share_iv: //分享
-                Bitmap mBitmap = mainApplication.getVcardBitmap(loginUser.getName(),//姓名
+                Bitmap mBitmap = mainApplication.getViewBitmap(getActivity(),loginUser.getName(),//姓名
                         loginUser.getPositionName(),//岗位
                         loginUser.getMobilePhone(),//手机
                         loginUser.getTelephone(),//座机
