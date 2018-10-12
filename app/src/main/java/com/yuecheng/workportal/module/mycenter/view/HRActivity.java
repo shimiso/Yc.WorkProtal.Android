@@ -49,6 +49,7 @@ public class HRActivity extends BaseActivity {
                 showValidationDialog();
                 break;
             case R.id.kqcx:
+                startActivity(new Intent(this, WorkAttendanceActivity.class));
                 break;
             case R.id.jqcx:
                 break;

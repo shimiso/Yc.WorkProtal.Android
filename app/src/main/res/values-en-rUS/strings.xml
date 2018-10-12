@@ -60,7 +60,7 @@
 
     <string name="assistant">My work assistant</string>
     <string name="message">Message</string>
-    <string name="task">Task</string>
+    <string name="task">Schedule</string>
     <string name="address_books">Address books</string>
     <string name="workbench">Workbench</string>
 
@@ -93,7 +93,7 @@
 
     <!--设置-->
     <string name="title_message">Message</string>
-    <string name="title_work">Task</string>
+    <string name="title_work">Schedule</string>
     <string name="title_contacts">Contact</string>
     <string name="title_mycenter">My</string>
     <string name="title_android">Voice</string>

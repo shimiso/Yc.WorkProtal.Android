@@ -69,7 +69,7 @@
 
     <string name="message">消息</string>
     <string name="assistant">我的工作助理</string>
-    <string name="task">任务</string>
+    <string name="task">日程</string>
     <string name="address_books">通讯录</string>
     <string name="workbench">工作台</string>
     <string name="personal_information">个人信息</string>
@@ -104,7 +104,7 @@
 
     <!--设置-->
     <string name="title_message">消息</string>
-    <string name="title_work">任务</string>
+    <string name="title_work">日程</string>
     <string name="title_contacts">通讯录</string>
     <string name="title_mycenter">我的</string>
     <string name="title_android">语音</string>

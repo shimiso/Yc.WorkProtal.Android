@@ -17,12 +17,28 @@
         android:background="@drawable/select_background"
         android:layout_centerInParent="true"
         android:visibility="gone"/>
-    <TextView
-        android:id="@+id/date"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="19"/>
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="19"/>
+        <TextView
+            android:id="@+id/date_lunar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/date"
+            android:layout_marginTop="-3dp"
+            android:textSize="10sp"
+            android:textColor="@color/color_4_aaaeb5"
+            android:text="初五"/>
+    </LinearLayout>
     <ImageView
         android:id="@+id/maker"
         android:layout_alignParentRight="true"

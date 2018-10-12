@@ -13,6 +13,7 @@ import com.ldf.calendar.interf.IDayRenderer;
 import com.ldf.calendar.model.CalendarDate;
 import com.ldf.calendar.view.DayView;
 import com.yuecheng.workportal.R;
+import com.yuecheng.workportal.utils.PaseDateUtil;
 
 /**
  * Created by ldf on 17/6/26.
@@ -22,6 +23,7 @@ import com.yuecheng.workportal.R;
 public class CustomDayView extends DayView {
 
     private TextView dateTv;
+    private TextView dateLunarTv;
     private ImageView marker;
     private View selectedBackground;
     private View todayBackground;
@@ -36,6 +38,7 @@ public class CustomDayView extends DayView {
     public CustomDayView(Context context, int layoutResource) {
         super(context, layoutResource);
         dateTv = (TextView) findViewById(R.id.date);
+        dateLunarTv = (TextView) findViewById(R.id.date_lunar);
         marker = (ImageView) findViewById(R.id.maker);
         selectedBackground = findViewById(R.id.selected_background);
         todayBackground = findViewById(R.id.today_background);
@@ -81,6 +84,8 @@ public class CustomDayView extends DayView {
 
     private void renderToday(CalendarDate date) {
         if (date != null) {
+            String ints = PaseDateUtil.solarToLunar(date.year, date.month,date.day);
+            dateLunarTv.setText(ints);
             if (date.equals(today)) {
                 dateTv.setText("今");
                 todayBackground.setVisibility(VISIBLE);

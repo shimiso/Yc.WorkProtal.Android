@@ -169,6 +169,7 @@ public class MainPresenter implements IMainPresenter {
 
     public void understandText(String text) {
         displayMessage(text);//展示发送的消息
+        text =  text.replace("，","");//去除字符串中的“，”
         //语义理解
         mIMainModel.understandText((Activity) mIMainView, text, new TextUnderstanderListener() {
             @Override

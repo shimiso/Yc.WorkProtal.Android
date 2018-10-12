@@ -2,12 +2,16 @@ package com.yuecheng.workportal.module.mycenter.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,9 +25,13 @@ import com.ldf.calendar.view.MonthPager;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
 import com.yuecheng.workportal.module.mycenter.adapter.ExampleAdapter;
+import com.yuecheng.workportal.module.mycenter.bean.CalendarBean;
+import com.yuecheng.workportal.utils.DateUtil;
+import com.yuecheng.workportal.utils.LoadViewUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,14 +44,22 @@ public class WorkAttendanceActivity extends BaseActivity {
     @BindView(R.id.show_month_view)
     TextView tvMonth;
 
-    @BindView(R.id.content)
-    CoordinatorLayout content;
+//    @BindView(R.id.content)
+//    CoordinatorLayout content;
 
     @BindView(R.id.calendar_view)
     MonthPager monthPager;
 
     @BindView(R.id.list)
     RecyclerView rvToDoList;
+    @BindView(R.id.late_tv)
+    TextView lateTv; //迟到
+    @BindView(R.id.leave_early_tv)
+    TextView leaveEarlyTv; //早退
+    @BindView(R.id.absenteeism_tv)
+    TextView absenteeismTv; //旷工
+    @BindView(R.id.leave_tv)
+    TextView leaveTv; //请假
 
     private ArrayList<Calendar> currentCalendars = new ArrayList<>();
     private CalendarViewAdapter calendarAdapter;
@@ -52,6 +68,8 @@ public class WorkAttendanceActivity extends BaseActivity {
     private Context context;
     private CalendarDate currentDate;
     private boolean initiated = false;
+    private ExampleAdapter exampleAdapter;
+    private long stringToDate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,10 +82,65 @@ public class WorkAttendanceActivity extends BaseActivity {
         rvToDoList.setHasFixedSize(true);
         //这里用线性显示 类似于listview
         rvToDoList.setLayoutManager(new LinearLayoutManager(this));
-        rvToDoList.setAdapter(new ExampleAdapter(this));
+        exampleAdapter = new ExampleAdapter(this,true);
+        rvToDoList.setAdapter(exampleAdapter);
+        stringToDate = DateUtil.getStringToDate(DateUtil.geturrentTime("yyyy-MM-dd"), "yyyy-MM-dd");
         initCurrentDate();
         initCalendarView();
         initMarkData();
+
+    }
+
+    private List<CalendarBean> getSchedule(Long timelong) {
+        List<CalendarBean> calendarBeans = new ArrayList<>();
+
+        String CALANDER_EVENT_URL = "content://com.android.calendar/events";
+        Uri uri = Uri.parse(CALANDER_EVENT_URL);
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        while (cursor.moveToNext()) {
+
+            int columnCount = cursor.getColumnCount();
+            Log.e("日历", "columnCount :" + columnCount);//多少个属性
+            //for (int i = 0; i < columnCount; i++) {
+            //获取到属性的名称
+            //  String columnName = cursor.getColumnName(i);
+            //获取到属性对应的值
+            //   String message = cursor.getString(cursor.getColumnIndex(columnName));
+            //打印属性和对应的值
+//                Log.i("日历", columnName + " : " + message);
+
+
+            //事件的标题
+            String title = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.TITLE));
+            //事件的起始时间
+            String dtstart = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART));
+            //事件的结束时间 ，如果事件是每天/周,那么就没有结束时间
+            String dtend = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTEND));
+            //事件的描述
+            String description = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DESCRIPTION));
+            //事件的重复规律
+            String rrule = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.RRULE));
+            //事件的复发日期。通常RDATE要联合RRULE一起使用来定义一个重复发生的事件的合集。
+            String rdate = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.RDATE));
+            //事件是否是全天的
+            String allDay = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.ALL_DAY));
+            //事件的地点
+            String location = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.EVENT_LOCATION));
+            //事件持续时间，例如“PT1H”表示事件持续1小时的状态， “P2W”指明2周的持续时间。P3600S表示3600秒
+            String duration = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DURATION));
+            if(Long.valueOf(dtstart) >= timelong && Long.valueOf(dtstart) < timelong+86400000){
+                calendarBeans.add(new CalendarBean(title,dtstart,dtend,description,location));
+            }
+            Log.i("日历", "开始时间" + " : " + dtstart+
+                    "\n结束时间 ："+dtend+
+                    "\n标题 ："+title+
+                    "\n事件描述 ："+description+
+                    "\n重复规律 ："+rrule+
+                    "\n事件的地点 ："+location);
+        }
+       // viewUtil.stopLoading();
+
+        return calendarBeans;
     }
 
     /**
@@ -90,34 +163,51 @@ public class WorkAttendanceActivity extends BaseActivity {
      * calendarAdapter.switchToWeek(monthPager.getRowIndex());
      * */
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
+        loadData();
     }
 
-    @OnClick({R.id.back_today_button,R.id.scroll_switch,R.id.theme_switch,R.id.next_month,R.id.last_month})
-    protected void click(View view){
-        switch (view.getId()){
-            case R.id.back_today_button:
+    /**
+     * 加载数据
+     */
+    protected void loadData() {
+        exampleAdapter.showLoadingView();
+        if (!androidUtil.hasInternetConnected()) {
+            exampleAdapter.showNoNetView(v -> loadData());
+        }else {
+            List<CalendarBean> schedule = getSchedule(stringToDate);
+            if(schedule.size()==0){
+                exampleAdapter.showEmptyView(v -> loadData());
+            }else{
+                exampleAdapter.onRefresh(schedule);
+            }
+        }
+    }
+    @OnClick({R.id.back_iv, R.id.back_today_button, R.id.next_month_img, R.id.last_month_img})
+    protected void click(View view) {
+        switch (view.getId()) {
+            case R.id.back_iv:
+                finish();
+                break;
+            case R.id.back_today_button: //今天
                 onClickBackToDayBtn();
                 break;
-            case R.id.scroll_switch:
-                if (calendarAdapter.getCalendarType() == CalendarAttr.CalendarType.WEEK) {
-                    Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
-                    calendarAdapter.switchToMonth();
-                } else {
-                    Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
-                    calendarAdapter.switchToWeek(monthPager.getRowIndex());
-                }
-                break;
-            case R.id.theme_switch:
-                refreshSelectBackground();
-                break;
-            case R.id.next_month:
+            case R.id.next_month_img: //下一月
                 monthPager.setCurrentItem(monthPager.getCurrentPosition() + 1);
                 break;
-            case R.id.last_month:
+            case R.id.last_month_img: //上一月
                 monthPager.setCurrentItem(monthPager.getCurrentPosition() - 1);
                 break;
+//            case R.id.scroll_switch: //切换周月
+//                if (calendarAdapter.getCalendarType() == CalendarAttr.CalendarType.WEEK) {
+//                    Utils.scrollTo(content, rvToDoList, monthPager.getViewHeight(), 200);
+//                    calendarAdapter.switchToMonth();
+//                } else {
+//                    Utils.scrollTo(content, rvToDoList, monthPager.getCellHeight(), 200);
+//                    calendarAdapter.switchToWeek(monthPager.getRowIndex());
+//                }
+//                break;
         }
     }
 
@@ -154,7 +244,7 @@ public class WorkAttendanceActivity extends BaseActivity {
      */
     @SuppressLint("StaticFieldLeak")
     private void initMarkData() {
-        new AsyncTask<Void,Void,Void>(){
+        new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... voids) {
@@ -189,6 +279,13 @@ public class WorkAttendanceActivity extends BaseActivity {
             @Override
             public void onSelectDate(CalendarDate date) {
                 refreshClickDate(date);
+                stringToDate = DateUtil.getStringToDate( date.toString(), "yyyy-MM-dd");
+                List<CalendarBean> schedule = getSchedule(stringToDate);
+                if(schedule.size()==0){
+                    exampleAdapter.showEmptyView(v -> loadData());
+                }else{
+                    exampleAdapter.onRefresh(schedule);
+                }
             }
 
             @Override
@@ -252,6 +349,7 @@ public class WorkAttendanceActivity extends BaseActivity {
         tvMonth.setText(today.getMonth() + "");
     }
 
+    //更换效果(暂时无此功能)
     private void refreshSelectBackground() {
         ThemeDayView themeDayView = new ThemeDayView(context, R.layout.custom_day_focus);
         calendarAdapter.setCustomDayRenderer(themeDayView);

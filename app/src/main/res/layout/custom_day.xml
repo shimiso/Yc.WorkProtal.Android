@@ -17,17 +17,34 @@
         android:background="@drawable/selected_background"
         android:layout_centerInParent="true"
         android:visibility="gone"/>
-    <TextView
-        android:id="@+id/date"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="19"/>
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="19"/>
+        <TextView
+            android:id="@+id/date_lunar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-3dp"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/date"
+            android:textSize="10sp"
+            android:textColor="@color/color_4_aaaeb5"
+            android:text="初五"/>
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/maker"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="2dp"
         android:background="@drawable/view_syllabus_mark_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

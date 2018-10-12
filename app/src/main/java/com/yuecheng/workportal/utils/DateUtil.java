@@ -182,4 +182,30 @@ public class DateUtil {
         }
         return 0;
     }
+    /**
+     * 时间戳转换为日期
+     * @param milSecond 时间戳
+     * @param pattern 日期格式
+     */
+    public static String getDateToString(long milSecond, String pattern) {
+        Date date = new Date(milSecond);
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        return format.format(date);
+    }
+    /**
+     * 日期转换为时间戳
+     * @param dateString 字符串类型日期
+     * @param pattern 日期格式
+     */
+    public static long getStringToDate(String dateString, String pattern) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+        Date date = new Date();
+        try{
+            date = dateFormat.parse(dateString);
+        } catch(ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return date.getTime();
+    }
 }
