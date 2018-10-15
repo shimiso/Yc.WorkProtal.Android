@@ -71,14 +71,18 @@
     <string name="my_login_web">Login web version </string>
     <string name="my_directions">Instructions</string>
     <string name="my_feedback">Feedback</string>
-    <string name="my_sign_in">Sign In</string>
+    <string name="my_sign_in">Attendance</string>
     <string name="my_work_attendance">Work Attendance</string>
+    <string name="my_work_attendance_statistical">Statistics</string>
     <string name="abnormal_attendance">Abnormal attendance</string>
     <string name="leave_out">On leave/out</string>
     <string name="late">late</string>
     <string name="leave_early">Leave early</string>
     <string name="absenteeism">absenteeism</string>
     <string name="ask_for_leave">Ask for leave</string>
+    <string name="not_scope">You are out of range</string>
+    <string name="input_attendance_note">Please enter notes</string>
+    <string name="attendance_note">Attendance note</string>
 
     <string name="opinion">Please enter your Suggestions for product features and we will continue to optimize your experience</string>
     <string name="opinion_phone">Please enter your phone number/email address for us to contact (optional)</string>

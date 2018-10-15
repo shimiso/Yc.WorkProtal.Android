@@ -27,6 +27,8 @@ public class ValidationDialog extends Dialog {
 
     private TextView cancle;
     private TextView confirm;
+    private TextView dialog_subtitle_title;
+    private TextView dialog_title;
     public EditText et_dialog_one;
     private Dialog myDialog;
     private ClickListenerInterface clickListenerInterface;
@@ -59,6 +61,8 @@ public class ValidationDialog extends Dialog {
         //初始化控件
         cancle = view.findViewById(R.id.tv_dialog_cancel); //取消
         confirm =  view.findViewById(R.id.tv_dialog_confirm);  //确认
+        dialog_subtitle_title =  view.findViewById(R.id.dialog_subtitle_title);
+        dialog_title =  view.findViewById(R.id.dialog_title);
         et_dialog_one =  view.findViewById(R.id.et_dialog_one);
 
         cancle.setOnClickListener(new DialogClickListener());
@@ -96,6 +100,19 @@ public class ValidationDialog extends Dialog {
                     break;
             }
         }
+    }
+
+    /**
+     * 设置标题栏文本文字
+     *
+     * @param text
+     */
+    public void setTitleText(String text) {
+        dialog_title.setText(text);
+    }
+    public void setSubtitleTitleText(String text,int isShow) {
+        dialog_subtitle_title.setText(text);
+        dialog_subtitle_title.setVisibility(isShow);
     }
 
     public void dismissDialog() {

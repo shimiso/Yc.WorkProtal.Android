@@ -107,7 +107,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustResize|stateHidden|stateUnspecified|adjustPan|stateHidden" />
         <activity
             android:name=".module.contacts.view.InformationActivity"
             android:launchMode="singleTop"

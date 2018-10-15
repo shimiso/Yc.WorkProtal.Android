@@ -24,58 +24,122 @@
             android:text="@string/my_sign_in"
             android:textColor="@color/white"
             android:textSize="18sp" />
+        <TextView
+            android:id="@+id/my_work_attendance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/my_work_attendance"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            android:textSize="18sp" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#fff"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/last_month_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:padding="10dp"
+            android:src="@mipmap/up_month" />
+
+        <TextView
+            android:id="@+id/show_year_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="2014年"
+            android:textColor="@color/black"
+            android:textSize="19.3sp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/show_month_view"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="17"
+            android:textColor="@color/black"
+            android:textSize="19.3sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="月"
+            android:textColor="@color/black"
+            android:textSize="19.3sp" />
+        <TextView
+            android:id="@+id/show_date_view"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="17"
+            android:textColor="@color/black"
+            android:textSize="19.3sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="日"
+            android:textColor="@color/black"
+            android:textSize="19.3sp" />
+
+        <ImageView
+            android:id="@+id/next_month_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:padding="10dp"
+            android:src="@mipmap/down_month" />
+    </LinearLayout>
+    <View style="@style/divider_horizontal" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/attendance_rl"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/app_bg"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="@color/app_bg">
+        <TextView
+            android:id="@+id/positioning_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/wz"
+            android:layout_centerHorizontal="true"/>
+        <Button
+            android:id="@+id/clock_in_button"
+            style="@style/comm_btn_style"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:text="打卡"
+            android:textColor="@color/white" />
+    </RelativeLayout>
     <com.amap.api.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fff"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/distance_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="距离目的地："
-            android:textColor="#000000" />
-
-        <RelativeLayout
-            android:id="@+id/arriver_bt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@mipmap/restaurant_btbg_gray">
-
-            <TextView
-                android:id="@+id/arriver_timetv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="18:00:00"
-                android:textColor="@color/primary"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/arriver_timetv"
-                android:layout_centerHorizontal="true"
-                android:text="打卡签到"
-                android:textColor="@color/pink"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-
-    </LinearLayout>
+        android:layout_weight="1"
+        android:visibility="gone"/>
 
 </LinearLayout>

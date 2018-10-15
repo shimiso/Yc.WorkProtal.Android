@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.bean.ErrorInfo;
 import com.yuecheng.workportal.bean.LoginUser;
@@ -188,6 +189,43 @@ public class UserPresenter {
                             JSONArray fileNames = resultObj.getJSONArray("fileNames");
                             List<String> checkAccount = gson.fromJson(fileNames.toString(), new TypeToken<List<String>>(){}.getType());
                             resultInfo.result = checkAccount;
+                            commonPostView.postSuccess(resultInfo);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            commonPostView.postError(context.getString(R.string.server_net_error));
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        commonPostView.postError(context.getString(R.string.server_net_error));
+                    }
+                });
+    }
+    /**
+     * 打卡
+     * @param commonPostView
+     */
+    public void clockIn(String clockTime,String address,boolean intraArea,String memo,final CommonPostView<Boolean> commonPostView) {
+        LoginUser loginUser = MainApplication.getApplication().getLoginUser();
+        OkGo.<String>post(UrlConstant.CLOCK_IN)//
+                .tag(this)//
+                .headers("Authorization", "Bearer "+loginUser.getAccess_token())
+                .params("clockTime",clockTime)
+                .params("address",address)
+                .params("intraArea",intraArea)
+                .params("memo",memo)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String json = new String(response.body());
+                        try {
+                            ResultInfo<Boolean> resultInfo = new ResultInfo<>();
+                            JSONObject jsonObj = new JSONObject(json);
+                            JSONObject resultObj = jsonObj.getJSONObject("result");
+                            boolean state = resultObj.optBoolean("state");
+                            resultInfo.result = state;
                             commonPostView.postSuccess(resultInfo);
 
                         } catch (Exception e) {

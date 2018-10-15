@@ -80,14 +80,18 @@
     <string name="my_login_web">登录网页版</string>
     <string name="my_directions">使用说明</string>
     <string name="my_feedback">意见反馈</string>
-    <string name="my_sign_in">打卡签到</string>
+    <string name="my_sign_in">考勤</string>
     <string name="my_work_attendance">考勤查询</string>
+    <string name="my_work_attendance_statistical">考勤统计</string>
     <string name="abnormal_attendance">考勤异常</string>
     <string name="leave_out">请假/外出</string>
     <string name="late">迟到</string>
     <string name="leave_early">早退</string>
     <string name="absenteeism">旷工</string>
     <string name="ask_for_leave">请假</string>
+    <string name="not_scope">您当前不在考勤打卡范围内</string>
+    <string name="input_attendance_note">请输入备注说明</string>
+    <string name="attendance_note">考勤说明</string>
 
 
     <string name="opinion">请输入您对于产品功能的建议，我们将不断优化您的使用体验</string>

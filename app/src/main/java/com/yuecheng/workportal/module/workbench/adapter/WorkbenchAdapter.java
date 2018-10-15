@@ -71,6 +71,7 @@ public class WorkbenchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             bodyViewHolder.itemView.setOnClickListener(v -> {//点击跳转到相应页面
                 if(list.get(position).getPermName().equals("打卡")){
                     context.startActivity(new Intent(context, SignInActivity.class));
+                    return;
                 }
                 String iconUrl = list.get(position).getLinkAddress();
                 if (iconUrl==null||iconUrl.isEmpty()) return;

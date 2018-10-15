@@ -6,6 +6,7 @@ import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.bean.MessageEvent;
 import com.yuecheng.workportal.common.JsApi;
+import com.yuecheng.workportal.common.UrlConstant;
 import com.yuecheng.workportal.common.instruction;
 import com.yuecheng.workportal.module.robot.OpenH5Activity;
 import com.yuecheng.workportal.module.robot.bean.SemanticResult;
@@ -35,10 +36,9 @@ public class CarePlanHandler extends IntentHandler {
             switch(intent) {
                 case instruction.ZHAOHU_PLAN://照护计划
                     MainPresenter.responseAnswer("跳转页面到照护计划!");
-                    String url = "http://omstest.gongheyuan.com/portal/#/CarePlan";
                     Intent intent1 = new Intent(MainApplication.getApplication(), OpenH5Activity.class);
                     intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
-                    intent1.putExtra("url",url);
+                    intent1.putExtra("url", UrlConstant.CARE_PLAN);
 //                    intent1.putExtra("name",name);
                     MainApplication.getApplication().startActivity(intent1);
                     break;
@@ -76,6 +76,9 @@ public class CarePlanHandler extends IntentHandler {
                                     case "学堂":
                                         object.put("bloodSugar", value);
                                      //   object.put("time", sugarjsonArray);
+                                        break;
+                                    case "体重":
+                                        object.put("weight", value);
                                         break;
                                 }
 

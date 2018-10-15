@@ -2,9 +2,12 @@ package com.yuecheng.workportal;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,6 +22,8 @@ import com.yuecheng.workportal.utils.StringUtils;
 import com.yuecheng.workportal.utils.TagAliasOperatorHelper;
 import com.yuecheng.workportal.utils.ToastUtil;
 import com.yuecheng.workportal.widget.LoadingDialog;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,6 +61,7 @@ public class LoginActivity extends BaseActivity {
         setFullFullscreen();//全屏
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        initlanguage();//初始化语言
         ButterKnife.bind(this);
         time = new TimeCount(60000, 1000);
         userPresenter = new UserPresenter(this);
@@ -121,6 +127,30 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+    private void initlanguage() {
+        String language = spUtil.getStrings("Language", "中文");
+        if (language.equals("中文")) {
+            // 获得res资源对象
+            Resources resources = getResources();
+            Configuration config = resources.getConfiguration();
+            // 获得屏幕参数：主要是分辨率，像素等。
+            DisplayMetrics dm = resources.getDisplayMetrics();
+            // 英语
+            config.locale = Locale.CHINA;
+            resources.updateConfiguration(config, dm);
+
+        } else {
+            // 获得res资源对象
+            Resources resources = getResources();
+            Configuration config = resources.getConfiguration();
+            // 获得屏幕参数：主要是分辨率，像素等。
+            DisplayMetrics dm = resources.getDisplayMetrics();
+            // 英语
+            config.locale = Locale.US;
+            resources.updateConfiguration(config, dm);
+
+        }
+    }
     private void initEvent() {
         dynamic_password.setOnClickListener(v -> {
 
