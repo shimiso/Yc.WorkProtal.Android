@@ -118,6 +118,8 @@
     <string name="cantonese">粤语</string>
     <string name="lmz">四川话</string>
     <string name="multilingual">多语言</string>
+    <string name="current_version">当前版本</string>
+    <string name="complete">完成</string>
 
     <!--语音-->
     <string name="grammar_error">语义错误</string>

@@ -107,6 +107,8 @@
     <string name="cantonese">cantonese</string>
     <string name="lmz">Sichuan dialect</string>
     <string name="multilingual">multilingual</string>
+    <string name="current_version">Current Version</string>
+    <string name="complete">Complete</string>
 
     <!--语音-->
     <string name="grammar_error">semantic error</string>

@@ -3,6 +3,7 @@ package com.yuecheng.workportal.module.mycenter.presenter;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -19,8 +20,11 @@ import com.yuecheng.workportal.greendao.LoginUserDao;
 import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
 import com.yuecheng.workportal.utils.StringUtils;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -161,6 +165,43 @@ public class UserPresenter {
                 });
     }
 
+    /**
+     * 上传头像
+     * @param files
+     * @param commonPostView
+     */
+    public void uploadFile(ArrayList<File> files, CommonPostView commonPostView) {
+
+        OkGo.<String>post(UrlConstant.UPLOAD)//
+                .tag(this)//
+                .addFileParams("files", files)//
+               // .headers("Authorization", "Bearer "+loginUser.getAccess_token())
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        String json = new String(response.body());
+                        try {
+                            ResultInfo<List<String>> resultInfo = new ResultInfo<>();
+                            Gson gson = new Gson();
+                            JSONObject jsonObj = new JSONObject(json);
+                            JSONObject resultObj = jsonObj.getJSONObject("result");
+                            JSONArray fileNames = resultObj.getJSONArray("fileNames");
+                            List<String> checkAccount = gson.fromJson(fileNames.toString(), new TypeToken<List<String>>(){}.getType());
+                            resultInfo.result = checkAccount;
+                            commonPostView.postSuccess(resultInfo);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            commonPostView.postError(context.getString(R.string.server_net_error));
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        commonPostView.postError(context.getString(R.string.server_net_error));
+                    }
+                });
+    }
     public void saveLoginUser(LoginUser loginUser){
         List<LoginUser> list;
         try {

@@ -34,7 +34,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:text="完成"
+            android:text="@string/complete"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>

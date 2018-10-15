@@ -65,12 +65,15 @@ public class MultilingualActivity extends BaseActivity {
         switch (dialect){
             case "普通话":
                 fanyan.setText(getString(R.string.mandarin));
+                setFangYan("mandarin");
                 break;
             case "粤语":
                 fanyan.setText(getString(R.string.cantonese));
+                setFangYan("cantonese");
                 break;
             case "四川话":
                 fanyan.setText(getString(R.string.lmz));
+                setFangYan("lmz");
                 break;
         }
     }
@@ -110,8 +113,10 @@ public class MultilingualActivity extends BaseActivity {
                 }
                 if (chineseImg.getVisibility() == View.VISIBLE) {
                     setChineseLanguage();//切换中文
+                    startActivity(new Intent( MainApplication.getApplication(), SettingsActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 } else {
                     setEnglishLanguage();//切换英文
+                    startActivity(new Intent( MainApplication.getApplication(), SettingsActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
                 finish();
                 break;
@@ -157,7 +162,6 @@ public class MultilingualActivity extends BaseActivity {
         resources.updateConfiguration(config, dm);
         //模拟重启页面
         MainApplication.getApplication().toIndex();
-        startActivity(new Intent( MainApplication.getApplication(), SettingsActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /**
@@ -175,7 +179,6 @@ public class MultilingualActivity extends BaseActivity {
         resources.updateConfiguration(config, dm);
         //模拟重启页面
         MainApplication.getApplication().toIndex();
-        startActivity(new Intent( MainApplication.getApplication(), SettingsActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     //设置方言

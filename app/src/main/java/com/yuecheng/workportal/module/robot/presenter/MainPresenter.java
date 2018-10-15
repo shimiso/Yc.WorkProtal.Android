@@ -322,56 +322,56 @@ public class MainPresenter implements IMainPresenter {
                 }
             });
 
-            //播放答案
-            mIMainModel.synthesizeVoice((Activity) mIMainView, answerText, new SynthesizerListener() {
-
-                @Override
-                public void onSpeakBegin() {
-                    LogUtils.d("开始播放答案");
-                }
-
-                @Override
-                public void onSpeakPaused() {
-                    LogUtils.d("暂停播放答案");
-                }
-
-                @Override
-                public void onSpeakResumed() {
-                    LogUtils.d("继续播放答案");
-                }
-
-                @Override
-                public void onBufferProgress(int percent, int beginPos, int endPos,
-                                             String info) {
-                    // 合成进度
-                    LogUtils.d("合成答案进度 = " + percent);
-                }
-
-                @Override
-                public void onSpeakProgress(int percent, int beginPos, int endPos) {
-                    // 播放进度
-                    LogUtils.d("播放答案进度 = " + percent);
-                }
-
-                @Override
-                public void onCompleted(SpeechError error) {
-                    if (error == null) {
-                        LogUtils.d("播放答案完成");
-                    } else if (error != null) {
-                        LogUtils.e(error.getPlainDescription(true));
-                    }
-                }
-
-                @Override
-                public void onEvent(int eventType, int arg1, int arg2, Bundle bundle) {
-                    // 以下代码用于获取与云端的会话id，当业务出错时将会话id提供给技术支持人员，可用于查询会话日志，定位出错原因
-                    // 若使用本地能力，会话id为null
-                    //	if (SpeechEvent.EVENT_SESSION_ID == eventType) {
-                    //		String sid = obj.getString(SpeechEvent.KEY_EVENT_SESSION_ID);
-                    //		Log.d(TAG, "session id =" + sid);
-                    //	}
-                }
-            });
+//            //播放答案
+//            mIMainModel.synthesizeVoice((Activity) mIMainView, answerText, new SynthesizerListener() {
+//
+//                @Override
+//                public void onSpeakBegin() {
+//                    LogUtils.d("开始播放答案");
+//                }
+//
+//                @Override
+//                public void onSpeakPaused() {
+//                    LogUtils.d("暂停播放答案");
+//                }
+//
+//                @Override
+//                public void onSpeakResumed() {
+//                    LogUtils.d("继续播放答案");
+//                }
+//
+//                @Override
+//                public void onBufferProgress(int percent, int beginPos, int endPos,
+//                                             String info) {
+//                    // 合成进度
+//                    LogUtils.d("合成答案进度 = " + percent);
+//                }
+//
+//                @Override
+//                public void onSpeakProgress(int percent, int beginPos, int endPos) {
+//                    // 播放进度
+//                    LogUtils.d("播放答案进度 = " + percent);
+//                }
+//
+//                @Override
+//                public void onCompleted(SpeechError error) {
+//                    if (error == null) {
+//                        LogUtils.d("播放答案完成");
+//                    } else if (error != null) {
+//                        LogUtils.e(error.getPlainDescription(true));
+//                    }
+//                }
+//
+//                @Override
+//                public void onEvent(int eventType, int arg1, int arg2, Bundle bundle) {
+//                    // 以下代码用于获取与云端的会话id，当业务出错时将会话id提供给技术支持人员，可用于查询会话日志，定位出错原因
+//                    // 若使用本地能力，会话id为null
+//                    //	if (SpeechEvent.EVENT_SESSION_ID == eventType) {
+//                    //		String sid = obj.getString(SpeechEvent.KEY_EVENT_SESSION_ID);
+//                    //		Log.d(TAG, "session id =" + sid);
+//                    //	}
+//                }
+//            });
         }
     }
 

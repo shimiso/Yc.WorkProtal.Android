@@ -44,6 +44,15 @@ public class PersonnelDetailsBean {
     private String partTimeJobs;
     private String rongCloudToken;
     private List<SubordinatesBean> subordinates;
+    private String orgCode;
+
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
+    }
 
     public String getDeepOrgIds() {
         return deepOrgIds;

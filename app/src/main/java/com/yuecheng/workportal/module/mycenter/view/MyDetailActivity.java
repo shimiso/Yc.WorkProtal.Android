@@ -19,9 +19,11 @@ import com.yuecheng.workportal.bean.ResultInfo;
 import com.yuecheng.workportal.common.CommonPostView;
 import com.yuecheng.workportal.module.contacts.bean.PersonnelDetailsBean;
 import com.yuecheng.workportal.module.contacts.presenter.ContactsPresenter;
+import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.utils.LoadViewUtil;
 import com.yuecheng.workportal.utils.ToastUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +63,7 @@ public class MyDetailActivity extends BaseActivity implements CommonPostView<Per
     CircleImageView user_head;
     private List<LocalMedia> selectList = new ArrayList<>();
     protected LoadViewUtil viewUtil;
+    private ContactsPresenter contactsPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +90,7 @@ public class MyDetailActivity extends BaseActivity implements CommonPostView<Per
         }
 
         viewUtil.startLoading();
-        ContactsPresenter contactsPresenter = new ContactsPresenter(this);
+        contactsPresenter = new ContactsPresenter(this);
         contactsPresenter.getContactInformation("", this);
     }
     @OnClick({R.id.back_iv, R.id.set_user_head})
@@ -132,6 +135,28 @@ public class MyDetailActivity extends BaseActivity implements CommonPostView<Per
                             .load(selectList.get(0).getPath())
                             .into(user_head);
                     PictureFileUtils.deleteCacheDirFile(context);
+                    ArrayList<File> files = new ArrayList<>();
+                    if (selectList != null && selectList.size() > 0) {
+                        for (int i = 0; i < selectList.size(); i++) {
+                            files.add(new File(selectList.get(i).getPath()));
+                        }
+                    }
+                    UserPresenter userPresenter = new UserPresenter(this);
+                    userPresenter.uploadFile(files, new CommonPostView<List<String>>() {
+                        @Override
+                        public void postSuccess(ResultInfo<List<String>> resultInfo) {
+//                            List<String> result = resultInfo.getResult();
+//                            if(result!=null && result.size()>=0){
+//                                spUtil.setString("UserIcon",result.get(0));
+//                            }
+                            ToastUtil.info(MyDetailActivity.this,"上传成功");
+                        }
+
+                        @Override
+                        public void postError(String errorMsg) {
+                            ToastUtil.info(MyDetailActivity.this,"上传失败");
+                        }
+                    });
                     break;
             }
         }
@@ -152,7 +177,7 @@ public class MyDetailActivity extends BaseActivity implements CommonPostView<Per
             myPhoneTv.setText(result.getMobilePhone());
             myLandlineTv.setText(result.getTelephone());
             myEmailTv.setText(result.getEmail());
-            myJobsTv.setText(result.getPositionName());
+            myJobsTv.setText(result.getPositionName()+"("+result.getOrgCode()+")");
             myDirectoryTv.setText(result.getOrganizationName());
             myDeputyTv.setText("");
             if(result.getGender()==1){

@@ -16,7 +16,7 @@ public interface UrlConstant {
     String  ADDRESSORGQUERY = HTTP_HOST + "AddressBook/GetAddressOrgQuery";//组织机构子机构
 
 
-
+    String  UPLOAD = "http://192.168.0.141:5007/api/file/upload";//上传头像
     String SSO_LOGIN = "http://192.168.0.141:5000/connect/token";
     String SSO_IDENTITY = HTTP_HOST + "Identity/GetBasicInfo";//获取人员详情
 }

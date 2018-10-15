@@ -53,20 +53,29 @@ public class CarePlanHandler extends IntentHandler {
                             String value = item_value.optString("normValue");
                             try {
                                 switch (name){
-                                    case "高压":case "高雅":case "高呀":
+                                    case "高压":
+                                    case "高雅":
+                                    case "高呀":
                                         object.put("bloodPressureGao", value);
                                         break;
-                                    case "低压":case "第二":case "低呀":
+                                    case "低压":
+                                    case "第二":
+                                    case "低呀":
                                         object.put("bloodPressureTi", value);
                                         break;
                                     case "脉搏":
                                         object.put("pulse", value);
                                         break;
-                                    case "体温":case "提问":case "请问":
+                                    case "体温":
+                                    case "提问":
+                                    case "请问":
                                         object.put("pressure", value);
                                         break;
-                                    case "血糖":case "血糖值":case "学堂":
+                                    case "血糖":
+                                    case "血糖值":
+                                    case "学堂":
                                         object.put("bloodSugar", value);
+                                     //   object.put("time", sugarjsonArray);
                                         break;
                                 }
 

@@ -240,7 +240,7 @@ public class InformationActivity extends BaseActivity implements CommonPostView<
         myPhoneTv.setText(personnelDetailsBean.getMobilePhone());//手机号
         myLandlineTv.setText(personnelDetailsBean.getTelephone());//座机
         myEmailTv.setText(personnelDetailsBean.getEmail());//邮件
-        myJobsTv.setText(personnelDetailsBean.getPositionName());//岗位
+        myJobsTv.setText(personnelDetailsBean.getPositionName()+"("+personnelDetailsBean.getOrgCode()+")");//岗位
         contactRenJobs.setText(personnelDetailsBean.getPositionName());//岗位
 //        myDirectoryTv.setText(personnelDetailsBean.getOrganizationName()); //组织路径
         myDeputyTv.setText(personnelDetailsBean.getPartTimeJobs().isEmpty() ? "无" : personnelDetailsBean.getPartTimeJobs());//副岗
