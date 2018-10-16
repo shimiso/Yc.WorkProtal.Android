@@ -1,11 +1,13 @@
 package com.yuecheng.workportal.module.robot;
 
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -13,6 +15,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.LinearInterpolator;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -22,12 +26,15 @@ import android.widget.Toast;
 
 import com.yuecheng.workportal.QRCActivity;
 import com.yuecheng.workportal.R;
+import com.yuecheng.workportal.base.BaseActivity;
 import com.yuecheng.workportal.bean.MessageEvent;
 import com.yuecheng.workportal.common.JsApi;
 import com.yuecheng.workportal.common.JsEchoApi;
 import com.yuecheng.workportal.module.robot.bean.TalkBean;
 import com.yuecheng.workportal.module.robot.presenter.MainPresenter;
 import com.yuecheng.workportal.module.robot.view.IMainView;
+import com.yuecheng.workportal.utils.LoadViewUtil;
+import com.yuecheng.workportal.utils.StringUtils;
 import com.yuecheng.workportal.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -45,12 +52,20 @@ import wendu.dsbridge.DWebView;
 import static com.yuecheng.workportal.common.JsApi.SCAN_REQUEST_CODE;
 
 
-public class OpenH5Activity extends AppCompatActivity implements IMainView {
+public class OpenH5Activity extends BaseActivity implements IMainView {
     public static Button vitalSigns;
+    @BindView(R.id.back_iv)
+    ImageView back_iv;
+
+    @BindView(R.id.head)
+    RelativeLayout head;
+
     @BindView(R.id.open_h5_relative)
     RelativeLayout openH5Relative;
+
     @BindView(R.id.vital_signs)
     Button vital_signs;
+
     private MainPresenter mIMainPresenter;
     private DWebView mWebView;
     private TextView title;
@@ -63,7 +78,8 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
     private PopupWindow mRecordWindow;
     private ObjectAnimator icon_anim;
     private Boolean isShow = true;
-
+    private LoadViewUtil viewUtil;
+    private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +89,7 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
         }
         setContentView(R.layout.open_h5);
         ButterKnife.bind(this);
-
+        context = this;
         url = getIntent().getStringExtra("url");
         name = getIntent().getStringExtra("name");
         //init presenter
@@ -84,19 +100,57 @@ public class OpenH5Activity extends AppCompatActivity implements IMainView {
     }
 
     private void initView() {
+        this.viewUtil = LoadViewUtil.init(getWindow().getDecorView(), context);
         vitalSigns = findViewById(R.id.vital_signs);
         title = findViewById(R.id.title);
-        title.setText(name);
+        if(!StringUtils.isEmpty(name)){
+            head.setVisibility(View.VISIBLE);
+            title.setText(name);
+            back_iv.setOnClickListener(view -> finish());
+        }else {
+            head.setVisibility(View.GONE);
+        }
+
         mWebView = findViewById(R.id.webview);
         DWebView.setWebContentsDebuggingEnabled(true);
         mWebView.addJavascriptObject(new JsApi(this), "");
         mWebView.addJavascriptObject(new JsEchoApi(), "echo");
 //        mWebView.loadUrl("file:///android_asset/BridgeWebView/js-call-native.html");
+        mWebView.setWebViewClient(new WebViewClient(){
+            //覆写shouldOverrideUrlLoading实现内部显示网页
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+
+            @Override
+            public void onReceivedError(WebView view, int errorCode,
+                                        String description, String failingUrl) {
+                super.onReceivedError(view, errorCode, description, failingUrl);
+                //这里进行无网络或错误处理，具体可以根据errorCode的值进行判断，做跟详细的处理。
+                viewUtil.showLoadingErrorView(LoadViewUtil.LOADING_ERROR_VIEW, () -> {
+                    viewUtil.startLoading();
+                    mWebView.reload();//刷新
+                });
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                viewUtil.startLoading();
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                viewUtil.stopLoading();
+            }
+        });
         mWebView.loadUrl(url);//动态获取需要打开的链接
-
-
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initEvent() {
         vitalSigns.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {

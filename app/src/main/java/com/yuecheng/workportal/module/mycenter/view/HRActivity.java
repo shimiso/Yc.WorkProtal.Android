@@ -1,5 +1,6 @@
 package com.yuecheng.workportal.module.mycenter.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
+import com.yuecheng.workportal.module.robot.OpenH5Activity;
 import com.yuecheng.workportal.module.robot.view.VoiceActivity;
 
 import butterknife.BindView;
@@ -19,44 +21,57 @@ public class HRActivity extends BaseActivity {
     TextView titleName;
     @BindView(R.id.join_company)
     TextView joinCompany;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_center_hr);
         ButterKnife.bind(this);
+        context = this;
         joinCompany.setText(getString(R.string.join_company_one) + "100" + getString(R.string.join_company_two));
     }
 
+
     @OnClick({R.id.back_iv, R.id.title_voice,R.id.wdzl, R.id.xzcx, R.id.htcx, R.id.kqcx, R.id.jqcx})
     public void onViewClicked(View view) {
+
         switch (view.getId()) {
             case R.id.back_iv:
                 finish();
                 break;
             case R.id.title_voice:
-                Intent intent = new Intent(this, VoiceActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this, VoiceActivity.class));
                 //使其由下向上弹出
                 overridePendingTransition(R.anim.push_bottom_in, R.anim.push_bottom_out);
                 break;
-            case R.id.wdzl:
+            case R.id.wdzl://我的资料
+                openWebView("http://omstest.gongheyuan.com/portal/#/MyProfile","我的资料");
                 break;
-            case R.id.xzcx:
-                showValidationDialog();
+            case R.id.xzcx://薪资查询
+                showValidationDialog("http://omstest.gongheyuan.com/portal/#/SalaryQueryHR","薪资查询");
                 break;
-            case R.id.htcx:
-                showValidationDialog();
+            case R.id.htcx://合同查询
+                showValidationDialog("http://omstest.gongheyuan.com/portal/#/Contract","合同查询");
                 break;
-            case R.id.kqcx:
+            case R.id.kqcx://考勤查询
                 startActivity(new Intent(this, WorkAttendanceActivity.class));
                 break;
-            case R.id.jqcx:
+            case R.id.jqcx://假期查询
+                openWebView("http://omstest.gongheyuan.com/portal/#/HolidayQuery","假期查询");
                 break;
         }
     }
 
-    public void showValidationDialog(){
+    protected void openWebView(String url,String name){
+        Intent intent = new Intent(context, OpenH5Activity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("name", name);
+        intent.putExtra("url", url);
+        startActivity(intent);
+    }
+
+    public void showValidationDialog(String url,String name){
         ValidationDialog validationDialog = new ValidationDialog(this);
         validationDialog.showDialog();
         validationDialog.setClicklistener(new ValidationDialog.ClickListenerInterface() {
@@ -68,7 +83,7 @@ public class HRActivity extends BaseActivity {
             @Override
             public void onConfirmClick() {
                 String s = validationDialog.et_dialog_one.getText().toString();
-
+                openWebView(url,name);
                 validationDialog.dismissDialog();
             }
         });

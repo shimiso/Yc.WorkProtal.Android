@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/open_h5_relative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/open_h5_relative"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/head"
         android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
         android:layout_height="50dp"
+        android:layout_alignParentTop="true"
         android:background="@color/primary_dark"
         android:visibility="gone">
 
@@ -33,17 +36,23 @@
     <wendu.dsbridge.DWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/head" />
 
     <Button
         android:id="@+id/vital_signs"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="20dp"
-        android:visibility="gone"
-        android:background="@drawable/transparent"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-         />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/transparent"
+        android:visibility="gone" />
 
+    <include
+        android:id="@+id/loading_view"
+        layout="@layout/loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/head" />
 </RelativeLayout>
