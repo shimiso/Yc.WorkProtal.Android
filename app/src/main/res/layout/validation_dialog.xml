@@ -16,7 +16,7 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:text="@string/validation"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/dialog_subtitle_title"
@@ -25,7 +25,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/enter_pin"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/et_dialog_one"

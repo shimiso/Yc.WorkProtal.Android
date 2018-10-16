@@ -11,10 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yuecheng.workportal.R;
+import com.yuecheng.workportal.module.mycenter.bean.ClockInBean;
 import com.yuecheng.workportal.module.mycenter.view.ValidationDialog;
 import com.yuecheng.workportal.utils.ConvertUtils;
 import com.yuecheng.workportal.utils.StringUtils;
+import com.yuecheng.workportal.utils.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +28,7 @@ public class ClockInAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private final Context context;
     private final LayoutInflater layoutInflater;
-    private List<String> list;
+    private List<ClockInBean> list = new ArrayList<ClockInBean>();
     private final int DATA_VIEW = 0;
     private final int EMPTY_VIEW = 1;
     private final int LOADING_VIEW = 2;
@@ -75,9 +78,12 @@ public class ClockInAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     //刷新数据
-    public void onRefresh(List<String> list) {
+    public void onRefresh(List<ClockInBean> list) {
+        if (this.list != null) {
+            this.list.clear();
+        }
         this.viewType = DATA_VIEW;
-        this.list = list;
+        this.list.addAll(list);
         this.notifyDataSetChanged();
     }
 
@@ -104,7 +110,10 @@ public class ClockInAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
             ViewHolder myHolder = (ViewHolder) holder;
-            myHolder.editor.setOnClickListener(v -> { //输入考勤备注
+            myHolder.time.setText(list.get(position).getTime().split("\\s+")[1]);
+            myHolder.location_tv.setText(list.get(position).getAddress());
+            //输入考勤备注
+            myHolder.editor.setOnClickListener(v -> {
                 ValidationDialog validationDialog = new ValidationDialog(context);
                 validationDialog.setTitleText(context.getString(R.string.attendance_note)); //主标题
                 validationDialog.setSubtitleTitleText(context.getString(R.string.attendance_note),View.GONE); //副标题，是否显示
@@ -124,7 +133,8 @@ public class ClockInAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     @Override
                     public void onConfirmClick() {
                         String s = validationDialog.et_dialog_one.getText().toString();
-
+                        //后期需修改为几口回调的方式
+                        ToastUtil.info(context,"保存成功");
                         validationDialog.dismissDialog();
                     }
                 });
@@ -144,8 +154,8 @@ public class ClockInAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
-//        return list != null && list.size() > 0 ? list.size() : 1;
-        return 5;
+        return list != null && list.size() > 0 ? list.size() : 1;
+//        return 5;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

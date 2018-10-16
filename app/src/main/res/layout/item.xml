@@ -19,15 +19,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:textColor="@color/black"
-            android:text="10:12" />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/dtend_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="至11:12" />
+            android:textColor="@color/black" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,16 +40,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:text="下午在会议室开会" />
+            android:textSize="16sp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/description_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="下午在会议室开会" />
+            android:layout_centerVertical="true" />
     </LinearLayout>
 
     <View

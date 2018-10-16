@@ -117,6 +117,7 @@
         android:layout_weight="1"
         android:background="@color/app_bg"/>
     <RelativeLayout
+        android:id="@+id/clock_in_rl"
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:background="@color/app_bg">

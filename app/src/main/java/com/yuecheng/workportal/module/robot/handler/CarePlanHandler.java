@@ -87,7 +87,7 @@ public class CarePlanHandler extends IntentHandler {
                             }
                         }
                         try {
-
+                            object.put("dataSource", 1);
                             EventBus.getDefault().post(new MessageEvent(MessageEvent.VITAL_SIGNS_JSON,jsonArray.put(object).toString()));
 
                         }catch(Exception e){

@@ -2,16 +2,12 @@ package com.yuecheng.workportal.module.mycenter.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,10 +22,11 @@ import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
 import com.yuecheng.workportal.module.mycenter.adapter.ExampleAdapter;
 import com.yuecheng.workportal.module.mycenter.bean.CalendarBean;
+import com.yuecheng.workportal.module.mycenter.bean.ClockInBean;
 import com.yuecheng.workportal.utils.DateUtil;
-import com.yuecheng.workportal.utils.LoadViewUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,6 +59,7 @@ public class WorkAttendanceActivity extends BaseActivity {
     TextView leaveTv; //请假
 
     private ArrayList<Calendar> currentCalendars = new ArrayList<>();
+    private List<CalendarBean> calendarBeans = new ArrayList<>();
     private CalendarViewAdapter calendarAdapter;
     private OnSelectDateListener onSelectDateListener;
     private int mCurrentPage = MonthPager.CURRENT_DAY_INDEX;
@@ -70,6 +68,7 @@ public class WorkAttendanceActivity extends BaseActivity {
     private boolean initiated = false;
     private ExampleAdapter exampleAdapter;
     private long stringToDate;
+    private Intent intent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,12 +76,14 @@ public class WorkAttendanceActivity extends BaseActivity {
         setContentView(R.layout.work_attendance);
         ButterKnife.bind(this);
         context = this;
+        intent = getIntent();
+
         //此处强行setViewHeight，毕竟你知道你的日历牌的高度
         monthPager.setViewHeight(Utils.dpi2px(context, 270));
         rvToDoList.setHasFixedSize(true);
         //这里用线性显示 类似于listview
         rvToDoList.setLayoutManager(new LinearLayoutManager(this));
-        exampleAdapter = new ExampleAdapter(this,true);
+        exampleAdapter = new ExampleAdapter(this, true);
         rvToDoList.setAdapter(exampleAdapter);
         stringToDate = DateUtil.getStringToDate(DateUtil.geturrentTime("yyyy-MM-dd"), "yyyy-MM-dd");
         initCurrentDate();
@@ -91,57 +92,6 @@ public class WorkAttendanceActivity extends BaseActivity {
 
     }
 
-    private List<CalendarBean> getSchedule(Long timelong) {
-        List<CalendarBean> calendarBeans = new ArrayList<>();
-
-        String CALANDER_EVENT_URL = "content://com.android.calendar/events";
-        Uri uri = Uri.parse(CALANDER_EVENT_URL);
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        while (cursor.moveToNext()) {
-
-            int columnCount = cursor.getColumnCount();
-            Log.e("日历", "columnCount :" + columnCount);//多少个属性
-            //for (int i = 0; i < columnCount; i++) {
-            //获取到属性的名称
-            //  String columnName = cursor.getColumnName(i);
-            //获取到属性对应的值
-            //   String message = cursor.getString(cursor.getColumnIndex(columnName));
-            //打印属性和对应的值
-//                Log.i("日历", columnName + " : " + message);
-
-
-            //事件的标题
-            String title = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.TITLE));
-            //事件的起始时间
-            String dtstart = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART));
-            //事件的结束时间 ，如果事件是每天/周,那么就没有结束时间
-            String dtend = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTEND));
-            //事件的描述
-            String description = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DESCRIPTION));
-            //事件的重复规律
-            String rrule = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.RRULE));
-            //事件的复发日期。通常RDATE要联合RRULE一起使用来定义一个重复发生的事件的合集。
-            String rdate = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.RDATE));
-            //事件是否是全天的
-            String allDay = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.ALL_DAY));
-            //事件的地点
-            String location = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.EVENT_LOCATION));
-            //事件持续时间，例如“PT1H”表示事件持续1小时的状态， “P2W”指明2周的持续时间。P3600S表示3600秒
-            String duration = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DURATION));
-            if(Long.valueOf(dtstart) >= timelong && Long.valueOf(dtstart) < timelong+86400000){
-                calendarBeans.add(new CalendarBean(title,dtstart,dtend,description,location));
-            }
-            Log.i("日历", "开始时间" + " : " + dtstart+
-                    "\n结束时间 ："+dtend+
-                    "\n标题 ："+title+
-                    "\n事件描述 ："+description+
-                    "\n重复规律 ："+rrule+
-                    "\n事件的地点 ："+location);
-        }
-       // viewUtil.stopLoading();
-
-        return calendarBeans;
-    }
 
     /**
      * onWindowFocusChanged回调时，将当前月的种子日期修改为今天
@@ -165,6 +115,24 @@ public class WorkAttendanceActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
+        // 此处为临时代码
+        calendarBeans.clear();
+        if (intent != null) {
+            long newdate1 = DateUtil.getStringToDate(new Date().toString(), "yyyy-MM-dd");
+            List<ClockInBean> clockInBeanListAll = (List<ClockInBean>) intent.getSerializableExtra("clockInBeanListAll");
+            if (clockInBeanListAll != null) {
+                for (int i = 0; i < clockInBeanListAll.size(); i++) {
+                    ClockInBean clockInBean = clockInBeanListAll.get(i);
+                    long stringToDate1 = DateUtil.getStringToDate(clockInBean.getTime(), "yyyy-MM-dd");
+                    if (stringToDate1 <= newdate1 && stringToDate1 + 86400000 > newdate1) {
+                        long stringToDate = DateUtil.getStringToDate(clockInBean.getTime(), "yyyy-MM-dd HH:mm");
+
+                        CalendarBean calendarBean = new CalendarBean("打卡", stringToDate + "", null, clockInBean.getAddress(), "");
+                        calendarBeans.add(calendarBean);
+                    }
+                }
+            }
+        }
         loadData();
     }
 
@@ -175,12 +143,12 @@ public class WorkAttendanceActivity extends BaseActivity {
         exampleAdapter.showLoadingView();
         if (!androidUtil.hasInternetConnected()) {
             exampleAdapter.showNoNetView(v -> loadData());
-        }else {
-            List<CalendarBean> schedule = getSchedule(stringToDate);
-            if(schedule.size()==0){
+        } else {
+            //List<CalendarBean> schedule = getSchedule(stringToDate);
+            if (calendarBeans.size() == 0) {
                 exampleAdapter.showEmptyView(v -> loadData());
-            }else{
-                exampleAdapter.onRefresh(schedule);
+            } else {
+                exampleAdapter.onRefresh(calendarBeans);
             }
         }
     }
@@ -277,14 +245,30 @@ public class WorkAttendanceActivity extends BaseActivity {
     private void initListener() {
         onSelectDateListener = new OnSelectDateListener() {
             @Override
-            public void onSelectDate(CalendarDate date) {
+            public void onSelectDate(CalendarDate date) {//根据选中的日期来修改展示的日程
                 refreshClickDate(date);
-                stringToDate = DateUtil.getStringToDate( date.toString(), "yyyy-MM-dd");
-                List<CalendarBean> schedule = getSchedule(stringToDate);
-                if(schedule.size()==0){
+                stringToDate = DateUtil.getStringToDate(date.toString(), "yyyy-MM-dd");
+                // 此处为临时代码
+                calendarBeans.clear();
+                if (intent != null) {
+                    List<ClockInBean> clockInBeanListAll = (List<ClockInBean>) intent.getSerializableExtra("clockInBeanListAll");
+                    if (clockInBeanListAll != null) {
+                        for (int i = 0; i < clockInBeanListAll.size(); i++) {
+                            ClockInBean clockInBean = clockInBeanListAll.get(i);
+                            long stringToDate1 = DateUtil.getStringToDate(clockInBean.getTime(), "yyyy-MM-dd");
+                            if (stringToDate == stringToDate1) {
+                                long stringToDate = DateUtil.getStringToDate(clockInBean.getTime(), "yyyy-MM-dd HH:mm");
+                                CalendarBean calendarBean = new CalendarBean("打卡", stringToDate + "", null, clockInBean.getAddress(), "");
+                                calendarBeans.add(calendarBean);
+                            }
+                        }
+                    }
+                }
+                //  List<CalendarBean> schedule = getSchedule(stringToDate);
+                if (calendarBeans.size() == 0) {
                     exampleAdapter.showEmptyView(v -> loadData());
-                }else{
-                    exampleAdapter.onRefresh(schedule);
+                } else {
+                    exampleAdapter.onRefresh(calendarBeans);
                 }
             }
 

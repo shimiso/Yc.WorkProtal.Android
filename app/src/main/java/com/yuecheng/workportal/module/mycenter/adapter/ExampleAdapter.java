@@ -119,9 +119,9 @@ public class ExampleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             myHolder.title_tv.setText(list.get(position).getTitle());
             myHolder.description_tv.setText(list.get(position).getDescription());
             myHolder.dtstart_tv.setText(DateUtil.getDateToString(Long.valueOf(list.get(position).getDtstart()),"HH:mm"));
-            if(list.get(position).getDtstart()!=null){
-                myHolder.dtend_tv.setText(DateUtil.getDateToString(Long.valueOf(list.get(position).getDtend()),"HH:mm"));
-            }
+//            if(list.get(position).getDtstart()!=null && list.get(position).getDtstart()!=""){
+//                myHolder.dtend_tv.setText(DateUtil.getDateToString(Long.valueOf(list.get(position).getDtend()),"HH:mm"));
+//            }
 
 
         }

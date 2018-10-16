@@ -6,11 +6,11 @@ package com.yuecheng.workportal.module.mycenter.bean;
 
 public class CalendarBean {
 
-    private String title;
-    private String dtstart;
-    private String dtend;
-    private String description;
-    private String location;
+    private String title; //标题
+    private String dtstart; //开始时间
+    private String dtend; //结束时间
+    private String description; //详细
+    private String location; //位置
 
     public CalendarBean(String title, String dtstart, String dtend, String description, String location) {
         this.title = title;

@@ -13,9 +13,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.Date;
 
 import com.amap.api.fence.GeoFence;
 import com.amap.api.fence.GeoFenceClient;
@@ -44,12 +44,15 @@ import com.yuecheng.workportal.bean.ResultInfo;
 import com.yuecheng.workportal.common.CommonPostView;
 import com.yuecheng.workportal.common.Constants;
 import com.yuecheng.workportal.module.mycenter.adapter.ClockInAdapter;
+import com.yuecheng.workportal.module.mycenter.bean.ClockInBean;
 import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.utils.DateTime;
 import com.yuecheng.workportal.utils.DateUtil;
 import com.yuecheng.workportal.utils.ToastUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -78,7 +81,12 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
     TextView showMonthView;
     @BindView(R.id.show_date_view)
     TextView showDateView;
+    @BindView(R.id.clock_in_rl)
+    RelativeLayout clockInRl;
     private ClockInAdapter clockInAdapter;
+    private String[] datearr = new String[3];
+    private List<ClockInBean> clockInBeanListAll = new ArrayList<ClockInBean>();
+    private List<ClockInBean> clockInBeanList = new ArrayList<ClockInBean>();
     /**
      * 用于显示当前的位置
      **/
@@ -143,8 +151,8 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
 
         //设置当前系统日期
         Date date = new Date();
-        showYearView.setText(String.valueOf(date.getYear()+1900));
-        showMonthView.setText(String.valueOf(date.getMonth()+1));
+        showYearView.setText(String.valueOf(date.getYear() + 1900));
+        showMonthView.setText(String.valueOf(date.getMonth() + 1));
         showDateView.setText(String.valueOf(date.getDate()));
         //设置RecyclerView管理器
         attendanceRl.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -154,6 +162,24 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
         attendanceRl.setItemAnimator(new DefaultItemAnimator());
         //设置适配器
         attendanceRl.setAdapter(clockInAdapter);
+
+        datearr[0] = String.valueOf(date.getYear() + 1900);
+        datearr[1] = String.valueOf(date.getMonth() + 1);
+        datearr[2] = String.valueOf(date.getDate());
+        addData();//添加假数据
+        initData();
+    }
+
+    private void initData() {
+        clockInBeanList.clear();
+        List<ClockInBean> screening = screening(clockInBeanListAll, datearr[0] + "-" + datearr[1] + "-" + datearr[2]);//筛选数据
+        if (screening != null && screening.size() > 0) {
+            clockInAdapter.onRefresh(screening);
+        } else {
+            clockInAdapter.showEmptyView(v -> {
+                initData();
+            });
+        }
     }
 
 
@@ -324,7 +350,7 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
                     }
                     sb.append(" fenceId: " + fence.getFenceId());
                 }
-                Toast.makeText(SignInActivity.this, sb.toString(), Toast.LENGTH_LONG).show();
+               // Toast.makeText(SignInActivity.this, sb.toString(), Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -349,6 +375,7 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
                 mDistance_international = AMapUtils.calculateLineDistance(start, internationalend); //国际学校
                 mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
             } else {
+                positioningTv.setText("定位失败");
                 String errText = "定位失败," + amapLocation.getErrorCode() + ": " + amapLocation.getErrorInfo();
                 Log.e("AmapErr", errText);
 //				Toast.makeText(SignInActivity.this,errText, Toast.LENGTH_LONG).show();
@@ -415,45 +442,68 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
         switch (view.getId()) {
             case R.id.last_month_img: //前一天
                 String specifiedDayBefore = DateTime.getSpecifiedDayBefore(showYearView.getText() + "-" + showMonthView.getText() + "-" + showDateView.getText());
-                String[] split = specifiedDayBefore.split("-");
-                showYearView.setText(split[0]);
-                showMonthView.setText(split[1]);
-                showDateView.setText(split[2]);
+                ChangeData(specifiedDayBefore);
                 break;
             case R.id.next_month_img: //后一天
                 String specifiedDayAfter = DateTime.getSpecifiedDayAfter(showYearView.getText() + "-" + showMonthView.getText() + "-" + showDateView.getText());
-                String[] split1 = specifiedDayAfter.split("-");
-                showYearView.setText(split1[0]);
-                showMonthView.setText(split1[1]);
-                showDateView.setText(split1[2]);
+                ChangeData(specifiedDayAfter);
                 break;
             case R.id.clock_in_button: //打卡
                 String time = DateUtil.geturrentTime("yyyy-MM-dd HH:mm");
-                ToastUtil.info(SignInActivity.this, time + "==" + aoiName);
+             //   ToastUtil.info(SignInActivity.this, time + "==" + aoiName);
                 if (mDistance_group <= fenceRadius || mDistance_international <= fenceRadius) { //在集团 或者 学校范围
-                    userPresenter.clockIn(time, aoiName, true, "", new CommonPostView<Boolean>() {
-                        @Override
-                        public void postSuccess(ResultInfo<Boolean> resultInfo) {
-                            Boolean result = resultInfo.getResult();
-                            if (result) {
-                                Toast.makeText(SignInActivity.this, "打卡成功", Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                    AccessClockIn(time, aoiName, true, "");
 
-                        @Override
-                        public void postError(String errorMsg) {
-
-                        }
-                    });
-
+                    clockInBeanListAll.add(new ClockInBean(time, aoiName, true, ""));
+                    initData();
                 } else {
-                    notScope();
+                    notScope(); //不在范围弹窗
                 }
                 break;
             case R.id.my_work_attendance: //考勤查询
-                startActivity(new Intent(this, WorkAttendanceActivity.class));
+                //数据带过去为临时代码
+                Intent intent = new Intent(this, WorkAttendanceActivity.class);
+                intent.putExtra("clockInBeanListAll", (Serializable) clockInBeanListAll);
+                startActivity(intent);
                 break;
         }
+    }
+
+    //日期发生改变
+    private void ChangeData(String specifiedDay) {
+        String[] split = specifiedDay.split("-");
+        showYearView.setText(split[0]);
+        showMonthView.setText(split[1]);
+        showDateView.setText(split[2]);
+        long stringToDate1 = DateUtil.getStringToDate(specifiedDay, "yyyy-MM-dd");
+        long newdate1 = DateUtil.getStringToDate(new Date().toString(), "yyyy-MM-dd");
+        if (stringToDate1 <= newdate1 && stringToDate1+86400000 > newdate1) {
+            clockInRl.setVisibility(View.VISIBLE);
+        }else{
+            clockInRl.setVisibility(View.GONE);
+        }
+        datearr[0] = split[0];
+        datearr[1] = split[1];
+        datearr[2] = split[2];
+        initData();
+    }
+
+    //打卡请求
+    private void AccessClockIn(String time, String aoiName, boolean intraArea, String memo) {
+        userPresenter.clockIn(time, aoiName, intraArea, memo, new CommonPostView<Boolean>() {
+            @Override
+            public void postSuccess(ResultInfo<Boolean> resultInfo) {
+                Boolean result = resultInfo.getResult();
+                if (result) {
+                    Toast.makeText(SignInActivity.this, "打卡成功", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void postError(String errorMsg) {
+            //    Toast.makeText(SignInActivity.this, "打卡失败", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -482,5 +532,33 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
                 validationDialog.dismissDialog();
             }
         });
+    }
+
+    private List<ClockInBean> screening(List<ClockInBean> clockInBeanListAll, String time) {
+        for (int i = 0; i < clockInBeanListAll.size(); i++) {
+            String[] split1 = clockInBeanListAll.get(i).getTime().split("\\s+");
+            long stringToDate = DateUtil.getStringToDate(time, "yyyy-MM-dd");
+            long stringToDate1 = DateUtil.getStringToDate(split1[0], "yyyy-MM-dd");
+            if (stringToDate == stringToDate1) {
+                this.clockInBeanList.add(clockInBeanListAll.get(i));
+            }
+        }
+        return clockInBeanList;
+    }
+
+    private void addData() {
+        ClockInBean clockInBean1 = new ClockInBean("2018-10-15 08:30", "乐成豪丽", true, "备注");
+        ClockInBean clockInBean2 = new ClockInBean("2018-10-15 18:30", "乐成豪丽", true, "备注");
+        ClockInBean clockInBean3 = new ClockInBean("2018-10-14 08:30", "乐成豪丽", true, "备注");
+        ClockInBean clockInBean4 = new ClockInBean("2018-10-14 18:30", "乐成豪丽", true, "备注");
+        ClockInBean clockInBean5 = new ClockInBean("2018-10-16 08:30", "乐成豪丽", true, "备注");
+        ClockInBean clockInBean6 = new ClockInBean("2018-10-16 18:30", "乐成豪丽", true, "备注");
+
+        clockInBeanListAll.add(clockInBean1);
+        clockInBeanListAll.add(clockInBean2);
+        clockInBeanListAll.add(clockInBean3);
+        clockInBeanListAll.add(clockInBean4);
+        clockInBeanListAll.add(clockInBean5);
+        clockInBeanListAll.add(clockInBean6);
     }
 }
