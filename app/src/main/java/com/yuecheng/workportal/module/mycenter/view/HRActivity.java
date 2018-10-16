@@ -33,7 +33,7 @@ public class HRActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.back_iv, R.id.title_voice,R.id.wdzl, R.id.xzcx, R.id.htcx, R.id.kqcx, R.id.jqcx})
+    @OnClick({R.id.back_iv, R.id.title_voice,R.id.wdzl, R.id.xzcx, R.id.htcx, R.id.kqcx, R.id.jqcx,R.id.jbjl,R.id.flexible_pool})
     public void onViewClicked(View view) {
 
         switch (view.getId()) {
@@ -59,6 +59,12 @@ public class HRActivity extends BaseActivity {
                 break;
             case R.id.jqcx://假期查询
                 openWebView("http://omstest.gongheyuan.com/portal/#/HolidayQuery","假期查询");
+                break;
+            case R.id.flexible_pool://flexible_pool
+                openWebView("http://omstest.gongheyuan.com/portal/#/HolidayQuery","Flexible Pool");
+                break;
+            case R.id.jbjl://加班记录
+                openWebView("http://omstest.gongheyuan.com/portal/#/HolidayQuery","加班记录");
                 break;
         }
     }
