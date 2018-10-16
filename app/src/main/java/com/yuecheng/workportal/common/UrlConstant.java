@@ -23,4 +23,10 @@ public interface UrlConstant {
 
     //H5 URL
     String  CARE_PLAN = "http://omstest.gongheyuan.com/portal/#/CarePlan";//照护计划
+    String  MY_PROFILE = "http://omstest.gongheyuan.com/portal/#/MyProfile";//我的资料
+    String  SALARY_QUERY_HR = "http://omstest.gongheyuan.com/portal/#/SalaryQueryHR";//薪资查询
+    String  CONTRACT = "http://omstest.gongheyuan.com/portal/#/Contract";//合同查询
+    String  HOLIDAY_QUERY = "http://omstest.gongheyuan.com/portal/#/HolidayQuery";//假期查询
+    String  FLEXIBLE_POOL = "http://omstest.gongheyuan.com/portal/#/FlexiblePool";//Flexible Pool
+    String  OVER_TIME = "http://omstest.gongheyuan.com/portal/#/OverTime";//加班记录
 }

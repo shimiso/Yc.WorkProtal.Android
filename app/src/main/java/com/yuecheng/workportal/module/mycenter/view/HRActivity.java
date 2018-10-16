@@ -8,8 +8,10 @@ import android.widget.TextView;
 
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.base.BaseActivity;
+import com.yuecheng.workportal.common.UrlConstant;
 import com.yuecheng.workportal.module.robot.OpenH5Activity;
 import com.yuecheng.workportal.module.robot.view.VoiceActivity;
+import com.yuecheng.workportal.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,25 +48,25 @@ public class HRActivity extends BaseActivity {
                 overridePendingTransition(R.anim.push_bottom_in, R.anim.push_bottom_out);
                 break;
             case R.id.wdzl://我的资料
-                openWebView("http://omstest.gongheyuan.com/portal/#/MyProfile","我的资料",null);
+                openWebView(UrlConstant.MY_PROFILE,"我的资料",null);
                 break;
             case R.id.xzcx://薪资查询
-                showValidationDialog("http://omstest.gongheyuan.com/portal/#/SalaryQueryHR","薪资查询");
+                showValidationDialog(UrlConstant.SALARY_QUERY_HR,"薪资查询");
                 break;
             case R.id.htcx://合同查询
-                showValidationDialog("http://omstest.gongheyuan.com/portal/#/Contract","合同查询");
+                showValidationDialog(UrlConstant.CONTRACT,"合同查询");
                 break;
             case R.id.kqcx://考勤查询
                 startActivity(new Intent(this, WorkAttendanceActivity.class));
                 break;
             case R.id.jqcx://假期查询
-                openWebView("http://omstest.gongheyuan.com/portal/#/HolidayQuery","假期查询","请个假");
+                openWebView(UrlConstant.HOLIDAY_QUERY,"假期查询","请个假");
                 break;
             case R.id.flexible_pool://flexible_pool
-                openWebView("http://omstest.gongheyuan.com/portal/#/FlexiblePool","Flexible Pool",null);
+                openWebView(UrlConstant.FLEXIBLE_POOL,"Flexible Pool",null);
                 break;
             case R.id.jbjl://加班记录
-                openWebView("http://omstest.gongheyuan.com/portal/#/OverTime","加班记录",null);
+                openWebView(UrlConstant.OVER_TIME,"加班记录",null);
                 break;
         }
     }
@@ -89,8 +91,13 @@ public class HRActivity extends BaseActivity {
 
             @Override
             public void onConfirmClick() {
-                String s = validationDialog.et_dialog_one.getText().toString();
-                openWebView(url,name,null);
+                String password = validationDialog.et_dialog_one.getText().toString();
+                if(password.equals("123")){
+                    openWebView(url,name,null);
+                }else{
+                    ToastUtil.info(HRActivity.this,"密码错误！");
+                }
+
                 validationDialog.dismissDialog();
             }
         });
