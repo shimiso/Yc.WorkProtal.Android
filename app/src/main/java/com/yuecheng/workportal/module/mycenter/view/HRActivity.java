@@ -46,7 +46,7 @@ public class HRActivity extends BaseActivity {
                 overridePendingTransition(R.anim.push_bottom_in, R.anim.push_bottom_out);
                 break;
             case R.id.wdzl://我的资料
-                openWebView("http://omstest.gongheyuan.com/portal/#/MyProfile","我的资料");
+                openWebView("http://omstest.gongheyuan.com/portal/#/MyProfile","我的资料",null);
                 break;
             case R.id.xzcx://薪资查询
                 showValidationDialog("http://omstest.gongheyuan.com/portal/#/SalaryQueryHR","薪资查询");
@@ -58,22 +58,23 @@ public class HRActivity extends BaseActivity {
                 startActivity(new Intent(this, WorkAttendanceActivity.class));
                 break;
             case R.id.jqcx://假期查询
-                openWebView("http://omstest.gongheyuan.com/portal/#/HolidayQuery","假期查询");
+                openWebView("http://omstest.gongheyuan.com/portal/#/HolidayQuery","假期查询","请个假");
                 break;
             case R.id.flexible_pool://flexible_pool
-                openWebView("http://omstest.gongheyuan.com/portal/#/HolidayQuery","Flexible Pool");
+                openWebView("http://omstest.gongheyuan.com/portal/#/FlexiblePool","Flexible Pool",null);
                 break;
             case R.id.jbjl://加班记录
-                openWebView("http://omstest.gongheyuan.com/portal/#/HolidayQuery","加班记录");
+                openWebView("http://omstest.gongheyuan.com/portal/#/OverTime","加班记录",null);
                 break;
         }
     }
 
-    protected void openWebView(String url,String name){
+    protected void openWebView(String url,String title,String right_button){
         Intent intent = new Intent(context, OpenH5Activity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("name", name);
+        intent.putExtra("title", title);
         intent.putExtra("url", url);
+        intent.putExtra("right_button_text", right_button);
         startActivity(intent);
     }
 
@@ -89,7 +90,7 @@ public class HRActivity extends BaseActivity {
             @Override
             public void onConfirmClick() {
                 String s = validationDialog.et_dialog_one.getText().toString();
-                openWebView(url,name);
+                openWebView(url,name,null);
                 validationDialog.dismissDialog();
             }
         });

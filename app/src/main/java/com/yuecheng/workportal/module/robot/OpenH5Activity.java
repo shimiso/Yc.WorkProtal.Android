@@ -66,11 +66,13 @@ public class OpenH5Activity extends BaseActivity implements IMainView {
     @BindView(R.id.vital_signs)
     Button vital_signs;
 
+    @BindView(R.id.right_btn)
+    TextView right_btn;
+
     private MainPresenter mIMainPresenter;
     private DWebView mWebView;
-    private TextView title;
-    private String url;
-    private String name;
+    private TextView title_tv;
+    private String url, title, right_button_text;
     private TextView mTimerTV;
     private TextView mStateTV;
     private ImageView mStateIV;
@@ -91,7 +93,8 @@ public class OpenH5Activity extends BaseActivity implements IMainView {
         ButterKnife.bind(this);
         context = this;
         url = getIntent().getStringExtra("url");
-        name = getIntent().getStringExtra("name");
+        title = getIntent().getStringExtra("title");
+        right_button_text = getIntent().getStringExtra("right_button_text");
         //init presenter
         mIMainPresenter = new MainPresenter(this);
         mIMainPresenter.setIsAdd(false);//设置录入生命体征的时候不展示在对话列表中
@@ -102,13 +105,20 @@ public class OpenH5Activity extends BaseActivity implements IMainView {
     private void initView() {
         this.viewUtil = LoadViewUtil.init(getWindow().getDecorView(), context);
         vitalSigns = findViewById(R.id.vital_signs);
-        title = findViewById(R.id.title);
-        if(!StringUtils.isEmpty(name)){
+        title_tv = findViewById(R.id.title);
+        if(!StringUtils.isEmpty(title)){
             head.setVisibility(View.VISIBLE);
-            title.setText(name);
+            title_tv.setText(title);
             back_iv.setOnClickListener(view -> finish());
         }else {
             head.setVisibility(View.GONE);
+        }
+
+        if(!StringUtils.isEmpty(right_button_text)){
+            right_btn.setVisibility(View.VISIBLE);
+            right_btn.setText(right_button_text);
+        }else {
+            right_btn.setVisibility(View.GONE);
         }
 
         mWebView = findViewById(R.id.webview);
