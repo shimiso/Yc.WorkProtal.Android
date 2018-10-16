@@ -42,20 +42,21 @@
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="#fff"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="8dp"
-            android:src="@mipmap/join_company"/>
+            android:src="@mipmap/kf"/>
         <TextView
             android:id="@+id/join_company"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="-16dp"
             android:text="今天是您加入公司的第100天"/>
@@ -137,7 +138,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="#fff"
-        android:paddingBottom="16dp"
         android:paddingTop="16dp">
 
         <LinearLayout
@@ -191,7 +191,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/jqcx" />
+                android:src="@mipmap/flexible" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -221,7 +221,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/jqcx" />
+                android:src="@mipmap/jbjl" />
 
             <TextView
                 android:layout_width="wrap_content"
