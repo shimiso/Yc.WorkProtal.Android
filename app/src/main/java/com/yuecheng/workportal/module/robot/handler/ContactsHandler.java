@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 
@@ -18,19 +17,18 @@ import com.yuecheng.workportal.module.contacts.view.InformationActivity;
 import com.yuecheng.workportal.module.robot.presenter.MainPresenter;
 import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
-import com.yuecheng.workportal.common.instruction;
-import com.yuecheng.workportal.module.robot.action.CallAction;
 import com.yuecheng.workportal.module.robot.bean.SemanticResult;
-import com.yuecheng.workportal.module.robot.presenter.MainPresenter;
 import com.yuecheng.workportal.utils.ToastUtil;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
+import io.rong.imkit.RongContext;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
 
 
 /**
@@ -137,7 +135,17 @@ public class ContactsHandler extends IntentHandler {
                         return;
                     }else if(intent.equals(instruction.TEXT) && staffs.size() == 1 && RongIM.getInstance() != null){//发送消息
 
-                        RongIM.getInstance().startPrivateChat(MainApplication.getApplication(), personnelDetailsBean.getGuid()+"", "与"+personnelDetailsBean.getName()+"对话");
+                        if(MainApplication.getApplication() != null && !TextUtils.isEmpty(personnelDetailsBean.getGuid()+"")) {
+                            if(RongContext.getInstance() == null) {
+                                throw new ExceptionInInitializerError("RongCloud SDK not init");
+                            } else {
+                                Uri uri = Uri.parse("rong://" + MainApplication.getApplication().getApplicationInfo().packageName).buildUpon().appendPath("conversation").appendPath(Conversation.ConversationType.PRIVATE.getName().toLowerCase(Locale.US)).appendQueryParameter("targetId", personnelDetailsBean.getGuid()+"").appendQueryParameter("title", "与"+personnelDetailsBean.getName()+"对话").build();
+                                MainApplication.getApplication().startActivity(new Intent("android.intent.action.VIEW", uri).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            }
+                        } else {
+                            throw new IllegalArgumentException();
+                        }
+
                         return;
                     }
                     MainPresenter.personDetailsMessage(personnelDetailsBean.getName(),personnelDetailsBean);

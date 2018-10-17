@@ -101,7 +101,7 @@ public class DateTime {
         c.setTime(date);
         int day = c.get(Calendar.DATE);
         c.set(Calendar.DATE, day - 1);
-        String dayBefore = new SimpleDateFormat("yyyy-MM-dd").format(c
+        String dayBefore = new SimpleDateFormat("yyyy年MM月dd日  EEEE").format(c
                 .getTime());
         return dayBefore;
     }
@@ -123,7 +123,7 @@ public class DateTime {
         c.setTime(date);
         int day = c.get(Calendar.DATE);
         c.set(Calendar.DATE, day + 1);
-        String dayBefore = new SimpleDateFormat("yyyy-MM-dd").format(c
+        String dayBefore = new SimpleDateFormat("yyyy年MM月dd日  EEEE").format(c
                 .getTime());
         return dayBefore;
     }

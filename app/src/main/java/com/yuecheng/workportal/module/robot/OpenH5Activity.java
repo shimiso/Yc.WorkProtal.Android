@@ -376,7 +376,6 @@ public class OpenH5Activity extends BaseActivity implements IMainView {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
             }
         }
     }

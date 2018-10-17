@@ -60,45 +60,20 @@
             android:textColor="@color/black"
             android:textSize="19.3sp"
             android:visibility="gone"/>
-
         <TextView
-            android:id="@+id/show_month_view"
-            android:layout_width="24dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="17"
-            android:textColor="@color/black"
-            android:textSize="19.3sp" />
-
-        <TextView
+            android:id="@+id/today"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:maxLines="1"
-            android:text="月"
+            android:text="今天  "
             android:textColor="@color/black"
-            android:textSize="19.3sp" />
-        <TextView
-            android:id="@+id/show_date_view"
-            android:layout_width="24dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="17"
-            android:textColor="@color/black"
-            android:textSize="19.3sp" />
+            android:textSize="16sp"/>
 
         <TextView
+            android:id="@+id/date"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="日"
-            android:textColor="@color/black"
-            android:textSize="19.3sp" />
+            android:layout_height="wrap_content"
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/next_month_img"
@@ -115,6 +90,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:overScrollMode="never"
+        android:scrollbars="none"
         android:background="@color/app_bg"/>
     <RelativeLayout
         android:id="@+id/clock_in_rl"

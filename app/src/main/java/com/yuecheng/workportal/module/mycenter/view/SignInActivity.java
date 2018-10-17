@@ -48,7 +48,6 @@ import com.yuecheng.workportal.module.mycenter.bean.ClockInBean;
 import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.utils.DateTime;
 import com.yuecheng.workportal.utils.DateUtil;
-import com.yuecheng.workportal.utils.ToastUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -75,16 +74,14 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
     RecyclerView attendanceRl;
     @BindView(R.id.positioning_tv)
     TextView positioningTv;
-    @BindView(R.id.show_year_view)
-    TextView showYearView;
-    @BindView(R.id.show_month_view)
-    TextView showMonthView;
-    @BindView(R.id.show_date_view)
-    TextView showDateView;
+    @BindView(R.id.today)
+    TextView today;
+    @BindView(R.id.date)
+    TextView date_tv;
     @BindView(R.id.clock_in_rl)
     RelativeLayout clockInRl;
     private ClockInAdapter clockInAdapter;
-    private String[] datearr = new String[3];
+    private String[] datearr = new String[3];//保存当前显示的年月日
     private List<ClockInBean> clockInBeanListAll = new ArrayList<ClockInBean>();
     private List<ClockInBean> clockInBeanList = new ArrayList<ClockInBean>();
     /**
@@ -151,9 +148,8 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
 
         //设置当前系统日期
         Date date = new Date();
-        showYearView.setText(String.valueOf(date.getYear() + 1900));
-        showMonthView.setText(String.valueOf(date.getMonth() + 1));
-        showDateView.setText(String.valueOf(date.getDate()));
+        String today = DateUtil.geturrentTime("MM月dd日 EEEE");
+        date_tv.setText(today);
         //设置RecyclerView管理器
         attendanceRl.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         //初始化适配器
@@ -441,11 +437,11 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.last_month_img: //前一天
-                String specifiedDayBefore = DateTime.getSpecifiedDayBefore(showYearView.getText() + "-" + showMonthView.getText() + "-" + showDateView.getText());
+                String specifiedDayBefore = DateTime.getSpecifiedDayBefore(datearr[0] + "-" + datearr[1] + "-" + datearr[2]);
                 ChangeData(specifiedDayBefore);
                 break;
             case R.id.next_month_img: //后一天
-                String specifiedDayAfter = DateTime.getSpecifiedDayAfter(showYearView.getText() + "-" + showMonthView.getText() + "-" + showDateView.getText());
+                String specifiedDayAfter = DateTime.getSpecifiedDayAfter(datearr[0] + "-" + datearr[1] + "-" + datearr[2]);
                 ChangeData(specifiedDayAfter);
                 break;
             case R.id.clock_in_button: //打卡
@@ -471,20 +467,22 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
 
     //日期发生改变
     private void ChangeData(String specifiedDay) {
-        String[] split = specifiedDay.split("-");
-        showYearView.setText(split[0]);
-        showMonthView.setText(split[1]);
-        showDateView.setText(split[2]);
-        long stringToDate1 = DateUtil.getStringToDate(specifiedDay, "yyyy-MM-dd");
+        String[] year = specifiedDay.split("年");
+        String[] month = year[1].split("月");
+        String[] date = month[1].split("日");
+        date_tv.setText(year[1]);
+        long stringToDate1 = DateUtil.getStringToDate(specifiedDay, "yyyy年MM月dd日");
         long newdate1 = DateUtil.getStringToDate(new Date().toString(), "yyyy-MM-dd");
         if (stringToDate1 <= newdate1 && stringToDate1+86400000 > newdate1) {
             clockInRl.setVisibility(View.VISIBLE);
+            today.setVisibility(View.VISIBLE);
         }else{
             clockInRl.setVisibility(View.GONE);
+            today.setVisibility(View.GONE);
         }
-        datearr[0] = split[0];
-        datearr[1] = split[1];
-        datearr[2] = split[2];
+        datearr[0] = year[0];
+        datearr[1] = month[0];
+        datearr[2] = date[0];
         initData();
     }
 
