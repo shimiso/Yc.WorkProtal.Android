@@ -58,12 +58,14 @@ public class MainActivity extends BaseActivity {
     private MyCenterFragment myCenterFragment;
     private MyContactsFragment myContactsFragment;
     private MyWorkbenchFragment myRobotFragment;
+    private com.yuecheng.workportal.module.conversation.bean.Conversation conversation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
         if (savedInstanceState == null){
             conversationListFragment = ConversationListFragment.newInstance();
@@ -131,22 +133,26 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         setUnReadCount(0);
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
+        if (RongIM.getInstance() != null && conversation != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("targetName", conversation.getTargetName());
+            bundle.putString("targetIcon", conversation.getTargetIcon());
+            //启动单聊界面。  targetUserId 要与之聊天的用户 Id。
+            RongIM.getInstance().startConversation(this, io.rong.imlib.model.Conversation.ConversationType.PRIVATE, conversation.getTargetId(), conversation.getTitle(), bundle);
+            this.conversation = null;
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(com.yuecheng.workportal.module.conversation.bean.Conversation conversation) {
+        this.conversation = conversation;
         setUnReadCount(0);
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 

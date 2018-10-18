@@ -22,7 +22,7 @@ public interface UrlConstant {
     String SSO_IDENTITY = HTTP_HOST + "Identity/GetBasicInfo";//获取人员详情
 
     //H5 URL
-    String  CARE_PLAN = "http://omstest.gongheyuan.com/portal/#/CarePlan";//照护计划
+    String  CARE_PLAN = "http://omstest.gongheyuan.com/portal/#/AddUser";//照护计划
     String  MY_PROFILE = "http://omstest.gongheyuan.com/portal/#/MyProfile";//我的资料
     String  SALARY_QUERY_HR = "http://omstest.gongheyuan.com/portal/#/SalaryQueryHR";//薪资查询
     String  CONTRACT = "http://omstest.gongheyuan.com/portal/#/Contract";//合同查询
