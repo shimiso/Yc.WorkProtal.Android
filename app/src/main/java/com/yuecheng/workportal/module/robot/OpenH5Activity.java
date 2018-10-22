@@ -166,6 +166,7 @@ public class OpenH5Activity extends BaseActivity implements IMainView {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     showTipView();
+                    setRecordingTipView();
                     mIMainPresenter.startVoiceRobot();
                     break;
                 case MotionEvent.ACTION_MOVE:

@@ -222,7 +222,7 @@ public class MainPresenter implements IMainPresenter {
             String sn = null;
             // 读取json结果中的sn字段
             sn = joResult.optString("sn");
-
+            mIatResults.clear();//避免有残留数据
             mIatResults.put(sn, text.toString());
 
             StringBuffer resultBuffer = new StringBuffer();
