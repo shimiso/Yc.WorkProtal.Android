@@ -3,8 +3,6 @@ package com.yuecheng.workportal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
@@ -77,15 +75,7 @@ public class MainApplication extends MultiDexApplication {
                 ,"umeng",UMConfigure.DEVICE_TYPE_PHONE,"");//58edcfeb310c93091c000be2 5965ee00734be40b580001a0
     }
 
-    //保持app的字体大小不随系统设置而改变
-    @Override
-    public Resources getResources() {
-        Resources res = super.getResources();
-        Configuration config = new Configuration();
-        config.setToDefaults();
-        res.updateConfiguration(config,res.getDisplayMetrics() );
-        return res;
-    }
+
 
     /**
      * 解决Android studio中方法数超过65536

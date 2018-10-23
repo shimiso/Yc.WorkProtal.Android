@@ -2,6 +2,8 @@ package com.yuecheng.workportal.base;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -53,6 +55,15 @@ public class BaseActivity extends AppCompatActivity {
         setWindow(R.color.primary_dark);
     }
 
+    //保持app的字体大小不随系统设置而改变
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+        Configuration config = new Configuration();
+        config.setToDefaults();
+        res.updateConfiguration(config,res.getDisplayMetrics() );
+        return res;
+    }
     /**
      * 初始化窗口
      *
