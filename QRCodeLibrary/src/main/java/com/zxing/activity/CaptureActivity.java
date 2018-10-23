@@ -84,7 +84,7 @@ public abstract class CaptureActivity extends Activity implements Callback, Deco
 	private InactivityTimer inactivityTimer;
 	private MediaPlayer mediaPlayer;
 	private boolean playBeep;
-	private static final float BEEP_VOLUME = 0.10f;
+	private static final float BEEP_VOLUME = 0f;
 	private boolean vibrate;
 
 
