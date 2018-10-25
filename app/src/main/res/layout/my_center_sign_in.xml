@@ -98,12 +98,26 @@
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:background="@color/app_bg">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
         <TextView
             android:id="@+id/positioning_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/wz"
-            android:layout_centerHorizontal="true"/>
+            android:drawableLeft="@mipmap/wz" />
+        <TextView
+            android:id="@+id/reposition_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@mipmap/cxdw"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/primary"
+            android:layout_toRightOf="@+id/positioning_tv"
+            android:text="@string/reposition"/>
+        </LinearLayout>
         <Button
             android:id="@+id/clock_in_button"
             style="@style/comm_btn_style"

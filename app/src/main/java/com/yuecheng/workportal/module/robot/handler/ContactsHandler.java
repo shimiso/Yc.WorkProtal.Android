@@ -18,6 +18,7 @@ import com.yuecheng.workportal.module.robot.presenter.MainPresenter;
 import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.module.robot.bean.SemanticResult;
+import com.yuecheng.workportal.utils.AndroidUtil;
 import com.yuecheng.workportal.utils.ToastUtil;
 
 import org.json.JSONArray;
@@ -69,7 +70,7 @@ public class ContactsHandler extends IntentHandler {
                             getPersonnelData(namevalue);
                             break;
                         default:
-                            MainPresenter.responseAnswer(R.string.grammar_error+"");
+                            MainPresenter.responseAnswer(AndroidUtil.getString(R.string.grammar_error));
                             break;
                     }
                 }
@@ -88,7 +89,7 @@ public class ContactsHandler extends IntentHandler {
                     ContactBean result = resultInfo.getResult();
                     staffs = result.getStaffs();
                     if(staffs == null || staffs.size() <= 0){
-                        MainPresenter.responseAnswer("没有找到当前人员");
+                        MainPresenter.responseAnswer(AndroidUtil.getString(R.string.no_found));//没有找到当前人员
                         return;
                     }
                     if(intent.equals(instruction.FIND) ||

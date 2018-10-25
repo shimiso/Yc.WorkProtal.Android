@@ -83,6 +83,7 @@
     <string name="not_scope">You are out of range</string>
     <string name="input_attendance_note">Please enter notes</string>
     <string name="attendance_note">Attendance note</string>
+    <string name="reposition">reposition </string>
 
     <string name="opinion">Please enter your Suggestions for product features and we will continue to optimize your experience</string>
     <string name="opinion_phone">Please enter your phone number/email address for us to contact (optional)</string>
@@ -125,6 +126,7 @@
     <string name="voice_type">Broadcast the sound</string>
     <string name="voice_speed">Speed of language</string>
     <string name="talk_first">使用技巧（点击说话）：\n1.IT服务(it service)\n2.查新闻(search for news)\n3.我要请假(take leave)\n4.我的工资(my salary)\n5.查报销(check payment request)\n6.订会议室(book meeting room)\n7.取消会议室(cancel the meeting room)\n此外，还可以智能回答你提的问题，赶快来玩吧！</string>
+    <string name="wrong_instruction">"I'm sorry, but I don't know how to reply to you"</string>
     <string name="version_title">current version</string>
     <string name="navigation_drawer_open">open</string>
     <string name="navigation_drawer_close">close</string>
@@ -154,7 +156,7 @@
     <string name="how_fxt">How to generate synergy</string>
     <string name="want_leave">“take leave”</string>
     <string name="apply_leave">“leave application”</string>
-
+    <string name="no_found">No current personnel were found</string>
 
     //工作台
     <string name="dbgz">To do the work</string>

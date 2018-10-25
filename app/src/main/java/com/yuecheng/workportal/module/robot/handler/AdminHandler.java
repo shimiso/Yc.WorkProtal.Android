@@ -1,14 +1,11 @@
 package com.yuecheng.workportal.module.robot.handler;
 
-import android.content.Intent;
 
 import com.yuecheng.workportal.module.robot.presenter.MainPresenter;
-import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.common.instruction;
-import com.yuecheng.workportal.module.robot.OpenH5Activity;
 import com.yuecheng.workportal.module.robot.bean.SemanticResult;
-import com.yuecheng.workportal.module.robot.presenter.MainPresenter;
+import com.yuecheng.workportal.utils.AndroidUtil;
 
 
 /**
@@ -35,7 +32,7 @@ public class AdminHandler extends IntentHandler {
                     MainPresenter.responseAnswer("跳转页面到申请名片!");
                     break;
                 default:
-                    MainPresenter.responseAnswer(R.string.grammar_error+"");
+                    MainPresenter.responseAnswer(AndroidUtil.getString(R.string.grammar_error));
                     break;
             }
         }

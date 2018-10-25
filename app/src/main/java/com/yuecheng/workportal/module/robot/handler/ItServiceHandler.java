@@ -6,6 +6,7 @@ import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.common.instruction;
 import com.yuecheng.workportal.module.robot.bean.SemanticResult;
 import com.yuecheng.workportal.module.robot.presenter.MainPresenter;
+import com.yuecheng.workportal.utils.AndroidUtil;
 
 
 /**
@@ -28,7 +29,7 @@ public class ItServiceHandler extends IntentHandler {
                     MainPresenter.responseAnswer("跳转页面到IT服务！");
                     break;
                 default:
-                    MainPresenter.responseAnswer(R.string.grammar_error+"");
+                    MainPresenter.responseAnswer(AndroidUtil.getString(R.string.grammar_error));
                     break;
             }
         }

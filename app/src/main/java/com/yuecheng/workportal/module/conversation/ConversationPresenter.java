@@ -2,6 +2,7 @@ package com.yuecheng.workportal.module.conversation;
 
 import android.content.Context;
 
+import com.yuecheng.workportal.MainApplication;
 import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.common.CommonResultView;
 import com.yuecheng.workportal.db.DaoManager;
@@ -26,6 +27,14 @@ public class ConversationPresenter {
         List<Conversation> list = null;
         try {
             list = conversationDao.queryBuilder().orderAsc(ConversationDao.Properties.Type,ConversationDao.Properties.ReceivedTime).list();
+            //获取与登录人员相关的聊天列表
+            String guid = MainApplication.getApplication().getLoginUser().getGuid();
+            for(int i=list.size()-1;i>=0;i--){
+                String senderUserId = list.get(i).getSenderUserId();
+                if (senderUserId != null && !senderUserId.equals(guid)){
+                    list.remove(i);
+                }
+            }
             commonResultView.success(list);
         }catch (Exception e){
             e.printStackTrace();

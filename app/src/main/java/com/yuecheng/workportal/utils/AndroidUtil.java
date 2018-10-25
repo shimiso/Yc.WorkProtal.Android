@@ -13,6 +13,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Point;
+import android.hardware.Camera;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -54,7 +55,7 @@ import java.util.Map;
 public class AndroidUtil {
     public final static int TIPS_ERROR = 0;
     public final static int TIPS_SUCCESS = 1;
-    public Context context;
+    public static Context context;
     public SharePreferenceUtil spUtil;
     public MainApplication mainApplication;
     public static AndroidUtil androidUtils;
@@ -521,7 +522,33 @@ public class AndroidUtil {
      * @param resId
      * @return
      */
-    public  String getString(int resId) {
+    public static String getString(int resId) {
         return context.getResources().getString(resId);
+    }
+
+    /**
+     *  Android6.0以下系统判断相机权限是否被开启
+     *  返回true 表示可以使用  返回false表示不可以使用
+     */
+    public static boolean cameraIsCanUse() {
+        boolean isCanUse = true;
+        Camera mCamera = null;
+        try {
+            mCamera = Camera.open();
+            Camera.Parameters mParameters = mCamera.getParameters(); //针对魅族手机
+            mCamera.setParameters(mParameters);
+        } catch (Exception e) {
+            isCanUse = false;
+        }
+
+        if (mCamera != null) {
+            try {
+                mCamera.release();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return isCanUse;
+            }
+        }
+        return isCanUse;
     }
 }

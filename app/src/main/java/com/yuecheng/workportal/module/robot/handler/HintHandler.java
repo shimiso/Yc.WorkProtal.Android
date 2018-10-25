@@ -2,7 +2,10 @@ package com.yuecheng.workportal.module.robot.handler;
 
 import android.text.TextUtils;
 
+import com.yuecheng.workportal.R;
 import com.yuecheng.workportal.module.robot.bean.SemanticResult;
+import com.yuecheng.workportal.utils.AndroidUtil;
+import com.yuecheng.workportal.utils.StringUtils;
 
 
 /**
@@ -15,10 +18,10 @@ public class HintHandler extends IntentHandler {
     public HintHandler(SemanticResult result) {
         super(result);
         defaultAnswer = new StringBuilder();
-        defaultAnswer.append("你好，我不懂你的意思");
-        defaultAnswer.append(IntentHandler.NEWLINE_NO_HTML);
-        defaultAnswer.append(IntentHandler.NEWLINE_NO_HTML);
-        defaultAnswer.append("在后台添加更多技能让我变得更强大吧 :D");
+        defaultAnswer.append(AndroidUtil.getString(R.string.wrong_instruction));
+//        defaultAnswer.append(IntentHandler.NEWLINE_NO_HTML);
+//        defaultAnswer.append(IntentHandler.NEWLINE_NO_HTML);
+//        defaultAnswer.append("在后台添加更多技能让我变得更强大吧 :D");
     }
 
     @Override

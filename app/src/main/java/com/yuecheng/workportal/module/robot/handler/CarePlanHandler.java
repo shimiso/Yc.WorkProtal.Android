@@ -11,6 +11,7 @@ import com.yuecheng.workportal.common.instruction;
 import com.yuecheng.workportal.module.robot.OpenH5Activity;
 import com.yuecheng.workportal.module.robot.bean.SemanticResult;
 import com.yuecheng.workportal.module.robot.presenter.MainPresenter;
+import com.yuecheng.workportal.utils.AndroidUtil;
 import com.yuecheng.workportal.utils.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -97,7 +98,7 @@ public class CarePlanHandler extends IntentHandler {
                     }
                     //
                 default:
-                    MainPresenter.responseAnswer(R.string.grammar_error+"");
+                    MainPresenter.responseAnswer(AndroidUtil.getString(R.string.grammar_error));
                     break;
             }
         }

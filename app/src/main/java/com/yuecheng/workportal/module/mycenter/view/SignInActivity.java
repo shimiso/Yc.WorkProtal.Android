@@ -2,10 +2,13 @@ package com.yuecheng.workportal.module.mycenter.view;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,6 +51,7 @@ import com.yuecheng.workportal.module.mycenter.bean.ClockInBean;
 import com.yuecheng.workportal.module.mycenter.presenter.UserPresenter;
 import com.yuecheng.workportal.utils.DateTime;
 import com.yuecheng.workportal.utils.DateUtil;
+import com.yuecheng.workportal.widget.ConfirmDialog;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -116,6 +120,7 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
         setContentView(R.layout.my_center_sign_in);
         ButterKnife.bind(this);
         setTitle("打卡签到");
+        testingAuthority();
         userPresenter = new UserPresenter(this);
         // 初始化地理围栏
         fenceClient = new GeoFenceClient(getApplicationContext());
@@ -124,9 +129,36 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
         init();
         addRoundFence();
 
-
     }
 
+    //权限的检测
+    void testingAuthority() {
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)) {
+            ConfirmDialog dialog = ConfirmDialog.createDialog(this);
+            dialog.setDialogTitle("提示");
+            dialog.setCancelable(false);
+            dialog.setDialogMessage("请开启位置服务，获取精准定位");
+            dialog.setOnButton1ClickListener("取消", null,
+                    new ConfirmDialog.OnButton1ClickListener() {
+                        @Override
+                        public void onClick(View view, DialogInterface dialog) {
+                            dialog.cancel();
+                        }
+                    });
+            dialog.setOnButton2ClickListener("去设置", null,
+                    new ConfirmDialog.OnButton2ClickListener() {
+                        @Override
+                        public void onClick(View view, DialogInterface dialog) {
+                            dialog.cancel();
+                            // 转到手机设置界面，用户设置GPS
+                            Intent intentl = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivityForResult(intentl, 0); //
+                        }
+                    });
+            dialog.show();
+        }
+    }
     void init() {
         findViewById(R.id.back_iv).setOnClickListener(view -> finish());
         if (mAMap == null) {
@@ -371,7 +403,7 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
                 mDistance_international = AMapUtils.calculateLineDistance(start, internationalend); //国际学校
                 mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
             } else {
-                positioningTv.setText("定位失败");
+                positioningTv.setText(" 定位失败");
                 String errText = "定位失败," + amapLocation.getErrorCode() + ": " + amapLocation.getErrorInfo();
                 Log.e("AmapErr", errText);
 //				Toast.makeText(SignInActivity.this,errText, Toast.LENGTH_LONG).show();
@@ -433,7 +465,7 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
         fenceClient.addGeoFence(centerPoint, fenceRadius, "乐成国际学校");
     }
 
-    @OnClick({R.id.last_month_img, R.id.next_month_img, R.id.clock_in_button, R.id.my_work_attendance})
+    @OnClick({R.id.last_month_img, R.id.next_month_img, R.id.clock_in_button, R.id.my_work_attendance, R.id.reposition_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.last_month_img: //前一天
@@ -461,6 +493,20 @@ public class SignInActivity extends BaseActivity implements GeoFenceListener, Lo
                 Intent intent = new Intent(this, WorkAttendanceActivity.class);
                 intent.putExtra("clockInBeanListAll", (Serializable) clockInBeanListAll);
                 startActivity(intent);
+                break;
+            case R.id.reposition_tv: //重新定位
+                positioningTv.setText("");
+                mlocationClient = new AMapLocationClient(this);
+                mLocationOption = new AMapLocationClientOption();
+                // 设置定位监听
+                mlocationClient.setLocationListener(this);
+                // 设置为高精度定位模式
+                mLocationOption.setLocationMode(AMapLocationMode.Hight_Accuracy);
+                // 只是为了获取当前位置，所以设置为单次定位
+                mLocationOption.setOnceLocation(true);
+                // 设置定位参数
+                mlocationClient.setLocationOption(mLocationOption);
+                mlocationClient.startLocation();
                 break;
         }
     }

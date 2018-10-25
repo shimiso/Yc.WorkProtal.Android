@@ -83,7 +83,7 @@
         <Button
             android:id="@+id/button2"
             style="@style/confirm_dialog_btn_style"
-            android:textColor="@color/confirm_dialog_confirm_color_color" />
+            android:textColor="@color/primary" />
     </LinearLayout>
 
 </LinearLayout>
